@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-
+import { faTh } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header = () => {
   const activeStyle = {
     color: "black",
@@ -9,8 +10,16 @@ const Header = () => {
 
   return (
     <div className="header_wrapper">
-      <div className="header_search">
-        <input />
+      <div style={{ marginTop: "-20px" }}>
+        <div className="header_icon">
+          <FontAwesomeIcon icon={faTh} />
+        </div>
+        <div className="header_title">
+          <h5>SUPERCOMPANY</h5>
+        </div>
+        <div className="header_search">
+          <input placeholder="&#xf002; 통합 검색" type="text" />
+        </div>
       </div>
       <div className="header_nav">
         <ul>
