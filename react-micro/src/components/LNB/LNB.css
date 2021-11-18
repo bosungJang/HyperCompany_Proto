@@ -1,0 +1,90 @@
+li {
+  list-style: none;
+}
+
+/* lnb */
+#lnb {
+  height: 100%;
+  width: 80px;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: #f4f4f4;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+#lnb h1 {
+  height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: -2px;
+  background: #d71a21;
+}
+#lnb > ul {
+}
+#lnb > ul > li {
+  border-bottom: 1px solid #dcdcdc;
+}
+#lnb > ul > li > a {
+  display: block;
+  padding: 14px 35px 14px 15px;
+  color: inherit;
+  font-size: 14px;
+  background: #f5f2ec
+    url(http://cfile26.uf.tistory.com/image/2417E04D570C5C02256897) no-repeat
+    95% 15px;
+}
+#lnb > ul > li a:hover {
+  color: #d91c1b;
+  background-color: #f5f2ec;
+}
+#lnb > ul > li.on > a {
+  color: #d91c1b;
+  background: #f5f2ec
+    url("http://cfile9.uf.tistory.com/image/257B794F570C5C0D1A05E1") no-repeat
+    95% 14px;
+}
+#lnb > ul > li ul {
+  display: none;
+}
+#lnb > ul > li > ul > li > a {
+  display: block;
+  padding: 0 25px 14px 14px;
+  color: #inherit;
+  font-size: 12px;
+  background: #f5f2ec
+    url("http://cfile26.uf.tistory.com/image/2417E04D570C5C02256897") no-repeat
+    95% 1px;
+}
+#lnb > ul > li > ul > li > a {
+  color: #d91c1b;
+  background-color: #f5f2ec;
+}
+#lnb > ul > li > ul > li.on a {
+  color: #d91c1b;
+  background: #f5f2ec
+    url("http://cfile9.uf.tistory.com/image/257B794F570C5C0D1A05E1") no-repeat
+    95% 3px;
+}
+#lnb > ul > li > ul li ul {
+  display: none;
+  padding-bottom: 8px;
+  background-color: #f5f2ec;
+}
+#lnb > ul > li > ul li li a {
+  display: block;
+  padding: 0 25px 10px 22px;
+  color: #666;
+  font-size: 12px;
+  background-color: #f5f2ec;
+}
+#lnb > ul > li > ul > li li a:hover {
+  color: #d91c1b;
+}
+#lnb > ul li.noDepth a {
+  background-image: none !important;
+}
