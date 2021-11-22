@@ -10,17 +10,16 @@ const Header = () => {
 
   return (
     <div className="header_wrapper">
-      <div style={{ marginTop: "-20px" }}>
-        <div className="header_icon">
-          <FontAwesomeIcon icon={faTh} />
-        </div>
-        <div className="header_title">
-          <h5>SUPERCOMPANY</h5>
-        </div>
-        <div className="header_search">
-          <input placeholder="&#xf002; 통합 검색" type="text" />
-        </div>
+      <div className="header_icon">
+        <FontAwesomeIcon icon={faTh} />
       </div>
+      <div className="header_title">
+        <h5>SUPERCOMPANY</h5>
+      </div>
+      <div className="header_search">
+        <input placeholder="&#xf002; 통합 검색" type="text" />
+      </div>
+
       <div className="header_nav">
         <ul>
           <li>

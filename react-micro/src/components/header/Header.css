@@ -2,11 +2,12 @@
 
 .header_wrapper {
   width: 100%;
-  height: 68px;
+  height: 4.25rem;
   position: -webkit-sticky;
   position: sticky;
-  left: 0px;
-  top: 0px;
+  position: relative;
+  left: 0rem;
+  top: 0rem;
   z-index: 100;
   display: inline-block;
   background: #257cff;
@@ -20,7 +21,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-top: -50px;
 }
 
 .header_nav ul > li {
@@ -39,32 +39,39 @@
   font-weight: bold;
   color: white;
   background: teal;
+  margin-top: 25px;
 }
 
 .header_icon {
   color: white;
   display: inline;
-  font-size: 30px;
-  margin-left: 18px;
+  font-size: 1.875rem;
+  margin-left: 1.125rem;
+  margin-top: 20px;
 }
 .header_title {
   display: inline-block;
   color: white;
-  margin-left: 1rem;
   font-size: 1.875rem;
   width: 12.5rem;
-}
-.header_title::h5 {
-  margin-top: 10px;
+  height: 14.14px;
+  margin-top: -25px;
+  margin-left: 16px;
 }
 .header_search {
-  /* display: inline-block; */
+  position: absolute;
+  display: absolute;
   align-items: center;
-  margin-left: 46.9rem;
-  height: 2.125rem;
-  width: 28.75rem;
-  margin-bottom: 1.375rem;
-  margin-top: -5rem;
+  text-align: center;
+  left: 50%;
+  width: 460px;
+  margin-left: -230px;
+  margin-top: -33.5px;
+}
+@media screen and (max-width: 1100px) {
+  .header_search {
+    display: none;
+  }
 }
 .header_search input::placeholder {
   height: 1.5rem;
@@ -80,9 +87,11 @@
 .header_search input {
   background: #ffffff;
   border-radius: 1.5rem;
-  width: 26.875rem;
+  max-width: 27.8rem;
+  /* width: 460px; */
+  width: 100%;
   padding-left: 0.7rem;
   padding-top: 0.313rem;
-  height: 2rem;
-  border: white;
+  height: 1.563rem;
+  border: 1px solid white;
 }
