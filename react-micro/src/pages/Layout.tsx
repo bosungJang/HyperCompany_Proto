@@ -2,32 +2,59 @@ import React from "react";
 import App from "../common/App";
 import Header from "../components/header/Header";
 import LNB from "components/LNB/LNB";
+import { getCookie, setCookie } from "common/Storage";
 
 const Layout = () => {
+  const [openSideBar, setopenSideBar] = React.useState(true);
+
+  React.useEffect(() => {
+    let sideBarOpen = getCookie("sideBar_open");
+    if (sideBarOpen != null) {
+      if (sideBarOpen === "false") {
+        setopenSideBar(false);
+      } else {
+        setopenSideBar(true);
+      }
+    } else {
+      setCookie("sideBar_open", "false");
+    }
+
+    return () => {
+      console.log("unmount");
+    };
+  }, []);
+
   function openNav() {
-    (document.getElementById("lnb") as HTMLFormElement).style.width = "250px";
-    (document.getElementById("main") as HTMLFormElement).style.marginLeft =
-      "250px";
+    setopenSideBar(true);
+    setCookie("sideBar_open", "true");
   }
 
   function closeNav() {
-    (document.getElementById("lnb") as HTMLFormElement).style.width = "80px";
-    (document.getElementById("main") as HTMLFormElement).style.marginLeft =
-      "80px";
+    setopenSideBar(false);
+    setCookie("sideBar_open", "false");
   }
+
+  const setLNB = (open: boolean) => {
+    setopenSideBar(open);
+  };
+
   return (
     <>
-      <LNB />
-      <div id="main" style={{ marginLeft: 80, transition: "margin-left .5s" }}>
-        <Header />
-
-        <App />
-        <button style={{ zIndex: 999 }} onClick={openNav}>
-          open
-        </button>
-        <button style={{ zIndex: 999 }} onClick={closeNav}>
-          close
-        </button>
+      <Header />
+      <div style={{ display: "block" }}>
+        <LNB openSideBar={openSideBar} setLNB={setLNB} />
+        <div
+          id="main"
+          style={
+            openSideBar === false
+              ? { marginLeft: 80, transition: "margin-left .5s" }
+              : { marginLeft: 250, transition: "margin-left .5s" }
+          }
+        >
+          <App />
+          <button onClick={openNav}>open</button>
+          <button onClick={closeNav}>close</button>
+        </div>
       </div>
     </>
   );

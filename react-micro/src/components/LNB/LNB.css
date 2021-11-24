@@ -3,18 +3,41 @@ li {
 }
 
 /* lnb */
-#lnb {
+#lnb_close {
   height: 100%;
   width: 80px;
   position: fixed;
-  z-index: 999;
   top: 0;
   left: 0;
   background-color: #f4f4f4;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  margin-top: 68px;
 }
+
+#lnb_open {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f4f4f4;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  margin-top: 68px;
+}
+
+.ant-menu {
+  font-size: 14px;
+  background-color: #f4f4f4;
+}
+
+.ant-menu-sub.ant-menu-inline {
+  background-color: #f4f4f4;
+}
+/*
 #lnb h1 {
   height: 40px;
   text-align: center;
@@ -88,3 +111,4 @@ li {
 #lnb > ul li.noDepth a {
   background-image: none !important;
 }
+*/

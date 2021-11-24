@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@babel/core": "7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/plugin-proposal-decorators": "^7.16.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@loadable/component": "^5.15.0",
@@ -14,6 +16,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@trendmicro/react-sidenav": "^0.5.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.10.1",
     "@types/react": "^17.0.24",
@@ -21,6 +24,7 @@
     "@types/react-router-dom": "^5.3.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
+    "antd": "^4.16.13",
     "axios": "^0.21.4",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.0",
@@ -45,6 +49,7 @@
     "eslint-plugin-testing-library": "^3.9.2",
     "eslint-webpack-plugin": "^2.5.2",
     "file-loader": "6.1.1",
+    "font-awesome": "^4.7.0",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "4.5.0",
     "identity-obj-proxy": "3.0.0",
@@ -66,10 +71,12 @@
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
+    "react-cookie": "^4.1.1",
     "react-dev-utils": "^11.0.3",
     "react-dom": "^17.0.2",
     "react-refresh": "^0.8.3",
     "react-router-dom": "^5.3.0",
+    "react-sidebar": "^3.0.2",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "^10.0.5",
@@ -109,6 +116,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-sidebar": "^3.0.2",
     "cross-env": "^7.0.3"
   },
   "babel": {
