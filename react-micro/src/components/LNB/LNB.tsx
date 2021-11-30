@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 
 import { Menu } from "antd";
+
 const { SubMenu, Item } = Menu;
 const MenuItem = Item;
 
@@ -17,22 +18,28 @@ interface LNBProps {
   setLNB: (open: boolean) => void;
 }
 
+const activeStyle = {
+  color: "#1890ff",
+};
+
 const OpenSideBar = () => {
   return (
-    <Menu mode="inline">
-      <SubMenu key="1" title="submenu1">
-        <MenuItem key="1-1">
-          <NavLink exact to="/">
-            Home
-          </NavLink>
-        </MenuItem>
-        <MenuItem key="1-2">
-          <NavLink exact to="/about">
-            About
-          </NavLink>
-        </MenuItem>
-      </SubMenu>
-      <SubMenu key="2" title="submenu2">
+    <Menu
+      mode="inline"
+      defaultSelectedKeys={[String(window.location.pathname)]}
+    >
+      <MenuItem key="/" icon={<FolderOutlined />}>
+        <NavLink exact to="/">
+          Home
+        </NavLink>
+      </MenuItem>
+      <MenuItem key="/about" icon={<MailOutlined />}>
+        <NavLink exact to="/about">
+          About
+        </NavLink>
+      </MenuItem>
+
+      <SubMenu key="2" title="submenu2" icon={<PlusCircleOutlined />}>
         <MenuItem key="2-1">item2-1</MenuItem>
         <MenuItem key="2-2">item2-2</MenuItem>
         <SubMenu key="2-3" title="submenu2-3">
@@ -40,20 +47,22 @@ const OpenSideBar = () => {
           <MenuItem key="2-3-2">item2-3-2</MenuItem>
         </SubMenu>
       </SubMenu>
-      <MenuItem key="3">item3</MenuItem>
     </Menu>
   );
 };
 
 const CloseSideBar = () => {
   return (
-    <Menu mode="inline">
-      <MenuItem key="1">
+    <Menu
+      mode="inline"
+      defaultSelectedKeys={[String(window.location.pathname)]}
+    >
+      <MenuItem key="/">
         <NavLink exact to="/">
           <FolderOutlined />
         </NavLink>
       </MenuItem>
-      <MenuItem key="2">
+      <MenuItem key="/about">
         <NavLink exact to="/about">
           <MailOutlined />
         </NavLink>

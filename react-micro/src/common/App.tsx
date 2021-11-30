@@ -5,7 +5,16 @@ import { Home, About, Posts } from "pages";
 class App extends Component {
   render() {
     return (
-      <div>
+      <div
+        style={{
+          backgroundColor: " white",
+          width: "95rem",
+          display: "inline-block",
+          textAlign: "initial",
+          marginTop: "60px",
+          borderRadius: "10px",
+        }}
+      >
         <Route exact path="/" component={Home} />
         <Switch>
           <Route path="/about/:name" component={About} />
