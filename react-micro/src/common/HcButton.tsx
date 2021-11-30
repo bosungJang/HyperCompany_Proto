@@ -1,7 +1,7 @@
 import React, { Children } from "react";
 import styled, { CSSProperties } from "styled-components";
 
-const LineButton = styled.button`
+const LineButton = styled.button<{ size: string }>`
   border: 1px solid #a7a7a7;
   box-sizing: border-box;
   border-radius: 4px;
@@ -9,14 +9,11 @@ const LineButton = styled.button`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   color: #000000;
-  min-width: 80px;
-  height: 40px;
-  padding: 8px 20px;
+  ${(props) => props.size}
 
   transition: background-color 0.5s;
 
@@ -37,21 +34,18 @@ const LineButton = styled.button`
   }
 `;
 
-const PrimaryButton = styled.button`
+const PrimaryButton = styled.button<{ size: string }>`
   border-radius: 4px;
   background: #438bf8;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
   border: unset;
-  min-width: 80px;
-  height: 40px;
-  padding: 8px 30px;
+  ${(props) => props.size}
 
   transition: background-color 0.5s;
 
@@ -68,21 +62,18 @@ const PrimaryButton = styled.button`
   }
 `;
 
-const SecondaryButton = styled.button`
+const SecondaryButton = styled.button<{ size: string }>`
   border-radius: 4px;
   background: #2d2d31;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
   border: unset;
-  min-width: 80px;
-  height: 40px;
-  padding: 8px 30px;
+  ${(props) => props.size}
 
   transition: background-color 0.5s;
 
@@ -99,7 +90,7 @@ const SecondaryButton = styled.button`
   }
 `;
 
-const TeriaryButton = styled.button`
+const TeriaryButton = styled.button<{ size: string }>`
   background: #ffffff;
   border: 1px solid #438bf8;
   box-sizing: border-box;
@@ -107,14 +98,11 @@ const TeriaryButton = styled.button`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   color: #438bf8;
-  min-width: 80px;
-  height: 40px;
-  padding: 8px 30px;
+  ${(props) => props.size}
 
   transition: background-color 0.5s;
 
@@ -136,21 +124,18 @@ const TeriaryButton = styled.button`
   }
 `;
 
-const TextButton = styled.button`
+const TextButton = styled.button<{ size: string }>`
   background: #ffffff;
   border-radius: 4px;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   color: #438bf8;
-  min-width: 80px;
-  height: 40px;
   border: unset;
-  padding: 8px 30px;
+  ${(props) => props.size}
 
   transition: background-color 0.5s;
 
@@ -177,7 +162,19 @@ interface HcButtonProps {
   styles: "line" | "primary" | "secondary" | "teriary" | "text";
   style?: CSSProperties;
   disabled?: boolean;
+  size: "big" | "medium" | "small";
 }
+
+const handleSizeType = (size: string) => {
+  switch (size) {
+    case "medium":
+      return "min-width: 78px; height: 34px;  font-size: 14px; line-height: 21px;";
+    case "small":
+      return "min-width: 60px; height: 28px; font-size: 12px; line-height: 18px;";
+    default:
+      return "min-width: 100px; height: 40px; font-size: 16px; line-height: 24px;";
+  }
+};
 
 const HcButton = (props: HcButtonProps) => {
   return (
@@ -189,6 +186,7 @@ const HcButton = (props: HcButtonProps) => {
               onClick={props.onClick}
               style={props.style}
               disabled={props.disabled}
+              size={handleSizeType(props.size)}
             >
               {props.children}
             </LineButton>
@@ -198,6 +196,7 @@ const HcButton = (props: HcButtonProps) => {
               onClick={props.onClick}
               style={props.style}
               disabled={props.disabled}
+              size={handleSizeType(props.size)}
             >
               {props.children}
             </PrimaryButton>
@@ -207,6 +206,7 @@ const HcButton = (props: HcButtonProps) => {
               onClick={props.onClick}
               style={props.style}
               disabled={props.disabled}
+              size={handleSizeType(props.size)}
             >
               {props.children}
             </SecondaryButton>
@@ -216,6 +216,7 @@ const HcButton = (props: HcButtonProps) => {
               onClick={props.onClick}
               style={props.style}
               disabled={props.disabled}
+              size={handleSizeType(props.size)}
             >
               {props.children}
             </TeriaryButton>
@@ -225,6 +226,7 @@ const HcButton = (props: HcButtonProps) => {
               onClick={props.onClick}
               style={props.style}
               disabled={props.disabled}
+              size={handleSizeType(props.size)}
             >
               {props.children}
             </TextButton>

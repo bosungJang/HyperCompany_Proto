@@ -100,6 +100,7 @@ const Layout = () => {
               onClick={openNav}
               styles="line"
               style={{ marginRight: "5px" }}
+              size="big"
             >
               열기
             </HcButton>
@@ -107,6 +108,7 @@ const Layout = () => {
               onClick={closeNav}
               styles="primary"
               style={{ marginRight: "5px" }}
+              size="big"
             >
               닫기
             </HcButton>
@@ -114,6 +116,7 @@ const Layout = () => {
               onClick={openGNB}
               styles="secondary"
               style={{ marginRight: "5px" }}
+              size="big"
             >
               open
             </HcButton>
@@ -121,10 +124,11 @@ const Layout = () => {
               onClick={closeGNB}
               styles="teriary"
               style={{ marginRight: "5px" }}
+              size="big"
             >
               close
             </HcButton>
-            <HcButton styles="text" style={{ marginRight: "5px" }}>
+            <HcButton styles="text" style={{ marginRight: "5px" }} size="big">
               test
             </HcButton>
             <HcCheckBox
@@ -133,7 +137,94 @@ const Layout = () => {
                 setCheckedItem(!checkedItem);
               }}
             />
-            <br />
+            <br /> <br />
+            <HcButton
+              onClick={openNav}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="small"
+            >
+              열기
+            </HcButton>
+            <HcButton
+              onClick={closeNav}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="small"
+            >
+              닫기
+            </HcButton>
+            <HcButton
+              onClick={openGNB}
+              styles="secondary"
+              style={{ marginRight: "5px" }}
+              size="small"
+            >
+              open
+            </HcButton>
+            <HcButton
+              onClick={closeGNB}
+              styles="teriary"
+              style={{ marginRight: "5px" }}
+              size="small"
+            >
+              close
+            </HcButton>
+            <HcButton styles="text" style={{ marginRight: "5px" }} size="small">
+              test
+            </HcButton>
+            <HcCheckBox
+              checked={checkedItem}
+              onChange={() => {
+                setCheckedItem(!checkedItem);
+              }}
+            />
+            <br /> <br />
+            <HcButton
+              onClick={openNav}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="medium"
+            >
+              열기
+            </HcButton>
+            <HcButton
+              onClick={closeNav}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="medium"
+            >
+              닫기
+            </HcButton>
+            <HcButton
+              onClick={openGNB}
+              styles="secondary"
+              style={{ marginRight: "5px" }}
+              size="medium"
+            >
+              open
+            </HcButton>
+            <HcButton
+              onClick={closeGNB}
+              styles="teriary"
+              style={{ marginRight: "5px" }}
+              size="medium"
+            >
+              close
+            </HcButton>
+            <HcButton
+              styles="text"
+              style={{ marginRight: "5px" }}
+              size="medium"
+            >
+              test
+            </HcButton>
+            <HcCheckBox
+              checked={checkedItem}
+              onChange={() => {
+                setCheckedItem(!checkedItem);
+              }}
+            />
             <div>
               <HcRadioGroup
                 defaultValue="cat"
