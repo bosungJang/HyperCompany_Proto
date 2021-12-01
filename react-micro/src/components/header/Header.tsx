@@ -13,9 +13,7 @@ const Header = () => {
       <div className="header_icon">
         <FontAwesomeIcon icon={faTh} />
       </div>
-      <div className="header_title">
-        <h5>SUPERCOMPANY</h5>
-      </div>
+      <div className="header_title">SUPERCOMPANY</div>
       <div className="header_search">
         <input placeholder="&#xf002; 통합 검색" type="text" />
       </div>
@@ -40,6 +38,11 @@ const Header = () => {
           <li>
             <NavLink to="/posts" activeStyle={activeStyle}>
               Posts
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/table" activeStyle={activeStyle}>
+              Table
             </NavLink>
           </li>
         </ul>

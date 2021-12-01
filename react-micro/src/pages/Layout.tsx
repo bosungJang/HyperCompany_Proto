@@ -84,6 +84,7 @@ const Layout = () => {
                   backgroundColor: "#E5E5E5",
                   minHeight: "100vh",
                   textAlign: "center",
+                  paddingTop: "4.25rem",
                 }
               : {
                   marginLeft: 300,
@@ -91,6 +92,7 @@ const Layout = () => {
                   backgroundColor: "#E5E5E5",
                   minHeight: "100vh",
                   textAlign: "center",
+                  paddingTop: "4.25rem",
                 }
           }
         >

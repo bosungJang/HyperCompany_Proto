@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, About, Posts } from "pages";
+import { Home, About, Posts, Table } from "pages";
 
 class App extends Component {
   render() {
@@ -21,6 +21,7 @@ class App extends Component {
           <Route path="/about" component={About} />
         </Switch>
         <Route path="/posts" component={Posts} />
+        <Route path="/table" component={Table} />
       </div>
     );
   }

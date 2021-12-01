@@ -3,9 +3,10 @@
 .header_wrapper {
   width: 100%;
   height: 4.25rem;
-  position: -webkit-sticky;
-  position: sticky;
+  /* position: -webkit-sticky;
+  position: sticky; */
   position: relative;
+  position: fixed;
   left: 0rem;
   top: 0rem;
   z-index: 100;
@@ -52,25 +53,54 @@
 .header_title {
   display: inline-block;
   color: white;
-  font-size: 1.875rem;
-  width: 12.5rem;
+  font-size: 1.375rem;
+  width: 1.5rem;
   height: 14.14px;
-  margin-top: -25px;
+  margin-top: 20px;
   margin-left: 16px;
 }
 .header_search {
   position: absolute;
   display: absolute;
-  align-items: center;
-  text-align: center;
   left: 50%;
   width: 460px;
   margin-left: -230px;
-  margin-top: -33.5px;
+  margin-top: -41.5px;
 }
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 950px) {
   .header_search {
-    display: none;
+    width: 45%;
+    min-width: 240px;
+    float: right;
+    margin-left: 0;
+    right: 0%;
+    align-items: flex-end;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header_nav {
+    position: static;
+    float: none;
+    margin-top: -15px;
+    display: flex;
+    justify-content: center;
+  }
+  .header_nav ul {
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  .header_nav ul > li {
+    display: inline-block;
+    margin-right: 25px;
+  }
+
+  .header_wrapper {
+    height: 6rem;
   }
 }
 .header_search input::placeholder {
@@ -92,6 +122,6 @@
   width: 100%;
   padding-left: 0.7rem;
   padding-top: 0.313rem;
-  height: 1.563rem;
+  height: 35px;
   border: 1px solid white;
 }
