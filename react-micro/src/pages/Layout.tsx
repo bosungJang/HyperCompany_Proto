@@ -8,6 +8,7 @@ import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import HcToggleBtn from "common/HcToggleBtn";
+import HcTextField from "common/HcTextField";
 
 const Layout = () => {
   const [openSideBar, setopenSideBar] = React.useState(true);
@@ -84,7 +85,6 @@ const Layout = () => {
                   backgroundColor: "#E5E5E5",
                   minHeight: "100vh",
                   textAlign: "center",
-                  paddingTop: "4.25rem",
                 }
               : {
                   marginLeft: 300,
@@ -92,7 +92,6 @@ const Layout = () => {
                   backgroundColor: "#E5E5E5",
                   minHeight: "100vh",
                   textAlign: "center",
-                  paddingTop: "4.25rem",
                 }
           }
         >
@@ -248,6 +247,16 @@ const Layout = () => {
               }}
             />{" "}
             <span>{String(isToggled)}</span>
+            <br />
+            <HcTextField
+              titleName="Success"
+              name="name"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  alert("SUCCESS");
+                }
+              }}
+            />
           </div>
         </div>
       </div>

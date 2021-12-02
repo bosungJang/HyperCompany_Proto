@@ -43,6 +43,9 @@ li {
 .ant-menu-title-content {
   font-family: "Noto Sans KR", sans-serif;
 }
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: unset;
+}
 
 /*
 #lnb h1 {
