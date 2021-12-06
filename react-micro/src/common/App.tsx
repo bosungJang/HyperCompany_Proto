@@ -11,8 +11,8 @@ class App extends Component {
           width: "95rem",
           display: "inline-block",
           textAlign: "initial",
-          marginTop: "60px",
           borderRadius: "10px",
+          marginTop: "60px",
         }}
       >
         <Route exact path="/" component={Home} />

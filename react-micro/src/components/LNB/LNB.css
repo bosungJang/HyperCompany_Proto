@@ -4,26 +4,26 @@ li {
 
 /* lnb */
 #lnb_close {
-  height: 100%;
-  width: 80px;
-  position: fixed;
+  width: 68px;
+  height: calc(100vh - 4.25rem);
+  position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   background-color: #ffffff;
-  overflow-x: auto;
   transition: 0.5s;
-  margin-top: 68px;
+  margin-top: 4.25rem;
   font-family: "Noto Sans CJK KR";
 }
 
 #lnb_open {
-  height: 100%;
   width: 300px;
-  position: fixed;
+  height: calc(100vh - 4.25rem);
+  position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   background-color: #ffffff;
-  overflow-x: auto;
   transition: 0.5s;
   margin-top: 68px;
   font-family: "Noto Sans CJK KR";
@@ -46,7 +46,48 @@ li {
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: unset;
 }
+.menu_wrapper {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow: hidden;
+}
+.button_wrapper_close {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+}
+.button_wrapper_open {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+}
 
+#LNB_button_close {
+  transform: rotate(0deg);
+  transition: all 0.5s ease;
+}
+
+#LNB_button_open {
+  transform: rotate(180deg);
+  transition: all 0.5s ease;
+}
+
+.LNB_wrapper_open {
+  width: fit-content;
+  transition: margin-left 0.5s ease;
+  margin-bottom: 20px;
+  margin-left: 245px;
+  cursor: pointer;
+}
+.LNB_wrapper_close {
+  width: fit-content;
+  transition: margin-left 0.5s ease;
+  margin-bottom: 20px;
+  margin-left: 19px;
+  cursor: pointer;
+}
 /*
 #lnb h1 {
   height: 40px;

@@ -77,7 +77,35 @@ const CloseSideBar = () => {
 const LNB = (props: LNBProps) => {
   return (
     <div id={props.openSideBar === false ? "lnb_close" : "lnb_open"}>
-      {props.openSideBar === false ? <CloseSideBar /> : <OpenSideBar />}
+      <div className="menu_wrapper">
+        {props.openSideBar === false ? <CloseSideBar /> : <OpenSideBar />}
+      </div>
+      <div
+        className={
+          props.openSideBar === false
+            ? "button_wrapper_close"
+            : "button_wrapper_open"
+        }
+      >
+        <div
+          className={
+            props.openSideBar === false
+              ? "LNB_wrapper_close"
+              : "LNB_wrapper_open"
+          }
+          onClick={() => props.setLNB(!props.openSideBar)}
+        >
+          <img
+            src={process.env.PUBLIC_URL + "/images/Group 214.png"}
+            alt="Group"
+            id={
+              props.openSideBar === false
+                ? "LNB_button_close"
+                : "LNB_button_open"
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 };

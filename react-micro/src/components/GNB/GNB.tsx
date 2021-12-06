@@ -10,7 +10,7 @@ interface GNBProps {
   setGNB: (open: boolean) => void;
 }
 
-function useOutsideClick(ref: any, setGNB: (open: boolean) => void) {
+/*function useOutsideClick(ref: any, setGNB: (open: boolean) => void) {
   function handleClickOutside(event: MouseEvent): void {
     if (ref.current && !ref.current.contains(event.target)) {
       setGNB(false);
@@ -26,14 +26,17 @@ function useOutsideClick(ref: any, setGNB: (open: boolean) => void) {
     };
   });
 }
+*/
 
 const GNB = (props: GNBProps) => {
+  /*
   const wrapperRef = React.useRef(null);
   useOutsideClick(wrapperRef, props.setGNB);
+  */
   return (
     <div
       id={props.openGNBBar === false ? "gnb_close" : "gnb_open"}
-      ref={props.openGNBBar === false ? null : wrapperRef}
+      /*ref={props.openGNBBar === false ? null : wrapperRef}*/
     >
       <Menu
         mode="inline"
