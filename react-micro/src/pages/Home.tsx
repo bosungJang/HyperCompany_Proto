@@ -8,6 +8,8 @@ import HcCheckBox from "common/HcCheckBox";
 import HcToggleBtn from "common/HcToggleBtn";
 import HcTextField from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+import Popup from "../common/HcPopup";
+import HcCard from "../common/HcCard";
 
 const Home = () => {
   const myCounter = useCounter();
@@ -144,6 +146,13 @@ const Home = () => {
           </HcRadioButton>
         </HcRadioGroup>
         <br />
+        <Popup>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab ad
+          ratione ea id odit magnam commodi, aperiam, quo similique dolorem qui
+          eos neque. Repellendus pariatur, vel reiciendis corrupti neque
+          dolorum?
+        </Popup>
+        <HcCard />
       </div>
     </div>
   );

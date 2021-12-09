@@ -1,16 +1,16 @@
 .table_buttons_create {
-  background-color: black;
+  background-color: #f941af;
   color: white;
   border-radius: 4px;
-  border: 1px solid #a7a7a7;
+  border: 1px solid #f941af !important;
   width: 80px;
-  height: 40px;
+  height: 36px;
 
   font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 21px;
   /* identical to box height */
 
   text-align: center;
@@ -19,18 +19,18 @@
   margin-top: 40px;
   z-index: 1;
 }
-.table_buttons_create:active {
+.table_buttons_create:hover {
   direction: ltr;
   z-index: -1;
-  border: 1px solid lightgray !important;
+  border: 1px solid #f941af !important;
   box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+    7px 7px 20px 0px rgba(0, 0, 0, 0.212), 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
   transition: all 0.3s ease;
 }
-.table_buttons_create:hover {
-  background-color: lightgray;
-  color: black;
-  border-color: white;
+.table_buttons_create:active {
+  background-color: #12c298;
+  color: white;
+  border: 1px solid #12c298 !important;
   z-index: -1;
 }
 .table_buttons {
@@ -39,7 +39,7 @@
   border-radius: 4px;
   border: 1px solid #a7a7a7;
   width: 80px;
-  height: 40px;
+  height: 36px;
 
   font-family: Noto Sans CJK KR;
   font-style: normal;
@@ -54,9 +54,10 @@
   margin-top: 40px;
 }
 .table_buttons:hover {
-  background-color: lightgray;
-  color: black;
-  border-color: white;
+  background-color: #01057a;
+  color: white;
+  border-color: #01057a;
+  transition: all 0.9s ease;
 }
 .table_manage {
   float: right;
@@ -64,30 +65,77 @@
   border: none;
   text-align: center;
   text-transform: uppercase;
-  margin-bottom: 30px;
   margin-top: 50px;
+}
+
+.table_Title {
+  width: 134px;
+  height: 44px;
+  left: 300px;
+  top: 148px;
+
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 44px;
+  color: #000000;
+}
+.table_Subject {
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+  color: #303030;
+  margin-left: 5px;
+  margin-top: 12px;
 }
 table {
   width: 95%;
   margin: auto;
 }
 td {
-  border-bottom: 1px solid #ededed;
-  height: 50px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 46px;
+  max-width: 188px;
+
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+  color: #1c1c1c;
+}
+tr:hover {
+  background-color: #e9f2ff;
+  transition: all 0.3s ease;
 }
 thead {
   height: 32px;
-  background-color: #f4f4f4;
+  background-color: #ededed;
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  color: #464646;
+}
+th:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+th:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-@media screen and (max-width: 680px) {
-  .table_manage {
-  }
-}
 .custom-btn {
   margin-right: 10px;
   width: 80px;
-  height: 40px;
+  height: 36px;
   color: #fff;
   border-radius: 4px;
   padding: 10px 25px;
@@ -98,14 +146,17 @@ thead {
   position: relative;
   display: inline-block;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    7px 7px 20px 0px rgba(0, 0, 0, 0.212), 4px 4px 5px 0px rgba(0, 0, 0, 0.288);
   outline: none;
 }
 
 .btn-15 {
-  background: rgb(34, 34, 34);
+  background: linear-gradient(270deg, #257cff 0%, #1bb892 100%);
   border: none;
   z-index: 1;
+  top: 2px;
+  text-align: center;
+  padding-top: 8px;
 }
 .btn-15:after {
   position: absolute;
@@ -115,7 +166,7 @@ thead {
   top: 0;
   right: 0;
   z-index: -1;
-  background-color: lightgrey;
+  background: linear-gradient(270deg, #ffad33 0%, #ebe445 100%);
   border-radius: 4px;
   /* border: 1px solid white; */
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
@@ -123,12 +174,12 @@ thead {
   transition: all 0.3s ease;
 }
 .btn-15:hover {
-  color: black;
+  color: white;
 }
 .btn-15:hover:after {
   left: 0;
   width: 100%;
 }
 .btn-15:active {
-  top: 2px;
+  top: 4px;
 }
