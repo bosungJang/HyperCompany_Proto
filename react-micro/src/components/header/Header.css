@@ -9,7 +9,7 @@
   position: fixed;
   left: 0rem;
   top: 0rem;
-  z-index: 100;
+  z-index: 1200;
   display: inline-block;
   background: #257cff;
 }
