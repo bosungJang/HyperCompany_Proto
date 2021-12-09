@@ -43,12 +43,12 @@ const GNB = (props: GNBProps) => {
         defaultSelectedKeys={[String(window.location.pathname)]}
       >
         <MenuItem key="/">
-          <NavLink exact to="/">
+          <NavLink exact to="/" onClick={() => props.setGNB(false)}>
             Home
           </NavLink>
         </MenuItem>
         <MenuItem key="/about">
-          <NavLink exact to="/about">
+          <NavLink exact to="/about" onClick={() => props.setGNB(false)}>
             About
           </NavLink>
         </MenuItem>

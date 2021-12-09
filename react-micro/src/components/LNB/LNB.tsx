@@ -6,6 +6,7 @@ import {
   PlusCircleOutlined,
   MailOutlined,
   FolderOutlined,
+  CaretDownOutlined,
 } from "@ant-design/icons";
 
 import { Menu } from "antd";
@@ -15,12 +16,18 @@ const MenuItem = Item;
 
 interface LNBProps {
   openSideBar: boolean;
-  setLNB: (open: boolean) => void;
+  openNav: () => void;
+  closeNav: () => void;
 }
 
-const activeStyle = {
-  color: "#1890ff",
-};
+const testArray = [
+  { icon: "HOME", title: "Home" },
+  {
+    icon: "Board",
+    title: "Board",
+    submenu: [{ icon: "Board1", title: "Board1" }],
+  },
+];
 
 const OpenSideBar = () => {
   return (
@@ -28,24 +35,54 @@ const OpenSideBar = () => {
       mode="inline"
       defaultSelectedKeys={[String(window.location.pathname)]}
     >
-      <MenuItem key="/" icon={<FolderOutlined />}>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </MenuItem>
-      <MenuItem key="/about" icon={<MailOutlined />}>
-        <NavLink exact to="/about">
+      {" "}
+      <NavLink
+        exact
+        to="/"
+        activeClassName="menu_selected"
+        children={
+          <MenuItem
+            key="/"
+            icon={
+              <img
+                src={process.env.PUBLIC_URL + "/images/Home_Icon.png"}
+                alt="Home_Icon"
+              />
+            }
+          >
+            Home
+          </MenuItem>
+        }
+      />
+      <NavLink exact to="/about" activeClassName="menu_selected">
+        <MenuItem
+          key="/about"
+          icon={
+            <img
+              src={process.env.PUBLIC_URL + "/images/Team_Icon.png"}
+              alt="Home_Icon"
+            />
+          }
+        >
           About
+        </MenuItem>
+      </NavLink>
+      <SubMenu
+        key="2"
+        title="submenu2"
+        icon={
+          <img
+            src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
+            alt="Home_Icon"
+          />
+        }
+      >
+        <NavLink exact to="/posts" activeClassName="menu_selected">
+          <MenuItem key="2-1"> item2-1</MenuItem>
         </NavLink>
-      </MenuItem>
-
-      <SubMenu key="2" title="submenu2" icon={<PlusCircleOutlined />}>
-        <MenuItem key="2-1">item2-1</MenuItem>
-        <MenuItem key="2-2">item2-2</MenuItem>
-        <SubMenu key="2-3" title="submenu2-3">
-          <MenuItem key="2-3-1">item2-3-1</MenuItem>
-          <MenuItem key="2-3-2">item2-3-2</MenuItem>
-        </SubMenu>
+        <NavLink exact to="/table" activeClassName="menu_selected">
+          <MenuItem key="2-2"> item2-2</MenuItem>
+        </NavLink>
       </SubMenu>
     </Menu>
   );
@@ -58,23 +95,34 @@ const CloseSideBar = () => {
       defaultSelectedKeys={[String(window.location.pathname)]}
     >
       <MenuItem key="/">
-        <NavLink exact to="/">
-          <FolderOutlined />
+        <NavLink exact to="/" activeClassName="menu_selected">
+          <img
+            src={process.env.PUBLIC_URL + "/images/Home_Icon.png"}
+            alt="Home_Icon"
+          />
         </NavLink>
       </MenuItem>
       <MenuItem key="/about">
-        <NavLink exact to="/about">
-          <MailOutlined />
+        <NavLink exact to="/about" activeClassName="menu_selected">
+          <img
+            src={process.env.PUBLIC_URL + "/images/Team_Icon.png"}
+            alt="Home_Icon"
+          />
         </NavLink>
       </MenuItem>
       <MenuItem key="3">
-        <PlusCircleOutlined />
+        <img
+          src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
+          alt="Home_Icon"
+        />
       </MenuItem>
     </Menu>
   );
 };
 
 const LNB = (props: LNBProps) => {
+  console.log("array", testArray.length);
+  console.log("array1", testArray[0].submenu?.length);
   return (
     <div id={props.openSideBar === false ? "lnb_close" : "lnb_open"}>
       <div className="menu_wrapper">
@@ -93,7 +141,11 @@ const LNB = (props: LNBProps) => {
               ? "LNB_wrapper_close"
               : "LNB_wrapper_open"
           }
-          onClick={() => props.setLNB(!props.openSideBar)}
+          onClick={
+            props.openSideBar === false
+              ? () => props.openNav()
+              : () => props.closeNav()
+          }
         >
           <img
             src={process.env.PUBLIC_URL + "/images/Group 214.png"}

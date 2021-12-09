@@ -50,9 +50,9 @@ interface IProps {
 const handleSizeType = (size: string) => {
   switch (size) {
     case "small":
-      return "min-width: 60px; height: 19px; font-size: 13px;";
+      return "min-width: 60px; height: 19px; font-size: 13px; padding: 0 20px; padding-bottom: 8px;";
     default:
-      return "min-width: 100px; height: 24px; font-size: 16px;";
+      return "min-width: 80px; height: 30px; font-size: 16px; padding: 0 20px; padding-bottom: 10px;";
   }
 };
 

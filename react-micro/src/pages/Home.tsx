@@ -6,10 +6,8 @@ import HcTabs from "common/HcTabs";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcToggleBtn from "common/HcToggleBtn";
-import HcTextField from "common/HcTextField";
+import HcTextField, { HcSelect } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
-import Popup from "../common/HcPopup";
-import HcCard from "../common/HcCard";
 
 const Home = () => {
   const myCounter = useCounter();
@@ -68,7 +66,7 @@ const Home = () => {
           }}
           styles="primary"
           style={{ marginRight: "5px" }}
-          size="big"
+          size="small"
         >
           닫기
         </HcButton>
@@ -78,7 +76,7 @@ const Home = () => {
           }}
           styles="secondary"
           style={{ marginRight: "5px" }}
-          size="big"
+          size="medium"
         >
           open
         </HcButton>
@@ -88,7 +86,7 @@ const Home = () => {
           }}
           styles="teriary"
           style={{ marginRight: "5px" }}
-          size="big"
+          size="medium"
         >
           close
         </HcButton>
@@ -130,6 +128,7 @@ const Home = () => {
               alert("SUCCESS");
             }
           }}
+          required
         />
       </div>
       <br />
@@ -146,14 +145,17 @@ const Home = () => {
           </HcRadioButton>
         </HcRadioGroup>
         <br />
-        <Popup>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab ad
-          ratione ea id odit magnam commodi, aperiam, quo similique dolorem qui
-          eos neque. Repellendus pariatur, vel reiciendis corrupti neque
-          dolorum?
-        </Popup>
-        <HcCard />
       </div>
+      <HcSelect titleName="TEXT" required>
+        <option value="" hidden>
+          Type
+        </option>
+        <option value="1">Audi</option>
+        <option value="2">BMW</option>
+        <option value="3">Citroen</option>
+        <option value="4">Ford</option>
+      </HcSelect>
+      <br />
     </div>
   );
 };

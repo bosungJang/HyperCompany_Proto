@@ -74,7 +74,7 @@ const Layout = () => {
       <Header openGNBBar={openGNBBar} setGNB={setGNB} />
       {/* <GNB openGNBBar={openGNBBar} setGNB={setGNB} />*/}
       <div style={{ display: "block" }}>
-        <LNB openSideBar={openSideBar} setLNB={setLNB} />
+        <LNB openSideBar={openSideBar} openNav={openNav} closeNav={closeNav} />
         <div
           id="main"
           style={
