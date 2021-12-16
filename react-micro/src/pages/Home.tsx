@@ -6,8 +6,36 @@ import HcTabs from "common/HcTabs";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcToggleBtn from "common/HcToggleBtn";
-import HcTextField, { HcSelect } from "common/HcTextField";
+import HcTextField, { HcSelect, HcTagInput } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+import HcTree from "common/HcTree";
+import HcFilter from "common/HcFilter";
+
+const items = [
+  {
+    id: "1",
+    title: "parent 1",
+    items: [
+      { id: "1-1", title: "child 1-1" },
+      { id: "1-2", title: "child 1-2" },
+    ],
+  },
+  {
+    id: "2",
+    title: "parent 2",
+    items: [
+      { id: "2-1", title: "child 2-1" },
+      {
+        id: "2-2",
+        title: "child 2-2",
+        items: [
+          { id: "2-2-1", title: "child 1-2-1" },
+          { id: "2-2-2", title: "child 1-2-2" },
+        ],
+      },
+    ],
+  },
+];
 
 const Home = () => {
   const myCounter = useCounter();
@@ -19,6 +47,25 @@ const Home = () => {
   /*ToggleBtn */
   const [isToggled, setIsToggled] = React.useState(false);
   /*ToggleBtn */
+
+  /*Select */
+  const [multiValue, setmultiValue] = React.useState([]);
+
+  const filterOptions = [
+    { value: "foo", label: "Foo" },
+    { value: "bar", label: "Bar" },
+    { value: "bat", label: "Bat" },
+  ];
+
+  const handleMultiChange = (option: any) => {
+    setmultiValue(option);
+  };
+
+  /*Select */
+
+  /*TagInput */
+  const [tags, setTags] = React.useState(["react"]);
+  /*TagInput */
 
   return (
     <div>
@@ -155,7 +202,16 @@ const Home = () => {
         <option value="3">Citroen</option>
         <option value="4">Ford</option>
       </HcSelect>
-      <br />
+      <div style={{ height: 10, display: "block" }} />
+      {/*
+        formValue는 input에 입력되는 값 
+        tags는 입력한 tag Array
+      */}
+      <HcTagInput titleName="title" tags={tags} setTags={setTags} />
+
+      <div style={{ height: 10, display: "block" }} />
+
+      <HcTree items={items} />
     </div>
   );
 };

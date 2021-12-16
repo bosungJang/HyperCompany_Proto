@@ -19,18 +19,18 @@ const LineButton = styled.button<{ size: string }>`
 
   &:hover {
     background-color: #ededed;
-    border: unset;
+    border: 1px solid #ededed;
   }
 
   &:active {
     background: #a7a7a7;
-    border: unset;
+    border: 1px solid #a7a7a7;
   }
 
   &:disabled {
     background: #dcdcdc;
     color: #ffffff;
-    border: unset;
+    border: 1px solid #dcdcdc;
   }
 `;
 

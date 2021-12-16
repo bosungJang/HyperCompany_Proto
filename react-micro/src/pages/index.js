@@ -22,3 +22,7 @@ export const Post = loadable(() => import("../components/Post"), {
 export const Table = loadable(() => import("./Table"), {
   fallback: Loading,
 });
+
+export const Test = loadable(() => import("./TestPage"), {
+  fallback: Loading,
+});
