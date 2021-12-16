@@ -1,50 +1,8 @@
-import React, { useState } from "react";
-import queryString from "query-string";
-import { RouteComponentProps } from "react-router-dom";
-import { useCounter } from "router/Root";
-import { HcPopup } from "../common/HcPopup";
-import HcCard from "../common/HcCard";
-import HcFilter from "../common/HcFilter";
-import "./navButtons.css";
-interface MatchParams {
-  name: string;
-}
+import React from "react";
 
-const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
-  const query = queryString.parse(location.search);
-
-  const myCounter = useCounter();
-
-  const detail = query.detail === "true";
-
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
+export default function HcNavButton() {
   return (
-    <div>
-      <span
-        style={{
-          fontFamily: "Noto Sans KR",
-          fontStyle: "normal",
-          fontWeight: "bold",
-          fontSize: 32,
-        }}
-      >
-        인사 발령 {match.params.name}
-      </span>
-      <hr />
-      {detail && "detail: blahblah"}
-      {myCounter.number}
-
-      <HcCard />
-      <HcFilter />
-      <br />
+    <>
       <div className="navButtons">
         <svg
           width="168"
@@ -71,6 +29,7 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
           />
         </svg>
       </div>
+
       <div className="navButtons2">
         <svg
           width="168"
@@ -119,17 +78,6 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
           />
         </svg>
       </div>
-      <br />
-      <button onClick={openModal}>click</button>
-
-      <HcPopup open={modalOpen} close={closeModal} header="Pop-up Title">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est similique
-        saepe officia, vel sed pariatur tenetur nobis placeat commodi, dolorum
-        maiores deserunt odit asperiores perferendis animi alias totam, dolore
-        laboriosam.
-      </HcPopup>
-    </div>
+    </>
   );
-};
-
-export default About;
+}
