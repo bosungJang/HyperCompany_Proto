@@ -278,6 +278,14 @@ export const HcTagInput: React.FC<TagInputIProps> = ({
                   props.setTags([...props.tags, e.currentTarget.value]);
                   setFormValue("");
                   document.getElementById("tags")?.focus();
+                } else if (
+                  (e.key === "Delete" || e.key === "Backspace") &&
+                  formValue.trim() === "" /*&& props.tags.length < 4 */
+                ) {
+                  const tempArr = props.tags.slice();
+                  tempArr.pop();
+                  props.setTags(tempArr);
+                  document.getElementById("tags")?.focus();
                 }
               }}
               maxTag={props.tags.length}

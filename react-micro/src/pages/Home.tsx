@@ -10,6 +10,7 @@ import HcTextField, { HcSelect, HcTagInput } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import HcTree from "common/HcTree";
 import HcFilter from "common/HcFilter";
+import HcBottomBar from "common/HcBottomBar";
 
 const items = [
   {
@@ -67,8 +68,11 @@ const Home = () => {
   const [tags, setTags] = React.useState(["react"]);
   /*TagInput */
 
+  /*BottomBar */
+  const [barOpen, setbarOpen] = React.useState(false);
+  /*BottomBar */
   return (
-    <div>
+    <div style={{ width: "inherit" }}>
       <h2>홈</h2>
       <Counter counter={myCounter} />
       <div>
@@ -99,7 +103,7 @@ const Home = () => {
       <div>
         <HcButton
           onClick={() => {
-            alert("click");
+            setbarOpen(true);
           }}
           styles="line"
           style={{ marginRight: "5px" }}
@@ -212,6 +216,19 @@ const Home = () => {
       <div style={{ height: 10, display: "block" }} />
 
       <HcTree items={items} />
+
+      <HcBottomBar open={barOpen}>
+        <HcButton
+          onClick={() => {
+            setbarOpen(false);
+          }}
+          styles="primary"
+          style={{ marginRight: "5px" }}
+          size="big"
+        >
+          닫기
+        </HcButton>
+      </HcBottomBar>
     </div>
   );
 };
