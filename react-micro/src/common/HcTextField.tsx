@@ -1,8 +1,10 @@
 import React, { CSSProperties } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import Select from "react-select";
 import { DoubleLeftOutlined } from "@ant-design/icons";
+import { ReactComponent as IconSearch } from "../fonts/images/SearchIcon.svg";
+import HcButton from "./HcButton";
 //import "react-select/dist/react-select.css";
 
 const TextField = styled.input<{ disabled?: boolean }>`
@@ -31,6 +33,14 @@ const TextField = styled.input<{ disabled?: boolean }>`
   }
   &:hover {
     box-shadow: ${(props) => (props.disabled ? null : "0 0 5px #257cff")};
+  }
+
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: #b5b5b5;
+  }
+  :-ms-input-placeholder {
+    color: #b5b5b5;
   }
 `;
 
@@ -141,6 +151,55 @@ export const HcSelects: React.FC<SelectsIProps> = ({ titleName, ...props }) => {
         options={props.filterOptions}
         onChange={props.handleMultiChange}
       />
+    </Wrapper>
+  );
+};
+/*HcSearchInput */
+const SearchIcon = styled.span`
+  position: absolute;
+  margin-left: 9px;
+  margin-top: 12px;
+  z-index: 1;
+  color: #4f5b66;
+  svg {
+    path {
+      fill: #3b3b3b;
+    }
+  }
+`;
+interface SearchInputIProps {
+  titleName: string;
+  disabled?: boolean;
+  style?: CSSProperties;
+  value?: string | number;
+  maxlength?: string;
+  id?: string;
+  name?: string;
+  onKeyDown?: (e: any) => void;
+  onChange?: (e: any) => void;
+  required?: boolean;
+  placeholder?: string;
+}
+
+export const HcSearchTextField: React.FC<SearchInputIProps> = ({
+  titleName,
+  ...props
+}) => {
+  return (
+    <Wrapper>
+      <Title required={props.required}>{titleName}</Title>
+      <div style={{ display: "relative" }}>
+        <SearchIcon>
+          <IconSearch />
+        </SearchIcon>
+        <TextField
+          {...props}
+          style={{ paddingLeft: "32px" }}
+          placeholder={props.placeholder}
+        >
+          {props.children}
+        </TextField>
+      </div>
     </Wrapper>
   );
 };
@@ -296,5 +355,127 @@ export const HcTagInput: React.FC<TagInputIProps> = ({
     </Wrapper>
   );
 };
+
+const boxFade = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
+
+const NoInputFieldWrapper = styled.div`
+  width: 491px;
+  min-height: 76px;
+  background: #f4f4f4;
+  border-radius: 6px;
+  margin-top: 0.5em;
+  position: relative;
+  padding: 5px;
+`;
+
+const TagWrapperNo = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  background: #2d2d31;
+  color: white;
+  padding: 3px 13px;
+  border-radius: 34.41px;
+  margin: 3px 3px;
+  height: 28px;
+  width: fit-content;
+  &:last-child {
+    //animation: ${boxFade} 3s;
+  }
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+interface TagNoInputIProps {
+  tags: string[];
+  setTags: (value: string[]) => void;
+  style?: CSSProperties;
+}
+
+export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
+  ({ ...props }) => {
+    interface TagProps {
+      children: React.ReactNode;
+      tags: string[];
+      setTags: (value: string[]) => void;
+      tagIndex: number;
+    }
+    const Tag = ({ children, tags, setTags, tagIndex }: TagProps) => {
+      return (
+        <TagWrapperNo>
+          {children}{" "}
+          <TagDelete
+            role="img"
+            aria-label="remove-tag"
+            onClick={(e) => {
+              const updatedTags = tags.filter(
+                (_: any, i: number) => i !== tagIndex
+              );
+              setTags([...updatedTags]);
+            }}
+          >
+            &#10005;
+          </TagDelete>
+        </TagWrapperNo>
+      );
+    };
+
+    return (
+      <Wrapper>
+        <div>
+          <NoInputFieldWrapper>
+            <div
+              style={{ display: "block", alignItems: "center", height: "100%" }}
+            >
+              {props.tags.length !== 0 &&
+                props.tags.map((tag: string, i: number) => {
+                  return (
+                    <Tag
+                      key={i}
+                      tagIndex={i}
+                      tags={props.tags}
+                      setTags={props.setTags}
+                    >
+                      {tag}
+                    </Tag>
+                  );
+                })}
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                marginRight: 8,
+                marginBottom: 8,
+              }}
+            >
+              <HcButton
+                onClick={() => {
+                  props.setTags([]);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="small"
+              >
+                전체 취소
+              </HcButton>
+            </div>
+          </NoInputFieldWrapper>
+        </div>
+      </Wrapper>
+    );
+  }
+);
 
 export default HcTextField;

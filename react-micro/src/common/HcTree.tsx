@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactComponent as ArrrowIcon } from "../fonts/images/TreeArrow.svg";
 
 const Wrapper = styled.div`
@@ -33,15 +33,21 @@ const ArrowWrapper = styled.div<{ open: boolean }>`
   margin-right: 10px;
   text-align: center;
 
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+
+  ${(props) =>
+    props.open &&
+    css`
+      transform: rotate(90deg);
+    `};
+
   svg {
-    transition: 1.5s ease all;
     vertical-align: unset;
     path {
       transition: 1.5s ease all;
       fill: ${(props) => (props.open ? "#0E6DFC;" : "#808080")};
     }
-    transform: ${(props) => (props.open ? "rotate(90deg)" : "rotate(0deg)")};
-    transition: 1.5s ease all;
   }
 `;
 

@@ -6,11 +6,17 @@ import HcTabs from "common/HcTabs";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcToggleBtn from "common/HcToggleBtn";
-import HcTextField, { HcSelect, HcTagInput } from "common/HcTextField";
+import HcTextField, {
+  HcSelect,
+  HcTagInput,
+  HcSearchTextField,
+  HcTagNoInput,
+} from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import HcTree from "common/HcTree";
 import HcFilter from "common/HcFilter";
 import HcBottomBar from "common/HcBottomBar";
+import HcPopOver from "common/HcPopOver";
 
 const items = [
   {
@@ -66,13 +72,52 @@ const Home = () => {
 
   /*TagInput */
   const [tags, setTags] = React.useState(["react"]);
+
   /*TagInput */
 
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(false);
   /*BottomBar */
+
+  /*TagInput */
+  const [tags2, setTags2] = React.useState(["react"]);
+  const [inputVal, setInputVal] = React.useState("");
+  /*TagInput */
+
+  /*popOver */
+  const [isPopOver, setIsPopOver] = React.useState(false);
+  /*popOver */
   return (
     <div style={{ width: "inherit" }}>
+      <HcPopOver
+        isPopOver={isPopOver}
+        setIsPopOver={setIsPopOver}
+        titleName="대상자 추가"
+      >
+        <HcSearchTextField
+          titleName="TEXT"
+          name="name"
+          value={inputVal}
+          placeholder="사원 / 부서 검색"
+          onChange={(e) => {
+            const lengthOfInputValue = inputVal.split("").length;
+
+            if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+          }}
+          onKeyDown={(e) => {
+            if (
+              e.key === "Enter" &&
+              inputVal.trim() !== "" /*&& props.tags.length < 4 */
+            ) {
+              setTags2([...tags2, e.currentTarget.value]);
+              setInputVal("");
+            }
+          }}
+        />
+        <br />
+        <HcTagNoInput tags={tags2} setTags={setTags2} />
+      </HcPopOver>
+
       <h2>홈</h2>
       <Counter counter={myCounter} />
       <div>
@@ -123,7 +168,7 @@ const Home = () => {
         </HcButton>
         <HcButton
           onClick={() => {
-            alert("click");
+            setIsPopOver(!isPopOver);
           }}
           styles="secondary"
           style={{ marginRight: "5px" }}
@@ -212,7 +257,29 @@ const Home = () => {
         tags는 입력한 tag Array
       */}
       <HcTagInput titleName="title" tags={tags} setTags={setTags} />
+      <br />
+      <HcSearchTextField
+        titleName="TEXT"
+        name="name"
+        value={inputVal}
+        placeholder="사원 / 부서 검색"
+        onChange={(e) => {
+          const lengthOfInputValue = inputVal.split("").length;
 
+          if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+        }}
+        onKeyDown={(e) => {
+          if (
+            e.key === "Enter" &&
+            inputVal.trim() !== "" /*&& props.tags.length < 4 */
+          ) {
+            setTags2([...tags2, e.currentTarget.value]);
+            setInputVal("");
+          }
+        }}
+      />
+      <br />
+      <HcTagNoInput tags={tags2} setTags={setTags2} />
       <div style={{ height: 10, display: "block" }} />
 
       <HcTree items={items} />
