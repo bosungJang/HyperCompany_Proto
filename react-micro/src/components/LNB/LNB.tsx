@@ -8,11 +8,29 @@ import {
   FolderOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
-
+import { ReactComponent as ArrrowIcon } from "../../fonts/images/LNBArrowIcon.svg";
 import { Menu } from "antd";
+import styled from "styled-components";
 
 const { SubMenu, Item } = Menu;
 const MenuItem = Item;
+
+const ArrowIconWrapper = styled.div`
+  &:hover {
+    svg {
+      circle {
+        fill: #a7a7a7;
+      }
+    }
+  }
+  &:active {
+    svg {
+      circle {
+        fill: #000000;
+      }
+    }
+  }
+`;
 
 interface LNBProps {
   openSideBar: boolean;
@@ -147,15 +165,15 @@ const LNB = (props: LNBProps) => {
               : () => props.closeNav()
           }
         >
-          <img
-            src={process.env.PUBLIC_URL + "/images/Group 214.png"}
-            alt="Group"
+          <ArrowIconWrapper
             id={
               props.openSideBar === false
                 ? "LNB_button_close"
                 : "LNB_button_open"
             }
-          />
+          >
+            <ArrrowIcon />
+          </ArrowIconWrapper>
         </div>
       </div>
     </div>

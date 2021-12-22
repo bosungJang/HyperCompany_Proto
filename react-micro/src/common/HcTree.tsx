@@ -32,16 +32,9 @@ const ArrowWrapper = styled.div<{ open: boolean }>`
   vertical-align: middle;
   margin-right: 10px;
   text-align: center;
-
   transform: rotate(0deg);
-  transition: transform 0.2s ease;
-
-  ${(props) =>
-    props.open &&
-    css`
-      transform: rotate(90deg);
-    `};
-
+  transition: all 0.3s ease-out;
+  transform: ${(props) => (props.open ? `rotate(90deg)` : "")};
   svg {
     vertical-align: unset;
     path {

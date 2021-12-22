@@ -14,9 +14,9 @@ import HcTextField, {
 } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import HcTree from "common/HcTree";
-import HcFilter from "common/HcFilter";
 import HcBottomBar from "common/HcBottomBar";
 import HcPopOver from "common/HcPopOver";
+import { ToastContext } from "common/Toast";
 
 const items = [
   {
@@ -87,6 +87,11 @@ const Home = () => {
   /*popOver */
   const [isPopOver, setIsPopOver] = React.useState(false);
   /*popOver */
+
+  /*Toast */
+  const { message } = React.useContext(ToastContext);
+  /*Toast */
+
   return (
     <div style={{ width: "inherit" }}>
       <HcPopOver
@@ -158,7 +163,7 @@ const Home = () => {
         </HcButton>
         <HcButton
           onClick={() => {
-            alert("click");
+            message("TOAST POPUP");
           }}
           styles="primary"
           style={{ marginRight: "5px" }}

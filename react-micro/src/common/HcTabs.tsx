@@ -12,6 +12,7 @@ const ActiveLine = styled.div<{ width: number; offset: number }>`
   transform: translateX(${(p) => `${p.offset}px`});
   background: #257cff;
   transition: all 350ms cubic-bezier(0.15, 0.3, 0.25, 1);
+  margin-top -2.5px;
 `;
 
 const TabList = styled.ul`
@@ -29,11 +30,7 @@ const TabItem = styled.li<{ size: string }>`
   font-weight: normal;
   color: #5f5f5f;
   text-align: center;
-
-  margin-right: 30px;
-  &: last-child {
-    margin-right: 0px;
-  }
+  border-bottom: 1px solid #cecece;
 
   ${(props) => props.size}
 
@@ -50,7 +47,7 @@ interface IProps {
 const handleSizeType = (size: string) => {
   switch (size) {
     case "small":
-      return "min-width: 60px; height: 19px; font-size: 13px; padding: 0 20px; padding-bottom: 8px;";
+      return "min-width: 60px; height: 28px; font-size: 13px; padding: 0 20px; padding-bottom: 8px;";
     default:
       return "min-width: 80px; height: 30px; font-size: 16px; padding: 0 20px; padding-bottom: 10px;";
   }

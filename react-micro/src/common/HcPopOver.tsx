@@ -12,11 +12,17 @@ const Wrapper = styled.div`
   transition: all 0.3s ease-out;
   &.open {
     width: 574px;
+    div {
+      opacity: 1;
+    }
   }
 
   &.close {
     width: 0px;
     visibility: hidden;
+    div {
+      opacity: 0;
+    }
   }
 `;
 const Mask = styled.div`

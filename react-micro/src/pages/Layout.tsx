@@ -6,6 +6,7 @@ import LNB from "components/LNB/LNB";
 import { getCookie, setCookie } from "common/Storage";
 
 import styled from "styled-components";
+import ToastProvider from "common/Toast";
 
 const Mask = styled.div`
   position: fixed;
@@ -97,7 +98,9 @@ const Layout = () => {
                 }
           }
         >
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
           {openGNBBar ? <Mask /> : null}
         </div>
       </div>
