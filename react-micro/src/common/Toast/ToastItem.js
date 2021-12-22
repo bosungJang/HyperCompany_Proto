@@ -24,6 +24,9 @@ const ToastItemWrapper = styled.div`
 `;
 const ExitIconWrapper = styled.div`
   float: right;
+  svg {
+    cursor: pointer;
+  }
 
   &:hover {
     svg {
@@ -65,7 +68,7 @@ const ToastItem = ({ message, clear }) => {
         setIsShow(false);
         clearTimeout(timer.current);
         clear();
-      }, 100000);
+      }, 3000);
     }
   }, [isShow, clear]);
 
@@ -75,6 +78,7 @@ const ToastItem = ({ message, clear }) => {
         <AnimatedToastItem style={style}>
           <span>{message}</span>
           <ExitIconWrapper>
+            <span>실행 취소</span>
             <ExitIcon
               onClick={() => {
                 setIsShow(false);
