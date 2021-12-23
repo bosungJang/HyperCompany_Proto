@@ -109,10 +109,22 @@ td {
   color: #1c1c1c;
 }
 tr:hover {
-  background-color: #e9f2ff;
+  background-color: #eff5ff;
   transition: all 0.3s ease;
 }
-thead {
+tr:active {
+  background-color: #cee2ff;
+  transition: all 0.3s ease;
+}
+thead > tr:hover {
+  background-color: #e0e0e0;
+  transition: all 0.3s ease;
+}
+thead > tr:active {
+  background-color: #cecece;
+  transition: all 0.3s ease;
+}
+thead > tr {
   height: 32px;
   background-color: #ededed;
   font-family: Noto Sans CJK KR;

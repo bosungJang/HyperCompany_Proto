@@ -4,7 +4,7 @@ import styled from "styled-components";
 const FilterContainer = styled.div`
   position: relative;
   width: 1460px;
-  height: 325px;
+  height: 192px;
   margin: 20px;
   block: inline-block;
   background: #ffffff;
@@ -22,9 +22,7 @@ const FilterObj = styled.div`
   background: #f4f4f4;
   border-radius: 6px;
 `;
-// interface filterClose {
-//   onClick?: Function;
-// }
+
 const FilterClose = styled.svg`
   top: 8.4px;
   left: 1381px;
@@ -46,26 +44,30 @@ const FilterText = styled.div`
 
 const FilterAdd = styled.button`
   position: absolute;
-  width: 97px;
-  height: 40px;
-  left: 1343px;
-  top: 265px;
+  width: 86px;
+  height: 32px;
+  left: 1344px;
+  bottom: 20px;
+  top: 142px;
   background: #ffffff;
   border: 1px solid #a7a7a7;
   box-sizing: border-box;
   border-radius: 4px;
+  padding-left: 14px;
   font-family: Noto Sans CJK KR;
   font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+
   text-transform: uppercase;
   color: #000000;
 `;
 export default function HcFilter() {
-  let [filterObjArray, setFilterObjArray]: any[] = useState([0]);
-  const [num, setnum] = useState(1);
+  let [filterObjArray, setFilterObjArray]: any[] = useState([1]);
+  const [num, setnum] = useState(2);
   const onAddButtonClick = () => {
     let prev = [...filterObjArray];
     console.log("num :" + num);
@@ -75,21 +77,31 @@ export default function HcFilter() {
   };
   const onDeleteButtonclick = (i: number, e: any) => {
     let prev = [...filterObjArray];
-
-    if (prev.includes(i) == true) {
-      setFilterObjArray(prev.splice(prev.indexOf(i), 1));
+    console.log("before delete :" + filterObjArray);
+    for (let j = 0; j < prev.length; j++) {
+      if (prev[j] === i) {
+        setFilterObjArray(prev.splice(j, 1));
+      }
     }
-    console.log("array:" + filterObjArray);
+
+    console.log("after delete:" + filterObjArray);
     console.log("clicked" + i + "obj");
     console.log("splice:" + prev.splice(prev.indexOf(i), 1));
     e.preventDefault();
   };
+
   return (
-    <FilterContainer>
-      {filterObjArray.includes(0) ? (
-        <div key={0}>
+    <FilterContainer
+      style={
+        filterObjArray.length > 1
+          ? { height: 192 + 114 * (filterObjArray.length - 1) }
+          : {}
+      }
+    >
+      {/* {filterObjArray.includes(1) ? (
+        <div key={1}>
           <FilterObj>
-            <div key={0} onClick={(e) => onDeleteButtonclick(0, e)}>
+            <div key={1} onClick={(e) => onDeleteButtonclick(1, e)}>
               <FilterClose>
                 <svg
                   width="20"
@@ -121,10 +133,15 @@ export default function HcFilter() {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
+
       {/* {filterObjArray} */}
+
       {filterObjArray.map((i: number) => (
-        <div key={i} style={{ marginTop: 114 * i }}>
+        <div
+          key={i}
+          style={filterObjArray.length > 1 ? { marginTop: 114 * (i - 1) } : {}}
+        >
           <FilterObj>
             <div key={i} onClick={(e) => onDeleteButtonclick(i, e)}>
               <FilterClose>
@@ -156,7 +173,16 @@ export default function HcFilter() {
           </FilterObj>
         </div>
       ))}
-      <FilterAdd onClick={onAddButtonClick}>필터 추가</FilterAdd>
+      <FilterAdd
+        style={
+          filterObjArray.length > 1
+            ? { top: 142 + 114 * (filterObjArray.length - 1) }
+            : {}
+        }
+        onClick={onAddButtonClick}
+      >
+        필터 추가
+      </FilterAdd>
     </FilterContainer>
   );
 }
