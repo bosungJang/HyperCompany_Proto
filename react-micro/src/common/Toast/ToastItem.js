@@ -78,7 +78,6 @@ const ToastItem = ({ message, clear }) => {
         <AnimatedToastItem style={style}>
           <span>{message}</span>
           <ExitIconWrapper>
-            <span>실행 취소</span>
             <ExitIcon
               onClick={() => {
                 setIsShow(false);

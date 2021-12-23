@@ -155,7 +155,7 @@ export const HcSelects: React.FC<SelectsIProps> = ({ titleName, ...props }) => {
   );
 };
 /*HcSearchInput */
-const SearchIcon = styled.span`
+const SearchIcon = styled.div`
   position: absolute;
   margin-left: 9px;
   margin-top: 12px;
@@ -188,7 +188,7 @@ export const HcSearchTextField: React.FC<SearchInputIProps> = ({
   return (
     <Wrapper>
       <Title required={props.required}>{titleName}</Title>
-      <div style={{ display: "relative" }}>
+      <div style={{ position: "relative" }}>
         <SearchIcon>
           <IconSearch />
         </SearchIcon>

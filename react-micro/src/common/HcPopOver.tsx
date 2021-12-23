@@ -47,7 +47,9 @@ const HeaderWrapper = styled.div`
 `;
 
 const ChildWrapper = styled.div`
-  height: 100%;
+  height: 90%;
+  overflow: auto;
+  margin-right: -10px;
 `;
 
 interface PopOverIProps {
