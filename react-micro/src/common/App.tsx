@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, About, Posts, Table, Test } from "pages";
+import { Home, About, Posts, Table, Test, Finance } from "pages";
 
 class App extends Component {
   render() {
     return (
       <div
         style={{
-          backgroundColor: " white",
+          //backgroundColor: " white",
           width: "95rem",
           display: "inline-block",
           textAlign: "initial",
@@ -23,6 +23,7 @@ class App extends Component {
         <Route path="/posts" component={Posts} />
         <Route path="/table" component={Table} />
         <Route path="/test" component={Test} />
+        <Route path="/finance" component={Finance} />
       </div>
     );
   }

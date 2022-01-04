@@ -8,9 +8,11 @@ export const ToastContext = createContext();
 const ToastProvider = ({ children }) => {
   const [toastList, setToastList] = useState({});
 
-  const message = (newMessage) => {
-    setToastList((prevState) => ({ ...prevState, [uniqid()]: newMessage }));
-    console.log("토스트 리스트", toastList);
+  const message = (newMessage, cancelAction) => {
+    setToastList((prevState) => ({
+      ...prevState,
+      [uniqid()]: { message: newMessage, cancelAction: cancelAction },
+    }));
   };
 
   const clear = (id) =>

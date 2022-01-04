@@ -101,6 +101,9 @@ const OpenSideBar = () => {
         <NavLink exact to="/table" activeClassName="menu_selected">
           <MenuItem key="2-2"> item2-2</MenuItem>
         </NavLink>
+        <NavLink exact to="/finance" activeClassName="menu_selected">
+          <MenuItem key="2-3"> item2-3</MenuItem>
+        </NavLink>
       </SubMenu>
     </Menu>
   );

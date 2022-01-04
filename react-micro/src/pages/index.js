@@ -26,3 +26,7 @@ export const Table = loadable(() => import("./Table"), {
 export const Test = loadable(() => import("./TestPage"), {
   fallback: Loading,
 });
+
+export const Finance = loadable(() => import("./Finance"), {
+  fallback: Loading,
+});

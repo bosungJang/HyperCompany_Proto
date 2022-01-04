@@ -24,20 +24,30 @@ const ToastItemWrapper = styled.div`
 `;
 const ExitIconWrapper = styled.div`
   float: right;
-  svg {
+  display: flex;
+  align-items: center;
+
+  div {
+    display: inline-block;
+    margin-right: 17px;
+    margin-left: 11px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    color: #cecece;
     cursor: pointer;
   }
 
-  &:hover {
-    svg {
+  svg {
+    cursor: pointer;
+    &:hover {
       circle {
         transition: fill 0.3s ease;
         fill: #a7a7a7;
       }
     }
-  }
-  &:active {
-    svg {
+    &:active {
       circle {
         transition: fill 0.3s ease;
         fill: #5d5d62;
@@ -48,7 +58,7 @@ const ExitIconWrapper = styled.div`
 
 const AnimatedToastItem = animated(ToastItemWrapper);
 
-const ToastItem = ({ message, clear }) => {
+const ToastItem = ({ message, clear, cancelAction }) => {
   const timer = useRef();
   const [isShow, setIsShow] = useState(false);
 
@@ -68,16 +78,41 @@ const ToastItem = ({ message, clear }) => {
         setIsShow(false);
         clearTimeout(timer.current);
         clear();
-      }, 3000);
+      }, 100000);
     }
   }, [isShow, clear]);
+
+  const cancelClicked = (cancelAction) => {
+    if (cancelAction === "test") {
+      alert("cancelBtn Clicked");
+    }
+  };
 
   return transition(
     (style, isShow) =>
       isShow && (
         <AnimatedToastItem style={style}>
           <span>{message}</span>
+
           <ExitIconWrapper>
+            <div
+              style={{
+                width: 1,
+                height: 15,
+                background: "#838181",
+                display: "inline-block",
+              }}
+            ></div>
+            <div
+              onClick={() => {
+                cancelClicked(cancelAction);
+                setIsShow(false);
+                clearTimeout(timer.current);
+                clear();
+              }}
+            >
+              실행 취소
+            </div>
             <ExitIcon
               onClick={() => {
                 setIsShow(false);

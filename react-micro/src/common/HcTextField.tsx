@@ -4,7 +4,9 @@ import styled, { keyframes } from "styled-components";
 import Select from "react-select";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import { ReactComponent as IconSearch } from "../fonts/images/SearchIcon.svg";
+import { ReactComponent as BackIcon } from "../fonts/images/TitleArrowIcon.svg";
 import HcButton from "./HcButton";
+import { useHistory } from "react-router-dom";
 //import "react-select/dist/react-select.css";
 
 const TextField = styled.input<{ disabled?: boolean }>`
@@ -80,7 +82,9 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   return (
     <Wrapper>
       <Title required={props.required}>{titleName}</Title>
-      <TextField {...props}>{props.children}</TextField>
+      <TextField {...props} autoComplete="off">
+        {props.children}
+      </TextField>
     </Wrapper>
   );
 };
@@ -196,6 +200,7 @@ export const HcSearchTextField: React.FC<SearchInputIProps> = ({
           {...props}
           style={{ paddingLeft: "32px" }}
           placeholder={props.placeholder}
+          autoComplete="off"
         >
           {props.children}
         </TextField>
@@ -477,5 +482,49 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
     );
   }
 );
+
+/*HcTitleText */
+const TitleFieldWrapper = styled.div`
+  min-width: 433px;
+  //height: 120px;
+  background: #ffffff;
+  border-radius: 10px;
+  display: table-cell;
+  vertical-align: middle;
+`;
+
+const TitleField = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  margin-left: 10px;
+  display: inline-block;
+`;
+
+interface TitleTextFieldIProps {
+  titleName: string;
+  isBackIcon: boolean;
+}
+
+export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
+  titleName,
+  ...props
+}) => {
+  const history = useHistory();
+  return (
+    <TitleFieldWrapper>
+      {props.isBackIcon ? (
+        <BackIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+      ) : null}
+      <TitleField>{titleName}</TitleField>
+    </TitleFieldWrapper>
+  );
+};
 
 export default HcTextField;

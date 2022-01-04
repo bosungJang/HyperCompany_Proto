@@ -74,36 +74,47 @@ const Layout = () => {
     <>
       <Header openGNBBar={openGNBBar} setGNB={setGNB} />
       {/* <GNB openGNBBar={openGNBBar} setGNB={setGNB} />*/}
-      <div style={{ display: "block" }}>
-        <LNB openSideBar={openSideBar} openNav={openNav} closeNav={closeNav} />
-        <div
-          id="main"
-          style={
-            openSideBar === false
-              ? {
-                  marginLeft: 68,
-                  transition: "margin-left .5s",
-                  backgroundColor: "#E5E5E5",
-                  minHeight: "calc(100vh - 4.25rem)",
-                  textAlign: "center",
-                  marginTop: "4.25rem",
-                }
-              : {
-                  marginLeft: 300,
-                  transition: "margin-left .5s",
-                  backgroundColor: "#E5E5E5",
-                  minHeight: "calc(100vh - 4.25rem)",
-                  textAlign: "center",
-                  marginTop: "4.25rem",
-                }
-          }
-        >
-          <ToastProvider>
+      <ToastProvider>
+        <div style={{ display: "block", backgroundColor: "#E5E5E5" }}>
+          <LNB
+            openSideBar={openSideBar}
+            openNav={openNav}
+            closeNav={closeNav}
+          />
+          <div
+            id="main"
+            style={
+              openSideBar === false
+                ? {
+                    marginLeft: 68,
+                    transition: "margin-left .5s",
+                    backgroundColor: "#E5E5E5",
+                    height: "calc(100vh - 4.25rem)",
+                    textAlign: "center",
+                    marginTop: "4.25rem",
+                    overflow: "auto",
+                    marginRight: "6px",
+                    marginBottom: "6px",
+                  }
+                : {
+                    marginLeft: 300,
+                    transition: "margin-left .5s",
+                    backgroundColor: "#E5E5E5",
+                    height: "calc(100vh - 4.25rem)",
+                    textAlign: "center",
+                    marginTop: "4.25rem",
+                    overflow: "auto",
+                    marginRight: "6px",
+                    marginBottom: "6px",
+                  }
+            }
+          >
             <App />
-          </ToastProvider>
-          {openGNBBar ? <Mask /> : null}
+
+            {openGNBBar ? <Mask /> : null}
+          </div>
         </div>
-      </div>
+      </ToastProvider>
     </>
   );
 };

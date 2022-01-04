@@ -10,14 +10,19 @@ const ToastListWrapper = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding: 20px;
+  //padding: 20px;
 `;
 
 const ToastList = ({ toastList, clear }) => {
   return (
     <ToastListWrapper>
-      {Object.entries(toastList).map(([id, message]) => (
-        <ToastItem message={message} key={id} clear={() => clear(id)} />
+      {Object.entries(toastList).map(([id, { message, cancelAction }]) => (
+        <ToastItem
+          message={message}
+          key={id}
+          clear={() => clear(id)}
+          cancelAction={cancelAction}
+        />
       ))}
     </ToastListWrapper>
   );

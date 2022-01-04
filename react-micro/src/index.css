@@ -49,6 +49,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Noto Sans KR", sans-serif;
+  overflow: hidden;
 }
 ::-webkit-scrollbar {
   width: 6px;
@@ -59,6 +60,6 @@ body {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #ededed;
+  /*background-color: #ededed;*/
   border-radius: 4px;
 }

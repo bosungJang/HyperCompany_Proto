@@ -13,6 +13,7 @@ const BotBarWrapper = styled.div<{ open: boolean }>`
   position: fixed;
   bottom: 0;
   transition: height 1s;
+  z-index: 2;
 `;
 const BtnAreaWrapper = styled.div<{ open: boolean }>`
   margin-left: auto;
