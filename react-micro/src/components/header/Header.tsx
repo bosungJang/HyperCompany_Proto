@@ -5,7 +5,22 @@ import { faTh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OrderedListOutlined } from "@ant-design/icons";
 import GNB from "components/GNB/GNB";
+import styled from "styled-components";
+import HcNavButton from "../../common/HcNavButton";
 
+const IconOnclick = styled.div`
+  width: 68px;
+  height: 68px;
+  position: absolute;
+  background-color: #257cff;
+  text-align: center;
+  &:hover {
+    background-color: #adceff;
+  }
+  &:active {
+    background-color: #0047b1;
+  }
+`;
 interface HeaderProps {
   openGNBBar: boolean;
   setGNB: (open: boolean) => void;
@@ -42,22 +57,29 @@ const Header = (props: HeaderProps) => {
       ref={props.openGNBBar === false ? null : wrapperRef}
     >
       <div className="header_icon">
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 36 36"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => props.setGNB(!props.openGNBBar)}
-          style={{ cursor: "pointer" }}
-        >
-          <rect x="6" y="7" width="24" height="4" rx="2" fill="white" />
-          <rect x="6" y="16" width="24" height="4" rx="2" fill="white" />
-          <rect x="6" y="25" width="24" height="4" rx="2" fill="white" />
-        </svg>
+        <IconOnclick>
+          <svg
+            style={{ marginTop: 19 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="3" y="4" width="24" height="3.5" rx="1.75" fill="white" />
+            <rect
+              x="3"
+              y="13.5"
+              width="24"
+              height="3.5"
+              rx="1.75"
+              fill="white"
+            />
+            <rect x="3" y="23" width="24" height="3.5" rx="1.75" fill="white" />
+          </svg>
+        </IconOnclick>
       </div>
       <div className="header_title">
-        {" "}
         <svg
           width="230"
           height="18"
@@ -145,6 +167,9 @@ const Header = (props: HeaderProps) => {
             <NavLink to="/table" activeStyle={activeStyle}>
               Table
             </NavLink>
+          </li>
+          <li style={{ marginTop: 14, marginRight: 20 }}>
+            <HcNavButton />
           </li>
         </ul>
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./Table.css";
 import styled from "styled-components";
-
+import { TableSelect, TableActionBtn } from "./HcTableComponent";
+import HcCheckBox from "common/HcCheckBox";
 const PageButton = styled.button`
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
@@ -36,9 +37,10 @@ const TableContainer = styled.div`
     background-color: #ededed;
   }
 `;
+
 const HcTable = () => {
   const shortid = require("shortid");
-  const columns = ["id", "name", "mail"];
+  const columns = ["id", "name", "mail", "select", "action"];
 
   const data = Array(103)
     .fill(undefined)
@@ -82,6 +84,9 @@ const HcTable = () => {
       range.push(i + 5 * remainder);
     }
   }
+
+  /*CheckBox */
+  const [checkedItem, setCheckedItem] = React.useState(false);
 
   return (
     <div className="table">
@@ -196,9 +201,31 @@ const HcTable = () => {
               .slice(rowsPerPage * (page - 1), page * rowsPerPage)
               .map(({ id, name, mail }) => (
                 <tr style={{ textAlign: "center" }}>
-                  <td>{id}</td>
+                  <td>
+                    {" "}
+                    <HcCheckBox
+                      checked={checkedItem}
+                      onChange={() => {
+                        setCheckedItem(!checkedItem);
+                      }}
+                    />
+                  </td>
                   <td>{name}</td>
                   <td>{mail}</td>
+                  <td>
+                    <TableSelect>
+                      <option value="" hidden>
+                        Type
+                      </option>
+                      <option value="1">one</option>
+                      <option value="2">two</option>
+                      <option value="3">three</option>
+                      <option value="4">four</option>
+                    </TableSelect>
+                  </td>
+                  <td>
+                    <TableActionBtn />
+                  </td>
                 </tr>
               ))}
           </tbody>
