@@ -27,18 +27,6 @@ const ExitIconWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  div {
-    display: inline-block;
-    margin-right: 17px;
-    margin-left: 11px;
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
-    color: #cecece;
-    cursor: pointer;
-  }
-
   svg {
     cursor: pointer;
     &:hover {
@@ -53,6 +41,39 @@ const ExitIconWrapper = styled.div`
         fill: #5d5d62;
       }
     }
+  }
+`;
+
+const CancelBtnWrapper = styled.div`
+  width: 60px;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+  margin-right: 8px;
+  margin-left: 8px;
+  text-align: center;
+  border-radius: 2px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  color: #cecece;
+  cursor: pointer;
+
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: #cecece;
+    color: #ffffff;
+  }
+  &:active {
+    background: #a7a7a7;
+    color: #ffffff;
   }
 `;
 
@@ -103,7 +124,7 @@ const ToastItem = ({ message, clear, cancelAction }) => {
                 display: "inline-block",
               }}
             ></div>
-            <div
+            <CancelBtnWrapper
               onClick={() => {
                 cancelClicked(cancelAction);
                 setIsShow(false);
@@ -112,7 +133,7 @@ const ToastItem = ({ message, clear, cancelAction }) => {
               }}
             >
               실행 취소
-            </div>
+            </CancelBtnWrapper>
             <ExitIcon
               onClick={() => {
                 setIsShow(false);

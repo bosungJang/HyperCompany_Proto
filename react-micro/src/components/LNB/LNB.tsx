@@ -101,8 +101,25 @@ const OpenSideBar = () => {
         <NavLink exact to="/table" activeClassName="menu_selected">
           <MenuItem key="2-2"> item2-2</MenuItem>
         </NavLink>
-        <NavLink exact to="/finance" activeClassName="menu_selected">
+        <NavLink exact to="/fi" activeClassName="menu_selected">
           <MenuItem key="2-3"> item2-3</MenuItem>
+        </NavLink>
+      </SubMenu>
+      <SubMenu
+        key="3"
+        title="인사"
+        icon={
+          <img
+            src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
+            alt="Home_Icon"
+          />
+        }
+      >
+        <NavLink exact to="/hr" activeClassName="menu_selected">
+          <MenuItem key="2-1">인사홈</MenuItem>
+        </NavLink>
+        <NavLink exact to="/hr/appointment" activeClassName="menu_selected">
+          <MenuItem key="2-2">인사발령</MenuItem>
         </NavLink>
       </SubMenu>
     </Menu>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, About, Posts, Table, Test, Finance } from "pages";
+import { Home, About, Posts, Table, Test, Finance, HumanResource } from "pages";
 
 class App extends Component {
   render() {
@@ -23,7 +23,8 @@ class App extends Component {
         <Route path="/posts" component={Posts} />
         <Route path="/table" component={Table} />
         <Route path="/test" component={Test} />
-        <Route path="/finance" component={Finance} />
+        <Route path="/fi" component={Finance} />
+        <Route path="/hr" component={HumanResource} />
       </div>
     );
   }

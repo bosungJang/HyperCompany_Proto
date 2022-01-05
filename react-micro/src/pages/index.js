@@ -30,3 +30,20 @@ export const Test = loadable(() => import("./TestPage"), {
 export const Finance = loadable(() => import("./Finance"), {
   fallback: Loading,
 });
+
+export const HumanResource = loadable(() => import("./HumanResource"), {
+  fallback: Loading,
+});
+
+/*HR START*/
+export const HRHome = loadable(() => import("../components/HR/Home"), {
+  fallback: Loading,
+});
+
+export const HRAppointment = loadable(
+  () => import("../components/HR/Appointment"),
+  {
+    fallback: Loading,
+  }
+);
+/*HR END*/
