@@ -73,8 +73,40 @@ function App() {
   };
   const RootLabel = (
     <div ref={drop}>
-      <div>
-        <h4 style={{ margin: "0" }}>'장 보성'</h4>
+      <div
+        style={{
+          boxShadow:
+            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          border: "1px solid #EDF2F7",
+          borderRadius: "5px",
+          display: "inline-block",
+          color: "black",
+        }}
+      >
+        <h5
+          style={{
+            margin: 0,
+            background: "rgba(255, 246, 165, 0.5)",
+            padding: "0.5rem",
+            borderBottom: "1px solid #eee",
+          }}
+        >
+          {"장 보성"}
+        </h5>
+        <div
+          style={{
+            background: "#F7FAFC",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <img
+            src="https://t.pimg.jp/064/564/785/5/64564785.jpg"
+            style={{ flex: 1, width: 80 }}
+            alt="face"
+          />
+          <p style={{ padding: "0.5rem" }}>{"bosung_jang@tmax.co.kr"}</p>
+        </div>
       </div>
     </div>
   );
@@ -127,7 +159,7 @@ function App() {
       <Tree
         lineHeight="50px"
         lineWidth="1px"
-        lineColor="#E2E8F0"
+        lineColor="#D6D6D6"
         nodePadding="10px"
         lineBorderRadius="5px"
         label={RootLabel}
@@ -150,9 +182,13 @@ interface ILeafNodeProps {
   node: Node;
 }
 const LeafNode: React.FC<ILeafNodeProps> = (props) => {
-  const [, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.NODE, node: props.node },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
+  const opacity = isDragging ? 0.4 : 1;
   const [, drop] = useDrop<DragObjectWithType & { node: Node }, {}, {}>({
     accept: ItemTypes.NODE,
     drop: (item, monitor) => {
@@ -161,7 +197,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
     },
   });
   const Label = (
-    <div ref={drop}>
+    <div ref={drop} style={{ opacity: opacity }}>
       <div
         ref={drag}
         style={{
