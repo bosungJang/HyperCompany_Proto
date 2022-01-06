@@ -7,7 +7,8 @@ const ComponentWrapper = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   display: block;
-  padding: 20px 40px;
+  padding: 40px 20px 20px 40px;
+  width: 1400px;
 `;
 const Table = () => {
   return (

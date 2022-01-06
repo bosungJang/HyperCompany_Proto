@@ -3,6 +3,7 @@ import "./Table.css";
 import styled from "styled-components";
 import { TableSelect, TableActionBtn } from "./HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
+import HcTabs from "common/HcTabs";
 const PageButton = styled.button`
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
@@ -15,17 +16,23 @@ const PageButton = styled.button`
 `;
 const TableContainer = styled.div`
   width: 100%;
-  height: 400px;
+  height: 600px;
   overflow: auto;
-  // overflow-x: scroll;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar-track {
     background: none;
+
+    position: absolute;
   }
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
     background-color: #f5f5f5;
+    display: none;
+    &:hover {
+      display: inline;
+    }
   }
   &::-webkit-scrollbar-thumb {
     background: #cecece;
@@ -39,10 +46,25 @@ const TableContainer = styled.div`
 `;
 
 const HcTable = () => {
+  /*CheckBox */
+  const [checkedItem, setCheckedItem] = React.useState(false);
   const shortid = require("shortid");
-  const columns = ["id", "name", "mail", "select", "action"];
+  const columns = [
+    <HcCheckBox
+      checked={checkedItem}
+      onChange={() => {
+        setCheckedItem(!checkedItem);
+      }}
+    />,
+    "발령 번호",
+    "발령 내용",
+    "발령 인원",
+    "발령 일시",
+    "시행 일시",
+    "액션 버튼",
+  ];
 
-  const data = Array(103)
+  const data = Array(107)
     .fill(undefined)
     .map(() => ({
       id: shortid.generate(),
@@ -51,7 +73,7 @@ const HcTable = () => {
     }));
 
   const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 15;
 
   const pageclick = (num: number) => (event: any) => {
     setPage(num);
@@ -85,21 +107,27 @@ const HcTable = () => {
     }
   }
 
-  /*CheckBox */
-  const [checkedItem, setCheckedItem] = React.useState(false);
-
   return (
     <div className="table">
       <div
         style={{
-          paddingTop: 40,
-          margin: "auto",
-          width: "95%",
+          width: 1320,
         }}
       >
-        <div className="table_Title">인사 발령</div>
-        <div className="table_Subject">발령 현황</div>
-        <button className="btn-15 custom-btn">효과</button>
+        <div className="table_Title">
+          <b>발령 관리</b>
+        </div>
+        {/* <div className="table_Subject">발령 현황</div> */}
+        <div style={{ marginTop: 39 }}>
+          <HcTabs
+            items={[
+              { to: "1", name: "발령 현황" },
+              { to: "2", name: "발령 분석" },
+            ]}
+            size="normal"
+          />
+        </div>
+        {/* <button className="btn-15 custom-btn">효과</button> */}
         <button className="table_buttons_create" style={{ marginRight: 10 }}>
           +생성
         </button>
@@ -191,7 +219,7 @@ const HcTable = () => {
         <table className="table table-hover">
           <thead>
             <tr>
-              {columns.map((column) => (
+              {columns.map((column: any) => (
                 <th key={column}>{column}</th>
               ))}
             </tr>
@@ -202,7 +230,6 @@ const HcTable = () => {
               .map(({ id, name, mail }) => (
                 <tr style={{ textAlign: "center" }}>
                   <td>
-                    {" "}
                     <HcCheckBox
                       checked={checkedItem}
                       onChange={() => {
@@ -210,9 +237,12 @@ const HcTable = () => {
                       }}
                     />
                   </td>
-                  <td>{name}</td>
-                  <td>{mail}</td>
-                  <td>
+                  <td>000001</td>
+                  <td>Tmax Enterprise 인사 이동</td>
+                  <td>5</td>
+                  <td>2021.10.11</td>
+                  <td>2021.10.29</td>
+                  {/* <td>
                     <TableSelect>
                       <option value="" hidden>
                         Type
@@ -222,7 +252,7 @@ const HcTable = () => {
                       <option value="3">three</option>
                       <option value="4">four</option>
                     </TableSelect>
-                  </td>
+                  </td> */}
                   <td>
                     <TableActionBtn />
                   </td>

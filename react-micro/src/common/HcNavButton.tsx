@@ -4,7 +4,7 @@ import styled from "styled-components";
 const GNBcontainer = styled.div`
   width: 40px;
   height: 40px;
-  border-radius: 28px;
+  border-radius: 3px;
   text-align: center;
   background-color: none;
   float: left;

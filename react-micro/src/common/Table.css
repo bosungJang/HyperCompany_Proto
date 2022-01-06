@@ -1,8 +1,8 @@
 .table_buttons_create {
-  background-color: #f941af;
+  background-color: #2d2d31;
   color: white;
   border-radius: 4px;
-  border: 1px solid #f941af !important;
+  border: 1px solid #2d2d31 !important;
   width: 80px;
   height: 36px;
 
@@ -22,15 +22,16 @@
 .table_buttons_create:hover {
   direction: ltr;
   z-index: -1;
-  border: 1px solid #f941af !important;
+  border: 1px solid #a7a7a7 !important;
   box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
     7px 7px 20px 0px rgba(0, 0, 0, 0.212), 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
   transition: all 0.3s ease;
+  background-color: #a7a7a7;
 }
 .table_buttons_create:active {
-  background-color: #12c298;
+  background-color: #000000;
   color: white;
-  border: 1px solid #12c298 !important;
+  border: 1px solid #000000 !important;
   z-index: -1;
 }
 .table_buttons {
@@ -54,10 +55,16 @@
   margin-top: 40px;
 }
 .table_buttons:hover {
-  background-color: #01057a;
+  background-color: #a7a7a7;
   color: white;
-  border-color: #01057a;
-  transition: all 0.9s ease;
+  border-color: #a7a7a7;
+  transition: all 0.3s ease;
+}
+.table_buttons:active {
+  background-color: #838181;
+  color: white;
+  border-color: #838181;
+  transition: all 0.3s ease;
 }
 .table_manage {
   float: right;
@@ -75,7 +82,7 @@
   top: 148px;
 
   font-family: Noto Sans CJK KR;
-  font-style: normal;
+  font-style: 700;
   font-weight: bold;
   font-size: 30px;
   line-height: 44px;
@@ -93,8 +100,9 @@
   margin-top: 12px;
 }
 table {
-  width: 95%;
-  margin: auto;
+  width: 1320px;
+  margin: 0;
+  padding: 0;
 }
 td {
   border-bottom: 1px solid #e0e0e0;

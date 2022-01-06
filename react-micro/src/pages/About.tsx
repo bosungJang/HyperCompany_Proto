@@ -52,7 +52,20 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
       {/* <br />
       <HcNavButton /> */}
       <button onClick={openModal}>click</button>
-      <HcCard />
+      <HcCard
+        title="전체 상품 수"
+        date="주 단위 : 2021.10.11~2021.1"
+        boxStyle="solid"
+      >
+        content
+      </HcCard>
+      <HcCard
+        title="전체 상품 수"
+        date="주 단위 : 2021.10.11~2021.10.17"
+        boxStyle="boxShadow"
+      >
+        content
+      </HcCard>
       <br />
       <HcDatePicker />
       <HcDateRangePicker />
