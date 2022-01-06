@@ -8,7 +8,7 @@ class App extends Component {
       <div
         style={{
           //backgroundColor: " white",
-          width: "95rem",
+          width: "1400px",
           display: "inline-block",
           textAlign: "initial",
           borderRadius: "10px",
