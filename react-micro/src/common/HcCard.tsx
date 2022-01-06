@@ -2,13 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
-  // position: relative;
-  // block: inline-block;
   width: 312px;
   height: 257px;
   background: #ffffff;
   float: left;
-  margin: 20px;
   padding: 20px 24px 20px 24px;
 `;
 
