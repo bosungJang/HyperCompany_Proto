@@ -9,11 +9,10 @@ const Card = styled.div`
   background: #ffffff;
   float: left;
   margin: 20px;
+  padding: 20px 24px 20px 24px;
 `;
 
 const Card_title = styled.div`
-  margin-top: 20px;
-  margin-left: 20px;
   font-family: Noto Sans CJK KR;
   font-style: normal;
   font-size: 16px;
@@ -23,7 +22,7 @@ const Card_title = styled.div`
 
 const Card_date = styled.div`
   margin-top: 8px;
-  margin-left: 25px;
+  margin-left: 1px;
   margin-bottom: 8px;
   font-family: Noto Sans CJK KR;
   font-style: normal;
