@@ -12,10 +12,16 @@ export const ComponentWrapper = styled.div`
   overflow-x: auto;
 `;
 
-export const MultiLayout = styled.div`
-  column-count: 3;
-  column-gap: 50px;
-  column-width: 2px;
+export const MultiLayout = styled.div<{
+  columCnt?: number;
+  columnGap?: string;
+  columnWidth?: string;
+}>`
+  column-count: ${(props) => (props.columCnt != null ? props.columCnt : "3")};
+  column-gap: ${(props) =>
+    props.columnGap != null ? props.columnGap : "50px"};
+  column-width: ${(props) =>
+    props.columnWidth != null ? props.columnWidth : "2px"};
 `;
 
 export const VariableMultiLayout = styled.div`

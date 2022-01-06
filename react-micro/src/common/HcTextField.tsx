@@ -498,7 +498,6 @@ const TitleField = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 28px;
-  margin-left: 10px;
   display: inline-block;
 `;
 
@@ -516,7 +515,7 @@ export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
     <TitleFieldWrapper>
       {props.isBackIcon ? (
         <BackIcon
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", marginRight: "10px" }}
           onClick={() => {
             history.goBack();
           }}
@@ -525,6 +524,25 @@ export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
       <TitleField>{titleName}</TitleField>
     </TitleFieldWrapper>
   );
+};
+
+const MainTitleField = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  display: inline-block;
+`;
+
+interface MainTitleFieldIProps {
+  titleName: string;
+}
+
+export const HcMainTitleField: React.FC<MainTitleFieldIProps> = ({
+  titleName,
+  ...props
+}) => {
+  return <MainTitleField>{titleName}</MainTitleField>;
 };
 
 export default HcTextField;
