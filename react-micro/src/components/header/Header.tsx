@@ -59,23 +59,19 @@ const Header = (props: HeaderProps) => {
       <div className="header_icon">
         <IconOnclick>
           <svg
-            style={{ marginTop: 19 }}
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
+            style={{ marginTop: 23 }}
+            width="24"
+            height="22"
+            viewBox="0 0 24 22"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect x="3" y="4" width="24" height="3.5" rx="1.75" fill="white" />
-            <rect
-              x="3"
-              y="13.5"
-              width="24"
-              height="3.5"
-              rx="1.75"
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0 0.999999C0 0.447714 0.447715 0 1 0H23C23.5523 0 24 0.447715 24 1V2.42222C24 2.97451 23.5523 3.42222 23 3.42222H1C0.447716 3.42222 0 2.97451 0 2.42222V0.999999ZM0 10.2889C0 9.7366 0.447715 9.28889 1 9.28889H23C23.5523 9.28889 24 9.7366 24 10.2889V11.7111C24 12.2634 23.5523 12.7111 23 12.7111H1C0.447716 12.7111 0 12.2634 0 11.7111V10.2889ZM1 18.5778C0.447715 18.5778 0 19.0255 0 19.5778V21C0 21.5523 0.447716 22 1 22H23C23.5523 22 24 21.5523 24 21V19.5778C24 19.0255 23.5523 18.5778 23 18.5778H1Z"
               fill="white"
             />
-            <rect x="3" y="23" width="24" height="3.5" rx="1.75" fill="white" />
           </svg>
         </IconOnclick>
       </div>

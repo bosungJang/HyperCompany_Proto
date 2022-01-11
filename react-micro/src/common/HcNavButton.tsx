@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const GNBcontainer = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 3px;
   text-align: center;
   background-color: none;
@@ -33,10 +33,10 @@ export default function HcNavButton() {
       <div className="navButtons">
         <GNBcontainer>
           <svg
-            style={{ marginTop: 9 }}
-            width="18"
-            height="22"
-            viewBox="0 0 18 22"
+            style={{ marginTop: 8, marginLeft: 10 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -51,10 +51,10 @@ export default function HcNavButton() {
 
         <GNBcontainer>
           <svg
-            style={{ marginTop: 9 }}
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
+            style={{ marginTop: 7, marginLeft: 7 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -67,10 +67,10 @@ export default function HcNavButton() {
 
         <GNBcontainer>
           <svg
-            style={{ marginTop: 9 }}
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
+            style={{ marginTop: 7, marginLeft: 7 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -85,10 +85,10 @@ export default function HcNavButton() {
 
         <GNBcontainer>
           <svg
-            style={{ marginTop: 9 }}
-            width="18"
-            height="22"
-            viewBox="0 0 18 22"
+            style={{ marginTop: 7, marginLeft: 10 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
