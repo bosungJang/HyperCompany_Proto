@@ -52,15 +52,34 @@ const TableContainer = styled.div`
   }
 `;
 const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
-  /*CheckBox */
-  const [checkedItem, setCheckedItem] = React.useState(false);
-  const shortid = require("shortid");
+  let num = 100000;
+  const getId = () => {
+    num = num + 1;
+    return num;
+  };
+  const [checkedItem, setCheckedItem]: any = React.useState([]);
+
+  function checkHandler(checked: Boolean, id: Number) {
+    if (checked == true) {
+      setCheckedItem([...checkedItem, id]);
+    } else {
+      setCheckedItem(checkedItem.filter((i: number) => i != id));
+      // console.log(checkedItem.indexOf(id));
+    }
+  }
+  function checkAllHandler(checked: Boolean) {
+    if (checked) {
+      const ids: Number[] = [];
+      data.forEach((i) => ids.push(i.id));
+      setCheckedItem(ids);
+    } else {
+      setCheckedItem([]);
+    }
+  }
   const columns = [
     <HcCheckBox
-      checked={checkedItem}
-      onChange={() => {
-        setCheckedItem(!checkedItem);
-      }}
+      checked={checkedItem.length > 0 ? true : false}
+      onChange={(e) => checkAllHandler(e.target.checked)}
     />,
     "발령 번호",
     "발령 내용",
@@ -73,9 +92,12 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
   const data = Array(107)
     .fill(undefined)
     .map(() => ({
-      id: shortid.generate(),
-      name: shortid.generate(),
-      mail: shortid.generate(),
+      id: getId(),
+      content: "Tmax Enterprise 인사 이동",
+      hc: Math.floor(Math.random() * 4) + 1,
+      start: "2022.1.10",
+      end: "2022.1.29",
+      action: <TableActionBtn />,
     }));
 
   const [page, setPage] = useState(1);
@@ -216,35 +238,23 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             <tbody>
               {data
                 .slice(rowsPerPage * (page - 1), page * rowsPerPage)
-                .map(({ id, name, mail }) => (
+                .map(({ id, content, hc, start, end, action }) => (
                   <tr style={{ textAlign: "center" }}>
                     <td>
                       <HcCheckBox
-                        checked={checkedItem}
-                        onChange={() => {
-                          setCheckedItem(!checkedItem);
+                        onChange={(e) => {
+                          checkHandler(e.target.checked, id);
                         }}
+                        // checked={checkedItem.indexOf(id) >= 0 ? true : false}
+                        checked={checkedItem.includes(id)}
                       />
                     </td>
-                    <td>000001</td>
-                    <td>Tmax Enterprise 인사 이동</td>
-                    <td>5</td>
-                    <td>2021.10.11</td>
-                    <td>2021.10.29</td>
-                    {/* <td>
-                    <TableSelect>
-                      <option value="" hidden>
-                        Type
-                      </option>
-                      <option value="1">one</option>
-                      <option value="2">two</option>
-                      <option value="3">three</option>
-                      <option value="4">four</option>
-                    </TableSelect>
-                  </td> */}
-                    <td>
-                      <TableActionBtn />
-                    </td>
+                    <td>{id}</td>
+                    <td>{content}</td>
+                    <td>{hc}</td>
+                    <td>{start}</td>
+                    <td>{end}</td>
+                    <td>{action}</td>
                   </tr>
                 ))}
             </tbody>

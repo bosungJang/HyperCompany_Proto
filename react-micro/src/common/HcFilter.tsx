@@ -9,7 +9,7 @@ import HcTextField, {
 } from "common/HcTextField";
 
 const FilterContainer = styled.div`
-  width: 1460px;
+  width: 1320px;
   height: 310px;
   position: relative;
   display: inline-block;
@@ -27,16 +27,16 @@ const AddButton = styled.button`
 
   width: 86px;
   height: 32px;
-  left: 1350px;
+  left: 1200px;
   bottom: 20px;
 `;
 const ObjContainer = styled.div`
-  width: 1410px;
+  width: 1241px;
   height: 94px;
   background: #f4f4f4;
   border-radius: 6px;
   margin-top: 20px;
-  margin-left: 25px;
+  margin-left: 40px;
 `;
 function FilterObj({ obj, onRemove }: any) {
   const { id } = obj;
@@ -46,7 +46,7 @@ function FilterObj({ obj, onRemove }: any) {
     <ObjContainer>
       obj : {id}
       <HcTagInput titleName="title" tags={tags} setTags={setTags} />
-      <div style={{ position: "absolute", marginLeft: 514, marginTop: -55 }}>
+      <div style={{ position: "absolute", marginLeft: 464, marginTop: -55 }}>
         <HcSelect titleName="TEXT" required>
           <option value="" hidden>
             Type
@@ -57,11 +57,11 @@ function FilterObj({ obj, onRemove }: any) {
           <option value="4">Ford</option>
         </HcSelect>
       </div>
-      <div style={{ position: "absolute", marginLeft: 914, marginTop: -27 }}>
+      <div style={{ position: "absolute", marginLeft: 814, marginTop: -27 }}>
         <HcDateRangePicker />
       </div>
       <svg
-        style={{ position: "absolute", marginLeft: 942, marginTop: 10 }}
+        style={{ position: "absolute", marginLeft: 762, marginTop: 10 }}
         onClick={() => onRemove(id)}
         width="20"
         height="21"
