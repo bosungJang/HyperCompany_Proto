@@ -3,10 +3,14 @@ import styled from "styled-components";
 
 const Card = styled.div`
   width: 312px;
-  height: 257px;
+  //height: 257px;
+  height: 296px;
   background: #ffffff;
   float: left;
-  padding: 20px 24px 20px 24px;
+  //padding: 20px 24px 20px 24px;
+  padding: 20px 13px 20px 22px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Card_title = styled.div`
@@ -20,7 +24,7 @@ const Card_title = styled.div`
 const Card_date = styled.div`
   margin-top: 8px;
   margin-left: 1px;
-  margin-bottom: 8px;
+  //margin-bottom: 8px;
   font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: normal;

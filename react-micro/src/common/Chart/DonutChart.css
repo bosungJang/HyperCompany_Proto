@@ -1,0 +1,12 @@
+.recharts-legend-wrapper {
+  left: 179px !important;
+  top: 20px !important;
+}
+
+.recharts-legend-item {
+  margin-bottom: 15px;
+}
+
+.recharts-legend-item:last-child {
+  margin-bottom: 0px;
+}

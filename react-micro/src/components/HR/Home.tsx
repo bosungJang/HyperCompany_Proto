@@ -1,20 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes, Keyframes } from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import { HcTitleTextField, HcMainTitleField } from "common/HcTextField";
-/*
-import {
-  Card,
-  Card_title,
-  Card_date,
-  Card_numberOf,
-  Card_count,
-} from "common/HcCard";
-*/
-import { ReactComponent as ArrrowIcon } from "../../fonts/images/moreArrow.svg";
 
-const MainCompWrapper = styled.p`
+import HcCard from "common/HcCard";
+
+import { ReactComponent as ArrrowIcon } from "../../fonts/images/moreArrow.svg";
+import DonutChart from "common/Chart/DonutChart";
+
+const MainCompWrapper = styled.div`
   width: 648px;
   height: 330px;
   background: #ffffff;
@@ -22,9 +17,20 @@ const MainCompWrapper = styled.p`
   border-radius: 6px;
 
   padding: 20px 24px;
+  float: left;
+  margin-right: 24px;
+  &:last-child {
+    margin-right: 0px;
+  }
 `;
 
-const CardCompWrapper = styled.p``;
+const CardCompWrapper = styled.div`
+  float: left;
+  margin-right: 24px;
+  &:last-child {
+    margin-right: 0px;
+  }
+`;
 
 const MainCompTitleArea = styled.div`
   display: block;
@@ -79,9 +85,96 @@ const CardContentFooter = styled.div`
   }
 `;
 
+const HcCardNumber = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  label {
+    font-weight: 700;
+    font-size: 36px;
+  }
+  span {
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: 10px;
+    color: #ff7070;
+  }
+  svg {
+    margin-left: 6px;
+  }
+`;
+
+const MainContainer = styled.div`
+  margin-top: 18px;
+  display: inline-block;
+`;
+
+const NumLabel = styled.label`
+  font-weight: 700;
+  font-size: 16px;
+`;
+
+const ContLabel = styled.div`
+  margin-left: 7px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2e2e2e;
+  width: 66px;
+  display: inline-block;
+`;
+
+const widthChange = (x: string) => keyframes`
+  from{
+    width: 0px;
+  }
+  to{
+    width: ${x}px
+  }
+`;
+
+const GraphDiv = styled.div<{ width: string; color: string }>`
+  display: inline-block;
+  width: ${(props) => props.width};
+  height: 11px;
+  border-radius: 8px;
+  background: ${(props) => props.color};
+  margin-left: 19px;
+
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-name: ${(props) => widthChange(props.width)};
+  animation-fill-mode: forwards;
+`;
+
+const TagDiv = styled.div`
+  background: #fff4cf;
+  border: 1px solid #ffd752;
+  box-sizing: border-box;
+  border-radius: 14px;
+  width: 56px;
+  height: 19px;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 19px;
+  float: right;
+`;
+const GraphContainer = styled.div`
+  height: 24px;
+  line-height: 19px;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+`;
 interface MatchParams {
   id: string;
 }
+const donutData = [
+  { name: "정규직", value: 700, fill: "#007FF5" },
+  { name: "계약직", value: 300, fill: "#05B1BC" },
+  { name: "임원", value: 200, fill: "#FFCC18" },
+];
 
 const HRHome = ({ match }: RouteComponentProps<MatchParams>) => {
   return (
@@ -92,11 +185,7 @@ const HRHome = ({ match }: RouteComponentProps<MatchParams>) => {
         </div>
         <div className="main_area" style={{ marginTop: 59 }}>
           <HcMainTitleField titleName="체크리스트 현황" />
-          <MultiLayout
-            columCnt={2}
-            columnGap="24px"
-            style={{ marginTop: "18px" }}
-          >
+          <MainContainer>
             <MainCompWrapper>
               <MainCompTitleArea>
                 <label>지연업무</label>
@@ -160,29 +249,134 @@ const HRHome = ({ match }: RouteComponentProps<MatchParams>) => {
                 </CardContent>
               </div>
             </MainCompWrapper>
-          </MultiLayout>
+          </MainContainer>
         </div>
         <div
           className="main_area_2nd"
           style={{ marginTop: "60px", marginBottom: "30px" }}
         >
           <HcMainTitleField titleName="대시보드" />
-          <div style={{ marginTop: "18px" }}>
-            <MultiLayout columCnt={4} columnGap="24px" columnWidth="0">
-              <CardCompWrapper>
-                <div></div>
-              </CardCompWrapper>
-              <CardCompWrapper>
-                <div></div>
-              </CardCompWrapper>
-              <CardCompWrapper>
-                <div></div>
-              </CardCompWrapper>
-              <CardCompWrapper>
-                <div></div>
-              </CardCompWrapper>
-            </MultiLayout>
-          </div>
+          <MainContainer>
+            <CardCompWrapper>
+              <HcCard
+                title="전체 상품 수"
+                date="주 단위 : 2021.10.11 ~ 2021 10.17"
+                boxStyle="boxShadow"
+              >
+                <div
+                  style={{
+                    marginTop: 30,
+                    display: "flex",
+                    flex: 1,
+                    alignItems: "center",
+                  }}
+                >
+                  <HcCardNumber>
+                    <label>321</label>
+                    <span>52개</span>
+
+                    <svg
+                      width="11"
+                      height="8"
+                      viewBox="0 0 11 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.83975 0.602051L10.9193 7.64051H0.760178L5.83975 0.602051Z"
+                        fill="#FF7070"
+                      />
+                    </svg>
+                  </HcCardNumber>
+                </div>
+              </HcCard>
+            </CardCompWrapper>
+            <CardCompWrapper>
+              <HcCard
+                title="Top5  판매 상품"
+                date="주 단위 : 2021.10.11 ~ 2021 10.17"
+                boxStyle="boxShadow"
+              >
+                <div style={{ marginTop: 30 }}>
+                  <GraphContainer>
+                    <NumLabel>1.</NumLabel>
+                    <ContLabel>LTE 요금 A</ContLabel>
+                    <GraphDiv width="100px" color="#013585" />
+                    <TagDiv>2400명</TagDiv>
+                  </GraphContainer>
+                  <GraphContainer>
+                    <NumLabel>2.</NumLabel>
+                    <ContLabel>LTE 요금 B</ContLabel>
+                    <GraphDiv width="81px" color="#007FF5" />
+                    <TagDiv>1900명</TagDiv>
+                  </GraphContainer>
+                  <GraphContainer>
+                    <NumLabel>3.</NumLabel>
+                    <ContLabel>LTE 요금 C</ContLabel>
+                    <GraphDiv width="68px" color="#05B1BC" />
+                    <TagDiv>1700명</TagDiv>
+                  </GraphContainer>
+                  <GraphContainer>
+                    <NumLabel>4.</NumLabel>
+                    <ContLabel>LTE 요금 D</ContLabel>
+                    <GraphDiv width="25px" color="#15D26C" />
+                    <TagDiv>400명</TagDiv>
+                  </GraphContainer>
+                  <GraphContainer>
+                    <NumLabel>5.</NumLabel>
+                    <ContLabel>LTE 요금 E</ContLabel>
+                    <GraphDiv width="15px" color="#FFCC18" />
+                    <TagDiv>200명</TagDiv>
+                  </GraphContainer>
+                </div>
+              </HcCard>
+            </CardCompWrapper>
+            <CardCompWrapper>
+              <HcCard
+                title="계약 유형별 비율"
+                date="기준 : 재직 구성원"
+                boxStyle="boxShadow"
+              >
+                <div style={{ marginTop: 30 }}>
+                  <DonutChart data={donutData} />
+                </div>
+              </HcCard>
+            </CardCompWrapper>
+            <CardCompWrapper>
+              <HcCard
+                title="전체 상품 수"
+                date="주 단위 : 2021.10.11 ~ 2021 10.17"
+                boxStyle="boxShadow"
+              >
+                <div
+                  style={{
+                    marginTop: 30,
+                    display: "flex",
+                    flex: 1,
+                    alignItems: "center",
+                  }}
+                >
+                  <HcCardNumber>
+                    <label>108</label>
+                    <span>52개</span>
+
+                    <svg
+                      width="11"
+                      height="8"
+                      viewBox="0 0 11 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.83975 0.602051L10.9193 7.64051H0.760178L5.83975 0.602051Z"
+                        fill="#FF7070"
+                      />
+                    </svg>
+                  </HcCardNumber>
+                </div>
+              </HcCard>
+            </CardCompWrapper>
+          </MainContainer>
         </div>
       </div>
     </ComponentWrapper>
