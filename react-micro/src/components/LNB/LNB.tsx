@@ -1,7 +1,7 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "./LNB.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import {
   PlusCircleOutlined,
   MailOutlined,
@@ -39,89 +39,113 @@ interface LNBProps {
 }
 
 const testArray = [
-  { icon: "HOME", title: "Home" },
+  { icon: "Home_Icon", title: "Home", path: "/" },
+  { icon: "Team_Icon", title: "About", path: "/about" },
   {
-    icon: "Board",
+    icon: "Knowledge_Icon",
     title: "Board",
-    submenu: [{ icon: "Board1", title: "Board1" }],
+    path: "/test",
+    submenu: [
+      { title: "item2-1", path: "/test" },
+      { title: "item2-2", path: "/table" },
+      { title: "item2-3", path: "/fi" },
+    ],
+  },
+  {
+    icon: "Welfare_Icon",
+    title: "인사",
+    path: "/hr",
+    submenu: [
+      { title: "인사홈", path: "/hr" },
+      { title: "인사발령", path: "/hr/appointment" },
+    ],
   },
 ];
 
 const OpenSideBar = () => {
+  const menuList = testArray.map((menu, index) => {
+    if (menu.submenu == null) {
+      return (
+        <NavLink exact to={String(menu.path)} activeClassName="menu_selected">
+          <Route>
+            {(props) => {
+              const matches = props.location.pathname === String(menu.path);
+              if (matches) {
+                return (
+                  <MenuItem
+                    key={String(menu.path)}
+                    icon={
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/images/" +
+                          menu.icon +
+                          "_Active.png"
+                        }
+                        alt={String(menu.icon)}
+                      />
+                    }
+                  >
+                    {menu.title}
+                  </MenuItem>
+                );
+              } else {
+                return (
+                  <MenuItem
+                    key={String(menu.path)}
+                    icon={
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/images/" +
+                          menu.icon +
+                          ".png"
+                        }
+                        alt={String(menu.icon)}
+                      />
+                    }
+                  >
+                    {menu.title}
+                  </MenuItem>
+                );
+              }
+            }}
+          </Route>
+        </NavLink>
+      );
+    } else {
+      return (
+        <SubMenu
+          key={String(menu.path)}
+          title={String(menu.title)}
+          icon={
+            <img
+              src={process.env.PUBLIC_URL + "/images/" + menu.icon + ".png"}
+              alt={String(menu.icon)}
+            />
+          }
+        >
+          {menu.submenu.map((submenus) => {
+            return (
+              <NavLink
+                exact
+                to={String(submenus.path)}
+                activeClassName="menu_selected"
+              >
+                <MenuItem key="2-1">{submenus.title}</MenuItem>
+              </NavLink>
+            );
+          })}
+        </SubMenu>
+      );
+    }
+  });
   return (
     <Menu
       mode="inline"
       defaultSelectedKeys={[String(window.location.pathname)]}
     >
-      {" "}
-      <NavLink
-        exact
-        to="/"
-        activeClassName="menu_selected"
-        children={
-          <MenuItem
-            key="/"
-            icon={
-              <img
-                src={process.env.PUBLIC_URL + "/images/Home_Icon.png"}
-                alt="Home_Icon"
-              />
-            }
-          >
-            Home
-          </MenuItem>
-        }
-      />
-      <NavLink exact to="/about" activeClassName="menu_selected">
-        <MenuItem
-          key="/about"
-          icon={
-            <img
-              src={process.env.PUBLIC_URL + "/images/Team_Icon.png"}
-              alt="Home_Icon"
-            />
-          }
-        >
-          About
-        </MenuItem>
-      </NavLink>
-      <SubMenu
-        key="2"
-        title="submenu2"
-        icon={
-          <img
-            src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
-            alt="Home_Icon"
-          />
-        }
-      >
-        <NavLink exact to="/test" activeClassName="menu_selected">
-          <MenuItem key="2-1"> item2-1</MenuItem>
-        </NavLink>
-        <NavLink exact to="/table" activeClassName="menu_selected">
-          <MenuItem key="2-2"> item2-2</MenuItem>
-        </NavLink>
-        <NavLink exact to="/fi" activeClassName="menu_selected">
-          <MenuItem key="2-3"> item2-3</MenuItem>
-        </NavLink>
-      </SubMenu>
-      <SubMenu
-        key="3"
-        title="인사"
-        icon={
-          <img
-            src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
-            alt="Home_Icon"
-          />
-        }
-      >
-        <NavLink exact to="/hr" activeClassName="menu_selected">
-          <MenuItem key="2-1">인사홈</MenuItem>
-        </NavLink>
-        <NavLink exact to="/hr/appointment" activeClassName="menu_selected">
-          <MenuItem key="2-2">인사발령</MenuItem>
-        </NavLink>
-      </SubMenu>
+      {menuList}
     </Menu>
   );
 };
@@ -132,28 +156,48 @@ const CloseSideBar = () => {
       mode="inline"
       defaultSelectedKeys={[String(window.location.pathname)]}
     >
-      <MenuItem key="/">
-        <NavLink exact to="/" activeClassName="menu_selected">
-          <img
-            src={process.env.PUBLIC_URL + "/images/Home_Icon.png"}
-            alt="Home_Icon"
-          />
-        </NavLink>
-      </MenuItem>
-      <MenuItem key="/about">
-        <NavLink exact to="/about" activeClassName="menu_selected">
-          <img
-            src={process.env.PUBLIC_URL + "/images/Team_Icon.png"}
-            alt="Home_Icon"
-          />
-        </NavLink>
-      </MenuItem>
-      <MenuItem key="3">
-        <img
-          src={process.env.PUBLIC_URL + "/images/Board_Icon.png"}
-          alt="Home_Icon"
-        />
-      </MenuItem>
+      {testArray.map((menu, index) => {
+        return (
+          <MenuItem key={String(menu.path)}>
+            <NavLink
+              exact
+              to={String(menu.path)}
+              activeClassName="menu_selected"
+            >
+              <Route>
+                {(props) => {
+                  const matches = props.location.pathname === String(menu.path);
+                  if (matches) {
+                    return (
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/images/" +
+                          menu.icon +
+                          "_Active.png"
+                        }
+                        alt={String(menu.icon)}
+                      />
+                    );
+                  } else {
+                    return (
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/images/" +
+                          menu.icon +
+                          ".png"
+                        }
+                        alt={String(menu.icon)}
+                      />
+                    );
+                  }
+                }}
+              </Route>
+            </NavLink>
+          </MenuItem>
+        );
+      })}
     </Menu>
   );
 };

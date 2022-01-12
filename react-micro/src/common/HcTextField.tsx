@@ -112,6 +112,7 @@ const StyledSelect = styled.select`
     white-space: pre;
     min-height: 20px;
     padding: 0px 2px 1px;
+    border-radius: 6px;
   }
   &::-ms-expand {
     display: none;
@@ -286,7 +287,7 @@ export const HcTagInput: React.FC<TagInputIProps> = ({
   const Tag = ({ children, tags, setTags, tagIndex }: TagProps) => {
     return (
       <TagWrapper>
-        {children}{" "}
+        {children}
         <TagDelete
           role="img"
           aria-label="remove-tag"

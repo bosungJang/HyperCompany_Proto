@@ -33,7 +33,11 @@ const items = [
     id: "1",
     title: "parent 1",
     items: [
-      { id: "1-1", title: "child 1-1" },
+      {
+        id: "1-1",
+        title: "child 1-1",
+        items: [{ id: "1-1-1", title: "child 1-1-1" }],
+      },
       { id: "1-2", title: "child 1-2" },
     ],
   },

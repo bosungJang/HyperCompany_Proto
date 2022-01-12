@@ -130,6 +130,7 @@ const HcTree = (props: any) => {
           style={{
             height: "37px",
             lineHeight: "37px",
+            borderBottom: "1px solid #E0E0E0",
           }}
           className="label_wrapper"
         >
