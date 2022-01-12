@@ -44,7 +44,7 @@
 }
 
 body {
-  height: calc(100vh - 4.25rem) !important;
+  height: calc(100vh - 68px) !important;
   margin: 0 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

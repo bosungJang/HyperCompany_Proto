@@ -5,14 +5,14 @@ li {
 /* lnb */
 #lnb_close {
   width: 68px;
-  height: calc(100vh - 4.25rem);
+  height: calc(100vh - 68px);
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   background-color: #ffffff;
   transition: 0.5s;
-  margin-top: 4.25rem;
+  margin-top: 68px;
   font-family: "Noto Sans CJK KR";
 }
 #lnb_close > .menu_wrapper > .ant-menu {
@@ -28,13 +28,6 @@ li {
   margin-bottom: 25px;
 }
 #lnb_close > .menu_wrapper > .ant-menu .menu_selected img {
-  background: conic-gradient(
-    from 90deg at 50% 43.1%,
-    #ffffff 0deg,
-    #d0e3ff 90.74deg,
-    #88b8ff 180.25deg,
-    #257cff 360deg
-  );
 }
 #lnb_close > .menu_wrapper > .ant-menu-inline .ant-menu-item {
   padding-left: 19px !important;
@@ -43,7 +36,7 @@ li {
 /*LNB OPEN */
 #lnb_open {
   width: 300px;
-  height: calc(100vh - 4.25rem);
+  height: calc(100vh - 68px);
   position: absolute;
   top: 0;
   left: 0;
