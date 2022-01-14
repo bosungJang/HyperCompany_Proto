@@ -225,7 +225,14 @@ const HRManagement = () => {
 
               <tbody>
                 {data.map(({ id, content, hc, start, end, action }) => (
-                  <tr style={{ textAlign: "center" }}>
+                  <tr
+                    style={{
+                      textAlign: "center",
+                      backgroundColor: checkedItem.includes(id)
+                        ? "#DFECFF"
+                        : "",
+                    }}
+                  >
                     <td>
                       <HcCheckBox
                         checked={checkedItem.includes(id)}

@@ -337,7 +337,14 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
               {data
                 .slice(rowsPerPage * (page - 1), page * rowsPerPage)
                 .map(({ id, content, hc, start, end, action }) => (
-                  <tr style={{ textAlign: "center" }}>
+                  <tr
+                    style={{
+                      textAlign: "center",
+                      backgroundColor: checkedItem.includes(id)
+                        ? "#DFECFF"
+                        : "",
+                    }}
+                  >
                     <td>
                       <Checkbox
                         checked={checkedItem.includes(id)}
