@@ -46,4 +46,11 @@ export const HRAppointment = loadable(
     fallback: Loading,
   }
 );
+
+export const HRManagement = loadable(
+  () => import("../components/HR/Management"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
