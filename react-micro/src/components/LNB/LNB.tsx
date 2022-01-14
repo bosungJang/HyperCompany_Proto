@@ -57,7 +57,7 @@ const testArray = [
     path: "/hr",
     submenu: [
       { title: "인사홈", path: "/hr" },
-      { title: "인사발령", path: "/hr/appointment" },
+      { title: "발령관리", path: "/hr/appointment" },
       { title: "인사정보관리", path: "/hr/management" },
     ],
   },

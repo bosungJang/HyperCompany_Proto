@@ -164,13 +164,45 @@ const HRManagement = () => {
           }}
           styles="secondary"
           style={{
+            display: checkedItem.length >= 1 ? "none" : "",
             marginLeft: "19px",
             marginTop: "39px",
             marginBottom: "20px",
           }}
           size="medium"
         >
-          + 생성
+          생성
+        </HcButton>
+        <HcButton
+          onClick={() => {
+            console.log();
+          }}
+          styles="line"
+          style={{
+            display: checkedItem.length >= 1 ? "" : "none",
+            marginLeft: "19px",
+            marginTop: "39px",
+            marginBottom: "20px",
+          }}
+          size="medium"
+        >
+          수정
+        </HcButton>
+
+        <HcButton
+          onClick={() => {
+            console.log();
+          }}
+          styles="line"
+          style={{
+            display: checkedItem.length >= 1 ? "" : "none",
+            marginLeft: "10px",
+            marginTop: "39px",
+            marginBottom: "20px",
+          }}
+          size="medium"
+        >
+          삭제
         </HcButton>
         <svg
           width="60"
@@ -178,7 +210,10 @@ const HRManagement = () => {
           viewBox="0 0 60 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          style={{ marginLeft: 780, marginBottom: -8 }}
+          style={{
+            marginLeft: checkedItem.length >= 1 ? 705 : 785,
+            marginBottom: -8,
+          }}
         >
           <path
             d="M41.158 5.422H39.702V11.96H41.158V5.422ZM33.794 7.382H35.53V10.35C34.956 10.378 34.354 10.392 33.794 10.406V7.382ZM38.61 10.098C38.064 10.168 37.504 10.224 36.93 10.266V7.382H38.05V6.234H31.26V7.382H32.408V10.434C31.89 10.448 31.386 10.448 30.924 10.448L31.078 11.624C33.276 11.61 36.174 11.54 38.68 11.134L38.61 10.098ZM34.242 16.832V15.726H41.158V12.534H32.786V13.654H39.73V14.676H32.8V17.966H41.578V16.832H34.242ZM45.5949 11.232H49.5009V10.084H45.5949V7.718H50.0189V6.528H44.1529V15.138H45.1469C47.4429 15.138 49.0249 15.082 50.8309 14.76L50.7049 13.598C49.0529 13.878 47.6109 13.948 45.5949 13.962V11.232ZM52.6369 5.408V10.056H50.2149V11.246H52.6369V18.092H54.0929V5.408H52.6369Z"

@@ -34,7 +34,9 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   white-space: nowrap;
   width: 1px;
 `;
-
+const ContentContainer = styled.div`
+  display: items.to == 1 ?"" : "hidden";
+`;
 const StyledCheckbox = styled.div<{ checked: boolean; disabled?: boolean }>`
   display: inline-block;
   width: 16px;
@@ -225,6 +227,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
   return (
     <ComponentWrapper>
       <div className="table">
+        {/* buttons start */}
         <div
           style={{
             width: 1320,
@@ -233,7 +236,6 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
           <div className="table_Title">
             <b>발령 관리</b>
           </div>
-          {/* <div className="table_Subject">발령 현황</div> */}
           <div style={{ marginTop: 39 }}>
             <HcTabs
               items={[
@@ -243,8 +245,14 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
               size="normal"
             />
           </div>
-          {/* <button className="btn-15 custom-btn">효과</button> */}
-          <button className="table_buttons_create" style={{ marginRight: 10 }}>
+
+          <button
+            className="table_buttons_create"
+            style={{
+              marginRight: 10,
+              display: checkedItem.length == 0 ? "inline" : "none",
+            }}
+          >
             +생성
           </button>
           <button
@@ -324,86 +332,91 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             </svg>
           </button>
         </div>
-        <TableContainer>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                {columns.map((column: any) => (
-                  <th key={column}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data
-                .slice(rowsPerPage * (page - 1), page * rowsPerPage)
-                .map(({ id, content, hc, start, end, action }) => (
-                  <tr
-                    style={{
-                      textAlign: "center",
-                      backgroundColor: checkedItem.includes(id)
-                        ? "#DFECFF"
-                        : "",
-                    }}
-                  >
-                    <td>
-                      <Checkbox
-                        checked={checkedItem.includes(id)}
-                        onChange={(e) => {
-                          checkHandler(e.target.checked, id);
-                        }}
-                      />
-                    </td>
-                    <td>{id}</td>
-                    <td>{content}</td>
-                    <td>{hc}</td>
-                    <td>{start}</td>
-                    <td>{end}</td>
-                    <td>{action}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </TableContainer>
-        <div>
-          <ul>
-            <li style={{ float: "left" }}>
-              <PageButton className="pageButtons" onClick={firstPageClick}>
-                first
-              </PageButton>
-            </li>
-            <li style={{ float: "left" }}>
-              <PageButton className="pageButtons" onClick={prevPageClick}>
-                prev
-              </PageButton>
-            </li>
-            {range.map((item) => (
+        {/* buttons end */}
+        <ContentContainer>
+          <TableContainer>
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  {columns.map((column: any) => (
+                    <th key={column}>{column}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data
+                  .slice(rowsPerPage * (page - 1), page * rowsPerPage)
+                  .map(({ id, content, hc, start, end, action }) => (
+                    <tr
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: checkedItem.includes(id)
+                          ? "#DFECFF"
+                          : "",
+                      }}
+                    >
+                      <td>
+                        <Checkbox
+                          checked={checkedItem.includes(id)}
+                          onChange={(e) => {
+                            checkHandler(e.target.checked, id);
+                          }}
+                        />
+                      </td>
+                      <td>{id}</td>
+                      <td>{content}</td>
+                      <td>{hc}</td>
+                      <td>{start}</td>
+                      <td>{end}</td>
+                      <td>{action}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </TableContainer>
+          <div>
+            {/* pagination start */}
+            <ul>
               <li style={{ float: "left" }}>
-                <PageButton
-                  className="pageButtons"
-                  onClick={pageclick(item)}
-                  style={
-                    item == page
-                      ? { backgroundColor: "lightGray", borderRadius: 55 }
-                      : {}
-                  }
-                >
-                  {item}
+                <PageButton className="pageButtons" onClick={firstPageClick}>
+                  first
                 </PageButton>
               </li>
-            ))}
-            <li style={{ float: "left" }}>
-              <PageButton className="pageButtons" onClick={nextPageClick}>
-                next
-              </PageButton>
-            </li>
-            <li style={{ float: "left" }}>
-              <PageButton className="pageButtons" onClick={lastPageClick}>
-                last
-              </PageButton>
-            </li>
-          </ul>
-          now {page}
-        </div>
+              <li style={{ float: "left" }}>
+                <PageButton className="pageButtons" onClick={prevPageClick}>
+                  prev
+                </PageButton>
+              </li>
+              {range.map((item) => (
+                <li style={{ float: "left" }}>
+                  <PageButton
+                    className="pageButtons"
+                    onClick={pageclick(item)}
+                    style={
+                      item == page
+                        ? { backgroundColor: "lightGray", borderRadius: 55 }
+                        : {}
+                    }
+                  >
+                    {item}
+                  </PageButton>
+                </li>
+              ))}
+              <li style={{ float: "left" }}>
+                <PageButton className="pageButtons" onClick={nextPageClick}>
+                  next
+                </PageButton>
+              </li>
+              <li style={{ float: "left" }}>
+                <PageButton className="pageButtons" onClick={lastPageClick}>
+                  last
+                </PageButton>
+              </li>
+            </ul>
+            now {page}
+          </div>{" "}
+          {/* pagination end */}
+        </ContentContainer>
       </div>
     </ComponentWrapper>
   );
