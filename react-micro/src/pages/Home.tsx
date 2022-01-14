@@ -19,6 +19,8 @@ import HcBottomBar from "common/HcBottomBar";
 import HcPopOver from "common/HcPopOver";
 import { ToastContext } from "common/Toast";
 import styled from "styled-components";
+import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
+import { useTranslation } from "react-i18next";
 
 const ComponentWrapper = styled.div`
   background: #ffffff;
@@ -36,7 +38,20 @@ const items = [
       {
         id: "1-1",
         title: "child 1-1",
-        items: [{ id: "1-1-1", title: "child 1-1-1" }],
+        items: [
+          {
+            id: "1-1-1",
+            title: "child 1-1-1",
+            items: [
+              { id: "1-1-1-1", title: "child 1-1-1-1" },
+              {
+                id: "1-1-1-2",
+                title: "child 1-1-1-2",
+                items: [{ id: "1-1-1-1-1", title: "child 1-1-1-1-1" }],
+              },
+            ],
+          },
+        ],
       },
       { id: "1-2", title: "child 1-2" },
     ],
@@ -56,10 +71,46 @@ const items = [
       },
     ],
   },
+  {
+    id: "3",
+    title: "parent 3",
+  },
+];
+const testArray = [
+  { icon: "Home_Icon", title: "home", path: "/" },
+  { icon: "Team_Icon", title: "About", path: "/about" },
+  {
+    icon: "Knowledge_Icon",
+    title: "Board",
+    path: "/test",
+    submenu: [
+      { title: "item2-1", path: "/test" },
+      { title: "item2-2", path: "/table" },
+      { title: "item2-3", path: "/fi" },
+    ],
+  },
+  {
+    icon: "Welfare_Icon",
+    title: "인사",
+    path: "/hr",
+    submenu: [
+      { title: "인사홈", path: "/hr" },
+      { title: "인사발령", path: "/hr/appointment" },
+    ],
+  },
 ];
 
-const Home = () => {
+interface HomeProps {
+  match: any;
+  setLNBMenu: (menu: LNBArrayProps[]) => void;
+}
+
+const Home = (props: HomeProps) => {
   const myCounter = useCounter();
+
+  React.useEffect(() => {
+    props.setLNBMenu(testArray);
+  }, []);
 
   /*CheckBox */
   const [checkedItem, setCheckedItem] = React.useState(false);
@@ -106,6 +157,10 @@ const Home = () => {
   const { message, cancelAction } = React.useContext(ToastContext);
   /*Toast */
 
+  /*language*/
+  const { t, i18n } = useTranslation();
+  /*language*/
+
   return (
     <>
       <div style={{ width: "inherit" }}>
@@ -140,7 +195,7 @@ const Home = () => {
             <HcTagNoInput tags={tags2} setTags={setTags2} />
           </HcPopOver>
 
-          <HcTitleTextField titleName="인사 발령" isBackIcon={true} />
+          <HcTitleTextField titleName={t("test")} isBackIcon={true} />
           <Counter counter={myCounter} />
           <div>
             <br />
@@ -200,7 +255,7 @@ const Home = () => {
             </HcButton>
             <HcButton
               onClick={() => {
-                alert("click");
+                i18n.changeLanguage("en-US");
               }}
               styles="teriary"
               style={{ marginRight: "5px" }}
@@ -213,7 +268,7 @@ const Home = () => {
               style={{ marginRight: "5px" }}
               size="big"
               onClick={() => {
-                alert("click");
+                i18n.changeLanguage("ko-KR");
               }}
             >
               test

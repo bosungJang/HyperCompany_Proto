@@ -19,12 +19,27 @@ const Mask = styled.div`
   z-index: 999;
 `;
 
+interface LNBArrayProps {
+  icon: string;
+  title: string;
+  path: string;
+  submenu?: ISubmenuProps[];
+}
+
+interface ISubmenuProps {
+  title: string;
+  path: string;
+}
+
 const Layout = () => {
   const [openSideBar, setopenSideBar] = React.useState(true);
   const [openGNBBar, setopenGNBBar] = React.useState(false);
 
+  const [LNBArray, setLNBArray] = React.useState<LNBArrayProps[]>([]);
+
   React.useEffect(() => {
     let sideBarOpen = getCookie("sideBar_open");
+
     if (sideBarOpen != null) {
       if (sideBarOpen === "false") {
         setopenSideBar(false);
@@ -54,6 +69,10 @@ const Layout = () => {
   const setLNB = (open: boolean) => {
     setopenSideBar(open);
   };
+
+  const setLNBMenu = (menu: LNBArrayProps[]) => {
+    setLNBArray(menu);
+  };
   /* SideBar */
 
   /* GNB */
@@ -75,11 +94,18 @@ const Layout = () => {
       <Header openGNBBar={openGNBBar} setGNB={setGNB} />
       {/* <GNB openGNBBar={openGNBBar} setGNB={setGNB} />*/}
       <ToastProvider>
-        <div style={{ display: "block", backgroundColor: "#E5E5E5" }}>
+        <div
+          style={{
+            display: "block",
+            backgroundColor: "#E5E5E5",
+            marginTop: 68,
+          }}
+        >
           <LNB
             openSideBar={openSideBar}
             openNav={openNav}
             closeNav={closeNav}
+            LNBArray={LNBArray}
           />
           <div
             id="main"
@@ -109,7 +135,7 @@ const Layout = () => {
                   }
             }
           >
-            <App />
+            <App setLNBMenu={setLNBMenu} />
 
             {openGNBBar ? <Mask /> : null}
           </div>

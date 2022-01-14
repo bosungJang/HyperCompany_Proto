@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { ReactComponent as ArrrowIcon } from "../fonts/images/TreeArrow.svg";
+import { ReactComponent as DotIcon } from "../fonts/images/depth_dot_normal.svg";
 
 const Wrapper = styled.div`
   max-width: 312px;
@@ -23,23 +24,48 @@ const TitleWrapper = styled.div`
   }
 `;
 
-const ArrowWrapper = styled.div<{ open: boolean }>`
+const arrowRotate = () => keyframes`
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform: rotate(90deg)
+  }
+`;
+
+const arrowRotateReverse = () => keyframes`
+  from{
+    transform: rotate(90deg)
+  }
+  to{
+    transform: rotate(0deg)
+  }
+`;
+
+const ArrowWrapper = styled.div<{ open?: boolean }>`
   width: 20px;
   height: 20px;
-  background: ${(props) => (props.open ? "#CEE2FF" : "#ededed")};
+  //background: ${(props) => (props.open ? "#CEE2FF" : "#ededed")};
+  background: #ededed;
   border-radius: 4px;
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
   text-align: center;
-  transform: rotate(0deg);
-  transition: all 0.3s ease-out;
+
+  // animation-duration: 0.5s;
+  //animation-timing-function: ease-out;
+  // animation-name: ${(props) =>
+    props.open ? arrowRotate() : arrowRotateReverse()};
+  // animation-fill-mode: forwards;
+
   transform: ${(props) => (props.open ? `rotate(90deg)` : "")};
   svg {
     vertical-align: unset;
     path {
       transition: 1.5s ease all;
-      fill: ${(props) => (props.open ? "#0E6DFC;" : "#808080")};
+      // fill: ${(props) => (props.open ? "#0E6DFC;" : "#808080")};
+      fill: #808080;
     }
   }
 `;
@@ -102,9 +128,12 @@ const HcTree = (props: any) => {
   );
 
   function toggleOpen(item: any) {
-    console.log("toggleOpen:", item);
-    //setItems(toggle(items, item));
     setItems(toggle(items));
+
+    console.log(
+      "!!!!!",
+      items.findIndex((i: any) => i.id === "1")
+    );
 
     function toggle(items: any) {
       let result = items.map((i: any) => {
@@ -121,7 +150,7 @@ const HcTree = (props: any) => {
       return result;
     }
   }
-
+  /*
   function Item({ items, style }: any) {
     // console.log('update', new Date().getTime())
     return items.map((item: any) => (
@@ -161,6 +190,76 @@ const HcTree = (props: any) => {
             />
           </div>
         )}
+      </div>
+    ));
+  }
+  */
+  function Item({ items }: any) {
+    //console.log(items);
+    function depthProduct(item: any, depth: number) {
+      return (
+        <div
+          style={
+            item.$open ? { display: "inline-list-item" } : { display: "none" }
+          }
+        >
+          {item.items.map((item: any) => {
+            return (
+              <div>
+                <div
+                  style={{
+                    height: "37px",
+                    lineHeight: "37px",
+                    borderBottom: "1px solid #E0E0E0",
+                    paddingLeft: depth * 30,
+                  }}
+                  className="label_wrapper"
+                >
+                  <span className="expander" style={{ lineHeight: "initial" }}>
+                    {item.items ? (
+                      <ArrowWrapper open={item.$open}>
+                        <ArrrowIcon />
+                      </ArrowWrapper>
+                    ) : (
+                      <ArrowWrapper>
+                        <DotIcon />
+                      </ArrowWrapper>
+                    )}
+                  </span>
+                  {labelSlot(item)}
+                </div>
+                {item.items != null ? depthProduct(item, depth + 1) : null}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    return items.map((item: any) => (
+      <div key={item.id}>
+        <div
+          style={{
+            height: "37px",
+            lineHeight: "37px",
+            borderBottom: "1px solid #E0E0E0",
+          }}
+          className="label_wrapper"
+        >
+          <span className="expander" style={{ lineHeight: "initial" }}>
+            {item.items ? (
+              <ArrowWrapper open={item.$open}>
+                <ArrrowIcon />
+              </ArrowWrapper>
+            ) : (
+              <ArrowWrapper>
+                <DotIcon />
+              </ArrowWrapper>
+            )}
+          </span>
+          {labelSlot(item)}
+        </div>
+        {item.items != null ? depthProduct(item, 1) : null}
       </div>
     ));
   }

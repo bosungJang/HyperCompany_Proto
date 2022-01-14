@@ -11,6 +11,7 @@ import {
 import { ReactComponent as ArrrowIcon } from "../../fonts/images/LNBArrowIcon.svg";
 import { Menu } from "antd";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const { SubMenu, Item } = Menu;
 const MenuItem = Item;
@@ -31,40 +32,28 @@ const ArrowIconWrapper = styled.div`
     }
   }
 `;
+export interface LNBArrayProps {
+  icon: string;
+  title: string;
+  path: string;
+  submenu?: ISubmenuProps[];
+}
+
+export interface ISubmenuProps {
+  title: string;
+  path: string;
+}
 
 interface LNBProps {
   openSideBar: boolean;
   openNav: () => void;
   closeNav: () => void;
+  LNBArray: LNBArrayProps[];
 }
 
-const testArray = [
-  { icon: "Home_Icon", title: "Home", path: "/" },
-  { icon: "Team_Icon", title: "About", path: "/about" },
-  {
-    icon: "Knowledge_Icon",
-    title: "Board",
-    path: "/test",
-    submenu: [
-      { title: "item2-1", path: "/test" },
-      { title: "item2-2", path: "/table" },
-      { title: "item2-3", path: "/fi" },
-    ],
-  },
-  {
-    icon: "Welfare_Icon",
-    title: "인사",
-    path: "/hr",
-    submenu: [
-      { title: "인사홈", path: "/hr" },
-      { title: "인사발령", path: "/hr/appointment" },
-      { title: "인사정보관리", path: "/hr/management" },
-    ],
-  },
-];
-
-const OpenSideBar = () => {
-  const menuList = testArray.map((menu, index) => {
+const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
+  const { t, i18n } = useTranslation();
+  const menuList = LNBArray.map((menu, index) => {
     if (menu.submenu == null) {
       return (
         <NavLink exact to={String(menu.path)} activeClassName="menu_selected">
@@ -79,7 +68,7 @@ const OpenSideBar = () => {
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          "/images/" +
+                          "/images/Icon/" +
                           menu.icon +
                           "_Active.png"
                         }
@@ -87,7 +76,7 @@ const OpenSideBar = () => {
                       />
                     }
                   >
-                    {menu.title}
+                    {t(menu.title)}
                   </MenuItem>
                 );
               } else {
@@ -98,7 +87,7 @@ const OpenSideBar = () => {
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          "/images/" +
+                          "/images/Icon/" +
                           menu.icon +
                           ".png"
                         }
@@ -106,7 +95,7 @@ const OpenSideBar = () => {
                       />
                     }
                   >
-                    {menu.title}
+                    {t(menu.title)}
                   </MenuItem>
                 );
               }
@@ -118,10 +107,12 @@ const OpenSideBar = () => {
       return (
         <SubMenu
           key={String(menu.path)}
-          title={String(menu.title)}
+          title={t(String(menu.title))}
           icon={
             <img
-              src={process.env.PUBLIC_URL + "/images/" + menu.icon + ".png"}
+              src={
+                process.env.PUBLIC_URL + "/images/Icon/" + menu.icon + ".png"
+              }
               alt={String(menu.icon)}
             />
           }
@@ -133,7 +124,7 @@ const OpenSideBar = () => {
                 to={String(submenus.path)}
                 activeClassName="menu_selected"
               >
-                <MenuItem key="2-1">{submenus.title}</MenuItem>
+                <MenuItem key="2-1">{t(submenus.title)}</MenuItem>
               </NavLink>
             );
           })}
@@ -151,13 +142,13 @@ const OpenSideBar = () => {
   );
 };
 
-const CloseSideBar = () => {
+const CloseSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
   return (
     <Menu
       mode="inline"
       defaultSelectedKeys={[String(window.location.pathname)]}
     >
-      {testArray.map((menu, index) => {
+      {LNBArray.map((menu, index) => {
         return (
           <MenuItem key={String(menu.path)}>
             <NavLink
@@ -173,7 +164,7 @@ const CloseSideBar = () => {
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          "/images/" +
+                          "/images/Icon/" +
                           menu.icon +
                           "_Active.png"
                         }
@@ -185,7 +176,7 @@ const CloseSideBar = () => {
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          "/images/" +
+                          "/images/Icon/" +
                           menu.icon +
                           ".png"
                         }
@@ -204,12 +195,30 @@ const CloseSideBar = () => {
 };
 
 const LNB = (props: LNBProps) => {
-  console.log("array", testArray.length);
-  console.log("array1", testArray[0].submenu?.length);
+  React.useEffect(() => {
+    console.log("LNB변경");
+    document.querySelector(".menu_wrapper")?.animate(
+      [
+        // from keyframe
+        {
+          opacity: "0",
+        },
+        // to keyframe
+        {
+          opacity: "1",
+        },
+      ],
+      500
+    );
+  }, [props.LNBArray]);
   return (
     <div id={props.openSideBar === false ? "lnb_close" : "lnb_open"}>
       <div className="menu_wrapper">
-        {props.openSideBar === false ? <CloseSideBar /> : <OpenSideBar />}
+        {props.openSideBar === false ? (
+          <CloseSideBar LNBArray={props.LNBArray} />
+        ) : (
+          <OpenSideBar LNBArray={props.LNBArray} />
+        )}
       </div>
       <div
         className={
