@@ -7,6 +7,7 @@ import { getCookie, setCookie } from "common/Storage";
 
 import styled from "styled-components";
 import ToastProvider from "common/Toast";
+import HcBottomBar from "common/HcBottomBar";
 
 const Mask = styled.div`
   position: fixed;

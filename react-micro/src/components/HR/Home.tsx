@@ -6,7 +6,7 @@ import { HcTitleTextField, HcMainTitleField } from "common/HcTextField";
 
 import HcCard from "common/HcCard";
 
-import { ReactComponent as ArrrowIcon } from "../../fonts/images/moreArrow.svg";
+import { ReactComponent as ArrrowIcon } from "../../resources/images/moreArrow.svg";
 import DonutChart from "common/Chart/DonutChart";
 
 const MainCompWrapper = styled.div`
