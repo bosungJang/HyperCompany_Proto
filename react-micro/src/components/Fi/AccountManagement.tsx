@@ -14,7 +14,14 @@ import HcTextField, {
   HcTagNoInput,
   HcTitleTextField,
   HcTextFieldLabel,
+  Wrapper,
+  Title,
+  HcSearchBtnInputField,
+  TextField,
+  HcTagNoInputObject,
 } from "common/HcTextField";
+import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+import { HcTreePopupFi } from "common/HcPopup";
 
 interface MatchParams {
   id: string;
@@ -36,7 +43,7 @@ const TreeContAreaTitle = styled.div`
   font-weight: 400;
   font-size: 24px;
   text-transform: uppercase;
-  height: 60px;
+  min-height: 60px;
   width: 284px;
   padding: 12px;
 
@@ -137,10 +144,53 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   const [isCreate, setIsCreates] = React.useState(false);
   /*Create */
 
+  /*Modal */
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  /*Modal */
+
+  /*Search */
+  const [searchVal, setsearchVal] = React.useState("");
+  /*Search */
+
+  /*SelectData */
+  const [createData, setcreateData] = React.useState({
+    accountCode: "110003",
+    debitCreditSetup: 1,
+    accountName: "제예금",
+    relatedAccount: "",
+    accountType: 1,
+    enable: "use",
+    tags: [
+      "가수금 현금 입금",
+      "물품 매각 관련 현금 입금",
+      "용역제공 관련 현금 입금",
+    ],
+  });
+  /*SelectData */
+
+  /* Current Data*/
+  const [currentData, setcurrentData] = React.useState({
+    id: "",
+    title: "",
+  });
+  /* Current Data*/
+
   function CreateStatus() {
+    /*TagInput */
+    const [inputVal, setInputVal] = React.useState("");
+    /*TagInput */
     return (
       <>
-        <CreateTreeContAreaTitle>[110001]현금</CreateTreeContAreaTitle>
+        <CreateTreeContAreaTitle>
+          [{createData.accountCode}]{createData.accountName}
+        </CreateTreeContAreaTitle>
         <div
           className="tree_content_area_container"
           style={{
@@ -169,12 +219,18 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               required
               style={{ width: "284px", marginBottom: 20 }}
             >
-              110001
+              {createData.accountCode}
             </HcTextFieldLabel>
-            <HcSelect titleName="차/대변계정설정" required>
-              <option value="1">차변 계정</option>
-              <option value="2">대변 계정</option>
-              <option value="3">차대변 공통 계정</option>
+
+            <HcSelect
+              titleName="차/대변계정설정"
+              required
+              style={{ width: "284px" }}
+              value={createData.debitCreditSetup}
+            >
+              <option value={1}>차변 계정</option>
+              <option value={2}>대변 계정</option>
+              <option value={3}>차대변 공통 계정</option>
             </HcSelect>
           </div>
           <div
@@ -196,19 +252,15 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               }}
               style={{ width: "284px", marginBottom: 20 }}
               required
+              value={createData.accountName}
             />
-            <HcTextFieldLabel
-              titleName="권한계정"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px" }}
-            >
-              [100000]자산
-            </HcTextFieldLabel>
+            <HcSearchBtnInputField
+              titleName="관련계정"
+              required
+              placeholder="관련 계정과목"
+              onClick={openModal}
+              value={createData.relatedAccount}
+            />
           </div>
           <div
             className="first_block"
@@ -218,33 +270,86 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               titleName="계정 유형"
               required
               style={{ width: "284px", marginBottom: 20 }}
+              value={createData.accountType}
             >
               <option value="" hidden>
                 계정 유형
               </option>
-              <option value="1">전체</option>
-              <option value="2">일반 계정</option>
-              <option value="3">차감 계정</option>
+              <option value={1}>전체</option>
+              <option value={2}>일반 계정</option>
+              <option value={3}>차감 계정</option>
             </HcSelect>
-            <HcTextFieldLabel
-              titleName="사용 여부"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px" }}
-            >
-              사용
-            </HcTextFieldLabel>
+            <Wrapper>
+              <Title required={true}>{"사용여부"}</Title>
+              <div style={{ marginTop: "20px" }}>
+                <HcRadioGroup
+                  defaultValue={createData.enable}
+                  onChange={(value) => {
+                    setcreateData((prevState) => ({
+                      ...prevState,
+                      enable: value,
+                    }));
+                    console.log(createData.enable);
+                  }}
+                >
+                  <HcRadioButton value="use">
+                    <span
+                      style={{
+                        marginLeft: "8px",
+                        fontFamily: "Noto Sans KR",
+                        fontSize: "14px",
+                        marginRight: "60px",
+                      }}
+                    >
+                      사용
+                    </span>
+                  </HcRadioButton>
+                  <HcRadioButton value="usenot">
+                    <span
+                      style={{
+                        marginLeft: "8px",
+                        fontFamily: "Noto Sans KR",
+                        fontSize: "14px",
+                      }}
+                    >
+                      사용 안함
+                    </span>
+                  </HcRadioButton>
+                </HcRadioGroup>
+              </div>
+            </Wrapper>
           </div>
         </div>
         <div style={{ display: "block" }}>
           <TreeTagAreaTitle>적요</TreeTagAreaTitle>
-          <HcTagNoInput
-            tags={tags}
-            setTags={setTags}
+          <TextField
+            name="name"
+            value={inputVal}
+            placeholder="적요 입력"
+            onChange={(e) => {
+              const lengthOfInputValue = inputVal.split("").length;
+
+              if (lengthOfInputValue !== 10) {
+                setInputVal(e.currentTarget.value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (
+                e.key === "Enter" &&
+                inputVal.trim() !== "" /*&& props.tags.length < 4 */
+              ) {
+                setcreateData((prevState) => ({
+                  ...prevState,
+                  tags: [...prevState.tags, e.currentTarget.value],
+                }));
+                setInputVal("");
+              }
+            }}
+            style={{ width: "284px" }}
+          />
+          <HcTagNoInputObject
+            tags={createData.tags}
+            setTags={setcreateData}
             style={{
               background: "#FFFFFF",
               width: "936px",
@@ -261,7 +366,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   function NormalStatus() {
     return (
       <>
-        <TreeContAreaTitle>[110001]현금</TreeContAreaTitle>
+        <TreeContAreaTitle>{currentData.title}</TreeContAreaTitle>
         <div
           className="tree_content_area_container"
           style={{
@@ -289,7 +394,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               }}
               style={{ width: "284px", marginBottom: 20 }}
             >
-              110001
+              {currentData.id}
             </HcTextFieldLabel>
             <HcTextFieldLabel
               titleName="차/대변계정설정"
@@ -402,6 +507,8 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               style={{ minHeight: "832px" }}
               isCreate={isCreate}
               setIsCreates={setIsCreates}
+              currentData={currentData}
+              setcurrentData={setcurrentData}
             />
             <div>
               <TreeContArea>
@@ -410,6 +517,30 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             </div>
           </div>
         </div>
+        <HcTreePopupFi
+          open={modalOpen}
+          close={closeModal}
+          header="계정 과목 조회"
+        >
+          <HcSearchTextField
+            name="name"
+            value={searchVal}
+            placeholder="계정 코드 혹은 계정 과목명 검색"
+            style={{ width: "550px" }}
+            onChange={(e) => {
+              const lengthOfInputValue = searchVal.split("").length;
+
+              if (lengthOfInputValue !== 10)
+                setsearchVal(e.currentTarget.value);
+            }}
+            onKeyDown={(e) => {}}
+          />
+
+          <HcTree
+            items={items}
+            style={{ minHeight: "612px", width: "550px", marginTop: "13px" }}
+          />
+        </HcTreePopupFi>
       </ComponentWrapper>
     </>
   );

@@ -103,13 +103,63 @@ const HcTree = (props: any) => {
   const labelSlot =
     props.children instanceof Function
       ? (item: any) => (
-          <ItemLabel /*onClick={() => toggleOpen(item)}*/>
+          <ItemLabel onClick={() => toggleOpen(item)}>
             {props.children(item)}
           </ItemLabel>
         )
       : (item: any) => (
-          <ItemLabel onClick={() => toggleOpen(item)}>{item.title}</ItemLabel>
+          <ItemLabel
+            onClick={() => {
+              toggleOpen(item);
+              if (item.items == null && props.currentData != null) {
+                props.setcurrentData({ id: item.id, title: item.title });
+              }
+            }}
+          >
+            {item.title}
+          </ItemLabel>
         );
+
+  function searchTree(element: any, searchKeyword: string): any {
+    console.log("work?", element, searchKeyword);
+    let result: any = null;
+
+    function loop(element: any, searchKeyword: string): any {
+      if (result == null) {
+        for (var i = 0; i < element.length; i++) {
+          if (String(element[i].id) == String(searchKeyword)) {
+            result = element[i];
+            console.log("match", result);
+            break;
+          } else {
+            if (element[i].items != null) {
+              loop(element[i].items, searchKeyword);
+            }
+          }
+        }
+      }
+    }
+
+    loop(element, searchKeyword);
+
+    return result;
+    /*
+    if (element.title === searchKeyword) {
+      console.log("1st");
+      return element;
+    } else if (element.children != null) {
+      console.log("2nd");
+      var i;
+      var result = null;
+      for (i = 0; result == null && i < element.children.length; i++) {
+        result = searchTree(element.children[i], searchKeyword);
+        console.log("3rd");
+      }
+      return result;
+    }
+    return null;
+    */
+  }
 
   /*
         Optional prepend slot
@@ -145,15 +195,9 @@ const HcTree = (props: any) => {
               if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
             }}
             onKeyDown={(e) => {
-              /*
-            if (
-              e.key === "Enter" &&
-              inputVal.trim() !== "" 
-            ) {
-              setTags2([...tags2, e.currentTarget.value]);
-              setInputVal("");
-            }
-            */
+              if (e.key === "Enter" && inputVal.trim() !== "") {
+                alert(searchTree(items, e.currentTarget.value).title);
+              }
             }}
           />
         </div>

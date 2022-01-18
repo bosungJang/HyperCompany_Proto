@@ -7,9 +7,10 @@ import { ReactComponent as IconSearch } from "../resources/images/SearchIcon.svg
 import { ReactComponent as BackIcon } from "../resources/images/TitleArrowIcon.svg";
 import HcButton from "./HcButton";
 import { useHistory } from "react-router-dom";
+import { Any } from "@react-spring/types";
 //import "react-select/dist/react-select.css";
 
-const TextField = styled.input<{ disabled?: boolean }>`
+export const TextField = styled.input<{ disabled?: boolean }>`
   background: ${(props) => (props.disabled ? "#EDEDED" : "#ffffff")};
   border: 1px solid #cecece;
   box-sizing: border-box;
@@ -26,7 +27,7 @@ const TextField = styled.input<{ disabled?: boolean }>`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   color: ${(props) => (props.disabled ? "#C0C0C0" : "#3c3c3c")};
   padding-left: 11px;
 
@@ -46,7 +47,7 @@ const TextField = styled.input<{ disabled?: boolean }>`
   }
 `;
 
-const Title = styled.div<{ required?: boolean }>`
+export const Title = styled.div<{ required?: boolean }>`
   min-width: 33px;
   height: 21px;
   font-family: Noto Sans KR;
@@ -62,7 +63,7 @@ const Title = styled.div<{ required?: boolean }>`
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: inline-table;
 `;
 
@@ -208,6 +209,7 @@ interface SearchInputIProps {
   onChange?: (e: any) => void;
   required?: boolean;
   placeholder?: string;
+  onClick?: () => void;
 }
 
 export const HcSearchTextField: React.FC<SearchInputIProps> = ({
@@ -226,6 +228,50 @@ export const HcSearchTextField: React.FC<SearchInputIProps> = ({
         <TextField
           {...props}
           style={{ paddingLeft: "32px", ...props.style }}
+          placeholder={props.placeholder}
+          autoComplete="off"
+        >
+          {props.children}
+        </TextField>
+      </div>
+    </Wrapper>
+  );
+};
+
+export const HcSearchBtnInputField: React.FC<SearchInputIProps> = ({
+  titleName,
+  ...props
+}) => {
+  return (
+    <Wrapper>
+      {titleName != null ? (
+        <Title required={props.required}>{titleName}</Title>
+      ) : null}
+      <div style={{ position: "relative" }}>
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            right: 0,
+            marginTop: "8px",
+          }}
+        >
+          <HcButton
+            onClick={() => {
+              if (props.onClick) {
+                props.onClick();
+              }
+            }}
+            styles="line"
+            style={{ marginRight: "5px" }}
+            size="small"
+          >
+            조회
+          </HcButton>
+        </div>
+        <TextField
+          {...props}
+          style={{ paddingLeft: "12px", width: "284px", ...props.style }}
           placeholder={props.placeholder}
           autoComplete="off"
         >
@@ -456,6 +502,96 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
                   (_: any, i: number) => i !== tagIndex
                 );
                 setTags([...updatedTags]);
+              }}
+            >
+              &#10005;
+            </TagDelete>
+          ) : null}
+        </TagWrapperNo>
+      );
+    };
+
+    return (
+      <Wrapper>
+        <div>
+          <NoInputFieldWrapper style={{ ...props.style }}>
+            <div
+              style={{ display: "block", alignItems: "center", height: "100%" }}
+            >
+              {props.tags.length !== 0 &&
+                props.tags.map((tag: string, i: number) => {
+                  return (
+                    <Tag
+                      key={i}
+                      tagIndex={i}
+                      tags={props.tags}
+                      setTags={props.setTags}
+                    >
+                      {tag}
+                    </Tag>
+                  );
+                })}
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                marginRight: 8,
+                marginBottom: 8,
+              }}
+            >
+              {/* 
+              <HcButton
+                onClick={() => {
+                  props.setTags([]);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="small"
+              >
+                전체 취소
+              </HcButton>
+              */}
+            </div>
+          </NoInputFieldWrapper>
+        </div>
+      </Wrapper>
+    );
+  }
+);
+
+interface TagNoInputObjectIProps {
+  tags: string[];
+  setTags: (value: any) => void;
+  style?: CSSProperties;
+  delete?: boolean;
+}
+
+export const HcTagNoInputObject: React.FC<TagNoInputObjectIProps> = React.memo(
+  ({ ...props }) => {
+    interface TagProps {
+      children: React.ReactNode;
+      tags: string[];
+      setTags: (value: any) => void;
+      tagIndex: number;
+    }
+    const Tag = ({ children, tags, setTags, tagIndex }: TagProps) => {
+      return (
+        <TagWrapperNo>
+          {children}{" "}
+          {props.delete === true ? (
+            <TagDelete
+              role="img"
+              aria-label="remove-tag"
+              onClick={(e) => {
+                const updatedTags = tags.filter(
+                  (_: any, i: number) => i !== tagIndex
+                );
+                setTags((prevState: any) => ({
+                  ...prevState,
+                  tags: [...updatedTags],
+                }));
               }}
             >
               &#10005;

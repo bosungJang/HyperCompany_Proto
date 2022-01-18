@@ -238,3 +238,66 @@ export function HcTreePopup(props: any) {
     </>
   );
 }
+
+const PopupContainer2 = styled.div`
+  width: 630px;
+  height: 847px;
+  background: #ffffff;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  position: relative;
+  margin: auto;
+  animation: ${PopupShow} 0.3s;
+  overflow: hidden;
+  padding: 20px 30px;
+`;
+
+const PopupTitle2 = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 33px;
+  color: #303030;
+`;
+export function HcTreePopupFi(props: any) {
+  const { open, close, header } = props;
+
+  return (
+    <div style={open ? styles.openModal : styles.modal}>
+      {open ? (
+        <PopupContainer2>
+          <PopupTitle2> {header}</PopupTitle2>
+          <button
+            onClick={close}
+            style={{
+              top: 18,
+              right: 24,
+              position: "absolute",
+              padding: 0,
+              backgroundColor: "#fff",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.6569 0.343378C11.3097 -0.00375531 10.7469 -0.00375487 10.3998 0.343378L6 4.74315L1.60023 0.343378C1.25309 -0.00375531 0.690279 -0.00375565 0.343146 0.343377C-0.00398638 0.69051 -0.00398644 1.25332 0.343146 1.60046L4.74292 6.00023L0.343146 10.4C-0.00398672 10.7471 -0.00398706 11.31 0.343146 11.6571C0.690279 12.0042 1.25309 12.0042 1.60023 11.6571L6 7.25731L10.3998 11.6571C10.7469 12.0042 11.3097 12.0042 11.6569 11.6571C12.004 11.31 12.004 10.7471 11.6569 10.4L7.25708 6.00023L11.6569 1.60046C12.004 1.25332 12.004 0.69051 11.6569 0.343378Z"
+                fill="#303030"
+              />
+            </svg>
+          </button>
+          <Popup_Text> {props.children}</Popup_Text>
+        </PopupContainer2>
+      ) : null}
+    </div>
+  );
+}

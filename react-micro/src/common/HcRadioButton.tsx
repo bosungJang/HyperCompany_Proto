@@ -65,6 +65,7 @@ export const HcRadioButton: React.FC<ButtonProps> = ({
         type="radio"
         onChange={({ target }) => onChange(target.value)}
         disabled={disabled}
+        style={{ verticalAlign: "middle" }}
       />
       {children}
     </label>

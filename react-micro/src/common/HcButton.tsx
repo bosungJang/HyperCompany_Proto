@@ -170,7 +170,7 @@ const handleSizeType = (size: string) => {
     case "medium":
       return "min-width: 66px; height: 32px;  font-size: 14px; line-height: 0px; padding: 9px 20px;";
     case "small":
-      return "min-width: 48px; height: 24px; font-size: 12px; line-height: 0px; padding: 6px 13px;";
+      return "min-width: 48px; height: 24px; font-size: 11px; line-height: 0px; padding: 6px 13px;";
     default:
       return "min-width: 90px; height: 42px; font-size: 16px; line-height: 0px; padding: 12px 30px;";
   }
