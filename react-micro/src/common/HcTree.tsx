@@ -196,7 +196,8 @@ const HcTree = (props: any) => {
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter" && inputVal.trim() !== "") {
-                alert(searchTree(items, e.currentTarget.value).title);
+                if (searchTree(items, e.currentTarget.value) != null)
+                  alert(searchTree(items, e.currentTarget.value).title);
               }
             }}
           />

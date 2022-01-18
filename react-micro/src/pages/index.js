@@ -73,4 +73,11 @@ export const FiAccountManagement = loadable(
     fallback: Loading,
   }
 );
+
+export const FiCarryOver = loadable(
+  () => import("../components/Fi/CarryOver"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/

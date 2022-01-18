@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
-import { FiHome, FiAccountManagement } from "pages";
+import { FiHome, FiAccountManagement, FiCarryOver } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
 interface FinanceProps {
@@ -19,7 +19,7 @@ const testArray = [
         title: "계정과목관리",
         path: "/fi/basicInfoManagement/accountManagement",
       },
-      { title: "초기이월입력", path: "/fi/basicInfoManagement/" },
+      { title: "초기이월입력", path: "/fi/basicInfoManagement/carryOver" },
     ],
   },
 ];
@@ -29,11 +29,15 @@ const Finance = (props: FinanceProps) => {
     props.setLNBMenu(testArray);
   }, []);
   return (
-    <div>
+    <div style={{ width: "inherit" }}>
       <Route exact path={props.match.url} component={FiHome} />
       <Route
-        path={`${props.match.url}/basicInfoManagement`}
+        path={`${props.match.url}/basicInfoManagement/accountManagement`}
         component={FiAccountManagement}
+      />
+      <Route
+        path={`${props.match.url}/basicInfoManagement/carryOver`}
+        component={FiCarryOver}
       />
     </div>
   );
