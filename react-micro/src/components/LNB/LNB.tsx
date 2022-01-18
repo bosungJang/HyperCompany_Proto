@@ -8,7 +8,7 @@ import {
   FolderOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
-import { ReactComponent as ArrrowIcon } from "../../fonts/images/LNBArrowIcon.svg";
+import { ReactComponent as ArrrowIcon } from "../../resources/images/LNBArrowIcon.svg";
 import { Menu } from "antd";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";

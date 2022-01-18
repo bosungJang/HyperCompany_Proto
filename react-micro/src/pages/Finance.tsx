@@ -1,40 +1,40 @@
 import React from "react";
-import styled from "styled-components";
-import { HcTitleTextField } from "common/HcTextField";
-import OrganizationChart from "common/Chart/OrganizationChart";
-import {
-  ComponentWrapper,
-  MultiLayout,
-  VariableMultiLayout,
-} from "common/HcCommonLayout";
+import { Link, Route } from "react-router-dom";
+import { FiHome, FiAccountManagement } from "pages";
+import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
-const testData =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci vel, viverra egestas ligula.";
-const Finance = () => {
+interface FinanceProps {
+  match: any;
+  setLNBMenu: (menu: LNBArrayProps[]) => void;
+}
+
+const testArray = [
+  { icon: "Home_Icon", title: "재무 회계 홈", path: "/fi" },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "기초 정보 관리",
+    path: "/fi/basicInfoManagement",
+    submenu: [
+      {
+        title: "계정과목관리",
+        path: "/fi/basicInfoManagement/accountManagement",
+      },
+      { title: "초기이월입력", path: "/fi/basicInfoManagement/" },
+    ],
+  },
+];
+
+const Finance = (props: FinanceProps) => {
+  React.useEffect(() => {
+    props.setLNBMenu(testArray);
+  }, []);
   return (
-    <div style={{ width: "inherit" }}>
-      <ComponentWrapper>
-        <HcTitleTextField titleName="경비 청구" isBackIcon={true} />
-      </ComponentWrapper>
-      <ComponentWrapper>
-        <MultiLayout>
-          <p>{testData}</p>
-          <p>{testData}</p>
-          <p>{testData}</p>
-        </MultiLayout>
-      </ComponentWrapper>
-      <ComponentWrapper>
-        <VariableMultiLayout>
-          <p style={{ flexGrow: 1 }}>{testData}</p>
-          <p style={{ flexGrow: 3 }}>{testData}</p>
-          <p style={{ flexGrow: 1 }}>{testData}</p>
-        </VariableMultiLayout>
-      </ComponentWrapper>
-      <ComponentWrapper>
-        <div style={{ width: "100%", textAlign: "center" }}>
-          <OrganizationChart />
-        </div>
-      </ComponentWrapper>
+    <div>
+      <Route exact path={props.match.url} component={FiHome} />
+      <Route
+        path={`${props.match.url}/basicInfoManagement`}
+        component={FiAccountManagement}
+      />
     </div>
   );
 };

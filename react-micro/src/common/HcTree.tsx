@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
-import { ReactComponent as ArrrowIcon } from "../fonts/images/TreeArrow.svg";
-import { ReactComponent as DotIcon } from "../fonts/images/depth_dot_normal.svg";
+import { ReactComponent as ArrrowIcon } from "../resources/images/TreeArrow.svg";
+import { ReactComponent as DotIcon } from "../resources/images/depth_dot_normal.svg";
+import { HcSearchTextField } from "common/HcTextField";
+import { ReactComponent as AddIcon } from "resources/images/Icon_Add.svg";
 
 const Wrapper = styled.div`
-  max-width: 312px;
+  width: 312px;
   min-height: 566px;
   background: #ffffff;
   border: 1px solid #cecece;
   border-radius: 6px;
   padding: 10px 10px;
+  display: inline-block;
 `;
 
 const TitleWrapper = styled.div`
@@ -22,6 +25,7 @@ const TitleWrapper = styled.div`
     font-weight: normal;
     font-size: 16px;
   }
+  overflow: hidden;
 `;
 
 const arrowRotate = () => keyframes`
@@ -52,6 +56,7 @@ const ArrowWrapper = styled.div<{ open?: boolean }>`
   vertical-align: middle;
   margin-right: 10px;
   text-align: center;
+  //float: left;
 
   // animation-duration: 0.5s;
   //animation-timing-function: ease-out;
@@ -70,12 +75,16 @@ const ArrowWrapper = styled.div<{ open?: boolean }>`
   }
 `;
 
-const ItemLabel = styled.span`
+const ItemLabel = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
+  cursor: pointer;
   color: #838383;
+  display: inline-block;
+  max-width: 164px;
+
   :focus {
     color: #000000;
     font-weight: bold;
@@ -84,6 +93,7 @@ const ItemLabel = styled.span`
 
 const HcTree = (props: any) => {
   const [items, setItems] = useState(props.items);
+  const [inputVal, setInputVal] = React.useState("");
 
   /*
         The default slot is also the labelSlot. If the user passes in
@@ -93,7 +103,7 @@ const HcTree = (props: any) => {
   const labelSlot =
     props.children instanceof Function
       ? (item: any) => (
-          <ItemLabel onClick={() => toggleOpen(item)}>
+          <ItemLabel /*onClick={() => toggleOpen(item)}*/>
             {props.children(item)}
           </ItemLabel>
         )
@@ -110,10 +120,44 @@ const HcTree = (props: any) => {
       : () => props.prependSlot;
 
   return (
-    <Wrapper>
+    <Wrapper style={{ ...props.style }}>
       <TitleWrapper>
-        <span>TITLE</span>
+        <span>{props.title}</span>
+        {props.isCreate != null ? (
+          <div
+            style={{ float: "right", marginTop: "2px", cursor: "pointer" }}
+            onClick={() => props.setIsCreates(true)}
+          >
+            <AddIcon />
+          </div>
+        ) : null}
       </TitleWrapper>
+      {props.search ? (
+        <div style={{ marginBottom: "10px", marginLeft: "10px" }}>
+          <HcSearchTextField
+            name="name"
+            value={inputVal}
+            placeholder="계정코드 또는 계정과목명"
+            style={{ width: "276px", height: "36px" }}
+            onChange={(e) => {
+              const lengthOfInputValue = inputVal.split("").length;
+
+              if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+            }}
+            onKeyDown={(e) => {
+              /*
+            if (
+              e.key === "Enter" &&
+              inputVal.trim() !== "" 
+            ) {
+              setTags2([...tags2, e.currentTarget.value]);
+              setInputVal("");
+            }
+            */
+            }}
+          />
+        </div>
+      ) : null}
       <Item
         key="1"
         {...{
@@ -129,11 +173,6 @@ const HcTree = (props: any) => {
 
   function toggleOpen(item: any) {
     setItems(toggle(items));
-
-    console.log(
-      "!!!!!",
-      items.findIndex((i: any) => i.id === "1")
-    );
 
     function toggle(items: any) {
       let result = items.map((i: any) => {
@@ -208,14 +247,22 @@ const HcTree = (props: any) => {
               <div>
                 <div
                   style={{
-                    height: "37px",
+                    minHeight: "37px",
                     lineHeight: "37px",
                     borderBottom: "1px solid #E0E0E0",
                     paddingLeft: depth * 30,
                   }}
                   className="label_wrapper"
                 >
-                  <span className="expander" style={{ lineHeight: "initial" }}>
+                  <div
+                    className="expander"
+                    style={{
+                      lineHeight: "initial",
+                      display: "inline-block",
+                      float: "left",
+                      marginTop: "7px",
+                    }}
+                  >
                     {item.items ? (
                       <ArrowWrapper open={item.$open}>
                         <ArrrowIcon />
@@ -225,7 +272,7 @@ const HcTree = (props: any) => {
                         <DotIcon />
                       </ArrowWrapper>
                     )}
-                  </span>
+                  </div>
                   {labelSlot(item)}
                 </div>
                 {item.items != null ? depthProduct(item, depth + 1) : null}
@@ -240,13 +287,21 @@ const HcTree = (props: any) => {
       <div key={item.id}>
         <div
           style={{
-            height: "37px",
+            minHeight: "37px",
             lineHeight: "37px",
             borderBottom: "1px solid #E0E0E0",
           }}
           className="label_wrapper"
         >
-          <span className="expander" style={{ lineHeight: "initial" }}>
+          <div
+            className="expander"
+            style={{
+              lineHeight: "initial",
+              display: "inline-block",
+              float: "left",
+              marginTop: "7px",
+            }}
+          >
             {item.items ? (
               <ArrowWrapper open={item.$open}>
                 <ArrrowIcon />
@@ -256,7 +311,7 @@ const HcTree = (props: any) => {
                 <DotIcon />
               </ArrowWrapper>
             )}
-          </span>
+          </div>
           {labelSlot(item)}
         </div>
         {item.items != null ? depthProduct(item, 1) : null}

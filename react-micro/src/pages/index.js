@@ -61,3 +61,16 @@ export const HRGroupManage = loadable(
   }
 );
 /*HR END*/
+
+/*Fi START*/
+export const FiHome = loadable(() => import("../components/Fi/Home"), {
+  fallback: Loading,
+});
+
+export const FiAccountManagement = loadable(
+  () => import("../components/Fi/AccountManagement"),
+  {
+    fallback: Loading,
+  }
+);
+/*Fi END*/

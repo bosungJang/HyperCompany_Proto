@@ -34,7 +34,12 @@ class App extends Component<AppProps> {
         <Route path="/posts" component={Posts} />
         <Route path="/table" component={Table} />
         <Route path="/test" component={Test} />
-        <Route path="/fi" component={Finance} />
+        <Route
+          path="/fi"
+          component={(props: any) => (
+            <Finance setLNBMenu={this.props.setLNBMenu} {...props} />
+          )}
+        />
         <Route
           path="/hr"
           component={(props: any) => (

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { animated, useTransition } from "react-spring";
 import HcButton from "common/HcButton";
-import { ReactComponent as ExitIcon } from "../../fonts/images/ExitIcon.svg";
+import { ReactComponent as ExitIcon } from "../../resources/images/ExitIcon.svg";
 
 const ToastItemWrapper = styled.div`
   min-width: 341px;

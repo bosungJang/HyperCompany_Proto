@@ -333,7 +333,7 @@ const Home = (props: HomeProps) => {
         formValue는 input에 입력되는 값 
         tags는 입력한 tag Array
       */}
-          <HcTagInput titleName="title" tags={tags} setTags={setTags} />
+          <HcTagInput titleName="ABCD" tags={tags} setTags={setTags} />
           <br />
           <HcSearchTextField
             titleName="TEXT"
