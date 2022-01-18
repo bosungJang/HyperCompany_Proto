@@ -1,3 +1,12 @@
+@keyframes slide {
+  from {
+    margin-left: -300px;
+  }
+  to {
+    margin-left: 0;
+  }
+}
+
 li {
   list-style: none;
 }

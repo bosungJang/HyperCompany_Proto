@@ -4,6 +4,7 @@ import "./index.css";
 import "devextreme/dist/css/dx.light.css";
 import Root from "./router/Root";
 import reportWebVitals from "./reportWebVitals";
+import "store/lang/i18n";
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 

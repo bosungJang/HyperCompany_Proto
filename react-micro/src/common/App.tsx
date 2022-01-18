@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Home, About, Posts, Table, Test, Finance, HumanResource } from "pages";
+import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
-class App extends Component {
+interface AppProps {
+  setLNBMenu?: (menu: LNBArrayProps[]) => void;
+}
+
+class App extends Component<AppProps> {
   render() {
     return (
       <div
@@ -15,7 +20,13 @@ class App extends Component {
           marginTop: "60px",
         }}
       >
-        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/"
+          component={(props: any) => (
+            <Home setLNBMenu={this.props.setLNBMenu} {...props} />
+          )}
+        />
         <Switch>
           <Route path="/about/:name" component={About} />
           <Route path="/about" component={About} />
@@ -24,7 +35,12 @@ class App extends Component {
         <Route path="/table" component={Table} />
         <Route path="/test" component={Test} />
         <Route path="/fi" component={Finance} />
-        <Route path="/hr" component={HumanResource} />
+        <Route
+          path="/hr"
+          component={(props: any) => (
+            <HumanResource setLNBMenu={this.props.setLNBMenu} {...props} />
+          )}
+        />
       </div>
     );
   }

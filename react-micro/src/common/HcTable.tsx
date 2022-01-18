@@ -15,8 +15,8 @@ const PageButton = styled.button`
   }
 `;
 const TableContainer = styled.div`
-  width: 100%;
-  height: 600px;
+  //   width: 100%;
+  //   height: 600px;
   overflow: auto;
   overflow-x: hidden;
 
@@ -45,7 +45,7 @@ const TableContainer = styled.div`
   }
 `;
 
-const HcTable = () => {
+const HcTable = (height: Number, width: Number) => {
   /*CheckBox */
   const [checkedItem, setCheckedItem] = React.useState(false);
   const shortid = require("shortid");

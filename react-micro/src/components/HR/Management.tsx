@@ -8,6 +8,7 @@ import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
 import { HcTitleTextField } from "common/HcTextField";
 import HcButton from "common/HcButton";
+
 const TreeContainer = styled.div`
   height: 832px;
   width: 312px;
@@ -152,7 +153,7 @@ const HRManagement = () => {
   return (
     <ComponentWrapper>
       <div style={{ display: "block" }}>
-        <div className="title_area">
+        <div className="title_area" style={{ marginTop: 20 }}>
           <HcTitleTextField titleName="인사 정보 관리" isBackIcon={false} />
         </div>
         <TreeContainer>
@@ -171,7 +172,7 @@ const HRManagement = () => {
           }}
           size="medium"
         >
-          생성
+          +생성
         </HcButton>
         <HcButton
           onClick={() => {
@@ -211,8 +212,8 @@ const HRManagement = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{
-            marginLeft: checkedItem.length >= 1 ? 705 : 785,
-            marginBottom: -8,
+            marginLeft: checkedItem.length >= 1 ? 708 : 780,
+            marginBottom: -10,
           }}
         >
           <path
@@ -232,7 +233,7 @@ const HRManagement = () => {
           viewBox="0 0 58 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          style={{ marginLeft: 14, marginBottom: -8 }}
+          style={{ marginLeft: 14, marginBottom: -10 }}
         >
           <path
             d="M39.744 11.918H41.186V5.422H39.744V7.536H37.182V8.698H39.744V11.918ZM38.176 10.588C36.286 9.972 35.194 8.488 35.194 6.892V5.828H33.752V6.892C33.752 8.628 32.646 10.21 30.672 10.854L31.414 11.988C32.898 11.47 33.948 10.448 34.508 9.132C35.04 10.308 36.048 11.246 37.42 11.708L38.176 10.588ZM34.41 16.79V15.712H41.186V12.52H32.954V13.64H39.758V14.648H32.982V17.924H41.62V16.79H34.41ZM50.3829 8.614V9.79H52.6229V12.968H54.0649V5.436H52.6229V8.614H50.3829ZM51.1109 11.428C49.2209 10.77 48.1429 9.202 48.1429 7.62V7.452H50.7749V6.29H44.0129V7.452H46.6869V7.634C46.6869 9.37 45.5529 11.05 43.5929 11.75L44.3349 12.898C45.8329 12.366 46.8969 11.246 47.4569 9.86C47.9889 11.078 48.9969 12.072 50.3969 12.562L51.1109 11.428ZM49.8649 16.972C48.0589 16.972 47.0369 16.524 47.0369 15.698C47.0369 14.872 48.0589 14.424 49.8649 14.424C51.6429 14.424 52.6789 14.872 52.6789 15.698C52.6789 16.524 51.6429 16.972 49.8649 16.972ZM49.8649 13.304C47.2189 13.304 45.5949 14.2 45.5949 15.698C45.5949 17.21 47.2189 18.092 49.8649 18.092C52.4969 18.092 54.1209 17.21 54.1209 15.698C54.1209 14.2 52.4969 13.304 49.8649 13.304Z"

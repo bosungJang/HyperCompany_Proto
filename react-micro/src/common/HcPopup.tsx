@@ -23,6 +23,18 @@ const PopupContainer = styled.div`
   overflow: hidden;
 `;
 
+const TreeContainer = styled.div`
+  width: 315px;
+  height: 526px;
+  background: #ffffff;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  position: relative;
+  margin: auto;
+  margin-top: 500px;
+  overflow: scroll;
+`;
+
 const Popup_Title = styled.div`
   font-family: Noto Sans CJK KR;
   font-style: normal;
@@ -112,6 +124,27 @@ const styles: any = {
     zIndex: 99,
     backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
+  treeModal: {
+    display: "none",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 99,
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+  },
+
+  openTreeModal: {
+    display: "flex",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 99,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
 };
 export function HcPopup(props: any) {
   const { open, close, header } = props;
@@ -169,5 +202,39 @@ export function HcPopup(props: any) {
         </PopupContainer>
       ) : null}
     </div>
+  );
+}
+
+export function HcTreePopup(props: any) {
+  const { open, close, header } = props;
+
+  return (
+    <>
+      <div style={open ? styles.openTreeModal : styles.treeModal}>
+        {open ? (
+          <TreeContainer>
+            {props.children}
+
+            <Popup_Buttons>
+              <HcButton
+                styles="secondary"
+                style={{ marginRight: "12px" }}
+                size="medium"
+              >
+                이동
+              </HcButton>
+              <HcButton
+                styles="line"
+                size="medium"
+                style={{ border: "0.82197px solid #A7A7A7" }}
+                onClick={close}
+              >
+                취소
+              </HcButton>
+            </Popup_Buttons>
+          </TreeContainer>
+        ) : null}
+      </div>
+    </>
   );
 }

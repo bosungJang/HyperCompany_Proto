@@ -1,6 +1,6 @@
 import React from "react";
 // import "./Table.css";
-import HcTable from "common/HcTable";
+import HcTable from "common/HcTableC";
 import styled from "styled-components";
 const ComponentWrapper = styled.div`
   background: #ffffff;

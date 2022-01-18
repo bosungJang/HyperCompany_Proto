@@ -56,7 +56,10 @@ const Header = (props: HeaderProps) => {
       className="header_wrapper"
       ref={props.openGNBBar === false ? null : wrapperRef}
     >
-      <div className="header_icon">
+      <div
+        className="header_icon"
+        onClick={() => props.setGNB(!props.openGNBBar)}
+      >
         <IconOnclick>
           <svg
             style={{ marginTop: 23 }}

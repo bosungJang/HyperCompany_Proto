@@ -53,4 +53,11 @@ export const HRManagement = loadable(
     fallback: Loading,
   }
 );
+
+export const HRGroupManage = loadable(
+  () => import("../components/HR/GroupManagement"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
