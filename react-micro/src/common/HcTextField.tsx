@@ -89,6 +89,7 @@ interface TextFieldIProps {
   name?: string;
   onKeyDown?: (e: any) => void;
   required?: boolean;
+  onChange?: (e: any) => void;
 }
 
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
@@ -150,6 +151,7 @@ interface SelectIProps {
   style?: CSSProperties;
   value?: string | number;
   required?: boolean;
+  onChange?:(e:any)=>void
 }
 export const HcSelect: React.FC<SelectIProps> = ({ titleName, ...props }) => {
   return (

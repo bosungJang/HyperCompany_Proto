@@ -22,6 +22,8 @@ import HcTextField, {
 } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import { HcTreePopupFi } from "common/HcPopup";
+import HcBottomBar from "common/HcBottomBar";
+import HcButton from "common/HcButton";
 
 interface MatchParams {
   id: string;
@@ -160,19 +162,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   /*Search */
 
   /*SelectData */
-  const [createData, setcreateData] = React.useState({
-    accountCode: "110003",
-    debitCreditSetup: 1,
-    accountName: "제예금",
-    relatedAccount: "",
-    accountType: 1,
-    enable: "use",
-    tags: [
-      "가수금 현금 입금",
-      "물품 매각 관련 현금 입금",
-      "용역제공 관련 현금 입금",
-    ],
-  });
+
   /*SelectData */
 
   /* Current Data*/
@@ -182,10 +172,28 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   });
   /* Current Data*/
 
+  /*BottomBar */
+  const [barOpen, setbarOpen] = React.useState(true);
+  /*BottomBar */
+
   function CreateStatus() {
     /*TagInput */
     const [inputVal, setInputVal] = React.useState("");
     /*TagInput */
+    const [createData, setcreateData] = React.useState({
+      accountCode: "110003",
+      debitCreditSetup: 1,
+      accountName: "제예금",
+      relatedAccount: "",
+      accountType: 1,
+      enable: "use",
+      tags: [
+        "가수금 현금 입금",
+        "물품 매각 관련 현금 입금",
+        "용역제공 관련 현금 입금",
+      ],
+    });
+
     return (
       <>
         <CreateTreeContAreaTitle>
@@ -226,7 +234,12 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               titleName="차/대변계정설정"
               required
               style={{ width: "284px" }}
-              value={createData.debitCreditSetup}
+              onChange={(e) => {
+                setcreateData((prevState) => ({
+                  ...prevState,
+                  debitCreditSetup: e.target.value,
+                }));
+              }}
             >
               <option value={1}>차변 계정</option>
               <option value={2}>대변 계정</option>
@@ -244,7 +257,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           >
             <HcTextField
               titleName="계정과목명 *"
-              name="name"
+              name="accountName"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   alert("SUCCESS");
@@ -253,13 +266,18 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               style={{ width: "284px", marginBottom: 20 }}
               required
               value={createData.accountName}
+              onChange={(e) => {
+                setcreateData((prevState) => ({
+                  ...prevState,
+                  accountName: e.target.value,
+                }));
+              }}
             />
             <HcSearchBtnInputField
               titleName="관련계정"
               required
               placeholder="관련 계정과목"
               onClick={openModal}
-              value={createData.relatedAccount}
             />
           </div>
           <div
@@ -271,6 +289,12 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               required
               style={{ width: "284px", marginBottom: 20 }}
               value={createData.accountType}
+              onChange={(e) => {
+                setcreateData((prevState) => ({
+                  ...prevState,
+                  accountType: e.target.value,
+                }));
+              }}
             >
               <option value="" hidden>
                 계정 유형
@@ -340,7 +364,10 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               ) {
                 setcreateData((prevState) => ({
                   ...prevState,
-                  tags: [...prevState.tags, e.currentTarget.value],
+                  tags: [
+                    ...prevState.tags,
+                    (e.target as HTMLTextAreaElement).value,
+                  ],
                 }));
                 setInputVal("");
               }
@@ -542,6 +569,44 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           />
         </HcTreePopupFi>
       </ComponentWrapper>
+      <HcBottomBar open={barOpen}>
+        <div>
+          {isCreate === true ? (
+            <HcButton
+              onClick={() => {
+                openModal();
+              }}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              저장
+            </HcButton>
+          ) : (
+            <HcButton
+              onClick={() => {
+                openModal();
+              }}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              수정
+            </HcButton>
+          )}
+
+          <HcButton
+            onClick={() => {
+              setbarOpen(false);
+            }}
+            styles="line"
+            style={{ marginRight: "5px" }}
+            size="big"
+          >
+            마감
+          </HcButton>
+        </div>
+      </HcBottomBar>
     </>
   );
 };
