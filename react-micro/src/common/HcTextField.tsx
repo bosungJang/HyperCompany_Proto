@@ -151,7 +151,8 @@ interface SelectIProps {
   style?: CSSProperties;
   value?: string | number;
   required?: boolean;
-  onChange?:(e:any)=>void
+  onChange?: (e: any) => void;
+  name: string;
 }
 export const HcSelect: React.FC<SelectIProps> = ({ titleName, ...props }) => {
   return (

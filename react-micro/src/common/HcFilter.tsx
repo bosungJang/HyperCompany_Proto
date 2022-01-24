@@ -47,7 +47,7 @@ function FilterObj({ obj, onRemove }: any) {
       obj : {id}
       <HcTagInput titleName="title" tags={tags} setTags={setTags} />
       <div style={{ position: "absolute", marginLeft: 464, marginTop: -55 }}>
-        <HcSelect titleName="TEXT" required>
+        <HcSelect titleName="TEXT" required name={""} onChange={(e) => {}}>
           <option value="" hidden>
             Type
           </option>

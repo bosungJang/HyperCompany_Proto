@@ -319,7 +319,7 @@ const Home = (props: HomeProps) => {
             </HcRadioGroup>
             <br />
           </div>
-          <HcSelect titleName="TEXT" required>
+          <HcSelect onChange={(e) => {}} titleName="TEXT" required name={""}>
             <option value="" hidden>
               Type
             </option>

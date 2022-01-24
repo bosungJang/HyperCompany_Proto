@@ -233,6 +233,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             <HcSelect
               titleName="차/대변계정설정"
               required
+              name=""
               style={{ width: "284px" }}
               onChange={(e) => {
                 setcreateData((prevState) => ({
@@ -289,6 +290,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               required
               style={{ width: "284px", marginBottom: 20 }}
               value={createData.accountType}
+              name={""}
               onChange={(e) => {
                 setcreateData((prevState) => ({
                   ...prevState,

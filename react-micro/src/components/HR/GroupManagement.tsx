@@ -577,12 +577,13 @@ const HRManagement = () => {
           <HcButton
             onClick={() => {
               setbarOpen(false);
+              setGroupCreate(false);
             }}
             styles="primary"
             style={{ marginRight: "5px" }}
             size="big"
           >
-            닫기
+            확인
           </HcButton>
         </HcBottomBar>
       </CrateContainer>

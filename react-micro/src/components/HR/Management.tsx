@@ -8,6 +8,8 @@ import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
 import { HcTitleTextField } from "common/HcTextField";
 import HcButton from "common/HcButton";
+import { HRInfoDetail } from "pages";
+import { Link, useHistory } from "react-router-dom";
 
 const TreeContainer = styled.div`
   height: 832px;
@@ -102,11 +104,12 @@ const items = [
 ];
 
 const HRManagement = () => {
-  let num = 100000;
+  let num = 2020000;
   const getId = () => {
     num = num + 1;
     return num;
   };
+  const history = useHistory();
   const [checkedItem, setCheckedItem]: any = React.useState([]);
 
   function checkHandler(checked: Boolean, id: Number) {
@@ -132,24 +135,30 @@ const HRManagement = () => {
         onChange={(e) => checkAllHandler(e.target.checked)}
       />
     </div>,
-    "발령 번호",
-    "발령 내용",
-    "발령 인원",
-    "발령 일시",
-    "시행 일시",
-    "액션 버튼",
+    "이름",
+    "사원번호",
+    "법인회사",
+    "조직",
+    "직책",
+    "직위",
+    "입사일",
+    "회사전화",
   ];
 
-  const data = Array(107)
+  const testData = Array(107)
     .fill(undefined)
     .map(() => ({
+      name: "홍길동",
       id: getId(),
-      content: "Tmax Enterprise 인사 이동",
-      hc: Math.floor(Math.random() * 4) + 1,
-      start: "2022.1.10",
-      end: "2022.1.29",
-      action: <TableActionBtn />,
+      company: "티맥스에이엔씨",
+      organization: "AB본부",
+      responsibility: "사원",
+      position: "연구원",
+      telephone: "032-123-4567",
+      entryDate: "2020.01.01",
     }));
+  const [data, setData] = useState(testData);
+
   return (
     <ComponentWrapper>
       <div style={{ display: "block" }}>
@@ -159,28 +168,43 @@ const HRManagement = () => {
         <TreeContainer>
           <HcTree items={items} />
         </TreeContainer>
+        <Link to={"/hr/hrInfoCreate"}>
+          <HcButton
+            onClick={() => {}}
+            styles="secondary"
+            style={{
+              display: checkedItem.length == 1 ? "none" : "",
+              marginLeft: "19px",
+              marginTop: "39px",
+              marginBottom: "20px",
+            }}
+            size="medium"
+          >
+            +생성
+          </HcButton>
+        </Link>
+
         <HcButton
           onClick={() => {
-            console.log();
-          }}
-          styles="secondary"
-          style={{
-            display: checkedItem.length >= 1 ? "none" : "",
-            marginLeft: "19px",
-            marginTop: "39px",
-            marginBottom: "20px",
-          }}
-          size="medium"
-        >
-          +생성
-        </HcButton>
-        <HcButton
-          onClick={() => {
-            console.log();
+            const sendData: any = data.find((e) => e.id == checkedItem[0]);
+            history.push({
+              pathname: "/hr/hrInfoDetail",
+
+              state: {
+                name: sendData.name,
+                employeeNumber: sendData.id,
+                organization: sendData.organization,
+                entryDate: sendData.entryDate,
+                position: sendData.position,
+                responsibility: sendData.responsibility,
+                telePhone: sendData.telephone,
+                company: sendData.company,
+              },
+            });
           }}
           styles="line"
           style={{
-            display: checkedItem.length >= 1 ? "" : "none",
+            display: checkedItem.length == 1 ? "" : "none",
             marginLeft: "19px",
             marginTop: "39px",
             marginBottom: "20px",
@@ -191,12 +215,10 @@ const HRManagement = () => {
         </HcButton>
 
         <HcButton
-          onClick={() => {
-            console.log();
-          }}
+          onClick={() => {}}
           styles="line"
           style={{
-            display: checkedItem.length >= 1 ? "" : "none",
+            display: checkedItem.length == 1 ? "" : "none",
             marginLeft: "10px",
             marginTop: "39px",
             marginBottom: "20px",
@@ -212,7 +234,7 @@ const HRManagement = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{
-            marginLeft: checkedItem.length >= 1 ? 708 : 780,
+            marginLeft: checkedItem.length == 1 ? 708 : 780,
             marginBottom: -10,
           }}
         >
@@ -260,31 +282,44 @@ const HRManagement = () => {
               </thead>
 
               <tbody>
-                {data.map(({ id, content, hc, start, end, action }) => (
-                  <tr
-                    style={{
-                      textAlign: "center",
-                      backgroundColor: checkedItem.includes(id)
-                        ? "#DFECFF"
-                        : "",
-                    }}
-                  >
-                    <td>
-                      <HcCheckBox
-                        checked={checkedItem.includes(id)}
-                        onChange={(e) => {
-                          checkHandler(e.target.checked, id);
-                        }}
-                      />
-                    </td>
-                    <td>{id}</td>
-                    <td>{content}</td>
-                    <td>{hc}</td>
-                    <td>{start}</td>
-                    <td>{end}</td>
-                    <td>{action}</td>
-                  </tr>
-                ))}
+                {data.map(
+                  ({
+                    id,
+                    name,
+                    company,
+                    entryDate,
+                    telephone,
+                    responsibility,
+                    position,
+                    organization,
+                  }) => (
+                    <tr
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: checkedItem.includes(id)
+                          ? "#DFECFF"
+                          : "",
+                      }}
+                    >
+                      <td>
+                        <HcCheckBox
+                          checked={checkedItem.includes(id)}
+                          onChange={(e) => {
+                            checkHandler(e.target.checked, id);
+                          }}
+                        />
+                      </td>
+                      <td>{name}</td>
+                      <td>{id}</td>
+                      <td>{company}</td>
+                      <td>{organization}</td>
+                      <td>{responsibility}</td>
+                      <td>{position}</td>
+                      <td>{entryDate}</td>
+                      <td>{telephone}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </TableContainer>

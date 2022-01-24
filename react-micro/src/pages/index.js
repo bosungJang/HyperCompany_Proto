@@ -60,6 +60,25 @@ export const HRGroupManage = loadable(
     fallback: Loading,
   }
 );
+
+export const HRInfoDetail = loadable(
+  () => import("../components/HR/HRInfoDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRInfoCreate = loadable(
+  () => import("../components/HR/HRInfoCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRInfoCreated = loadable(
+  () => import("../components/HR/HRInfoCreated"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 /*Fi START*/
