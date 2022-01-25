@@ -102,6 +102,7 @@
     "recharts": "^2.1.8",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
+    "sass": "^1.49.0",
     "sass-loader": "^10.0.5",
     "semver": "7.3.2",
     "shortid": "^2.2.16",

@@ -113,6 +113,9 @@ const HcTree = (props: any) => {
               toggleOpen(item);
               if (item.items == null && props.currentData != null) {
                 props.setcurrentData({ id: item.id, title: item.title });
+                if (props.closeModal != null) {
+                  props.closeModal();
+                }
               }
             }}
           >

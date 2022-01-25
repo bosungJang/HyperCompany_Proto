@@ -8,6 +8,7 @@ import {
 } from "common/HcCommonLayout";
 import { HcTitleTextField } from "common/HcTextField";
 import OrganizationChart from "common/Chart/OrganizationChart";
+import EmployeeChart from "common/Chart/OrganizationChartDemo";
 
 interface MatchParams {
   id: string;
@@ -36,8 +37,14 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
         </VariableMultiLayout>
       </ComponentWrapper>
       <ComponentWrapper>
-        <div style={{ width: "100%", textAlign: "center" }}>
+        <div style={{ width: "100%" }}>
           <OrganizationChart />
+        </div>
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <div style={{ width: "100%" }}>
+          <EmployeeChart />
         </div>
       </ComponentWrapper>
     </div>

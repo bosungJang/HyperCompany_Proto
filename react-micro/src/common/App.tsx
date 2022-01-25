@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home, About, Posts, Table, Test, Finance, HumanResource } from "pages";
+import {
+  Home,
+  About,
+  Posts,
+  Table,
+  Test,
+  Finance,
+  HumanResource,
+  CustomerService,
+} from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
 interface AppProps {
@@ -44,6 +53,12 @@ class App extends Component<AppProps> {
           path="/hr"
           component={(props: any) => (
             <HumanResource setLNBMenu={this.props.setLNBMenu} {...props} />
+          )}
+        />
+        <Route
+          path="/crm"
+          component={(props: any) => (
+            <CustomerService setLNBMenu={this.props.setLNBMenu} {...props} />
           )}
         />
       </div>

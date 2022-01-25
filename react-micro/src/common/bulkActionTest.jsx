@@ -9,7 +9,7 @@ import DataGrid, {
 import CheckBox from "devextreme-react/check-box";
 import SelectBox from "devextreme-react/select-box";
 import { employees, states } from "./data.js";
-import "./bulkActionTest.css";
+import "./bulkActionTest.scss";
 
 const startEditActions = ["click", "dblClick"];
 

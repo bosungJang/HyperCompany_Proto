@@ -35,6 +35,10 @@ export const HumanResource = loadable(() => import("./HumanResource"), {
   fallback: Loading,
 });
 
+export const CustomerService = loadable(() => import("./CustomerCare"), {
+  fallback: Loading,
+});
+
 /*HR START*/
 export const HRHome = loadable(() => import("../components/HR/Home"), {
   fallback: Loading,
@@ -99,4 +103,30 @@ export const FiCarryOver = loadable(
     fallback: Loading,
   }
 );
+
+export const DocumentManagementPage = loadable(
+  () => import("../components/Fi/DocumentManagement"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const DocumentTypePage = loadable(
+  () => import("../components/Fi/DocumentType"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
+
+/*CRM Start*/
+export const CRMHome = loadable(() => import("../components/CRM/Home"), {
+  fallback: Loading,
+});
+export const CustomerPage = loadable(
+  () => import("../components/CRM/Customer"),
+  {
+    fallback: Loading,
+  }
+);
+/*CRM END*/

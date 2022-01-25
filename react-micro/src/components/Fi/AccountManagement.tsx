@@ -1,15 +1,10 @@
 import React from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
-import {
-  ComponentWrapper,
-  MultiLayout,
-  VariableMultiLayout,
-} from "common/HcCommonLayout";
+import { ComponentWrapper } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
 import HcTextField, {
   HcSelect,
-  HcTagInput,
   HcSearchTextField,
   HcTagNoInput,
   HcTitleTextField,
@@ -73,66 +68,6 @@ const TreeTagAreaTitle = styled.label`
   margin-bottom: 10px;
 `;
 
-const items = [
-  {
-    id: "1000000",
-    title: "[1000000] 자산",
-    items: [
-      {
-        id: "110000",
-        title: "[110000] 유동 자산",
-        items: [
-          {
-            id: "110001",
-            title: "[110001] 현금",
-          },
-          {
-            id: "110002",
-            title: "[110002] 현금성 자산",
-          },
-        ],
-      },
-      {
-        id: "120000",
-        title: "[120000] 비유동자산",
-        items: [
-          {
-            id: "120001",
-            title: "[120001] 장기금융상품",
-          },
-          {
-            id: "120002",
-            title: "[120002] 장기 매출 채권 및 기타 유동채권",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "200000",
-    title: "[200000] 부채",
-    items: [
-      { id: "2-1", title: "child 2-1" },
-      {
-        id: "2-2",
-        title: "child 2-2",
-      },
-    ],
-  },
-  {
-    id: "300000",
-    title: "[300000] 자본",
-  },
-  {
-    id: "400000",
-    title: "[400000] 매출",
-  },
-  {
-    id: "500000",
-    title: "[500000] 매출 원가",
-  },
-];
-
 const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   /*TagInput */
   const [tags, setTags] = React.useState([
@@ -146,40 +81,110 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   const [isCreate, setIsCreates] = React.useState(false);
   /*Create */
 
-  /*Modal */
-  const [modalOpen, setModalOpen] = React.useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-  /*Modal */
-
   /*Search */
   const [searchVal, setsearchVal] = React.useState("");
   /*Search */
-
-  /*SelectData */
-
-  /*SelectData */
 
   /* Current Data*/
   const [currentData, setcurrentData] = React.useState({
     id: "",
     title: "",
   });
+
   /* Current Data*/
 
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
 
-  function CreateStatus() {
+  /*Tree*/
+  const [items, setItems] = React.useState([
+    {
+      id: "1000000",
+      title: "[1000000] 자산",
+      items: [
+        {
+          id: "110000",
+          title: "[110000] 유동 자산",
+          items: [
+            {
+              id: "110001",
+              title: "[110001] 현금",
+            },
+            {
+              id: "110002",
+              title: "[110002] 현금성 자산",
+            },
+          ],
+        },
+        {
+          id: "120000",
+          title: "[120000] 비유동자산",
+          items: [
+            {
+              id: "120001",
+              title: "[120001] 장기금융상품",
+            },
+            {
+              id: "120002",
+              title: "[120002] 장기 매출 채권 및 기타 유동채권",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "200000",
+      title: "[200000] 부채",
+      items: [
+        { id: "2-1", title: "child 2-1" },
+        {
+          id: "2-2",
+          title: "child 2-2",
+        },
+      ],
+    },
+    {
+      id: "300000",
+      title: "[300000] 자본",
+    },
+    {
+      id: "400000",
+      title: "[400000] 매출",
+    },
+    {
+      id: "500000",
+      title: "[500000] 매출 원가",
+    },
+  ]);
+  /*Tree*/
+
+  const [test, setTest] = React.useState({
+    accountCode: "110003",
+    debitCreditSetup: 1,
+    accountName: "제예금",
+    relatedAccount: "",
+    accountType: 1,
+    enable: "use",
+    tags: [
+      "가수금 현금 입금",
+      "물품 매각 관련 현금 입금",
+      "용역제공 관련 현금 입금",
+    ],
+  });
+
+  const CreateStatus = React.forwardRef((props, ref) => {
     /*TagInput */
     const [inputVal, setInputVal] = React.useState("");
     /*TagInput */
+
+    const [selRelatedAccount, setSelRelatedAccount] = React.useState({
+      id: "",
+      title: "",
+    });
+
+    /*SelectData */
+
     const [createData, setcreateData] = React.useState({
       accountCode: "110003",
       debitCreditSetup: 1,
@@ -193,6 +198,31 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
         "용역제공 관련 현금 입금",
       ],
     });
+    /*SelectData */
+
+    /*Modal */
+    const [modalOpen, setModalOpen] = React.useState(false);
+
+    const openModal = () => {
+      setModalOpen(true);
+    };
+    const closeModal = () => {
+      setModalOpen(false);
+    };
+    /*Modal */
+
+    React.useEffect(() => {
+      setcreateData((prevState) => ({
+        ...prevState,
+        relatedAccount: selRelatedAccount.title,
+      }));
+    }, [selRelatedAccount]);
+
+    React.useImperativeHandle(ref, () => ({
+      importData() {
+        return createData;
+      },
+    }));
 
     return (
       <>
@@ -279,6 +309,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               required
               placeholder="관련 계정과목"
               onClick={openModal}
+              value={createData.relatedAccount}
             />
           </div>
           <div
@@ -388,9 +419,36 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             delete={isCreate}
           />
         </div>
+        <HcTreePopupFi
+          open={modalOpen}
+          close={closeModal}
+          header="계정 과목 조회"
+        >
+          <HcSearchTextField
+            name="name"
+            value={searchVal}
+            placeholder="계정 코드 혹은 계정 과목명 검색"
+            style={{ width: "550px" }}
+            onChange={(e) => {
+              const lengthOfInputValue = searchVal.split("").length;
+
+              if (lengthOfInputValue !== 10)
+                setsearchVal(e.currentTarget.value);
+            }}
+            onKeyDown={(e) => {}}
+          />
+
+          <HcTree
+            items={items}
+            style={{ minHeight: "612px", width: "550px", marginTop: "13px" }}
+            currentData={selRelatedAccount}
+            setcurrentData={setSelRelatedAccount}
+            closeModal={closeModal}
+          />
+        </HcTreePopupFi>
       </>
     );
-  }
+  });
 
   function NormalStatus() {
     return (
@@ -519,7 +577,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
       </>
     );
   }
-
+  const childRef = React.useRef<any>(null);
   return (
     <>
       <ComponentWrapper>
@@ -541,42 +599,26 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             />
             <div>
               <TreeContArea>
-                {isCreate === true ? <CreateStatus /> : <NormalStatus />}
+                {isCreate === true ? (
+                  <CreateStatus ref={childRef} />
+                ) : (
+                  <NormalStatus />
+                )}
               </TreeContArea>
             </div>
           </div>
         </div>
-        <HcTreePopupFi
-          open={modalOpen}
-          close={closeModal}
-          header="계정 과목 조회"
-        >
-          <HcSearchTextField
-            name="name"
-            value={searchVal}
-            placeholder="계정 코드 혹은 계정 과목명 검색"
-            style={{ width: "550px" }}
-            onChange={(e) => {
-              const lengthOfInputValue = searchVal.split("").length;
-
-              if (lengthOfInputValue !== 10)
-                setsearchVal(e.currentTarget.value);
-            }}
-            onKeyDown={(e) => {}}
-          />
-
-          <HcTree
-            items={items}
-            style={{ minHeight: "612px", width: "550px", marginTop: "13px" }}
-          />
-        </HcTreePopupFi>
       </ComponentWrapper>
       <HcBottomBar open={barOpen}>
         <div>
           {isCreate === true ? (
             <HcButton
               onClick={() => {
-                openModal();
+                //openModal();
+
+                setTest(childRef.current.importData());
+                items.push({ id: test.accountCode, title: test.accountName });
+                setIsCreates(false);
               }}
               styles="primary"
               style={{ marginRight: "5px" }}
@@ -587,7 +629,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           ) : (
             <HcButton
               onClick={() => {
-                openModal();
+                //openModal();
               }}
               styles="primary"
               style={{ marginRight: "5px" }}
@@ -599,7 +641,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
           <HcButton
             onClick={() => {
-              setbarOpen(false);
+              setIsCreates(false);
             }}
             styles="line"
             style={{ marginRight: "5px" }}

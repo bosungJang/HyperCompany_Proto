@@ -152,7 +152,7 @@ interface SelectIProps {
   value?: string | number;
   required?: boolean;
   onChange?: (e: any) => void;
-  name: string;
+  name?: string;
 }
 export const HcSelect: React.FC<SelectIProps> = ({ titleName, ...props }) => {
   return (
@@ -220,11 +220,11 @@ export const HcSearchTextField: React.FC<SearchInputIProps> = ({
   ...props
 }) => {
   return (
-    <Wrapper>
+    <Wrapper style={{ width: "100%" }}>
       {titleName != null ? (
         <Title required={props.required}>{titleName}</Title>
       ) : null}
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", width: "inherit" }}>
         <SearchIcon>
           <IconSearch />
         </SearchIcon>
