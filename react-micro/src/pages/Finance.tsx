@@ -6,6 +6,9 @@ import {
   FiCarryOver,
   DocumentManagementPage,
   DocumentTypePage,
+  JournalPage,
+  AccountLedgerPage,
+  GeneralLedgerPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -76,6 +79,18 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/documentLedgerManagement/setDocumentType`}
         component={DocumentTypePage}
+      />
+      <Route
+        path={`${props.match.url}/documentLedgerManagement/journal`}
+        component={JournalPage}
+      />
+      <Route
+        path={`${props.match.url}/documentLedgerManagement/accountLedger`}
+        component={AccountLedgerPage}
+      />
+      <Route
+        path={`${props.match.url}/documentLedgerManagement/generalLedger`}
+        component={GeneralLedgerPage}
       />
     </div>
   );

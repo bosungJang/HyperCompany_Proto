@@ -117,6 +117,24 @@ export const DocumentTypePage = loadable(
     fallback: Loading,
   }
 );
+
+export const JournalPage = loadable(() => import("../components/Fi/Journal"), {
+  fallback: Loading,
+});
+
+export const AccountLedgerPage = loadable(
+  () => import("../components/Fi/AccountLedger"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const GeneralLedgerPage = loadable(
+  () => import("../components/Fi/GeneralLedger"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
