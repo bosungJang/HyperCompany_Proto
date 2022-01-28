@@ -89,3 +89,45 @@ const HcTabs: React.FC<IProps> = (props) => {
 };
 
 export default HcTabs;
+
+interface IPropsAdv {
+  items: any;
+  size: "normal" | "small";
+  TabNumber: string;
+  SetTabNumber: (value: string) => void;
+}
+
+export const HcTabsAdv: React.FC<IPropsAdv> = (props) => {
+  const activeRef = React.createRef<any>();
+  const none = React.createRef();
+  //const [selected, setSelected] = React.useState("1");
+  const [offset, setOffset] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
+
+  React.useEffect(() => {
+    const activeElement = activeRef.current;
+    setOffset(activeElement.offsetLeft);
+    setWidth(activeElement.clientWidth);
+  }, [props.TabNumber, activeRef]);
+
+  return (
+    <TabsWrapper>
+      <TabList>
+        {props.items.map((item: any) => {
+          return (
+            <TabItem
+              key={item.to}
+              ref={props.TabNumber === item.to ? activeRef : none}
+              className={props.TabNumber === item.to ? "is-active" : ""}
+              onClick={() => props.SetTabNumber(item.to)}
+              size={handleSizeType(props.size)}
+            >
+              {item.name}
+            </TabItem>
+          );
+        })}
+      </TabList>
+      <ActiveLine width={width} offset={offset} />
+    </TabsWrapper>
+  );
+};
