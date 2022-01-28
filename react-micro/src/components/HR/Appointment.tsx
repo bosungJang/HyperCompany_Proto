@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import "common/Table.css";
 import styled from "styled-components";
@@ -6,7 +6,9 @@ import { TableSelect, TableActionBtn } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTabs from "common/HcTabs";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-
+import { HcTitleTextField } from "common/HcTextField";
+import HcButton from "common/HcButton";
+import HcSlider from "./HcSlider";
 interface MatchParams {
   id: string;
 }
@@ -35,8 +37,41 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   width: 1px;
 `;
 const ContentContainer = styled.div`
-  display: items.to == 1 ?"" : "hidden";
+  background: #ffffff;
+  height: 401px;
+  width: 1320px;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  padding: 20px 24px 30px 24px;
 `;
+const SubTitle = styled.div`
+  height: 30px;
+  width: 155px;
+  font-family: Noto Sans CJK KR;
+  font-style: bold;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #303030;
+`;
+const SubContent = styled.div`
+  width: 400px;
+  height: 21px;
+  margin-top: 18px;
+  margin-bottom: 40px;
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #717171;
+`;
+const SliderContainer = styled.div`
+  height: 220px;
+  width: 1110px;
+`;
+
 const StyledCheckbox = styled.div<{ checked: boolean; disabled?: boolean }>`
   display: inline-block;
   width: 16px;
@@ -140,13 +175,26 @@ const TableContainer = styled.div`
 `;
 
 const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
+  const [tab, setTab] = React.useState(false);
   let num = 100000;
   const getId = () => {
     num = num + 1;
     return num;
   };
   const [checkedItem, setCheckedItem]: any = React.useState([]);
-
+  const history = useHistory();
+  const MoveToDatail = ({ id, content, hc, start, end }: any) => {
+    history.push({
+      pathname: "/hr/hrAppointmentDetail",
+      state: {
+        id: id,
+        content: content,
+        hc: hc,
+        start: start,
+        end: end,
+      },
+    });
+  };
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
       setCheckedItem([...checkedItem, id]);
@@ -226,31 +274,46 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
 
   return (
     <ComponentWrapper>
-      <div className="table">
-        {/* buttons start */}
-        <div
-          style={{
-            width: 1320,
+      <div
+        style={{
+          width: 1320,
+        }}
+      >
+        <HcTitleTextField titleName="발령 관리" isBackIcon={false} />
+        <HcButton
+          size="medium"
+          styles="line"
+          style={{ position: "absolute", right: 400 }}
+          onClick={() => {
+            setTab(!tab);
           }}
         >
-          <div className="table_Title">
-            <b>발령 관리</b>
-          </div>
-          <div style={{ marginTop: 39 }}>
-            <HcTabs
-              items={[
-                { to: "1", name: "발령 현황" },
-                { to: "2", name: "발령 분석" },
-              ]}
-              size="normal"
-            />
-          </div>
-
+          {tab === true ? "발령 현황" : "발령 분석"}
+        </HcButton>
+        <div style={{ marginTop: 39 }}>
+          <HcTabs
+            items={[
+              { to: "1", name: "발령 현황" },
+              { to: "2", name: "발령 분석" },
+            ]}
+            size="normal"
+          />
+        </div>
+        <div
+          className="appointment status"
+          style={{ display: tab == false ? "" : "none" }}
+        >
+          {" "}
           <button
             className="table_buttons_create"
             style={{
               marginRight: 10,
               display: checkedItem.length == 0 ? "inline" : "none",
+            }}
+            onClick={() => {
+              history.push({
+                pathname: "/hr/hrAppointmentCreate",
+              });
             }}
           >
             +생성
@@ -261,10 +324,24 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
               marginRight: 10,
               display: checkedItem.length == 1 ? "inline" : "none",
             }}
+            onClick={() => {
+              const sendData: any = data.find((e) => e.id == checkedItem[0]);
+              console.log(sendData);
+              history.push({
+                pathname: "/hr/hrAppointmentDetail",
+                state: {
+                  id: sendData.id,
+                  content: sendData.content,
+                  hc: sendData.hc,
+                  start: sendData.start,
+                  end: sendData.end,
+                  edit: true,
+                },
+              });
+            }}
           >
             수정
           </button>
-
           <button
             className="table_buttons"
             style={{ display: checkedItem.length > 0 ? "inline" : "none" }}
@@ -331,9 +408,6 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
               />
             </svg>
           </button>
-        </div>
-        {/* buttons end */}
-        <ContentContainer>
           <TableContainer>
             <table className="table table-hover">
               <thead>
@@ -363,12 +437,108 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                           }}
                         />
                       </td>
-                      <td>{id}</td>
-                      <td>{content}</td>
-                      <td>{hc}</td>
-                      <td>{start}</td>
-                      <td>{end}</td>
-                      <td>{action}</td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {id}
+                      </td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {content}
+                      </td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {hc}
+                      </td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {start}
+                      </td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {end}
+                      </td>
+                      <td
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrAppointmentDetail",
+                            state: {
+                              id: id,
+                              content: content,
+                              hc: hc,
+                              start: start,
+                              end: end,
+                              edit: false,
+                            },
+                          });
+                        }}
+                      >
+                        {action}
+                      </td>
                     </tr>
                   ))}
               </tbody>
@@ -416,7 +586,29 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             now {page}
           </div>{" "}
           {/* pagination end */}
-        </ContentContainer>
+        </div>
+        {/*발령 현황 끝*/}
+        <div style={{ display: tab == true ? "" : "none" }}>
+          {/*발령 분석*/}
+          <ContentContainer style={{ height: 401, marginTop: 24 }}>
+            <SubTitle>직책 후보자 추천</SubTitle>
+            <SubContent>
+              직책별 후보자를 업무 성취도가 높은 구성원으로 추천합니다.
+            </SubContent>
+            <div style={{ marginTop: 40 }}>
+              <HcSlider size="medium" />
+            </div>
+          </ContentContainer>
+          <ContentContainer style={{ height: 788, marginTop: 23 }}>
+            <SubTitle>적합 부서 추천</SubTitle>
+            <SubContent>
+              구성원의 역량을 기반으로 적합한 부서를 추천합니다.
+            </SubContent>
+            <div style={{ marginTop: 40 }}>
+              <HcSlider size="large" />
+            </div>
+          </ContentContainer>
+        </div>
       </div>
     </ComponentWrapper>
   );

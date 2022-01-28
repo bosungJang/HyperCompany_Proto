@@ -52,7 +52,7 @@ export const HRAppointment = loadable(
 );
 
 export const HRManagement = loadable(
-  () => import("../components/HR/Management"),
+  () => import("../components/HR/HRInfoManagement"),
   {
     fallback: Loading,
   }
@@ -79,6 +79,24 @@ export const HRInfoCreate = loadable(
 );
 export const HRInfoCreated = loadable(
   () => import("../components/HR/HRInfoCreated"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRAppointmentCreate = loadable(
+  () => import("../components/HR/HRAppointmentCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRAppointmentDetail = loadable(
+  () => import("../components/HR/HRAppointmentDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRAppointmentStandards = loadable(
+  () => import("../components/HR/HRAppointmentStandards"),
   {
     fallback: Loading,
   }

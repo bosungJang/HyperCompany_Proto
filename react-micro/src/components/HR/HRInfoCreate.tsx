@@ -9,6 +9,7 @@ import { HcDatePicker, HcDateRangePicker } from "common/HcDatePicker";
 import HcButton from "common/HcButton";
 import { EditText, EditTextarea } from "react-edit-text";
 import { Link, useHistory } from "react-router-dom";
+import "common/Table.css";
 const BasicContainer = styled.div`
   margin-top: 20px;
   width: 1320px;
@@ -111,7 +112,7 @@ const HRInfoCreate = () => {
   const onCreate = () => {
     const prev = data;
     prev.push({
-      학교구분: "대학교",
+      학교구분: " ",
       학교명: "서울대학교",
       전공: "경영학",
       학위: "학사",
@@ -122,6 +123,20 @@ const HRInfoCreate = () => {
       졸업구분: "졸업",
     });
     setData(prev);
+    setRows(
+      prev.map((row) => (
+        <Row
+          학교구분={row.학교구분}
+          학교명={row.학교명}
+          전공={row.전공}
+          학위={row.학위}
+          입학년월={row.입학년월}
+          졸업년월={row.졸업년월}
+          주야={row.주야}
+          소재지={row.소재지}
+        />
+      ))
+    );
     console.log();
   };
   const onChange = (e: any) => {
@@ -216,18 +231,33 @@ const HRInfoCreate = () => {
       </tr>
     );
   }
-  const rows = data.map((row) => (
-    <Row
-      학교구분={row.학교구분}
-      학교명={row.학교명}
-      전공={row.전공}
-      학위={row.학위}
-      입학년월={row.입학년월}
-      졸업년월={row.졸업년월}
-      주야={row.주야}
-      소재지={row.소재지}
-    />
-  ));
+  // const rows = data.map((row) => (
+  //   <Row
+  //     학교구분={row.학교구분}
+  //     학교명={row.학교명}
+  //     전공={row.전공}
+  //     학위={row.학위}
+  //     입학년월={row.입학년월}
+  //     졸업년월={row.졸업년월}
+  //     주야={row.주야}
+  //     소재지={row.소재지}
+  //   />
+  // ));
+
+  const [rows, setRows] = useState(
+    data.map((row) => (
+      <Row
+        학교구분={row.학교구분}
+        학교명={row.학교명}
+        전공={row.전공}
+        학위={row.학위}
+        입학년월={row.입학년월}
+        졸업년월={row.졸업년월}
+        주야={row.주야}
+        소재지={row.소재지}
+      />
+    ))
+  );
   const history = useHistory();
 
   return (

@@ -8,6 +8,8 @@ import { ReactComponent as BackIcon } from "../resources/images/TitleArrowIcon.s
 import HcButton from "./HcButton";
 import { useHistory } from "react-router-dom";
 import { Any } from "@react-spring/types";
+import { EditText, EditTextarea } from "react-edit-text";
+import { findProps } from "devextreme-react/core/template";
 //import "react-select/dist/react-select.css";
 
 export const TextField = styled.input<{ disabled?: boolean }>`
@@ -87,6 +89,7 @@ interface TextFieldIProps {
   maxlength?: string;
   id?: string;
   name?: string;
+  type?: any;
   onKeyDown?: (e: any) => void;
   required?: boolean;
   onChange?: (e: any) => void;
@@ -103,6 +106,44 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   );
 };
 
+interface EditTextFieldIProps {
+  titleName: string;
+  style?: CSSProperties;
+  value?: string;
+  maxlength?: string;
+  id?: string;
+  name?: string;
+  type?: any;
+  onKeyDown?: (e: any) => void;
+  onSave?: (e: any) => void;
+  required?: boolean;
+  onChange?: (e: any) => void;
+  onEditMode?: (e: any) => void;
+  wraperStyle?: CSSProperties;
+  readonly?: any;
+}
+
+export const HcEditableTextField: React.FC<EditTextFieldIProps> = ({
+  titleName,
+  ...props
+}) => {
+  return (
+    <Wrapper style={props.wraperStyle}>
+      <Title required={props.required}>{titleName}</Title>
+      <EditText
+        style={{
+          borderBottom: "1px solid #E0E0E0",
+          width: 360,
+          height: 38,
+          fontSize: "16px",
+          fontStyle: "bold",
+          fontWeight: "bold",
+        }}
+        {...props}
+      />
+    </Wrapper>
+  );
+};
 export const HcTextFieldLabel: React.FC<TextFieldIProps> = ({
   titleName,
   ...props

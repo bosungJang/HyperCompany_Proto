@@ -8,6 +8,9 @@ import {
   HRInfoDetail,
   HRInfoCreate,
   HRInfoCreated,
+  HRAppointmentCreate,
+  HRAppointmentDetail,
+  HRAppointmentStandards,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -33,6 +36,11 @@ const testArray = [
     icon: "HR/Personnel_Management_Icon",
     title: "사원 그룹 관리",
     path: "/hr/groupManagement",
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "발령 기준 설정",
+    path: "/hr/hrAppointmentStandards",
   },
 ];
 
@@ -64,6 +72,18 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrInfoCreated`}
         component={HRInfoCreated}
+      />
+      <Route
+        path={`${props.match.url}/hrAppointmentCreate`}
+        component={HRAppointmentCreate}
+      />
+      <Route
+        path={`${props.match.url}/hrAppointmentDetail`}
+        component={HRAppointmentDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrAppointmentStandards`}
+        component={HRAppointmentStandards}
       />
     </div>
   );

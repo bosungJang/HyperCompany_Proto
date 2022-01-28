@@ -10,6 +10,7 @@ import { HcTitleTextField } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import { HRInfoDetail } from "pages";
 import { Link, useHistory } from "react-router-dom";
+import { checkServerIdentity } from "tls";
 
 const TreeContainer = styled.div`
   height: 832px;
@@ -145,7 +146,7 @@ const HRManagement = () => {
     "회사전화",
   ];
 
-  const testData = Array(107)
+  const testData = Array(15)
     .fill(undefined)
     .map(() => ({
       name: "홍길동",
@@ -158,6 +159,11 @@ const HRManagement = () => {
       entryDate: "2020.01.01",
     }));
   const [data, setData] = useState(testData);
+  function onRemove(checked: any) {
+    setData(data.filter((x) => checked.includes(x.id) == false));
+
+    setCheckedItem([]);
+  }
 
   return (
     <ComponentWrapper>
@@ -173,7 +179,7 @@ const HRManagement = () => {
             onClick={() => {}}
             styles="secondary"
             style={{
-              display: checkedItem.length == 1 ? "none" : "",
+              display: checkedItem.length >= 1 ? "none" : "",
               marginLeft: "19px",
               marginTop: "39px",
               marginBottom: "20px",
@@ -215,11 +221,13 @@ const HRManagement = () => {
         </HcButton>
 
         <HcButton
-          onClick={() => {}}
+          onClick={() => {
+            onRemove(checkedItem);
+          }}
           styles="line"
           style={{
-            display: checkedItem.length == 1 ? "" : "none",
-            marginLeft: "10px",
+            display: checkedItem.length >= 1 ? "" : "none",
+            marginLeft: checkedItem.length == 1 ? 10 : 19,
             marginTop: "39px",
             marginBottom: "20px",
           }}
@@ -234,7 +242,12 @@ const HRManagement = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{
-            marginLeft: checkedItem.length == 1 ? 708 : 780,
+            marginLeft:
+              checkedItem.length == 1
+                ? checkedItem.length > 1
+                  ? 785
+                  : 708
+                : 780,
             marginBottom: -10,
           }}
         >
