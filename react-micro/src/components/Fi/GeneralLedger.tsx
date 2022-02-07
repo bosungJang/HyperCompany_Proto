@@ -352,6 +352,11 @@ const GeneralLedger = () => {
                                   ))}
                                 </thead>
                               </table>
+                              <tbody>
+                                <tr>
+                                  <td></td>
+                                </tr>
+                              </tbody>
                             </TableContainer>
                           </div>
                         </TreeContArea>

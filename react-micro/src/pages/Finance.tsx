@@ -9,6 +9,9 @@ import {
   JournalPage,
   AccountLedgerPage,
   GeneralLedgerPage,
+  TotalTrialBalancePage,
+  IncomeStatementPage,
+  BalanceSheetPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -55,6 +58,25 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "결산 및 재무 제표",
+    path: "/fi/closingFinancialStatements/totalTrialBalance",
+    submenu: [
+      {
+        title: "합계잔액시산표",
+        path: "/fi/closingFinancialStatements/totalTrialBalance",
+      },
+      {
+        title: "손익계산서",
+        path: "/fi/closingFinancialStatements/incomeStatement",
+      },
+      {
+        title: "재무 상태표",
+        path: "/fi/closingFinancialStatements/balanceSheet",
+      },
+    ],
+  },
 ];
 
 const Finance = (props: FinanceProps) => {
@@ -91,6 +113,18 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/documentLedgerManagement/generalLedger`}
         component={GeneralLedgerPage}
+      />
+      <Route
+        path={`${props.match.url}/closingFinancialStatements/totalTrialBalance`}
+        component={TotalTrialBalancePage}
+      />
+      <Route
+        path={`${props.match.url}/closingFinancialStatements/incomeStatement`}
+        component={IncomeStatementPage}
+      />
+      <Route
+        path={`${props.match.url}/closingFinancialStatements/balanceSheet`}
+        component={BalanceSheetPage}
       />
     </div>
   );

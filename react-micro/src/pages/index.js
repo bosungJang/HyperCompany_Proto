@@ -103,7 +103,6 @@ export const HRAppointmentStandards = loadable(
 );
 /*HR END*/
 
-/*Fi START*/
 export const FiHome = loadable(() => import("../components/Fi/Home"), {
   fallback: Loading,
 });
@@ -149,6 +148,27 @@ export const AccountLedgerPage = loadable(
 
 export const GeneralLedgerPage = loadable(
   () => import("../components/Fi/GeneralLedger"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const TotalTrialBalancePage = loadable(
+  () => import("../components/Fi/TotalTrialBalance"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const IncomeStatementPage = loadable(
+  () => import("../components/Fi/IncomeStatement"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BalanceSheetPage = loadable(
+  () => import("../components/Fi/BalanceSheet"),
   {
     fallback: Loading,
   }
