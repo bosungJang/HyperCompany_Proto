@@ -101,6 +101,42 @@ export const HRAppointmentStandards = loadable(
     fallback: Loading,
   }
 );
+export const HROrganizationManagemetnt = loadable(
+  () => import("../components/HR/OrganizationManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRProfessionalManagement = loadable(
+  () => import("../components/HR/ProfessionalManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const HROrganizationType = loadable(
+  () => import("../components/HR/OrganizationType"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRProfessionalDetail = loadable(
+  () => import("../components/HR/ProfessionalDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRProfessionalCreate = loadable(
+  () => import("../components/HR/ProfessionalCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const HRProfessionalHistory = loadable(
+  () => import("../components/HR/ProfessionalHistory"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {
