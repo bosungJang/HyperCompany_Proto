@@ -160,7 +160,15 @@ const BalanceSheet = () => {
       <>
         {data.map(({ subject, currentAmount, priorAmount, total, subMenu }) => (
           <>
-            <tr style={{ background: "rgba(10,147,155,0.1)" }}>
+            <tr
+              style={{ background: "rgba(10,147,155,0.1)" }}
+              className="drop_down_row"
+              onClick={(e) => {
+                e.preventDefault();
+                //var $current = e.target;
+                var current = document.getElementsByClassName("drop_down_row");
+              }}
+            >
               <td style={{ paddingLeft: "11px" }}>{subject}</td>
               <td>{currentAmount}</td>
               <td

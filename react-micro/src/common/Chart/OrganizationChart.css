@@ -1,3 +1,9 @@
+.App {
+  background: #f9f9f9;
+  min-height: 802px;
+  overflow: auto;
+}
+
 .org-tree ul {
   padding-top: 40px;
   position: relative;
@@ -104,11 +110,11 @@
 .org-tree li a:hover + ul ul::before {
   border-color: #94a0b4;
 }
-
+/*
 .card {
   position: relative;
   padding-top: 50px;
-  /* width: 300px; */
+   width: 300px;
 }
 
 .card .image {
@@ -167,4 +173,112 @@
 .card .card-footer img {
   width: 25px;
   margin: 5px;
+}
+*/
+
+.card_wrapper {
+  border: 1px solid #a7a7a7;
+  border-radius: 4px;
+  display: inline-block;
+  color: black;
+  width: 280px;
+  height: 210px;
+
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.card_wrapper_click {
+  border: 3px solid #257cff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  display: inline-block;
+  color: black;
+  width: 280px;
+  height: 210px;
+  font-family: "Noto Sans KR";
+
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.card_body {
+  padding: 16px 20px;
+  width: 100%;
+  height: 178px;
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+.card_body .card_title {
+  font-family: "Noto Sans KR";
+  font-weight: 700;
+  font-size: 18px;
+  text-align: initial;
+}
+.card_footer {
+  background: #f4f4f4;
+  width: 100%;
+  height: calc(100% - 178px);
+  border-radius: 4px;
+}
+.card_footer .text_area {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 30px;
+  color: #5d5d62;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.card_body .content_area {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card_body .content_area .img_area {
+  border: 1px solid #cecece;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  float: left;
+}
+.card_body .content_area .content {
+  margin-left: 14px;
+  float: left;
+  display: inline-block;
+  text-align: initial;
+}
+.card_wrapper .card_body .content_area .content .name {
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  font-size: 16px;
+  color: #2d2d31;
+}
+.card_body .content_area .content .position {
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  font-size: 12px;
+  color: #838181;
+  margin-top: 2px;
+}
+.card_body .content_area .content .number_tag {
+  width: 84px;
+  height: 26px;
+  background: #fff0bb;
+  border-radius: 2px;
+  margin-top: 15px;
+  text-align: center;
+}
+.card_body .content_area .content .number_tag span {
+  font-family: "Noto Sans KR";
+  font-weight: 700;
+  font-size: 13px;
+  color: #ffa51f;
 }

@@ -10,19 +10,50 @@ import { findParent } from "./helpers";
 //import { useRandomUser } from "./useRandomUser";
 import { User } from "./types";
 
+function useOutsideClick(ref: any) {
+  useEffect(() => {
+    function handleClickOutside(event: Event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        ref.current.children[0].className = "card_wrapper";
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+
 function App() {
   const [tree, setTree] = useState<TreeRoot>({
     id: uuid(),
     user: {
-      firstName: "Init",
-      lastName: "",
+      firstName: "지혜",
+      lastName: "이",
       email: "",
       id: "",
+      jobTitle: "본부장",
+      jobPosition: "부장",
+      numPeople: "130",
     },
-    children: [],
+    children: [
+      {
+        id: uuid(),
+        user: {
+          id: uuid(),
+          firstName: "default",
+          lastName: "장보성",
+          email: "bosung_jang@tmax.co.kr",
+          jobTitle: "본부장",
+          jobPosition: "부장",
+          numPeople: "130",
+        },
+        children: [],
+      },
+    ],
   });
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  //const [users, setUsers] = useState<User[]>([]);
+  //const [loading, setLoading] = useState(true);
 
   const [userIndex, setUserIndex] = useState(3);
   const [, drop] = useDrop<DragObjectWithType & { node: Node }, {}, {}>({
@@ -51,9 +82,9 @@ function App() {
     setTree(newTree);
   };
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (userIndex === users.length - 1) {
-      return;
-    }
+    //if (userIndex === users.length - 1) {
+    //  return;
+    //}
     const newTree = cloneDeep(tree);
     newTree.children = [
       ...tree.children,
@@ -64,6 +95,9 @@ function App() {
           firstName: "장",
           lastName: "보성",
           email: "bosung_jang@tmax.co.kr",
+          jobTitle: "본부장",
+          jobPosition: "부장",
+          numPeople: "130",
         },
         children: [],
       },
@@ -73,45 +107,38 @@ function App() {
   };
   const RootLabel = (
     <div ref={drop}>
-      <div
-        style={{
-          boxShadow:
-            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          border: "1px solid #EDF2F7",
-          borderRadius: "5px",
-          display: "inline-block",
-          color: "black",
-        }}
-      >
-        <h5
-          style={{
-            margin: 0,
-            background: "rgba(255, 246, 165, 0.5)",
-            padding: "0.5rem",
-            borderBottom: "1px solid #eee",
-          }}
-        >
-          {"장 보성"}
-        </h5>
-        <div
-          style={{
-            background: "#F7FAFC",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <img
-            src="https://t.pimg.jp/064/564/785/5/64564785.jpg"
-            style={{ flex: 1, width: 80 }}
-            alt="face"
-          />
-          <p style={{ padding: "0.5rem" }}>{"bosung_jang@tmax.co.kr"}</p>
+      <div className="card_wrapper">
+        <div className="card_body">
+          <div className="card_title">{"티맥스 소프트"}</div>
+          <div className="content_area">
+            <div
+              className="img_area"
+              style={{
+                background:
+                  "url(https://mblogthumb-phinf.pstatic.net/20140715_224/gggnine_140539249283179mpC_JPEG/%C3%D6%C1%F6%C8%C6_ssssss_c.jpg?type=w2) center/50px 50px no-repeat ",
+              }}
+            ></div>
+            <div className="content">
+              <div className="name">
+                {tree.user.lastName} {tree.user.firstName}
+              </div>
+              <div className="position">
+                {"(" + tree.user.jobTitle + " / " + tree.user.jobPosition + ")"}
+              </div>
+              <div className="number_tag">
+                <span>{"+ " + tree.user.numPeople}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card_footer">
+          <div className="text_area">{"하위조직 접기"}</div>
         </div>
       </div>
     </div>
   );
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (loading) return;
     setTree({
       user: {
@@ -119,6 +146,9 @@ function App() {
         firstName: "장",
         lastName: "보성",
         email: "bosung_jang@tmax.co.kr",
+        jobTitle: "본부장",
+        jobPosition: "부장",
+        numPeople: "130",
       },
       id: uuid(),
       children: [
@@ -128,6 +158,9 @@ function App() {
             firstName: "장",
             lastName: "보성",
             email: "bosung_jang@tmax.co.kr",
+            jobTitle: "본부장",
+            jobPosition: "부장",
+            numPeople: "130",
           },
           id: uuid(),
           children: [],
@@ -138,13 +171,16 @@ function App() {
             firstName: "장",
             lastName: "보성",
             email: "bosung_jang@tmax.co.kr",
+            jobTitle: "본부장",
+            jobPosition: "부장",
+            numPeople: "130",
           },
           id: uuid(),
           children: [],
         },
       ],
     });
-  }, [users, loading]);
+  }, [users, loading]);*/
   return (
     <div className="App">
       <button
@@ -196,42 +232,45 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
       return undefined;
     },
   });
+
+  const outsideRef = React.useRef(null);
+  useOutsideClick(outsideRef);
+
   const Label = (
     <div ref={drop} style={{ opacity: opacity }}>
-      <div
-        ref={drag}
-        style={{
-          boxShadow:
-            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          border: "1px solid #EDF2F7",
-          borderRadius: "5px",
-          display: "inline-block",
-          color: "black",
-        }}
-      >
-        <h5
-          style={{
-            margin: 0,
-            background: "#EDF2F7",
-            padding: "0.5rem",
-            borderBottom: "1px solid #eee",
-          }}
-        >
-          {props.node.user.firstName} {props.node.user.lastName}
-        </h5>
+      <div ref={outsideRef} style={{ display: "inline-block" }}>
         <div
-          style={{
-            background: "#F7FAFC",
-            display: "flex",
-            flexDirection: "row",
+          className="card_wrapper"
+          ref={drag}
+          onClick={(e) => {
+            console.log("target", e.currentTarget);
+            e.currentTarget.className = "card_wrapper_click";
           }}
         >
-          <img
-            src="https://t.pimg.jp/064/564/785/5/64564785.jpg"
-            style={{ flex: 1, width: 80 }}
-            alt="face"
-          />
-          <p style={{ padding: "0.5rem" }}>{props.node.user.email}</p>
+          <div className="card_body">
+            <div className="card_title">{"티맥스 소프트"}</div>
+            <div className="content_area">
+              <div className="img_area"></div>
+              <div className="content">
+                <div className="name">
+                  {props.node.user.firstName} {props.node.user.lastName}
+                </div>
+                <div className="position">
+                  {"(" +
+                    props.node.user.jobTitle +
+                    " / " +
+                    props.node.user.jobPosition +
+                    ")"}
+                </div>
+                <div className="number_tag">
+                  <span>{"+ " + props.node.user.numPeople}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card_footer">
+            <div className="text_area">{"하위조직 접기"}</div>
+          </div>
         </div>
       </div>
     </div>
