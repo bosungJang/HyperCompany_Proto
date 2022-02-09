@@ -291,8 +291,8 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
           </div>
           <AddIcon
             style={{
-              position: "absolute",
-              bottom: -10,
+              position: "relative",
+              bottom: 7,
               cursor: "pointer",
               display: clicked ? "" : "none",
             }}
