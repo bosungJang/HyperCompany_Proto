@@ -207,7 +207,7 @@
 }
 
 .card_body {
-  padding: 16px 20px;
+  padding: 16px 16px 16px 20px;
   width: 100%;
   height: 178px;
   background: #ffffff;

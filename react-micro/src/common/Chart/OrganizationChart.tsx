@@ -9,12 +9,15 @@ import { cloneDeep } from "lodash";
 import { findParent } from "./helpers";
 //import { useRandomUser } from "./useRandomUser";
 import { User } from "./types";
+import { ReactComponent as DropDownIcon } from "resources/images/dropDown_icon.svg";
+import { ReactComponent as AddIcon } from "resources/images/add_icon.svg";
 
-function useOutsideClick(ref: any) {
+function useOutsideClick(ref: any, setClicked: (value: boolean) => void) {
   useEffect(() => {
     function handleClickOutside(event: Event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        ref.current.children[0].className = "card_wrapper";
+        //ref.current.children[0].className = "card_wrapper";
+        setClicked(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -228,27 +231,42 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
   const [, drop] = useDrop<DragObjectWithType & { node: Node }, {}, {}>({
     accept: ItemTypes.NODE,
     drop: (item, monitor) => {
-      props.onDrop(props.node, item.node);
-      return undefined;
+      console.log("drop", props.node, item.node);
+      if (props.node !== item.node) {
+        props.onDrop(props.node, item.node);
+        return undefined;
+      }
     },
   });
 
+  const [clicked, setClicked] = React.useState(false);
   const outsideRef = React.useRef(null);
-  useOutsideClick(outsideRef);
+  useOutsideClick(outsideRef, setClicked);
 
   const Label = (
     <div ref={drop} style={{ opacity: opacity }}>
       <div ref={outsideRef} style={{ display: "inline-block" }}>
         <div
-          className="card_wrapper"
+          className={clicked ? "card_wrapper_click" : "card_wrapper"}
           ref={drag}
           onClick={(e) => {
             console.log("target", e.currentTarget);
-            e.currentTarget.className = "card_wrapper_click";
+            //e.currentTarget.className = "card_wrapper_click";
+            setClicked(true);
           }}
         >
           <div className="card_body">
-            <div className="card_title">{"티맥스 소프트"}</div>
+            <div className="card_title">
+              {"티맥스 소프트"}
+              <DropDownIcon
+                style={{
+                  verticalAlign: "text-bottom",
+                  float: "right",
+                  cursor: "pointer",
+                  display: clicked ? "" : "none",
+                }}
+              />
+            </div>
             <div className="content_area">
               <div className="img_area"></div>
               <div className="content">
@@ -271,6 +289,14 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
           <div className="card_footer">
             <div className="text_area">{"하위조직 접기"}</div>
           </div>
+          <AddIcon
+            style={{
+              position: "absolute",
+              bottom: -10,
+              cursor: "pointer",
+              display: clicked ? "" : "none",
+            }}
+          />
         </div>
       </div>
     </div>
