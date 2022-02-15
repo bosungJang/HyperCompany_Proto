@@ -9,6 +9,7 @@ import {
 import { HcTitleTextField } from "common/HcTextField";
 import OrganizationChart from "common/Chart/OrganizationChart";
 import EmployeeChart from "common/Chart/OrganizationChartDemo";
+import HcDropDownTable from "common/HcDropDownTable";
 
 interface MatchParams {
   id: string;
@@ -45,6 +46,12 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       <ComponentWrapper>
         <div style={{ width: "100%" }}>
           <EmployeeChart />
+        </div>
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <div style={{ width: "100%" }}>
+          <HcDropDownTable />
         </div>
       </ComponentWrapper>
     </div>

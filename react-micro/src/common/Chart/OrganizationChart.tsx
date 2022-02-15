@@ -184,8 +184,63 @@ function App() {
       ],
     });
   }, [users, loading]);*/
+
+  /*Drag Scroll */
+  const scrollRef = React.useRef<any>(null);
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState<any>();
+
+  const onDragStart = (e: any) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + scrollRef.current.scrollLeft);
+  };
+
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e: any) => {
+    if (isDrag) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+
+      scrollRef.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX);
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft);
+      }
+    }
+  };
+
+  const throttle = (func: any, ms: any) => {
+    let throttled = false;
+    return (...args: any) => {
+      if (!throttled) {
+        throttled = true;
+        setTimeout(() => {
+          func(...args);
+          throttled = false;
+        }, ms);
+      }
+    };
+  };
+
+  const delay = 100;
+  const onThrottleDragMove = throttle(onDragMove, delay);
+
+  /*Drag Scroll */
+
   return (
-    <div className="App">
+    <div
+      className="App"
+      onMouseDown={onDragStart}
+      onMouseMove={isDrag ? onThrottleDragMove : () => {}}
+      onMouseUp={onDragEnd}
+      onMouseLeave={onDragEnd}
+      ref={scrollRef}
+    >
       <button
         style={{
           padding: "0.5rem",
@@ -314,7 +369,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
   );
 };
 
-export default function organizationChart() {
+const OrganizationChart = () => {
   return (
     <>
       <DndProvider backend={HTML5Backend}>
@@ -322,4 +377,6 @@ export default function organizationChart() {
       </DndProvider>
     </>
   );
-}
+};
+
+export default OrganizationChart;

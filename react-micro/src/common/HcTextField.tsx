@@ -713,10 +713,10 @@ const TitleField = styled.div`
   font-size: 28px;
   display: inline-block;
 `;
-
 interface TitleTextFieldIProps {
   titleName: string;
   isBackIcon: boolean;
+  style?: CSSProperties;
 }
 
 export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
@@ -725,7 +725,7 @@ export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
 }) => {
   const history = useHistory();
   return (
-    <TitleFieldWrapper>
+    <TitleFieldWrapper style={props.style}>
       {props.isBackIcon ? (
         <BackIcon
           style={{ cursor: "pointer", marginRight: "10px" }}
