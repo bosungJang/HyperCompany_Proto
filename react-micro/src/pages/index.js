@@ -137,6 +137,48 @@ export const HRProfessionalHistory = loadable(
     fallback: Loading,
   }
 );
+export const EmployeeStatus = loadable(
+  () => import("../components/HR/EmployeeStatus"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveManagement = loadable(
+  () => import("../components/HR/LeaveManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveDetail = loadable(
+  () => import("../components/HR/LeaveDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const WorkManagement = loadable(
+  () => import("../components/HR/WorkManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const WorkManagementDetail = loadable(
+  () => import("../components/HR/WorkManagementDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const HdManagement = loadable(
+  () => import("../components/HR/HdManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveStandardManagement = loadable(
+  () => import("../components/HR/LeaveStandardManagement"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

@@ -138,6 +138,7 @@ export const HcEditableTextField: React.FC<EditTextFieldIProps> = ({
           fontSize: "16px",
           fontStyle: "bold",
           fontWeight: "bold",
+          paddingLeft: 13,
         }}
         {...props}
       />

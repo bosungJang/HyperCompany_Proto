@@ -17,6 +17,13 @@ import {
   HRProfessionalCreate,
   HROrganizationType,
   HRProfessionalHistory,
+  EmployeeStatus,
+  LeaveManagement,
+  WorkManagement,
+  WorkManagementDetail,
+  HdManagement,
+  LeaveStandardManagement,
+  LeaveDetail,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -66,6 +73,18 @@ const testArray = [
         title: "조직 유형 설정 관리",
         path: "/hr/hrOrganizationType",
       },
+    ],
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "근태 관리",
+    path: "/hr/hrEmployeeStatus",
+    submenu: [
+      { title: "근태 관리", path: "/hr/hrEmployeeStatus" },
+      { title: "휴가 관리", path: "/hr/hrLeaveManagement" },
+      { title: "근무 유형 설정", path: "/hr/hrWorkManagement" },
+      { title: "연월차 설정", path: "/hr/hrLeaveStandard" },
+      { title: "휴무일 설정", path: "/hr/hrHdManagement" },
     ],
   },
 ];
@@ -134,6 +153,34 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrProfessionalHistory`}
         component={HRProfessionalHistory}
+      />
+      <Route
+        path={`${props.match.url}/hrEmployeeStatus`}
+        component={EmployeeStatus}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveManagement`}
+        component={LeaveManagement}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveDetail`}
+        component={LeaveDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrWorkManagement`}
+        component={WorkManagement}
+      />
+      <Route
+        path={`${props.match.url}/hrWorkManageDetail`}
+        component={WorkManagementDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrHdManagement`}
+        component={HdManagement}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveStandard`}
+        component={LeaveStandardManagement}
       />
     </div>
   );
