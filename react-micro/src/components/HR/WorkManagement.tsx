@@ -176,6 +176,11 @@ const WorkManagement = () => {
         <HcTitleTextField titleName="근무 유형 설정" isBackIcon={false} />
 
         <HcButton
+          onClick={() => {
+            history.push({
+              pathname: "/hr/hrWorkManageCreate",
+            });
+          }}
           styles="secondary"
           style={{
             marginTop: "39px",

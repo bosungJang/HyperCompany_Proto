@@ -167,6 +167,12 @@ export const WorkManagementDetail = loadable(
     fallback: Loading,
   }
 );
+export const WorkManagementCreate = loadable(
+  () => import("../components/HR/WorkManagementCreate"),
+  {
+    fallback: Loading,
+  }
+);
 export const HdManagement = loadable(
   () => import("../components/HR/HdManagement"),
   {

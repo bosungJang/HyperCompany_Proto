@@ -21,6 +21,7 @@ import {
   LeaveManagement,
   WorkManagement,
   WorkManagementDetail,
+  WorkManagementCreate,
   HdManagement,
   LeaveStandardManagement,
   LeaveDetail,
@@ -173,6 +174,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrWorkManageDetail`}
         component={WorkManagementDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrWorkManageCreate`}
+        component={WorkManagementCreate}
       />
       <Route
         path={`${props.match.url}/hrHdManagement`}

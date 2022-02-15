@@ -79,15 +79,11 @@ const TextFieldContainer = styled.div`
 `;
 const WorkManagementDetail = () => {
   const location = useLocation();
-  const [data, setData] = useState(location.state);
-  const [edit, setEdit] = useState(false);
+  const [type, setType] = useState("고정");
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
-  /*TagInput */
-  const [tags, setTags] = React.useState(["react"]);
 
-  /*TagInput */
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
       setCheckedItem([...checkedItem, id]);
@@ -98,7 +94,7 @@ const WorkManagementDetail = () => {
   function checkAllHandler(checked: Boolean) {
     if (checked) {
       const ids: Number[] = [];
-      data.ability.forEach((i: any) => ids.push(i.id));
+      //   data.ability.forEach((i: any) => ids.push(i.id));
       setCheckedItem(ids);
     } else {
       setCheckedItem([]);
@@ -149,78 +145,67 @@ const WorkManagementDetail = () => {
       <ComponentWrapper style={{ display: "block", paddingTop: 40 }}>
         <HcTitleTextField titleName="근무 유형 상세" isBackIcon />
         <DataForm style={{ marginTop: 36 }}>
-          {edit == true ? (
-            <div
-              className="first_block"
+          <div
+            className="first_block"
+            style={{
+              width: "387px",
+              height: "100px",
+              float: "left",
+              marginRight: 80,
+            }}
+          >
+            <HcTextField
+              titleName=""
+              name="name"
+              onKeyDown={(e: any) => {
+                if (e.key === "Enter") {
+                  alert("SUCCESS");
+                }
+              }}
               style={{
                 width: "387px",
-                height: "100px",
-                float: "left",
-              }}
-            >
-              <HcTextField
-                titleName=""
-                name="name"
-                onKeyDown={(e: any) => {
-                  if (e.key === "Enter") {
-                    alert("SUCCESS");
-                  }
-                }}
-                style={{
-                  width: "387px",
-                  marginBottom: 20,
-                  height: 60,
-                  fontSize: "24px",
-                }}
-                value={data.name}
-                onChange={(e) => {
-                  setData((prevState: any) => ({
-                    ...prevState,
-                    name: e.target.value,
-                  }));
-                }}
-              />{" "}
-            </div>
-          ) : (
-            <HcEditableTextField
-              titleName={""}
-              value={data.name}
-              readonly={true}
-              onChange={() => setData}
-              style={{
-                borderBottom: "1px solid #E0E0E0",
-                width: 387,
-                height: 45,
+                marginBottom: 20,
+                height: 60,
                 fontSize: "24px",
-                fontStyle: "bold",
-                fontWeight: "bold",
-                paddingLeft: 13,
               }}
             />
-          )}
-          <HcEditableTextField
-            titleName={""}
-            value={data.id}
-            readonly={true}
-            wraperStyle={{ marginLeft: 80 }}
-            onChange={() => setData}
+          </div>
+          <div
+            className="first_block"
             style={{
-              borderBottom: "1px solid #E0E0E0",
+              width: "387px",
+              height: "100px",
+              float: "left",
               marginTop: 20,
-              width: 387,
-              height: 40,
-              fontSize: "16px",
-              fontStyle: "bold",
-              fontWeight: "bold",
-              paddingLeft: 13,
             }}
-          />
+          >
+            <HcTextFieldLabel
+              titleName=""
+              name="id"
+              onKeyDown={(e: any) => {
+                if (e.key === "Enter") {
+                  alert("SUCCESS");
+                }
+              }}
+              style={{
+                width: "387px",
+                marginBottom: 20,
+                height: 40,
+                fontSize: "16px",
+                marginRight: 80,
+              }}
+            >
+              123456
+            </HcTextFieldLabel>
+          </div>
 
           <div
             className="first_block"
             style={{
               marginLeft: "80px",
               display: "inline-block",
+              marginTop: 20,
+              marginBottom: 20,
             }}
           >
             <Title style={{ marginBottom: 23 }}>기본 설정 여부</Title>
@@ -246,34 +231,33 @@ const WorkManagementDetail = () => {
             <StyledUl style={{ backgroundColor: "#F4F4F4" }}>
               <TypeLi
                 onClick={(e: any) => {
-                  setData({ ...data, type: "고정" });
+                  setType("고정");
                 }}
                 style={{
-                  backgroundColor: data.type == "고정" ? "#5D5D62" : "#F4F4F4",
-                  color: data.type == "고정" ? "white" : "#5D5D62",
+                  backgroundColor: type == "고정" ? "#5D5D62" : "#F4F4F4",
+                  color: type == "고정" ? "white" : "#5D5D62",
                 }}
               >
                 고정
               </TypeLi>
               <TypeLi
                 onClick={(e: any) => {
-                  setData({ ...data, type: "시차" });
+                  setType("시차");
                 }}
                 style={{
-                  backgroundColor: data.type == "시차" ? "#5D5D62" : "#F4F4F4",
-                  color: data.type == "시차" ? "white" : "#5D5D62",
+                  backgroundColor: type == "시차" ? "#5D5D62" : "#F4F4F4",
+                  color: type == "시차" ? "white" : "#5D5D62",
                 }}
               >
                 시차
               </TypeLi>
               <TypeLi
                 onClick={(e: any) => {
-                  setData({ ...data, type: "선택적" });
+                  setType("선택적");
                 }}
                 style={{
-                  backgroundColor:
-                    data.type == "선택적" ? "#5D5D62" : "#F4F4F4",
-                  color: data.type == "선택적" ? "white" : "#5D5D62",
+                  backgroundColor: type == "선택적" ? "#5D5D62" : "#F4F4F4",
+                  color: type == "선택적" ? "white" : "#5D5D62",
                 }}
               >
                 선택적
@@ -347,34 +331,24 @@ const WorkManagementDetail = () => {
             marginBottom: 161,
           }}
         >
-          {edit === false ? (
-            <HcTextFieldLabel
-              titleName="일 기본 휴게시간"
-              name="breaktime"
-              onKeyDown={(e) => {}}
-              style={{ width: "387px", marginBottom: 20 }}
-            >
-              1시간
-            </HcTextFieldLabel>
-          ) : (
-            <HcSelect
-              titleName={"일 기본 휴게시간"}
-              style={{ width: 386, marginTop: 10, marginBottom: 20 }}
-            >
-              <option value={""} hidden>
-                일 기본 휴게시간 선택
-              </option>
-              <option>1시간</option>
-              <option>2시간</option>
-            </HcSelect>
-          )}
+          <HcSelect
+            titleName={"일 기본 휴게시간"}
+            style={{ width: 386, marginTop: 10, marginBottom: 20 }}
+          >
+            <option value={""} hidden>
+              일 기본 휴게시간 선택
+            </option>
+            <option>1시간</option>
+            <option>2시간</option>
+          </HcSelect>
+
           <HcTextFieldLabel
             titleName="업무 시간"
             name="type"
             onKeyDown={(e) => {}}
             style={{ width: "387px", marginBottom: 20 }}
           >
-            주 {data.perWeek}시간
+            주 40시간
           </HcTextFieldLabel>
 
           <HcSearchTextField
@@ -435,64 +409,27 @@ const WorkManagementDetail = () => {
       </ComponentWrapper>
       <HcBottomBar open={barOpen} style={{ width: 1400 }}>
         <div>
-          {edit == false ? (
-            <>
-              {" "}
-              <HcButton
-                onClick={() => {
-                  setEdit(true);
-                }}
-                styles="primary"
-                style={{ marginRight: "5px" }}
-                size="big"
-              >
-                수정
-              </HcButton>
-              <HcButton
-                onClick={() => {}}
-                styles="line"
-                style={{ marginRight: "5px" }}
-                size="big"
-              >
-                삭제
-              </HcButton>
-              <HcButton
-                onClick={() => {
-                  setbarOpen(false);
-                }}
-                styles="line"
-                style={{ marginRight: "5px" }}
-                size="big"
-              >
-                취소
-              </HcButton>
-            </>
-          ) : (
-            <>
-              {" "}
-              <HcButton
-                onClick={() => {
-                  setEdit(false);
-                }}
-                styles="primary"
-                style={{ marginRight: "5px" }}
-                size="big"
-              >
-                저장
-              </HcButton>
-              <HcButton
-                onClick={() => {
-                  setbarOpen(false);
-                  setEdit(false);
-                }}
-                styles="line"
-                style={{ marginRight: "5px" }}
-                size="big"
-              >
-                취소
-              </HcButton>
-            </>
-          )}
+          <>
+            {" "}
+            <HcButton
+              onClick={() => {}}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              생성
+            </HcButton>
+            <HcButton
+              onClick={() => {
+                setbarOpen(false);
+              }}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              취소
+            </HcButton>
+          </>
         </div>
       </HcBottomBar>
     </>
