@@ -22,6 +22,7 @@ import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import { HcTreePopupFi } from "common/HcPopup";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
+import { HcTabsAdv } from "common/HcTabs";
 
 interface MatchParams {
   id: string;
@@ -812,62 +813,119 @@ const ProfessionalManagement = ({
     );
   }
   const childRef = React.useRef<any>(null);
+
+  /*Tabs */
+  const [Tabs, setTabs] = React.useState("1");
+  /*Tabs */
+
   return (
     <>
-      <ComponentWrapper>
-        <div style={{ display: "block" }}>
-          <div className="header" style={{}}>
-            {" "}
-            <div style={{ width: 151 }}>
-              {" "}
-              <HcTitleTextField titleName="직능관리" isBackIcon={false} />
+      <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
+        <div style={{ display: "block", width: "inherit", marginTop: "20px" }}>
+          <div>
+            <HcTitleTextField
+              titleName="직능관리"
+              isBackIcon={false}
+              style={{ display: "inline-block" }}
+            />
+            <div style={{ float: "right" }}>
+              <HcButton
+                styles="line"
+                style={{ marginRight: 10 }}
+                size="medium"
+                onClick={() => {
+                  history.push({
+                    pathname: "/hr/hrProfessionalHistory",
+                  });
+                }}
+              >
+                직능 수정 이력
+              </HcButton>
+              <HcButton
+                onClick={() => {}}
+                styles="line"
+                style={{}}
+                size="medium"
+              >
+                내보내기
+              </HcButton>
             </div>
-            <HcButton
-              styles="line"
-              style={{ marginLeft: 1090 }}
-              size="medium"
-              onClick={() => {
-                history.push({
-                  pathname: "/hr/hrProfessionalHistory",
-                });
-              }}
-            >
-              직능 수정 이력
-            </HcButton>
-            <HcButton
-              onClick={() => {}}
-              styles="line"
-              style={{ marginLeft: 10 }}
-              size="medium"
-            >
-              내보내기
-            </HcButton>
+          </div>
+          <div style={{ marginTop: "39px" }}>
+            <HcTabsAdv
+              items={[
+                { to: "1", name: "직무 관리" },
+                { to: "2", name: "직위 관리" },
+                { to: "3", name: "직책 관리" },
+              ]}
+              size="normal"
+              TabNumber={Tabs}
+              SetTabNumber={setTabs}
+            />
           </div>
           <div
             className="body_area"
-            style={{ display: "flex", marginTop: "39px" }}
+            style={{ display: "flex", marginTop: "32px" }}
           >
-            <HcTree
-              items={items}
-              title="계정과목"
-              search={true}
-              style={{ minHeight: "832px" }}
-              isCreate={isCreate}
-              setIsCreates={setIsCreates}
-              currentData={currentData}
-              setcurrentData={setcurrentData}
-            />
-            <div>
-              {isCreate === true ? (
-                <TreeContArea>
-                  <CreateStatus ref={childRef} />{" "}
-                </TreeContArea>
-              ) : (
-                <>
-                  <NormalStatus />
-                </>
-              )}
-            </div>
+            {
+              {
+                "1": (
+                  <>
+                    <HcTree
+                      items={items}
+                      title="계정과목"
+                      search={true}
+                      style={{ minHeight: "832px" }}
+                      isCreate={isCreate}
+                      setIsCreates={setIsCreates}
+                      currentData={currentData}
+                      setcurrentData={setcurrentData}
+                    />
+                    <div>
+                      {isCreate === true ? (
+                        <TreeContArea>
+                          <CreateStatus ref={childRef} />{" "}
+                        </TreeContArea>
+                      ) : (
+                        <>
+                          <NormalStatus />
+                        </>
+                      )}
+                    </div>
+                  </>
+                ),
+                "2": (
+                  <>
+                    <HcTree
+                      items={items}
+                      title="계정과목"
+                      search={true}
+                      style={{ minHeight: "832px" }}
+                      isCreate={isCreate}
+                      setIsCreates={setIsCreates}
+                      currentData={currentData}
+                      setcurrentData={setcurrentData}
+                    />
+                    <div>
+                      {isCreate === true ? (
+                        <TreeContArea>
+                          <CreateStatus ref={childRef} />{" "}
+                        </TreeContArea>
+                      ) : (
+                        <>
+                          <NormalStatus />
+                        </>
+                      )}
+                    </div>
+                  </>
+                ),
+                "3": (
+                  <>
+                    <div>직책 관리</div>
+                  </>
+                ),
+              }[Tabs]
+            }
           </div>
         </div>
       </ComponentWrapper>
