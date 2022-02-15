@@ -12,6 +12,11 @@ import {
   TotalTrialBalancePage,
   IncomeStatementPage,
   BalanceSheetPage,
+  BankAccountManagementPage,
+  AccountDetailPage,
+  EmployeeAccountManagementPage,
+  CardManagementPage,
+  CardAprrovalHistoryPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -77,6 +82,33 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "계좌 및 카드 관리",
+    path: "/fi/accountAndCardManagement/bankAccountManagement",
+    submenu: [
+      {
+        title: "계좌 관리",
+        path: "/fi/accountAndCardManagement/bankAccountManagement",
+      },
+      {
+        title: "계좌 거래 내역 조회",
+        path: "/fi/accountAndCardManagement/accountDetail",
+      },
+      {
+        title: "사원 계좌 관리",
+        path: "/fi/accountAndCardManagement/employeeAccountManagement",
+      },
+      {
+        title: "카드 관리",
+        path: "/fi/accountAndCardManagement/cardManagement",
+      },
+      {
+        title: "카드 승인 내역",
+        path: "/fi/accountAndCardManagement/cardApprovalHistory",
+      },
+    ],
+  },
 ];
 
 const Finance = (props: FinanceProps) => {
@@ -125,6 +157,26 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/closingFinancialStatements/balanceSheet`}
         component={BalanceSheetPage}
+      />
+      <Route
+        path={`${props.match.url}/accountAndCardManagement/bankAccountManagement`}
+        component={BankAccountManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/accountAndCardManagement/accountDetail`}
+        component={AccountDetailPage}
+      />
+      <Route
+        path={`${props.match.url}/accountAndCardManagement/employeeAccountManagement`}
+        component={EmployeeAccountManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/accountAndCardManagement/cardManagement`}
+        component={CardManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/accountAndCardManagement/cardApprovalHistory`}
+        component={CardAprrovalHistoryPage}
       />
     </div>
   );

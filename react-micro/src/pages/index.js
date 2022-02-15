@@ -251,6 +251,36 @@ export const BalanceSheetPage = loadable(
     fallback: Loading,
   }
 );
+export const BankAccountManagementPage = loadable(
+  () => import("../components/Fi/BankAccountManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const AccountDetailPage = loadable(
+  () => import("../components/Fi/AccountDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const EmployeeAccountManagementPage = loadable(
+  () => import("../components/Fi/EmployeeAccountManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const CardManagementPage = loadable(
+  () => import("../components/Fi/CardManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const CardAprrovalHistoryPage = loadable(
+  () => import("../components/Fi/CardAprrovalHistory"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/

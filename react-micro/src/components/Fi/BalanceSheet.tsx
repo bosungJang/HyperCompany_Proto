@@ -41,7 +41,7 @@ const TableContainer = styled.div`
 
 const data = [
   {
-    subject: "Ⅰ.매출액",
+    subject: "1. 유동자산",
     currentAmount: "",
     priorAmount: "",
     total: "350,000,000",
@@ -160,6 +160,9 @@ const BalanceSheet = () => {
       <>
         {data.map(({ subject, currentAmount, priorAmount, total, subMenu }) => (
           <>
+            <tr>
+              <td colSpan={5}>자산</td>
+            </tr>
             <tr
               style={{ background: "rgba(10,147,155,0.1)" }}
               className="drop_down_row"
