@@ -11,6 +11,8 @@ import { HcPopup } from "common/HcPopup";
 
 import { EditText, EditTextarea } from "react-edit-text";
 import "common/bulkActionTest.scss";
+import { HcTabsAdv } from "common/HcTabs";
+import HcCheckBox from "common/HcCheckBox";
 
 const DropDownContainer = styled("div")`
   width: 122px;
@@ -204,13 +206,36 @@ const OrganizationType = () => {
     setModalOpen(false);
   };
 
+  /*Tabs */
+  const [Tabs, setTabs] = React.useState("1");
+  /*Tabs */
+
+  const [checkedItem, setCheckedItem]: any = React.useState([]);
+
+  function checkHandler(checked: Boolean, id: Number) {
+    if (checked == true) {
+      setCheckedItem([...checkedItem, id]);
+    } else {
+      setCheckedItem(checkedItem.filter((i: number) => i != id));
+    }
+  }
+
+  function checkAllHandler(checked: Boolean) {
+    if (checked) {
+      const ids: Number[] = [];
+      //Dutydata.forEach((i) => ids.push(i.id));
+      setCheckedItem(ids);
+    } else {
+      setCheckedItem([]);
+    }
+  }
+
   return (
     <>
       <div style={{ width: "inherit" }}>
-        <ComponentWrapper>
-          <div style={{ display: "block", width: 1320 }}>
+        <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
+          <div style={{ display: "block", width: "inheirt" }}>
             <div className="title" style={{ marginBottom: 47, marginTop: 20 }}>
-              {" "}
               <HcTitleTextField titleName="휴가 관리" isBackIcon={false} />
             </div>
             {/* <HcButton
@@ -224,185 +249,350 @@ const OrganizationType = () => {
             >
               +생성
             </HcButton> */}
-            <div style={{ display: "flex" }}>
-              <TableContainer>
-                <table
-                  className="table table-hover"
-                  style={{
-                    width: 1320,
-                    tableLayout: "fixed",
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      {columns.map((column: any) => (
-                        <th style={{ paddingLeft: 12 }} key={column}>
-                          {column}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
+            <div style={{ marginTop: "39px" }}>
+              <HcTabsAdv
+                items={[
+                  { to: "1", name: "사용 휴가" },
+                  { to: "2", name: "잔여 휴가" },
+                ]}
+                size="normal"
+                TabNumber={Tabs}
+                SetTabNumber={setTabs}
+              />
+            </div>
+            <div style={{ display: "flex", marginTop: "32px" }}>
+              {
+                {
+                  "1": (
+                    <>
+                      <TableContainer>
+                        <table
+                          className="table table-hover"
+                          style={{
+                            width: "inherit",
+                            tableLayout: "fixed",
+                          }}
+                        >
+                          <thead>
+                            <tr>
+                              {columns.map((column: any) => (
+                                <th style={{ paddingLeft: 12 }} key={column}>
+                                  {column}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
 
-                  <tbody>
-                    {tableData.map((x) => (
-                      <tr
-                        style={{
-                          textAlign: "center",
-                          height: 46,
-                        }}
-                        onClick={() => {
-                          console.log(data.filter((i) => i.id === x.id));
-                          history.push({
-                            pathname: "/hr/hrLeaveDetail",
-                          });
-                        }}
-                      >
-                        {" "}
-                        <td
-                          style={{
-                            width: 120,
-                            minWidth: 120,
-                            height: 46,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          홍길동
-                        </td>
-                        <td
-                          style={{
-                            width: 180,
-                            minWidth: 180,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          AB 본부 / AB2실
-                        </td>
-                        <td
-                          style={{
-                            width: 122,
-                            maxWidth: 122,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          연구원
-                        </td>
-                        <td
-                          style={{
-                            width: 122,
-                            minWidth: 122,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          연구원
-                        </td>
-                        <td
-                          style={{
-                            width: 122,
-                            maxWidth: 122,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          2022.01.02
-                        </td>
-                        <td
-                          style={{
-                            width: 232,
-                            maxWidth: 232,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          2022.01.04~2022.01.05
-                        </td>
-                        <td>월차</td>
-                        <td
-                          style={{
-                            width: 122,
-                            maxWidth: 122,
-                            paddingLeft: 12,
-                          }}
-                        >
-                          <DropDownContainer>
-                            {x.isOpen === false ? (
-                              <State
-                                onClick={() => !x.isOpen}
-                                style={
-                                  x.selectedOption == "정상"
-                                    ? styles.normal
-                                    : selectedOption == "지각"
-                                    ? styles.late
-                                    : selectedOption == "휴가"
-                                    ? styles.leave
-                                    : selectedOption == "결근"
-                                    ? styles.absent
-                                    : { backgroundColor: "none" }
-                                }
+                          <tbody>
+                            {tableData.map((x) => (
+                              <tr
+                                style={{
+                                  textAlign: "center",
+                                  height: 46,
+                                }}
+                                onClick={() => {
+                                  console.log(
+                                    data.filter((i) => i.id === x.id)
+                                  );
+                                  history.push({
+                                    pathname: "/hr/hrLeaveDetail",
+                                  });
+                                }}
                               >
-                                {x.selectedOption || "정상"}
-                              </State>
-                            ) : (
-                              <DropDownHeader onClick={() => !x.isOpen}>
-                                {x.selectedOption || "정상"}
-                              </DropDownHeader>
-                            )}
-                            {x.isOpen && (
-                              <DropDownListContainer>
-                                <DropDownList>
-                                  {options.map((option) => (
-                                    <ListItem
-                                      onClick={onOptionClicked(option)}
-                                      key={option}
-                                    >
-                                      {option}
-                                    </ListItem>
-                                  ))}
-                                </DropDownList>
-                              </DropDownListContainer>
-                            )}
-                          </DropDownContainer>
-                        </td>{" "}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <DropDownContainer>
-                  {isOpen === false ? (
-                    <State
-                      style={
-                        selectedOption == "정상"
-                          ? styles.normal
-                          : selectedOption == "지각"
-                          ? styles.late
-                          : selectedOption == "휴가"
-                          ? styles.leave
-                          : selectedOption == "결근"
-                          ? styles.absent
-                          : { backgroundColor: "none" }
-                      }
-                      onClick={toggling}
-                    >
-                      {selectedOption || "정상"}
-                    </State>
-                  ) : (
-                    <DropDownHeader onClick={toggling}>
-                      {selectedOption || "정상"}
-                    </DropDownHeader>
-                  )}
-                  {isOpen && (
-                    <DropDownListContainer>
-                      <DropDownList>
-                        {options.map((option) => (
-                          <ListItem
-                            onClick={onOptionClicked(option)}
-                            key={option}
-                          >
-                            {option}
-                          </ListItem>
-                        ))}
-                      </DropDownList>
-                    </DropDownListContainer>
-                  )}
-                </DropDownContainer>
-              </TableContainer>
+                                {" "}
+                                <td
+                                  style={{
+                                    width: 120,
+                                    minWidth: 120,
+                                    height: 46,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  홍길동
+                                </td>
+                                <td
+                                  style={{
+                                    width: 180,
+                                    minWidth: 180,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  AB 본부 / AB2실
+                                </td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  연구원
+                                </td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    minWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  연구원
+                                </td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  2022.01.02
+                                </td>
+                                <td
+                                  style={{
+                                    width: 232,
+                                    maxWidth: 232,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  2022.01.04~2022.01.05
+                                </td>
+                                <td>월차</td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  <DropDownContainer>
+                                    {x.isOpen === false ? (
+                                      <State
+                                        onClick={() => !x.isOpen}
+                                        style={
+                                          x.selectedOption == "정상"
+                                            ? styles.normal
+                                            : selectedOption == "지각"
+                                            ? styles.late
+                                            : selectedOption == "휴가"
+                                            ? styles.leave
+                                            : selectedOption == "결근"
+                                            ? styles.absent
+                                            : { backgroundColor: "none" }
+                                        }
+                                      >
+                                        {x.selectedOption || "정상"}
+                                      </State>
+                                    ) : (
+                                      <DropDownHeader onClick={() => !x.isOpen}>
+                                        {x.selectedOption || "정상"}
+                                      </DropDownHeader>
+                                    )}
+                                    {x.isOpen && (
+                                      <DropDownListContainer>
+                                        <DropDownList>
+                                          {options.map((option) => (
+                                            <ListItem
+                                              onClick={onOptionClicked(option)}
+                                              key={option}
+                                            >
+                                              {option}
+                                            </ListItem>
+                                          ))}
+                                        </DropDownList>
+                                      </DropDownListContainer>
+                                    )}
+                                  </DropDownContainer>
+                                </td>{" "}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        <DropDownContainer>
+                          {isOpen === false ? (
+                            <State
+                              style={
+                                selectedOption == "정상"
+                                  ? styles.normal
+                                  : selectedOption == "지각"
+                                  ? styles.late
+                                  : selectedOption == "휴가"
+                                  ? styles.leave
+                                  : selectedOption == "결근"
+                                  ? styles.absent
+                                  : { backgroundColor: "none" }
+                              }
+                              onClick={toggling}
+                            >
+                              {selectedOption || "정상"}
+                            </State>
+                          ) : (
+                            <DropDownHeader onClick={toggling}>
+                              {selectedOption || "정상"}
+                            </DropDownHeader>
+                          )}
+                          {isOpen && (
+                            <DropDownListContainer>
+                              <DropDownList>
+                                {options.map((option) => (
+                                  <ListItem
+                                    onClick={onOptionClicked(option)}
+                                    key={option}
+                                  >
+                                    {option}
+                                  </ListItem>
+                                ))}
+                              </DropDownList>
+                            </DropDownListContainer>
+                          )}
+                        </DropDownContainer>
+                      </TableContainer>
+                    </>
+                  ),
+                  "2": (
+                    <>
+                      <TableContainer>
+                        <table
+                          className="table table-hover"
+                          style={{
+                            width: "inherit",
+                            tableLayout: "fixed",
+                          }}
+                        >
+                          <thead>
+                            <tr>
+                              <th style={{ paddingLeft: 12 }}>
+                                <div style={{ paddingTop: 7 }}>
+                                  <HcCheckBox
+                                    checked={
+                                      checkedItem.length > 0 ? true : false
+                                    }
+                                    onChange={(e) =>
+                                      checkAllHandler(e.target.checked)
+                                    }
+                                  />
+                                </div>
+                              </th>
+                              <th>이름</th>
+                              <th>조직</th>
+                              <th>직책</th>
+                              <th>직위</th>
+                              <th>출연자</th>
+                              <th>사용 연차</th>
+                              <th>잔액 연차</th>
+                              <th>총 일자</th>
+                              <th>사용 월차</th>
+                              <th>잔여 일자</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {tableData.map((x) => (
+                              <tr
+                                style={{
+                                  textAlign: "center",
+                                  height: 46,
+                                }}
+                                onClick={() => {
+                                  /*
+                                  console.log(
+                                    data.filter((i) => i.id === x.id)
+                                  );
+                                  history.push({
+                                    pathname: "/hr/hrLeaveDetail",
+                                  });
+                                  */
+                                }}
+                              >
+                                {" "}
+                                <td style={{ paddingLeft: 12 }}>
+                                  <HcCheckBox
+                                    checked={checkedItem.includes()}
+                                    onChange={(e) => {
+                                      //checkHandler(e.target.checked, id);
+                                    }}
+                                  />
+                                </td>
+                                <td
+                                  style={{
+                                    width: 120,
+                                    minWidth: 120,
+                                    height: 46,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  홍길동
+                                </td>
+                                <td
+                                  style={{
+                                    width: 180,
+                                    minWidth: 180,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  AB 본부 / AB2실
+                                </td>
+                                <td style={{}}>팀장</td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  연구원
+                                </td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    minWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  13일
+                                </td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                    color: "#05A850",
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  10일
+                                </td>
+                                <td
+                                  style={{
+                                    width: 232,
+                                    maxWidth: 232,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  3일
+                                </td>
+                                <td>5일</td>
+                                <td
+                                  style={{
+                                    width: 122,
+                                    maxWidth: 122,
+                                    paddingLeft: 12,
+                                  }}
+                                >
+                                  3일
+                                </td>
+                                <td
+                                  style={{ color: "#05A850", fontWeight: 700 }}
+                                >
+                                  2일
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </TableContainer>
+                    </>
+                  ),
+                }[Tabs]
+              }
             </div>
           </div>
           <HcPopup open={modalOpen} close={closeModal} header="저장">

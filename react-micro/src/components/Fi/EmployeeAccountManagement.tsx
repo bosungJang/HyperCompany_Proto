@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import "common/Table.css";
@@ -150,6 +150,20 @@ const EmployeeAccountManagement = () => {
                       </tr>
                     </thead>
                     <tbody>
+                      <tr
+                        style={{
+                          textAlign: "center",
+                        }}
+                      >
+                        <td>{"홍길동"}</td>
+                        <td>{"EC본부 / EC2-4팀"}</td>
+                        <td>{"팀장"}</td>
+                        <td>{"연구원"}</td>
+                        <td>{<SearchInput />}</td>
+                        <td>{"00000-000-0000000"}</td>
+                        <td>{"000-0000-0000"}</td>
+                        <td>{"Antonietta.OKeefe@gmail.com"}</td>
+                      </tr>
                       {data.map(
                         ({
                           employeeName,
@@ -189,3 +203,92 @@ const EmployeeAccountManagement = () => {
   );
 };
 export default EmployeeAccountManagement;
+
+const SearchInput = () => {
+  const list = [
+    { id: 1, name: "KEB 하나은행" },
+    { id: 2, name: "카카오뱅크" },
+  ];
+
+  const [visible, setVisible] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const dropdownRef = useRef<any>(null);
+
+  // click away listener
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick, false);
+    return () => document.removeEventListener("mousedown", handleClick, false);
+  }, []);
+
+  const handleClick = (e: any) => {
+    if (dropdownRef.current.contains(e.target)) {
+      return;
+    }
+    setVisible(false);
+  };
+
+  const handleChange = (e: any) => {
+    setSearchValue(e.target.value);
+    if (!visible) {
+      setVisible(true);
+    }
+  };
+
+  const selectItem = (item: any) => {
+    setSearchValue(item.name);
+    setSelectedItem(item.id);
+    setVisible(false);
+  };
+
+  const searchFilter = (searchValue: any, list: any, searchBy = "name") => {
+    let lowerCaseQuery = searchValue.toLowerCase();
+    let filteredList = searchValue
+      ? list.filter((x: any) =>
+          x[searchBy].toLowerCase().includes(lowerCaseQuery)
+        )
+      : list;
+    return filteredList;
+  };
+
+  return (
+    <div className="container">
+      <div tabIndex={0} className="input_container">
+        <input
+          className="input"
+          type="text"
+          placeholder="Search Text"
+          value={searchValue}
+          onChange={handleChange}
+          onFocus={() => {
+            // if (searchValue) {
+            setVisible(true);
+            // };
+          }}
+        />
+      </div>
+      <div ref={dropdownRef} className={`dropdown ${visible ? "v" : ""}`}>
+        {visible && (
+          <ul>
+            {!list && (
+              <li key="zxc" className="dropdown_item">
+                no result
+              </li>
+            )}
+            {/* you can remove the searchFilter if you get results from Filtered API like Google search */}
+            {list &&
+              searchFilter(searchValue, list).map((x: any) => (
+                <li
+                  key={x.id}
+                  onClick={() => selectItem(x)}
+                  className="dropdown_item"
+                >
+                  <div className="item_text1">{x.name}</div>
+                </li>
+              ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
