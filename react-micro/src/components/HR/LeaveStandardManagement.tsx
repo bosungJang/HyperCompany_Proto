@@ -1,28 +1,16 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField } from "common/HcTextField";
 import { TableActionBtn } from "common/HcTableComponent";
-import HcBottomBar from "common/HcBottomBar";
-import HcButton from "common/HcButton";
-import { HcPopup } from "common/HcPopup";
+import { useHistory } from "react-router-dom";
 import HcCheckBox from "common/HcCheckBox";
-import { EditText, EditTextarea } from "react-edit-text";
-import "common/bulkActionTest.scss";
-import DataGrid, {
-  Column,
-  Editing,
-  Paging,
-  Lookup,
-} from "devextreme-react/data-grid";
-import CheckBox from "devextreme-react/check-box";
-import SelectBox from "devextreme-react/select-box";
-import { employees, states } from "common/data.js";
 import "common/bulkActionTest.scss";
 
-const startEditActions = ["click", "dblClick"];
+import "common/bulkActionTest.scss";
+
+
 const TableContainer = styled.div`
   width: 100%;
   height: 722px;
@@ -73,13 +61,16 @@ const data = Array(10)
   .fill(undefined)
   .map(() => ({
     id: getId(),
-    kind: "근무 배치",
-    comment:
-      "발령 이전과 비교해서 직책, 직급, 직위, 호봉 등이 변동이 있을때 사용하는 발령",
+    kind: "월급제",
+    comment: "당월",
+    month: "1일",
+    year: "365일",
+    date: "1일",
     action: <TableActionBtn />,
   }));
 
 const HRAppointmentStadards = () => {
+  const history = useHistory();
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
@@ -108,9 +99,9 @@ const HRAppointmentStadards = () => {
     "연월차 기준 코드",
     "급여 형태",
     "월차 발생 기준월",
-    // "월차 발생일",
-    // "연차 발생 최소일",
-    // "연차 발생일",
+    "월차 발생일",
+    "연차 발생 최소일",
+    "연차 발생일",
     "-",
   ];
   /*BottomBar */
@@ -125,60 +116,13 @@ const HRAppointmentStadards = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const [rows, setRows] = React.useState(
-    tableData.map((row) => (
-      <Row
-        id={row.id}
-        kind={row.kind}
-        action={row.comment}
-        comment={row.action}
-      />
-    ))
-  );
-  function Row({ id, kind, comment, action }: any) {
-    return (
-      <tr
-        style={{
-          textAlign: "center",
-          height: 46,
-        }}
-        onClick={() => {}}
-      >
-        <td style={{ width: 46, padding: "7px 16px 9px 16px", height: 46 }}>
-          <HcCheckBox
-            checked={checkedItem.includes(id)}
-            onChange={(e) => {
-              checkHandler(e.target.checked, id);
-            }}
-          />
-        </td>
-        <td style={{ width: 332, minWidth: 332, height: 46 }}>{id}</td>
-        <td style={{ width: 332, minWidth: 332 }}>{kind}</td>
-        <td
-          style={{
-            width: 510,
-            maxWidth: "unset",
-            minWidth: 510,
-            overflow: "hidden",
-            height: 46,
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            wordBreak: "break-all",
-          }}
-        >
-          {comment}
-        </td>
-        <td style={{ width: 120, minWidth: 120, height: 46 }}>{action}</td>
-      </tr>
-    );
-  }
 
   return (
     <>
       <div style={{ width: "inherit" }}>
         <ComponentWrapper>
           <div style={{ display: "block", width: 1320, paddingTop: 20 }}>
-            <HcTitleTextField titleName="연월차 기준 설정" isBackIcon={false} />
+            <HcTitleTextField titleName="연월차 설정" isBackIcon={false} />
 
             <div style={{ display: "flex" }}>
               <TableContainer>
@@ -195,71 +139,104 @@ const HRAppointmentStadards = () => {
                   </thead>
                   {/* <tbody>{rows}</tbody> */}
                   <tbody>
-                    {tableData.map((x) => (
-                      <tr
-                        style={{
-                          textAlign: "center",
-                        }}
-                        onClick={() => {}}
-                      >
-                        <td style={{ width: 46, padding: "7px 16px 9px 16px" }}>
-                          <HcCheckBox
-                            checked={checkedItem.includes(x.id)}
-                            onChange={(e) => {
-                              checkHandler(e.target.checked, x.id);
-                            }}
-                          />
-                        </td>
-                        <td style={{ width: 332, minWidth: 332 }}>{x.id}</td>
-                        <td style={{ width: 332, minWidth: 332 }}>{x.kind}</td>
-                        <td
+                    {tableData.map(
+                      ({
+                        id,
+                        kind,
+                        comment,
+                        action,
+                        month,
+                        year,
+                        date,
+                      }: any) => (
+                        <tr
                           style={{
-                            width: 510,
-                            maxWidth: "unset",
-                            minWidth: 510,
-                            overflow: "hidden",
+                            textAlign: "center",
                           }}
+                          onClick={() => {}}
                         >
-                          {x.comment}
-                        </td>
-                        <td style={{ width: 120, minWidth: 120 }}>
-                          {x.action}
-                        </td>
-                      </tr>
-                    ))}
+                          <td
+                            style={{ width: 46, padding: "7px 16px 9px 16px" }}
+                          >
+                            <HcCheckBox
+                              checked={checkedItem.includes(id)}
+                              onChange={(e) => {
+                                checkHandler(e.target.checked, id);
+                              }}
+                            />
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192, height: 46 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {id}
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {kind}
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {comment}
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192, height: 46 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {month}
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192, height: 46 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {year}
+                          </td>
+                          <td
+                            style={{ width: 192, minWidth: 192, height: 46 }}
+                            onClick={() => {
+                              history.push({
+                                pathname: "/hr/hrLeaveStandardDetail",
+                              });
+                            }}
+                          >
+                            {date}
+                          </td>
+                          <td style={{ width: 120, minWidth: 120, height: 46 }}>
+                            {action}
+                          </td>
+                        </tr>
+                      )
+                    )}
                   </tbody>
                 </table>
               </TableContainer>
             </div>
           </div>
-          <HcPopup open={modalOpen} close={closeModal} header="저장">
-            저장하시겠습니까?
-          </HcPopup>
         </ComponentWrapper>
-        <HcBottomBar open={barOpen} style={{ width: 1400 }}>
-          <div>
-            <HcButton
-              onClick={() => {
-                openModal();
-              }}
-              styles="primary"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              저장
-            </HcButton>
-            <HcButton
-              onClick={() => {
-                setbarOpen(false);
-              }}
-              styles="line"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              취소
-            </HcButton>
-          </div>
-        </HcBottomBar>
       </div>
     </>
   );

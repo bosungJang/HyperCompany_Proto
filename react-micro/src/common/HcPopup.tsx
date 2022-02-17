@@ -11,8 +11,18 @@ to {
   top:0;
 }
 `;
+const SideBarShow = keyframes`
+from {
+  opacity: 0;
+  left:1846px;
+}
+to {
+  opacity: 1;
+  left:1346px;
+}
+`;
 const PopupContainer = styled.div`
-  width: 602px;
+  min-width: 602px;
   min-height: 339px;
   background: #ffffff;
   border: 1px solid lightgray;
@@ -22,7 +32,31 @@ const PopupContainer = styled.div`
   animation: ${PopupShow} 0.3s;
   overflow: hidden;
 `;
+const SideBarContainer = styled.div`
+  height: 800px;
+  width: 574px;
+  background: #ffffff;
+  border: 1px solid lightgray;
+  padding: 30px 30px 20px 30px;
+  position: relative;
+  left: 1346px;
+  top: 68px;
+  animation: ${SideBarShow} 0.3s;
 
+  overflow: hidden;
+`;
+const ContentContainer = styled.div`
+  width: 730px;
+  height: 630px;
+  background: #ffffff;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  position: relative;
+  margin: auto;
+  animation: ${PopupShow} 0.3s;
+  overflow: hidden;
+  z-index: 99;
+`;
 const TreeContainer = styled.div`
   width: 315px;
   height: 526px;
@@ -55,17 +89,18 @@ left: 24px;
 top: 57px;
 background #e0e0e0;
 border: none;
+
 margin:0;
 `;
 const Popup_Title2 = styled.div`
   font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: normal;
+  font-style: bold;
+  font-weight: bold;
   font-size: 22px;
   line-height: 33px;
   color: #303030;
-  top: 18px;
-  left: 24px;
+  top: 20px;
+  left: 30px;
   position: absolute;
 `;
 
@@ -89,6 +124,19 @@ const Popup_Text = styled.div`
   color: #717171;
 `;
 
+const Popup_Content = styled.div`
+  position: absolute;
+  width: 650px;
+  height: 474px;
+  top: 83px;
+  right: 40px;
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #717171;
+`;
 const Popup_Text2 = styled.div`
   position: absolute;
   width: 509px;
@@ -202,20 +250,61 @@ export function HcPopup(props: any) {
     </div>
   );
 }
+export function SideBar(props: any) {
+  const { open, close, header } = props;
 
+  return (
+    <div style={open ? styles.openModal : styles.modal}>
+      {open ? (
+        <SideBarContainer>
+          <div
+            style={{
+              fontSize: "20px",
+              color: "#303030",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            {header}
+          </div>
+
+          <div style={{ marginTop: 39 }}> {props.children}</div>
+          <Popup_Buttons>
+            <HcButton
+              onClick={close}
+              styles="secondary"
+              style={{ marginRight: "12px" }}
+              size="medium"
+            >
+              저장
+            </HcButton>
+            <HcButton
+              onClick={close}
+              styles="line"
+              size="medium"
+              style={{ border: "0.82197px solid #A7A7A7" }}
+            >
+              취소
+            </HcButton>
+          </Popup_Buttons>
+        </SideBarContainer>
+      ) : null}
+    </div>
+  );
+}
 export function HcContentPopup(props: any) {
   const { open, close, header } = props;
 
   return (
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
-        <PopupContainer>
-          <Popup_Title> {header}</Popup_Title>
+        <ContentContainer>
+          <Popup_Title2> {header}</Popup_Title2>
           <button
             onClick={close}
             style={{
-              top: 18,
-              right: 24,
+              top: 26,
+              right: 26,
               position: "absolute",
               padding: 0,
               backgroundColor: "#fff",
@@ -238,24 +327,25 @@ export function HcContentPopup(props: any) {
             </svg>
           </button>
 
-          <Popup_Text> {props.children}</Popup_Text>
+          <Popup_Content> {props.children}</Popup_Content>
           <Popup_Buttons>
             <HcButton
-              styles="secondary"
-              style={{ marginRight: "12px" }}
+              styles="primary"
+              style={{ marginRight: "6px", marginBottom: 6 }}
               size="medium"
+              onClick={close}
             >
-              저장
+              확인
             </HcButton>
-            <HcButton
+            {/* <HcButton
               styles="line"
               size="medium"
               style={{ border: "0.82197px solid #A7A7A7" }}
             >
               취소
-            </HcButton>
+            </HcButton> */}
           </Popup_Buttons>
-        </PopupContainer>
+        </ContentContainer>
       ) : null}
     </div>
   );
@@ -274,7 +364,7 @@ export function HcTreePopup(props: any) {
             <Popup_Buttons>
               <HcButton
                 styles="secondary"
-                style={{ marginRight: "12px" }}
+                style={{ marginRight: "6px" }}
                 size="medium"
               >
                 이동

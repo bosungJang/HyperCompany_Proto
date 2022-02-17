@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
@@ -52,11 +52,6 @@ const TableContainer = styled.div`
   }
 `;
 
-const DataGridContainer = styled.div`
-  min-height: 630px;
-  overflow: auto;
-`;
-
 let num = 1000000;
 const getId = () => {
   num = num + 1;
@@ -75,7 +70,7 @@ const data = Array(10)
     action: <TableActionBtn />,
   }));
 
-const HdManagement = () => {
+const LeaveSetting = () => {
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
@@ -101,98 +96,20 @@ const HdManagement = () => {
         onChange={(e) => checkAllHandler(e.target.checked)}
       />
     </div>,
-    "휴무일명",
-    "휴무일 종류",
-    "휴무일자",
-    "비고",
+    "휴가 구분",
+    "휴가 항목 코드",
+    "휴가 항목명",
+    "사용여부",
+    "설명",
     "-",
   ];
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
 
-  const [modalOpen, setModalOpen] = React.useState(false);
   const [tableData, setTableData] = React.useState(data);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-  const [rows, setRows] = React.useState(
-    tableData.map((row) => (
-      <Row
-        id={row.id}
-        name={row.name}
-        kind={row.kind}
-        action={row.comment}
-        comment={row.action}
-        note={row.note}
-      />
-    ))
-  );
-  function Row({ id, kind, comment, action, note, name }: any) {
-    return (
-      <tr
-        style={{
-          textAlign: "center",
-          height: 32,
-        }}
-        onClick={() => {}}
-      >
-        <td style={{ width: 46, padding: "7px 16px 9px 16px" }}>
-          <HcCheckBox
-            checked={checkedItem.includes(id)}
-            onChange={(e) => {
-              checkHandler(e.target.checked, id);
-            }}
-          />
-        </td>
-        <td style={{ width: 332, minWidth: 332 }}>{name}</td>
-        <td style={{ width: 332, minWidth: 332 }}>{kind}</td>
-        <td
-          style={{
-            width: 510,
-            maxWidth: "unset",
-            minWidth: 510,
-            overflow: "hidden",
-            height: 46,
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            wordBreak: "break-all",
-          }}
-        >
-          {comment}
-        </td>
-        <td style={{ width: 289, minWidth: 289 }}>{note}</td>
-        <td style={{ width: 120, minWidth: 120 }}>{action}</td>
-      </tr>
-    );
-  }
-  const onCreate = () => {
-    const prev = tableData;
-    prev.push({
-      id: getId(),
-      name: "설날",
-      kind: " ",
-      comment: "발령 이전과 비교해서 근무지가 변동되었을때 사용",
-      note: "-",
-      action: <TableActionBtn />,
-    });
-    setTableData(prev);
-    setRows(
-      prev.map((row) => (
-        <Row
-          id={row.id}
-          name={row.name}
-          kind={row.kind}
-          comment={row.comment}
-          action={row.action}
-        />
-      ))
-    );
-  };
 
+  const history = useHistory();
   return (
     <>
       <div style={{ width: "inherit" }}>
@@ -200,7 +117,11 @@ const HdManagement = () => {
           <div style={{ display: "block", width: 1320 }}>
             <HcTitleTextField titleName="휴무일 설정" isBackIcon={false} />
             <HcButton
-              onClick={onCreate}
+              onClick={() => {
+                history.push({
+                  pathname: "/hr/hrLeaveSettingCreate",
+                });
+              }}
               styles="secondary"
               style={{
                 marginTop: "39px",
@@ -243,33 +164,64 @@ const HdManagement = () => {
                             }}
                           />
                         </td>
-                        <td style={{ width: 332, minWidth: 332 }}>
-                          {" "}
-                          <EditText defaultValue={String(x.name)} />
-                        </td>
-                        <td style={{ width: 332, minWidth: 332 }}>
-                          {" "}
-                          <EditText defaultValue={x.kind} />
-                        </td>
                         <td
-                          style={{
-                            width: 510,
-                            maxWidth: "unset",
-                            minWidth: 510,
-                            overflow: "hidden",
+                          style={{ width: 140, minWidth: 140 }}
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveSettingDetail",
+                            });
                           }}
                         >
-                          <EditText
-                            defaultValue={x.comment}
-                            // onChange={() => {
-                            //   setTableData({
-                            //     ...tableData,
-                            //     ...x,
-                            //     [x.comment]: "hi",
-                            //   });
-
-                            // }}
-                          />
+                          회사 지정 휴가
+                        </td>
+                        <td
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveSettingDetail",
+                            });
+                          }}
+                          style={{ width: 140, minWidth: 140 }}
+                        >
+                          1000001
+                        </td>
+                        <td
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveSettingDetail",
+                            });
+                          }}
+                          style={{ width: 140, minWidth: 140 }}
+                        >
+                          리프레시
+                        </td>
+                        <td
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveSettingDetail",
+                            });
+                          }}
+                          style={{ width: 120, minWidth: 120 }}
+                        >
+                          사용{" "}
+                        </td>
+                        <td
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveSettingDetail",
+                            });
+                          }}
+                          style={{
+                            width: 614,
+                            maxWidth: "unset",
+                            minWidth: 614,
+                            overflow: "hidden",
+                            height: 46,
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            wordBreak: "break-all",
+                          }}
+                        >
+                          피로한 몸과 마음에 활력을 주기 위해 갖는 장기 유급휴가
                         </td>
                         <td style={{ width: 120, minWidth: 120 }}>
                           {x.action}
@@ -281,37 +233,10 @@ const HdManagement = () => {
               </TableContainer>
             </div>
           </div>
-          <HcPopup open={modalOpen} close={closeModal} header="저장">
-            저장하시겠습니까?
-          </HcPopup>
         </ComponentWrapper>
-        <HcBottomBar open={barOpen} style={{ width: 1400 }}>
-          <div>
-            <HcButton
-              onClick={() => {
-                openModal();
-              }}
-              styles="primary"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              저장
-            </HcButton>
-            <HcButton
-              onClick={() => {
-                setbarOpen(false);
-              }}
-              styles="line"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              취소
-            </HcButton>
-          </div>
-        </HcBottomBar>
       </div>
     </>
   );
 };
 
-export default HdManagement;
+export default LeaveSetting;

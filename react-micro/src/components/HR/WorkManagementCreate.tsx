@@ -143,7 +143,7 @@ const WorkManagementDetail = () => {
   return (
     <>
       <ComponentWrapper style={{ display: "block", paddingTop: 40 }}>
-        <HcTitleTextField titleName="근무 유형 상세" isBackIcon />
+        <HcTitleTextField titleName="근무 유형 생성" isBackIcon />
         <DataForm style={{ marginTop: 36 }}>
           <div
             className="first_block"

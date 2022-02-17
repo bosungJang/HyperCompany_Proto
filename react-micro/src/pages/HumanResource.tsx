@@ -24,7 +24,11 @@ import {
   WorkManagementCreate,
   HdManagement,
   LeaveStandardManagement,
+  LeaveStandardDetail,
   LeaveDetail,
+  LeaveSetting,
+  LeaveSettingDetail,
+  LeaveSettingCreate,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -84,6 +88,8 @@ const testArray = [
       { title: "근태 관리", path: "/hr/hrEmployeeStatus" },
       { title: "휴가 관리", path: "/hr/hrLeaveManagement" },
       { title: "근무 유형 설정", path: "/hr/hrWorkManagement" },
+      { title: "근무 항목 설정", path: "/hr/hrWorkCategory" },
+      { title: "휴가 설정", path: "/hr/hrLeaveSetting" },
       { title: "연월차 설정", path: "/hr/hrLeaveStandard" },
       { title: "휴무일 설정", path: "/hr/hrHdManagement" },
     ],
@@ -168,6 +174,18 @@ const HumanResourgcePage = (props: HRProps) => {
         component={LeaveDetail}
       />
       <Route
+        path={`${props.match.url}/hrLeaveSetting`}
+        component={LeaveSetting}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveSettingDetail`}
+        component={LeaveSettingDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveSettingCreate`}
+        component={LeaveSettingCreate}
+      />
+      <Route
         path={`${props.match.url}/hrWorkManagement`}
         component={WorkManagement}
       />
@@ -186,6 +204,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrLeaveStandard`}
         component={LeaveStandardManagement}
+      />
+      <Route
+        path={`${props.match.url}/hrLeaveStandardDetail`}
+        component={LeaveStandardDetail}
       />
     </div>
   );

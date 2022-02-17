@@ -90,7 +90,10 @@ const ProfessionalDetail = () => {
   return (
     <div style={{ width: "inherit" }}>
       <ComponentWrapper style={{ display: "block", height: 1400 }}>
-        <HcTitleTextField titleName="직책 상세" isBackIcon />
+        <div style={{ marginTop: 20 }}>
+          {" "}
+          <HcTitleTextField titleName="직책 상세" isBackIcon />
+        </div>
         {data.edit == false ? (
           <TextFieldContainer>
             <div

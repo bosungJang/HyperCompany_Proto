@@ -149,6 +149,24 @@ export const LeaveManagement = loadable(
     fallback: Loading,
   }
 );
+export const LeaveSetting = loadable(
+  () => import("../components/HR/LeaveSetting"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveSettingDetail = loadable(
+  () => import("../components/HR/LeaveSettingDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveSettingCreate = loadable(
+  () => import("../components/HR/LeaveSettingCreate"),
+  {
+    fallback: Loading,
+  }
+);
 export const LeaveDetail = loadable(
   () => import("../components/HR/LeaveDetail"),
   {
@@ -175,6 +193,12 @@ export const WorkManagementCreate = loadable(
 );
 export const HdManagement = loadable(
   () => import("../components/HR/HdManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const LeaveStandardDetail = loadable(
+  () => import("../components/HR/LeaveStandardDetail"),
   {
     fallback: Loading,
   }
