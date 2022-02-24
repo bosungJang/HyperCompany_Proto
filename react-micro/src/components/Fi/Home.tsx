@@ -10,6 +10,7 @@ import { HcTitleTextField } from "common/HcTextField";
 import OrganizationChart from "common/Chart/OrganizationChart";
 import EmployeeChart from "common/Chart/OrganizationChartDemo";
 import HcDropDownTable from "common/HcDropDownTable";
+import BalkanChart from "common/Chart/BalkanOrganizationChart";
 
 interface MatchParams {
   id: string;
@@ -52,6 +53,84 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       <ComponentWrapper>
         <div style={{ width: "100%" }}>
           <HcDropDownTable />
+        </div>
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <div style={{ width: "100%" }}>
+          <BalkanChart
+            nodes={[
+              {
+                id: 1,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/2.jpg",
+              },
+              {
+                id: 2,
+                pid: 1,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/3.jpg",
+              },
+              {
+                id: 3,
+                pid: 1,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/4.jpg",
+              },
+              {
+                id: 4,
+                pid: 2,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/5.jpg",
+              },
+              {
+                id: 5,
+                pid: 2,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/6.jpg",
+              },
+              {
+                id: 6,
+                pid: 3,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/7.jpg",
+              },
+              {
+                id: 7,
+                pid: 3,
+                name: "장보성",
+                title: "본부장",
+                position: "티맥스 소프트",
+                department: "티맥스 소프트",
+                number: 130,
+                img: "https://cdn.balkan.app/shared/8.jpg",
+              },
+            ]}
+          />
         </div>
       </ComponentWrapper>
     </div>

@@ -235,11 +235,13 @@ function App() {
   return (
     <div
       className="App"
+      /*
       onMouseDown={onDragStart}
       onMouseMove={isDrag ? onThrottleDragMove : () => {}}
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}
+      */
     >
       <button
         style={{
