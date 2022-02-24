@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
 import styled from "styled-components";
 import "common/Table.css";
@@ -41,16 +41,24 @@ const TableContainer = styled.div`
 
 const data = [
   {
-    subject: "1. 유동자산",
+    subject: "자산",
     currentAmount: "",
     priorAmount: "",
-    total: "350,000,000",
+    total: "",
     subMenu: [
       {
-        subject: "제품 매출",
+        subject: "1. 유동자산",
         currentAmount: "",
-        priorAmount: "350,000,000",
+        priorAmount: "",
         total: "350,000,000",
+        subMenu: [
+          {
+            subject: "제품 매출",
+            currentAmount: "",
+            priorAmount: "350,000,000",
+            total: "350,000,000",
+          },
+        ],
       },
     ],
   },
@@ -158,44 +166,49 @@ const BalanceSheet = () => {
 
     return (
       <>
-        {data.map(({ subject, currentAmount, priorAmount, total, subMenu }) => (
-          <>
-            <tr>
-              <td colSpan={5}>자산</td>
-            </tr>
-            <tr
-              style={{ background: "rgba(10,147,155,0.1)" }}
-              className="drop_down_row"
-              onClick={(e) => {
-                e.preventDefault();
-                //var $current = e.target;
-                var current = document.getElementsByClassName("drop_down_row");
-              }}
-            >
-              <td style={{ paddingLeft: "11px" }}>{subject}</td>
-              <td>{currentAmount}</td>
-              <td
-                style={{
-                  width: "220px",
-                  textAlign: "end",
-                  paddingRight: "11px",
-                }}
-              >
-                {priorAmount}
-              </td>
-              <td
-                style={{
-                  width: "220px",
-                  textAlign: "end",
-                  paddingRight: "11px",
-                }}
-              >
-                {total}
-              </td>
-            </tr>
-            {subMenu != null ? loop(subMenu, 1) : null}
-          </>
-        ))}
+        {data.map(
+          ({ subject, currentAmount, priorAmount, total, subMenu }, index) => (
+            <>
+              <Fragment key={`${index}${subject}`}>
+                <tr>
+                  <td colSpan={5}>자산</td>
+                </tr>
+                <tr
+                  style={{ background: "rgba(10,147,155,0.1)" }}
+                  className="drop_down_row"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    //var $current = e.target;
+                    var current =
+                      document.getElementsByClassName("drop_down_row");
+                  }}
+                >
+                  <td style={{ paddingLeft: "11px" }}>{subject}</td>
+                  <td>{currentAmount}</td>
+                  <td
+                    style={{
+                      width: "220px",
+                      textAlign: "end",
+                      paddingRight: "11px",
+                    }}
+                  >
+                    {priorAmount}
+                  </td>
+                  <td
+                    style={{
+                      width: "220px",
+                      textAlign: "end",
+                      paddingRight: "11px",
+                    }}
+                  >
+                    {total}
+                  </td>
+                </tr>
+                {subMenu != null ? loop(subMenu, 0) : null}
+              </Fragment>
+            </>
+          )
+        )}
       </>
     );
   };

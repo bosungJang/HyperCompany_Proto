@@ -1,0 +1,25 @@
+[data-n-id] rect {
+  border: 1px solid #a7a7a7;
+  border-radius: 4px;
+  display: inline-block;
+  color: black;
+
+  width: 280px;
+  height: 210px;
+
+  fill: white;
+}
+[data-ctrl-ec-id] circle.ba-fill {
+  fill: #750000;
+}
+[data-ctrl-n-menu-id] circle {
+  fill: black;
+}
+
+.field_1 {
+  fill: yellow;
+}
+
+#tree > svg {
+  background-color: #f9f9f9;
+}

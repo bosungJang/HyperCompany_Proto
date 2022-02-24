@@ -502,7 +502,6 @@ const OrganizationType = () => {
                                   */
                                 }}
                               >
-                                {" "}
                                 <td style={{ paddingLeft: 12 }}>
                                   <HcCheckBox
                                     checked={checkedItem.includes()}
