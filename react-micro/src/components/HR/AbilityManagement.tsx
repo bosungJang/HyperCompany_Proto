@@ -76,27 +76,11 @@ const TreeContAreaTitle = styled.div`
   color: #000000;
   border-bottom: 1px solid #e0e0e0;
 `;
-
-const CreateTreeContAreaTitle = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  text-transform: uppercase;
-  height: 60px;
-  width: 284px;
-  padding: 12px;
-
-  color: #000000;
-  border: 1px solid #e0e0e0;
-`;
-
 let num = 100000;
 const getId = () => {
   num = num + 1;
   return num;
 };
-
 const Dutydata = Array(17)
   .fill(undefined)
   .map(() => ({
@@ -111,9 +95,7 @@ const Dutydata = Array(17)
     action: <TableActionBtn />,
   }));
 
-const ProfessionalManagement = ({
-  match,
-}: RouteComponentProps<MatchParams>) => {
+const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   /*TagInput */
   const [tags, setTags] = React.useState([
     "가수금 현금 입금",
@@ -150,12 +132,9 @@ const ProfessionalManagement = ({
         onChange={(e) => checkAllHandler(e.target.checked)}
       />
     </div>,
-    "직무명",
-    "직무 그룹",
+    "역량명",
+    "역량 그룹",
     "설명",
-    "급여 형태",
-    "급여 등급",
-    "필요 역량",
     "수정 일시",
     "-",
   ];
@@ -188,19 +167,19 @@ const ProfessionalManagement = ({
     },
     {
       id: 1,
-      title: "경영 지원",
+      title: "인사 역량",
     },
     {
       id: 2,
-      title: "영업 및 마케팅",
+      title: "경영 지원 역량",
     },
     {
       id: 3,
-      title: "연구 개발",
+      title: "기획 역량",
     },
     {
       id: 4,
-      title: "전산 IT",
+      title: "연구 개발 역량",
     },
   ]);
   /*Tree*/
@@ -208,7 +187,7 @@ const ProfessionalManagement = ({
   const infoData = [
     {
       id: 0,
-      title: "경영지원",
+      title: "인사 역량",
       creator: "홍길동",
       date: "2021.01.01",
       description:
@@ -216,21 +195,21 @@ const ProfessionalManagement = ({
     },
     {
       id: 1,
-      title: "영업 및 마케팅",
+      title: "경영 지원 역량",
       creator: "홍길동",
       date: "2021.01.01",
       description: "영업마케팅 설명",
     },
     {
       id: 2,
-      title: "연구 개발",
+      title: "기획 역량",
       creator: "홍길동",
       date: "2021.01.01",
       description: "연구개발 설명",
     },
     {
       id: 3,
-      title: "전산IT",
+      title: "연구 개발 역량",
       creator: "홍길동",
       date: "2021.01.01",
       description: "전산IT 설명",
@@ -245,10 +224,6 @@ const ProfessionalManagement = ({
   });
 
   const CreateStatus = React.forwardRef((props, ref) => {
-    /*TagInput */
-    const [inputVal, setInputVal] = React.useState("");
-    /*TagInput */
-
     const [selGroup, setSelGroup] = React.useState({
       id: "",
       title: "",
@@ -398,7 +373,7 @@ const ProfessionalManagement = ({
           <HcSearchTextField
             name="name"
             value={searchVal}
-            placeholder="계정 코드 혹은 계정 과목명 검색"
+            placeholder="직무 그룹 검색"
             style={{ width: "550px" }}
             onChange={(e) => {
               const lengthOfInputValue = searchVal.split("").length;
@@ -411,7 +386,7 @@ const ProfessionalManagement = ({
 
           <HcTree
             items={items}
-            style={{ minHeight: "612px", width: "550px", marginTop: "13px" }}
+            style={{ Height: "832px", width: "312px", marginTop: "13px" }}
             currentData={selGroup}
             setcurrentData={setSelGroup}
             closeModal={closeModal}
@@ -429,7 +404,7 @@ const ProfessionalManagement = ({
         <HcButton
           onClick={() => {
             history.push({
-              pathname: "/hr/hrProfessionalCreate",
+              pathname: "/hr/abilityCreate",
             });
           }}
           styles="secondary"
@@ -541,12 +516,14 @@ const ProfessionalManagement = ({
             stroke-width="0.4"
           />
         </svg>
-        <TableContainer style={{ width: 936, height: 600 }}>
+        <TableContainer style={{ maxWidth: 984, height: 814 }}>
           <table className="table table-hover">
-            <thead>
-              <tr>
+            <thead style={{ width: 984 }}>
+              <tr style={{ textAlign: "left" }}>
                 {columns.map((column: any) => (
-                  <th key={column}>{column}</th>
+                  <th style={{ paddingLeft: 12 }} key={column}>
+                    {column}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -566,13 +543,13 @@ const ProfessionalManagement = ({
                   }) => (
                     <tr
                       style={{
-                        textAlign: "center",
+                        textAlign: "left",
                         backgroundColor: checkedItem.includes(id)
                           ? "#DFECFF"
                           : "",
                       }}
                     >
-                      <td>
+                      <td style={{ maxWidth: 46, paddingLeft: 16 }}>
                         <HcCheckBox
                           checked={checkedItem.includes(id)}
                           onChange={(e) => {
@@ -581,9 +558,10 @@ const ProfessionalManagement = ({
                         />
                       </td>
                       <td
+                        style={{ maxWidth: 160, paddingLeft: 12 }}
                         onClick={() => {
                           history.push({
-                            pathname: "/hr/hrProfessionalDetail",
+                            pathname: "/hr/abilityDetail",
                             state: {
                               id: id,
                               comment: comment,
@@ -597,12 +575,13 @@ const ProfessionalManagement = ({
                           });
                         }}
                       >
-                        {name}
+                        경영 환경 분석
                       </td>
                       <td
+                        style={{ maxWidth: 160, paddingLeft: 12 }}
                         onClick={() => {
                           history.push({
-                            pathname: "/hr/hrProfessionalDetail",
+                            pathname: "/hr/abilityDetail",
                             state: {
                               id: id,
                               comment: comment,
@@ -616,12 +595,17 @@ const ProfessionalManagement = ({
                           });
                         }}
                       >
-                        {group}
+                        경영 지원 역량
                       </td>
                       <td
+                        style={{
+                          minWidth: 378,
+                          maxWidth: 378,
+                          paddingLeft: 12,
+                        }}
                         onClick={() => {
                           history.push({
-                            pathname: "/hr/hrProfessionalDetail",
+                            pathname: "/hr/abilityDetail",
                             state: {
                               id: id,
                               comment: comment,
@@ -638,9 +622,10 @@ const ProfessionalManagement = ({
                         {comment}
                       </td>
                       <td
+                        style={{ width: 120, paddingLeft: 12 }}
                         onClick={() => {
                           history.push({
-                            pathname: "/hr/hrProfessionalDetail",
+                            pathname: "/hr/abilityDetail",
                             state: {
                               id: id,
                               comment: comment,
@@ -654,47 +639,10 @@ const ProfessionalManagement = ({
                           });
                         }}
                       >
-                        {type}
+                        2022.01.02
                       </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {ability}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {grade}
-                      </td>
-                      <td>{action}</td>
+
+                      <td style={{ width: 120, paddingLeft: 12 }}>{action}</td>
                     </tr>
                   )
                 )}
@@ -809,33 +757,17 @@ const ProfessionalManagement = ({
   }
   const childRef = React.useRef<any>(null);
 
-  /*Tabs */
-  const [Tabs, setTabs] = React.useState("1");
-  /*Tabs */
-
   return (
     <>
       <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
         <div style={{ display: "block", width: "inherit", marginTop: "20px" }}>
           <div>
             <HcTitleTextField
-              titleName="직능관리"
+              titleName="역량 관리"
               isBackIcon={false}
               style={{ display: "inline-block" }}
             />
             <div style={{ float: "right" }}>
-              <HcButton
-                styles="line"
-                style={{ marginRight: 10 }}
-                size="medium"
-                onClick={() => {
-                  history.push({
-                    pathname: "/hr/hrProfessionalHistory",
-                  });
-                }}
-              >
-                직능 수정 이력
-              </HcButton>
               <HcButton
                 onClick={() => {}}
                 styles="line"
@@ -846,138 +778,39 @@ const ProfessionalManagement = ({
               </HcButton>
             </div>
           </div>
-          <div style={{ marginTop: "39px" }}>
-            <HcTabsAdv
-              items={[
-                { to: "1", name: "직무 관리" },
-                { to: "2", name: "직위 관리" },
-                { to: "3", name: "직책 관리" },
-              ]}
-              size="normal"
-              TabNumber={Tabs}
-              SetTabNumber={setTabs}
-            />
-          </div>
+
           <div
             className="body_area"
             style={{ display: "flex", marginTop: "32px" }}
           >
-            {
-              {
-                "1": (
+            <>
+              <HcTree
+                items={items}
+                title="계정과목"
+                search={true}
+                style={{ minHeight: "832px" }}
+                isCreate={isCreate}
+                setIsCreates={setIsCreates}
+                currentData={currentData}
+                setcurrentData={setcurrentData}
+              />
+              <div>
+                {isCreate === true ? (
+                  <TreeContArea>
+                    <CreateStatus ref={childRef} />{" "}
+                  </TreeContArea>
+                ) : (
                   <>
-                    <HcTree
-                      items={items}
-                      title="계정과목"
-                      search={true}
-                      style={{ minHeight: "832px" }}
-                      isCreate={isCreate}
-                      setIsCreates={setIsCreates}
-                      currentData={currentData}
-                      setcurrentData={setcurrentData}
-                    />
-                    <div>
-                      {isCreate === true ? (
-                        <TreeContArea>
-                          <CreateStatus ref={childRef} />{" "}
-                        </TreeContArea>
-                      ) : (
-                        <>
-                          <NormalStatus />
-                        </>
-                      )}
-                    </div>
+                    <NormalStatus />
                   </>
-                ),
-                "2": (
-                  <>
-                    <HcTree
-                      items={items}
-                      title="계정과목"
-                      search={true}
-                      style={{ minHeight: "832px" }}
-                      isCreate={isCreate}
-                      setIsCreates={setIsCreates}
-                      currentData={currentData}
-                      setcurrentData={setcurrentData}
-                    />
-                    <div>
-                      {isCreate === true ? (
-                        <TreeContArea>
-                          <CreateStatus ref={childRef} />{" "}
-                        </TreeContArea>
-                      ) : (
-                        <>
-                          <NormalStatus />
-                        </>
-                      )}
-                    </div>
-                  </>
-                ),
-                "3": (
-                  <>
-                    <div>직책 관리</div>
-                  </>
-                ),
-              }[Tabs]
-            }
+                )}
+              </div>
+            </>
           </div>
         </div>
       </ComponentWrapper>
-      <HcBottomBar open={barOpen} style={{ width: 1400 }}>
-        <div>
-          {isCreate === true ? (
-            <HcButton
-              onClick={() => {
-                //openModal();
-
-                setTest(childRef.current.importData());
-                items.push({
-                  id: test.id,
-                  title: test.title,
-                });
-                infoData.push({
-                  id: test.id,
-                  title: test.title,
-                  description: test.description,
-                  creator: test.creator,
-                  date: test.date,
-                });
-                setIsCreates(false);
-              }}
-              styles="primary"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              저장
-            </HcButton>
-          ) : (
-            <HcButton
-              onClick={() => {
-                //openModal();
-              }}
-              styles="primary"
-              style={{ marginRight: "5px" }}
-              size="big"
-            >
-              수정
-            </HcButton>
-          )}
-
-          <HcButton
-            onClick={() => {
-              setIsCreates(false);
-            }}
-            styles="line"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
-            삭제
-          </HcButton>
-        </div>
-      </HcBottomBar>
     </>
   );
 };
 
-export default ProfessionalManagement;
+export default AbilityManagement;

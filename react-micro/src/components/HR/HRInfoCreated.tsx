@@ -5,7 +5,7 @@ import styled from "styled-components";
 import HcButton from "common/HcButton";
 import { useLocation } from "react-router";
 import { ToastContext } from "common/Toast";
-import { HcContentPopup } from "common/HcPopup";
+import { HcMailPopup } from "common/HcPopup";
 import { EditText, EditTextarea } from "react-edit-text";
 const SubTitle = styled.div`
   font-family: Noto Sans CJK KR;
@@ -71,7 +71,14 @@ export default function () {
   };
   return (
     <ComponentWrapper style={{ display: "block", height: 1013 }}>
-      <div style={{ float: "left", height: 40, marginBottom: 59 }}>
+      <div
+        style={{
+          float: "left",
+          height: 40,
+          marginBottom: 59,
+          width: "364px",
+        }}
+      >
         <HcTitleTextField
           titleName="인사 정보 생성 완료하였습니다."
           isBackIcon={false}
@@ -141,9 +148,12 @@ export default function () {
 
         <MailContent>{mail}</MailContent>
       </MainSendContainer>
-      <HcContentPopup
+      <HcMailPopup
         open={modalOpen}
         close={closeModal}
+        save={() => {
+          console.log("saved");
+        }}
         header="초대 메일 수정"
       >
         <p>초대메일에 추가할 내용을 입력하세요</p>
@@ -159,7 +169,7 @@ export default function () {
             setMail(value);
           }}
         />
-      </HcContentPopup>
+      </HcMailPopup>
     </ComponentWrapper>
   );
 }

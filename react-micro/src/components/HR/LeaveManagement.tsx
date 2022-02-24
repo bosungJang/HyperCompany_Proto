@@ -9,7 +9,6 @@ import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
 
-import { EditText, EditTextarea } from "react-edit-text";
 import "common/bulkActionTest.scss";
 import { HcTabsAdv } from "common/HcTabs";
 import HcCheckBox from "common/HcCheckBox";
@@ -223,7 +222,7 @@ const OrganizationType = () => {
   function checkAllHandler(checked: Boolean) {
     if (checked) {
       const ids: Number[] = [];
-      //Dutydata.forEach((i) => ids.push(i.id));
+      tableData.forEach((i) => ids.push(i.id));
       setCheckedItem(ids);
     } else {
       setCheckedItem([]);
@@ -238,17 +237,7 @@ const OrganizationType = () => {
             <div className="title" style={{ marginBottom: 47, marginTop: 20 }}>
               <HcTitleTextField titleName="휴가 관리" isBackIcon={false} />
             </div>
-            {/* <HcButton
-              
-              styles="secondary"
-              style={{
-                marginTop: "39px",
-                marginBottom: "20px",
-              }}
-              size="medium"
-            >
-              +생성
-            </HcButton> */}
+
             <div style={{ marginTop: "39px" }}>
               <HcTabsAdv
                 items={[
@@ -292,7 +281,7 @@ const OrganizationType = () => {
                                 }}
                                 onClick={() => {
                                   console.log(
-                                    data.filter((i) => i.id === x.id)
+                                    tableData.filter((i) => i.id === x.id)
                                   );
                                   history.push({
                                     pathname: "/hr/hrLeaveDetail",
@@ -448,7 +437,20 @@ const OrganizationType = () => {
                     </>
                   ),
                   "2": (
-                    <>
+                    <div style={{ display: "block" }}>
+                      <HcButton
+                        styles={"line"}
+                        size={"medium"}
+                        style={{
+                          marginBottom: "20px",
+                          display: checkedItem.length > 0 ? "" : "none",
+                        }}
+                        onClick={() => {
+                          history.push({ pathname: "/hr/PromoteLeave" });
+                        }}
+                      >
+                        연차 사용 촉진
+                      </HcButton>
                       <TableContainer>
                         <table
                           className="table table-hover"
@@ -491,23 +493,13 @@ const OrganizationType = () => {
                                   textAlign: "center",
                                   height: 46,
                                 }}
-                                onClick={() => {
-                                  /*
-                                  console.log(
-                                    data.filter((i) => i.id === x.id)
-                                  );
-                                  history.push({
-                                    pathname: "/hr/hrLeaveDetail",
-                                  });
-                                  */
-                                }}
                               >
                                 {" "}
                                 <td style={{ paddingLeft: 12 }}>
                                   <HcCheckBox
-                                    checked={checkedItem.includes()}
+                                    checked={checkedItem.includes(x.id)}
                                     onChange={(e) => {
-                                      //checkHandler(e.target.checked, id);
+                                      checkHandler(e.target.checked, x.id);
                                     }}
                                   />
                                 </td>
@@ -589,7 +581,7 @@ const OrganizationType = () => {
                           </tbody>
                         </table>
                       </TableContainer>
-                    </>
+                    </div>
                   ),
                 }[Tabs]
               }

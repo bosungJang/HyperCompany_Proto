@@ -27,8 +27,14 @@ import {
   LeaveStandardDetail,
   LeaveDetail,
   LeaveSetting,
+  PromoteLeave,
   LeaveSettingDetail,
   LeaveSettingCreate,
+  WorkCategory,
+  AbilityManagement,
+  AbilityDetail,
+  AbilityCreate,
+  WorkSchedule,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -45,19 +51,17 @@ const testArray = [
     title: "인사 관리",
     path: "/hr/management",
     submenu: [
-      { title: "사원 그룹 관리", path: "/hr/groupManagement" },
-      {
-        title: "발령 관리",
-        path: "/hr/appointment",
-      },
       {
         title: "인사 정보 관리",
         path: "/hr/management",
       },
+      { title: "사원 그룹 관리", path: "/hr/groupManagement" },
+      { title: "역량 관리", path: "/hr/abilityManagement" },
       {
-        title: "사원 그룹 관리",
-        path: "/hr/groupManagement",
+        title: "발령 관리",
+        path: "/hr/appointment",
       },
+
       {
         title: "발령 기준 설정",
         path: "/hr/hrAppointmentStandards",
@@ -86,6 +90,7 @@ const testArray = [
     path: "/hr/hrEmployeeStatus",
     submenu: [
       { title: "근태 관리", path: "/hr/hrEmployeeStatus" },
+      { title: "근무 스케쥴 관리", path: "/hr/hrWorkSchedule" },
       { title: "휴가 관리", path: "/hr/hrLeaveManagement" },
       { title: "근무 유형 설정", path: "/hr/hrWorkManagement" },
       { title: "근무 항목 설정", path: "/hr/hrWorkCategory" },
@@ -106,6 +111,18 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/appointment`}
         component={HRAppointment}
+      />
+      <Route
+        path={`${props.match.url}/abilityManagement`}
+        component={AbilityManagement}
+      />
+      <Route
+        path={`${props.match.url}/abilityDetail`}
+        component={AbilityDetail}
+      />
+      <Route
+        path={`${props.match.url}/abilityCreate`}
+        component={AbilityCreate}
       />
       <Route path={`${props.match.url}/management`} component={HRManagement} />
       <Route
@@ -174,6 +191,10 @@ const HumanResourgcePage = (props: HRProps) => {
         component={LeaveDetail}
       />
       <Route
+        path={`${props.match.url}/hrWorkCategory`}
+        component={WorkCategory}
+      />
+      <Route
         path={`${props.match.url}/hrLeaveSetting`}
         component={LeaveSetting}
       />
@@ -198,6 +219,10 @@ const HumanResourgcePage = (props: HRProps) => {
         component={WorkManagementCreate}
       />
       <Route
+        path={`${props.match.url}/PromoteLeave`}
+        component={PromoteLeave}
+      />
+      <Route
         path={`${props.match.url}/hrHdManagement`}
         component={HdManagement}
       />
@@ -208,6 +233,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrLeaveStandardDetail`}
         component={LeaveStandardDetail}
+      />
+      <Route
+        path={`${props.match.url}/hrWorkSchedule`}
+        component={WorkSchedule}
       />
     </div>
   );

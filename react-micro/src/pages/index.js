@@ -113,6 +113,24 @@ export const HRProfessionalManagement = loadable(
     fallback: Loading,
   }
 );
+export const AbilityManagement = loadable(
+  () => import("../components/HR/AbilityManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const AbilityDetail = loadable(
+  () => import("../components/HR/AbillityDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const AbilityCreate = loadable(
+  () => import("../components/HR/AbilityCreate"),
+  {
+    fallback: Loading,
+  }
+);
 export const HROrganizationType = loadable(
   () => import("../components/HR/OrganizationType"),
   {
@@ -149,6 +167,12 @@ export const LeaveManagement = loadable(
     fallback: Loading,
   }
 );
+export const PromoteLeave = loadable(
+  () => import("../components/HR/PromoteLeave"),
+  {
+    fallback: Loading,
+  }
+);
 export const LeaveSetting = loadable(
   () => import("../components/HR/LeaveSetting"),
   {
@@ -179,6 +203,12 @@ export const WorkManagement = loadable(
     fallback: Loading,
   }
 );
+export const WorkCategory = loadable(
+  () => import("../components/HR/WorkCategory"),
+  {
+    fallback: Loading,
+  }
+);
 export const WorkManagementDetail = loadable(
   () => import("../components/HR/WorkManagementDetail"),
   {
@@ -205,6 +235,12 @@ export const LeaveStandardDetail = loadable(
 );
 export const LeaveStandardManagement = loadable(
   () => import("../components/HR/LeaveStandardManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const WorkSchedule = loadable(
+  () => import("../components/HR/WorkSchedule"),
   {
     fallback: Loading,
   }

@@ -5,7 +5,11 @@ import { useCounter } from "router/Root";
 import { HcPopup } from "../common/HcPopup";
 import HcCard from "../common/HcCard";
 import HcFilter from "../common/HcFilter";
-import { HcDatePicker, HcDateRangePicker } from "../common/HcDatePicker";
+import {
+  HcDatePicker,
+  HcDateRangePicker,
+  CustomDatepicker,
+} from "../common/HcDatePicker";
 import styled from "styled-components";
 interface MatchParams {
   name: string;
@@ -17,6 +21,7 @@ const ComponentWrapper = styled.div`
   margin-bottom: 20px;
   display: block;
   padding: 20px 40px;
+  height: fit-content;
 `;
 const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
   const query = queryString.parse(location.search);
@@ -69,10 +74,53 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
       <br />
       <HcDatePicker />
       <HcDateRangePicker />
+      <CustomDatepicker />
       <HcFilter />
-
-      <br />
-
+      <br /> <br /> <br />
+      <table style={{ top: 770 }}>
+        <thead>
+          <tr>
+            <th style={{ border: "1px solid #CECECE", minWidth: 30 }}></th>
+            <th style={{ border: "1px solid #CECECE", minWidth: 30 }}>1</th>
+            <th style={{ border: "1px solid #CECECE", minWidth: 30 }}>2</th>
+            <th style={{ border: "1px solid #CECECE", minWidth: 30 }}>3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ border: "1px solid #CECECE", zIndex: 1, padding: 3 }}>
+              <b> 홍길동</b>
+            </td>
+            <td
+              style={{
+                position: "relative",
+                border: "1px solid #CECECE",
+                zIndex: 1,
+                borderCollapse: "collapse",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  borderLeft: "3px solid #EE75FF",
+                  width: 53,
+                  borderRadius: 3,
+                  top: 3,
+                  backgroundColor: "#F9E9FC",
+                }}
+              >
+                test
+              </div>
+            </td>
+            <td style={{ border: "1px solid #CECECE", zIndex: 1, padding: 3 }}>
+              1
+            </td>
+            <td style={{ border: "1px solid #CECECE", zIndex: 1, padding: 3 }}>
+              0
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <HcPopup open={modalOpen} close={closeModal} header="Pop-up Title">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est similique
         saepe officia, vel sed pariatur tenetur nobis placeat commodi, dolorum

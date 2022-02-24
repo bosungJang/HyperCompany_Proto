@@ -12,7 +12,7 @@ import HcButton from "common/HcButton";
 import HcTable from "common/HcTable";
 import { HcTreePopup } from "common/HcPopup";
 import HcBottomBar from "common/HcBottomBar";
-import "common/datepicker.css";
+import "common/react-datepicker.scss";
 import "react-datepicker/dist/react-datepicker.css";
 const TreeContainer = styled.div`
   height: 832px;

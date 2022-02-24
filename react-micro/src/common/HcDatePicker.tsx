@@ -2,9 +2,10 @@ import React, { CSSProperties, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./datepicker.css";
+import HcButton from "./HcButton";
+import "./react-datepicker.scss";
 import ko from "date-fns/locale/ko";
-import { getMonth, getYear } from "date-fns";
+import { getMonth, getYear, addDays, subDays } from "date-fns";
 import range from "lodash/range";
 
 const DatePickerContainer = styled.div`
@@ -123,6 +124,112 @@ const CustomInput = styled.input`
   border: 1px solid #cecece;
   padding-left: 12px;
 `;
+export const CustomDatepicker = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const ClickNext = () => {
+    setStartDate(addDays(startDate, 1));
+  };
+  const ClickPrev = () => {
+    setStartDate(subDays(startDate, 1));
+  };
+  const ExampleCustomInput = React.forwardRef(
+    ({ value, onClick }: any, ref: any) => (
+      <div
+        style={{
+          display: "flex",
+          msUserSelect: "none",
+          MozUserSelect: "-moz-none",
+          KhtmlUserSelect: "none",
+          WebkitUserSelect: "none",
+          userSelect: "none",
+        }}
+      >
+        <svg
+          onClick={ClickPrev}
+          style={{ marginRight: "16px", marginTop: "10px" }}
+          width="8"
+          height="14"
+          viewBox="0 0 8 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M7.70711 0.707107C7.31658 0.316583 6.68342 0.316583 6.29289 0.707107L0.636154 6.36384L0.636038 6.36396C0.245513 6.75448 0.245514 7.38765 0.636038 7.77817C0.64036 7.7825 0.644711 7.78677 0.649092 7.791L6.29301 13.4349C6.68353 13.8254 7.3167 13.8254 7.70722 13.4349C8.09775 13.0444 8.09775 12.4112 7.70722 12.0207L2.75747 7.07095L7.70711 2.12132C8.09763 1.7308 8.09763 1.09763 7.70711 0.707107Z"
+            fill="#5D5D62"
+          />
+        </svg>
+
+        <p
+          onClick={onClick}
+          ref={ref}
+          style={{
+            fontSize: "22px",
+            color: "#303030",
+            backgroundColor: "none",
+            fontWeight: "bold",
+            position: "relative",
+          }}
+        >
+          {value}
+          <svg
+            style={{ position: "absolute", left: 185, top: 5 }}
+            width="22"
+            height="23"
+            viewBox="0 0 22 23"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M6.66683 3.646C6.66683 3.19726 7.0306 2.8335 7.47933 2.8335C7.92806 2.8335 8.29183 3.19726 8.29183 3.646V5.00016H14.2502V3.646C14.2502 3.19726 14.6139 2.8335 15.0627 2.8335C15.5114 2.8335 15.8752 3.19726 15.8752 3.646V5.00016H17.6668C18.7714 5.00016 19.6668 5.89559 19.6668 7.00016V18.1668C19.6668 19.2714 18.7714 20.1668 17.6668 20.1668H4.3335C3.22893 20.1668 2.3335 19.2714 2.3335 18.1668V7.00016C2.3335 5.89559 3.22893 5.00016 4.3335 5.00016H6.66683V3.646ZM4.3335 6.50016H17.6668C17.943 6.50016 18.1668 6.72402 18.1668 7.00016V8.79183H3.8335V7.00016C3.8335 6.72402 4.05736 6.50016 4.3335 6.50016ZM3.8335 10.4168V18.1668C3.8335 18.443 4.05735 18.6668 4.3335 18.6668H17.6668C17.943 18.6668 18.1668 18.443 18.1668 18.1668V10.4168H3.8335Z"
+              fill="black"
+            />
+          </svg>
+        </p>
+        <svg
+          onClick={ClickNext}
+          style={{ marginLeft: "42px", marginTop: "9px" }}
+          width="8"
+          height="15"
+          viewBox="0 0 8 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.292893 13.7929C0.683418 14.1834 1.31658 14.1834 1.70711 13.7929L7.36385 8.13616L7.36396 8.13604C7.75449 7.74552 7.75449 7.11235 7.36396 6.72183C7.35964 6.7175 7.35529 6.71323 7.35091 6.709L1.70699 1.06509C1.31647 0.674563 0.683302 0.674562 0.292778 1.06509C-0.0977469 1.45561 -0.0977463 2.08878 0.292778 2.4793L5.24253 7.42905L0.292893 12.3787C-0.0976309 12.7692 -0.0976309 13.4024 0.292893 13.7929Z"
+            fill="#5D5D62"
+          />
+        </svg>
+        <HcButton
+          onClick={() => {
+            setStartDate(new Date());
+          }}
+          styles={"line"}
+          size={"medium"}
+          style={{ marginLeft: 15 }}
+        >
+          오늘
+        </HcButton>
+      </div>
+    )
+  );
+  return (
+    <div style={{ width: "fit-content", height: "fit-content" }}>
+      {" "}
+      <DatePicker
+        selected={startDate}
+        dateFormat="yyyy년 MM월 dd일"
+        onChange={(date: Date) => setStartDate(date)}
+        customInput={<ExampleCustomInput />}
+      />
+    </div>
+  );
+};
 export function HcDateRangePicker() {
   const [startDate, setStartDate] = useState(new Date()); //1
   const [endDate, setEndDate] = useState(new Date()); //1
