@@ -168,13 +168,15 @@ export const CustomDatepicker = () => {
             fontSize: "22px",
             color: "#303030",
             backgroundColor: "none",
-            fontWeight: "bold",
+            fontWeight: 700,
+
             position: "relative",
+            fontFamily: "Noto Sans KR",
           }}
         >
           {value}
           <svg
-            style={{ position: "absolute", left: 185, top: 5 }}
+            style={{ position: "absolute", left: 175, top: 6 }}
             width="22"
             height="23"
             viewBox="0 0 22 23"
@@ -191,7 +193,7 @@ export const CustomDatepicker = () => {
         </p>
         <svg
           onClick={ClickNext}
-          style={{ marginLeft: "42px", marginTop: "9px" }}
+          style={{ marginLeft: "36px", marginTop: "10px" }}
           width="8"
           height="15"
           viewBox="0 0 8 15"

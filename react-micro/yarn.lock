@@ -10690,6 +10690,11 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-balkangraph-orgchart@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-balkangraph-orgchart/-/react-balkangraph-orgchart-1.0.1.tgz#4f63f731bcbc116c37f48e8c4ac7e20e601505a3"
+  integrity sha512-dwWPQuxcKmGOCzTjh87VY41ewmlcuZ2IjS9An0nyYvnHv7YWnIHXnDbc2wRfQdOl7xPx9ig5MDKrL+Bj4IxIFQ==
+
 react-cookie@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/react-cookie/-/react-cookie-4.1.1.tgz"
