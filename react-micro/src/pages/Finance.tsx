@@ -17,6 +17,8 @@ import {
   EmployeeAccountManagementPage,
   CardManagementPage,
   CardAprrovalHistoryPage,
+  BillingCurrentStatusPage,
+  BillingTypePage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -109,6 +111,21 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "청구 관리",
+    path: "/fi/billingManagement/billingCurrentStatus",
+    submenu: [
+      {
+        title: "비용 청구 현황",
+        path: "/fi/billingManagement/billingCurrentStatus",
+      },
+      {
+        title: "비용 청구 유형 설정",
+        path: "/fi/billingManagement/billingType",
+      },
+    ],
+  },
 ];
 
 const Finance = (props: FinanceProps) => {
@@ -177,6 +194,14 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/accountAndCardManagement/cardApprovalHistory`}
         component={CardAprrovalHistoryPage}
+      />
+      <Route
+        path={`${props.match.url}/billingManagement/billingCurrentStatus`}
+        component={BillingCurrentStatusPage}
+      />
+      <Route
+        path={`${props.match.url}/billingManagement/billingType`}
+        component={BillingTypePage}
       />
     </div>
   );

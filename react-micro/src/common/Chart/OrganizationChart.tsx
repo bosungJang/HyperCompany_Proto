@@ -11,6 +11,8 @@ import { findParent } from "./helpers";
 import { User } from "./types";
 import { ReactComponent as DropDownIcon } from "resources/images/dropDown_icon.svg";
 import { ReactComponent as AddIcon } from "resources/images/add_icon.svg";
+import styled, { keyframes, Keyframes } from "styled-components";
+import usePanZoom from "use-pan-and-zoom";
 
 function useOutsideClick(ref: any, setClicked: (value: boolean) => void) {
   useEffect(() => {
@@ -26,6 +28,16 @@ function useOutsideClick(ref: any, setClicked: (value: boolean) => void) {
     };
   }, [ref]);
 }
+
+const StockContainer = styled.div<{ ratio: number }>`
+  position: relative;
+  top: 0;
+  left: 0;
+  width: ${(props) => 200 / props.ratio}%;
+  height: ${(props) => 200 / props.ratio}%;
+  transform: scale(${(props) => props.ratio});
+  transform-origin: left top;
+`;
 
 function App() {
   const [tree, setTree] = useState<TreeRoot>({
@@ -232,6 +244,73 @@ function App() {
 
   /*Drag Scroll */
 
+  /*Zoom */
+  const [ratio, setRatio] = useState(1);
+  let posX = 0;
+  let posY = 0;
+
+  let originalX = 0;
+  let originalY = 0;
+
+  const wheelHandler = (e: any) => {
+    setRatio((ratio) => (ratio >= 0.2 ? ratio + 0.001 * e.deltaY : 0.2));
+  };
+
+  const moveScreenStart = (e: any) => {
+    const img = new Image();
+    e.dataTransfer.setDragImage(img, 0, 0);
+
+    posX = e.clientX;
+    posY = e.clientY;
+  };
+
+  const moveScreen = (e: any) => {
+    const limitX = e.target.offsetLeft + (e.clientX - posX) <= 0;
+    const limitY = e.target.offsetTop + (e.clientY - posY) <= 0;
+
+    e.target.style.left = limitX
+      ? `${e.target.offsetLeft + (e.clientX - posX)}px`
+      : "0px";
+    e.target.style.top = limitY
+      ? `${e.target.offsetTop + (e.clientY - posY)}px`
+      : "0px";
+
+    posX = limitX ? e.clientX : 0;
+    posY = limitY ? e.clientY : 0;
+  };
+
+  const moveScreenEnd = (e: any) => {
+    const limitX = e.target.offsetLeft + (e.clientX - posX) <= 0;
+    const limitY = e.target.offsetTop + (e.clientY - posY) <= 0;
+
+    e.target.style.left = limitX
+      ? `${e.target.offsetLeft + (e.clientX - posX)}px`
+      : "0px";
+    e.target.style.top = limitY
+      ? `${e.target.offsetTop + (e.clientY - posY)}px`
+      : "0px";
+
+    //setScreen({ top: e.target.style.top, left: e.target.style.left });
+  };
+
+  const dragHandler = (e: any) => {
+    e.stopPropagation();
+
+    e.target.style.left = `${
+      e.target.offsetLeft + (e.clientX - posX) / ratio
+    }px`;
+    e.target.style.top = `${e.target.offsetTop + (e.clientY - posY) / ratio}px`;
+
+    posX = e.clientX;
+    posY = e.clientY;
+  };
+
+  const stockContainer = React.useRef();
+
+  const { transform, panZoomHandlers, setContainer, setPan, setZoom } =
+    usePanZoom({ zoomSensitivity: 0.001 });
+  /*Zoom */
+
   return (
     <div
       className="App"
@@ -242,6 +321,8 @@ function App() {
       onMouseLeave={onDragEnd}
       ref={scrollRef}
       */
+      ref={(el) => setContainer(el)}
+      {...panZoomHandlers}
     >
       <button
         style={{
@@ -252,19 +333,64 @@ function App() {
       >
         Add person
       </button>
-      <Tree
-        lineHeight="50px"
-        lineWidth="1px"
-        lineColor="#D6D6D6"
-        nodePadding="10px"
-        lineBorderRadius="5px"
-        label={RootLabel}
+      {/* 
+      <div
+        style={{
+          backgroundColor: "black",
+          color: "white",
+          display: "inline-block",
+        }}
       >
-        {tree.children &&
-          tree.children.map((c) => (
-            <LeafNode onDrop={handleDrop} key={c.id} node={c} />
-          ))}
-      </Tree>
+        <li
+          onClick={() => {
+            setRatio((ratio) => ratio - 0.25);
+          }}
+        >
+          −
+        </li>
+        <li
+          onClick={() => {
+            setRatio(1);
+          }}
+        >
+          1.0
+        </li>
+        <li
+          onClick={() => {
+            setRatio((ratio) => ratio + 0.25);
+          }}
+        >
+          +
+        </li>
+      </div>
+      */}
+      {/* 
+      <StockContainer
+        //ref={stockContainer}
+        ratio={ratio}
+        onWheel={wheelHandler}
+        onDragStart={moveScreenStart}
+        onDrag={moveScreen}
+        onDragEnd={moveScreenEnd}
+        draggable
+      >
+      */}
+      <div style={{ transform }}>
+        <Tree
+          lineHeight="50px"
+          lineWidth="1px"
+          lineColor="#D6D6D6"
+          nodePadding="10px"
+          lineBorderRadius="5px"
+          label={RootLabel}
+        >
+          {tree.children &&
+            tree.children.map((c) => (
+              <LeafNode onDrop={handleDrop} key={c.id} node={c} />
+            ))}
+        </Tree>
+      </div>
+      {/*</StockContainer>*/}
     </div>
   );
 }
