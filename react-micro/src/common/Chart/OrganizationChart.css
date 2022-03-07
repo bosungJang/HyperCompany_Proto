@@ -3,6 +3,7 @@
   height: 802px;
   overflow: auto;
   padding: 20px;
+  width: 100%;
 }
 
 .org-tree ul {

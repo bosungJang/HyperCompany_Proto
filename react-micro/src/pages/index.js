@@ -359,6 +359,19 @@ export const CardAprrovalHistoryPage = loadable(
     fallback: Loading,
   }
 );
+export const BillingCurrentStatusPage = loadable(
+  () => import("../components/Fi/BillingCurrentStatus"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BillingTypePage = loadable(
+  () => import("../components/Fi/BillingType"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
