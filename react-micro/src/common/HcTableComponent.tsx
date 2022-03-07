@@ -15,10 +15,104 @@ const StyledSelect = styled.select`
     }
   }
 `;
+const TableContainer = styled.div`
+  // width: 100%;
+  // height: 600px;
+  overflow: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar-track {
+    background: none;
+
+    position: absolute;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #f5f5f5;
+    display: none;
+    &:hover {
+      display: inline;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+  }
+`;
+
+const StyledTable = styled.table`
+  td {
+    border-bottom: 1px solid #e0e0e0;
+    height: 46px;
+    padding-left: 12px;
+    font-family: Noto Sans CJK KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+  }
+  tr th {
+    padding-left: 12px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    color: #636363;
+    height: 32px;
+  }
+  tr &:hover {
+    background-color: #eff5ff;
+    transition: all 0.3s ease;
+  }
+  tr&:active {
+    background-color: #cee2ff;
+    transition: all 0.3s ease;
+  }
+  thead tr &:hover {
+    background-color: #e0e0e0;
+    transition: all 0.3s ease;
+  }
+  thead > tr:active {
+    background-color: #cecece;
+    transition: all 0.3s ease;
+  }
+  thead > tr {
+    height: 32px;
+    background-color: #ededed;
+    font-family: Noto Sans CJK KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #464646;
+  }
+  th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+`;
 export function TableSelect({ children }: any) {
   return <StyledSelect>{children}</StyledSelect>;
 }
-
+export function HcTable({ children }: any) {
+  return <StyledTable>{children}</StyledTable>;
+}
+export function HcTableContainer({ children }: any) {
+  return <TableContainer>{children}</TableContainer>;
+}
 export function TableActionBtn() {
   return (
     <>

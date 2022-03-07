@@ -245,6 +245,18 @@ export const WorkSchedule = loadable(
     fallback: Loading,
   }
 );
+export const PayManagement = loadable(
+  () => import("../components/HR/PayManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const PayCalculation = loadable(
+  () => import("../components/HR/PayCalculation"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

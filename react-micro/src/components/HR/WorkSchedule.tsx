@@ -7,7 +7,7 @@ import { CustomDatepicker } from "common/HcDatePicker";
 const TimeTable = styled.table`
   height: fit-content;
   width: 986px;
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   th,
   td {
     border: 1px solid #cecece;
@@ -47,6 +47,7 @@ const WeekTable = styled(TimeTable)`
     text-align: center;
   }
 `;
+const MonthTable = styled(TimeTable)``;
 const weekData = [
   {
     name: "이고은",
@@ -169,6 +170,20 @@ const timedata = [
     leave: "해당없음",
   },
 ];
+const MonthData = [
+  {
+    type: "선택",
+    work: ["정상", "정상", "연차", "정상", "정상", "정상", "정상"],
+  },
+  {
+    type: "고정",
+    work: ["정상", "연차", "정상", "정상", "정상", "연차", "정상"],
+  },
+  {
+    type: "시차",
+    work: ["정상", "결근", "정상", "정상", "정상", "정상", "정상"],
+  },
+];
 const timeCol = [
   "",
   0,
@@ -196,6 +211,11 @@ const timeCol = [
   22,
   23,
 ];
+const dayCol: number[] = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+  22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+];
+
 const weekCol = ["", "월", "화", "수", "목", "금", "토", "일"];
 const styles = {
   pink: {
@@ -229,7 +249,7 @@ const styles = {
     color: "#5799FB",
   },
   leave: {
-    color: "#838181",
+    color: "#A7A7A7",
     border: "1px dashed #A7A7A7",
     background: "#ffffff",
     fontSize: "12px",
@@ -279,6 +299,9 @@ const WorkSchedule = () => {
     title: "",
   });
   /* Current Data*/
+  const today = new Date();
+  const month = today.getMonth().toString;
+  var thismonth = today.getFullYear() + "-" + { month };
   return (
     <>
       <ComponentWrapper
@@ -368,7 +391,7 @@ const WorkSchedule = () => {
               max="2030-W26"
               required
             />
-
+            <input type="month" defaultValue={thismonth} />
             <TimeTable
               style={{
                 marginTop: "69px",
@@ -486,7 +509,10 @@ const WorkSchedule = () => {
                 <tr>
                   {weekCol.map((column) => (
                     <th
-                      style={{ width: column === "" ? 173 : 116 }}
+                      style={{
+                        width: column === "" ? 173 : 116,
+                        color: column === "일" ? "#F93737" : "#5D5D62",
+                      }}
                       key={column}
                     >
                       {column}
@@ -546,6 +572,43 @@ const WorkSchedule = () => {
                 )}
               </tbody>
             </WeekTable>
+            <MonthTable
+              style={{
+                marginTop: "69px",
+                display: isSelect === "3" ? "inline" : "none",
+              }}
+            >
+              <thead>
+                <tr>
+                  {dayCol.map((column) => (
+                    <th style={{ width: column === 0 ? 179 : 26 }} key={column}>
+                      {column === 0 ? "" : column}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {weekData.map(
+                  ({ name, position, organization, work, type }) => (
+                    <tr>
+                      {" "}
+                      <td style={{ paddingLeft: 12, paddingTop: 9 }}>
+                        <Name>{name}</Name>
+                        <Position>
+                          ({organization}/{position})
+                        </Position>
+                      </td>
+                      {work.map((day) => (
+                        <td>{work.indexOf(day)}</td>
+                      ))}
+                      {dayCol.slice(work.length + 1, dayCol.length).map(() => (
+                        <td></td>
+                      ))}
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </MonthTable>
           </div>
         </ContentContainer>
       </ComponentWrapper>

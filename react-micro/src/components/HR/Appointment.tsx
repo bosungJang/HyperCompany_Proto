@@ -1,8 +1,7 @@
 import { RouteComponentProps, useHistory } from "react-router-dom";
 import React, { useState } from "react";
-import "common/Table.css";
 import styled from "styled-components";
-import { TableSelect, TableActionBtn } from "common/HcTableComponent";
+import { TableSelect, TableActionBtn, HcTable } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTabs from "common/HcTabs";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
@@ -409,12 +408,28 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             </svg>
           </button>
           <TableContainer>
-            <table className="table table-hover">
+            <HcTable style={{ width: "1320px" }}>
               <thead>
-                <tr>
-                  {columns.map((column: any) => (
+                <tr style={{ textAlign: "left" }}>
+                  {/* {columns.map((column: any) => (
                     <th key={column}>{column}</th>
-                  ))}
+                  ))} */}
+                  <th style={{ width: 46, marginLeft: 4 }}>
+                    {" "}
+                    <div style={{ paddingTop: 7 }}>
+                      <HcCheckBox
+                        checked={checkedItem.length > 0 ? true : false}
+                        onChange={(e) => checkAllHandler(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                  <th style={{ width: 178 }}>발령 번호</th>
+                  <th style={{ width: 336 }}>발령 내용</th>
+                  <th style={{ width: 160 }}>발령 구분</th>
+                  <th style={{ width: 160 }}>발령 인원</th>
+                  <th style={{ width: 160 }}>발령 일시</th>
+                  <th style={{ width: 160 }}>시행 일시</th>
+                  <th style={{ width: 120 }}>액션 버튼</th>
                 </tr>
               </thead>
               <tbody>
@@ -423,13 +438,13 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                   .map(({ id, content, hc, start, end, action }) => (
                     <tr
                       style={{
-                        textAlign: "center",
+                        textAlign: "left",
                         backgroundColor: checkedItem.includes(id)
                           ? "#DFECFF"
                           : "",
                       }}
                     >
-                      <td>
+                      <td style={{ marginLeft: 4 }}>
                         <Checkbox
                           checked={checkedItem.includes(id)}
                           onChange={(e) => {
@@ -471,6 +486,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                       >
                         {content}
                       </td>
+                      <td>입사</td>
                       <td
                         onClick={() => {
                           history.push({
@@ -542,7 +558,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                     </tr>
                   ))}
               </tbody>
-            </table>
+            </HcTable>
           </TableContainer>
           <div>
             {/* pagination start */}

@@ -35,6 +35,8 @@ import {
   AbilityDetail,
   AbilityCreate,
   WorkSchedule,
+  PayManagement,
+  PayCalculation,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -98,6 +100,12 @@ const testArray = [
       { title: "연월차 설정", path: "/hr/hrLeaveStandard" },
       { title: "휴무일 설정", path: "/hr/hrHdManagement" },
     ],
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "급여 관리",
+    path: "/hr/PayManagement",
+    submenu: [{ title: "급여 계산/관리", path: "/hr/PayManagement" }],
   },
 ];
 
@@ -237,6 +245,14 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/hrWorkSchedule`}
         component={WorkSchedule}
+      />
+      <Route
+        path={`${props.match.url}/PayManagement`}
+        component={PayManagement}
+      />
+      <Route
+        path={`${props.match.url}/PayCalculation`}
+        component={PayCalculation}
       />
     </div>
   );
