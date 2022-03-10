@@ -11,6 +11,7 @@ import OrganizationChart from "common/Chart/OrganizationChart";
 import EmployeeChart from "common/Chart/OrganizationChartDemo";
 import HcDropDownTable from "common/HcDropDownTable";
 import BalkanChart from "common/Chart/BalkanOrganizationChart";
+import ImageUploader from "common/HcUploader";
 
 interface MatchParams {
   id: string;
@@ -132,6 +133,10 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
             ]}
           />
         </div>
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <ImageUploader />
       </ComponentWrapper>
     </div>
   );

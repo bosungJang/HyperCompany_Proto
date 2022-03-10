@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   right: 0;
   top: 0;
   z-index: 1201;
-  padding: 28px 40px;
+  padding: 20px 30px;
   transition: all 0.3s ease-out;
   &.open {
     width: 574px;
