@@ -250,6 +250,12 @@ const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   const [tempItem, setTempItem]: any = React.useState(checkedItem);
 
+  const [images, setImages]: any = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(images);
+  }, [images]);
+
   function checkHandler(item: any) {
     const checked = tempItem.findIndex((v: any) => v.id === item.id);
     if (checked === -1) {
@@ -612,7 +618,10 @@ const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
                     >
                       영수증
                     </div>
-                    <ImageUploader />
+                    <ImageUploader
+                      imagesArray={images}
+                      setImageArray={setImages}
+                    />
                   </div>
                   <div style={{ marginTop: "53px" }}>
                     <div

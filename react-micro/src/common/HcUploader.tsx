@@ -51,9 +51,14 @@ const UploaderButton = styled.label`
   padding: 6px 18px;
 `;
 
-const ImageUploader = () => {
+interface ImageUploaderProps {
+  imagesArray: [];
+  setImageArray: (value: any) => void;
+}
+
+const ImageUploader = (props: ImageUploaderProps) => {
   const [files, setFiles]: any = useState([]);
-  const [images, setImages]: any = useState([]);
+  const [images, setImages]: any = useState(props.imagesArray);
 
   const handleImageChange = (e: any) => {
     console.log("handleImageChange");
@@ -67,6 +72,10 @@ const ImageUploader = () => {
       reader.onloadend = () => {
         setFiles((prevFiles: any) => [...prevFiles, files]);
         setImages((prevImages: any) => [...prevImages, reader.result]);
+        props.setImageArray((prevImages: any) => [
+          ...prevImages,
+          reader.result,
+        ]);
       };
 
       reader.readAsDataURL(files);
@@ -108,7 +117,9 @@ const ImageUploader = () => {
                   let temp = JSON.parse(JSON.stringify(images));
                   temp.splice(i, 1);
                   setImages(temp);
+                  props.setImageArray(temp);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 <CloseIcon style={{ width: "16px", height: "16px" }} />
               </CloseIconWrapper>

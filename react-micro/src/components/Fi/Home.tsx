@@ -136,7 +136,8 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       </ComponentWrapper>
 
       <ComponentWrapper>
-        <ImageUploader />
+        {/*<ImageUploader />
+         */}
       </ComponentWrapper>
     </div>
   );
