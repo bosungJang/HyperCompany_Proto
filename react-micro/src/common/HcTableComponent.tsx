@@ -16,9 +16,7 @@ const StyledSelect = styled.select`
   }
 `;
 const TableContainer = styled.div`
-  // width: 100%;
-  // height: 600px;
-  overflow: auto;
+  overflow-y: auto;
   overflow-x: hidden;
 
   &::-webkit-scrollbar-track {
@@ -102,6 +100,20 @@ const StyledTable = styled.table`
   th:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
   }
 `;
 export function TableSelect({ children }: any) {

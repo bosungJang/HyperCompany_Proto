@@ -3,10 +3,14 @@ import { ComponentWrapper } from "common/HcCommonLayout";
 import { HcTitleTextField } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
-import "common/Table.css";
+import { useHistory } from "react-router-dom";
 import HcButton from "common/HcButton";
-// import LinearGradient from "react-native-linear-gradient";
-import { HcTable, HcTableContainer } from "common/HcTableComponent";
+import HcCheckBox from "common/HcCheckBox";
+import {
+  HcTable,
+  HcTableContainer,
+  TableActionBtn,
+} from "common/HcTableComponent";
 const Container = styled.div`
   background: #ffffff;
   width: 1320px;
@@ -23,6 +27,103 @@ const SubTitle = styled.div`
   font-size: 20px;
   line-height: 29px;
   color: #303030;
+`;
+
+const TableCenter = styled.table`
+  table-layout: fixed;
+  thead th {
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+  }
+  td {
+    border-bottom: 1px solid #e0e0e0;
+    height: 46px;
+    padding-left: 12px;
+    font-family: Noto Sans CJK KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+  }
+  tr th {
+    padding-left: 12px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    color: #636363;
+    height: 32px;
+  }
+  tr &:hover {
+    background-color: #eff5ff;
+    transition: all 0.3s ease;
+  }
+  tr&:active {
+    background-color: #cee2ff;
+    transition: all 0.3s ease;
+  }
+  thead tr &:hover {
+    background-color: #e0e0e0;
+    transition: all 0.3s ease;
+  }
+  thead > tr:active {
+    background-color: #cecece;
+    transition: all 0.3s ease;
+  }
+  thead > tr {
+    height: 32px;
+    background-color: #ededed;
+    font-family: Noto Sans CJK KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #464646;
+  }
+  th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+`;
+const CenterContainer = styled.div`
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+  z-index: 40;
+  &::-webkit-scrollbar {
+    position: absolute;
+    z-index: 50;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #f5f5f5;
+    display: none;
+    &:hover {
+      display: inline;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+  }
+`;
+const TableContainer = styled(CenterContainer)`
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 const SvgCnt = styled.div`
   position: absolute;
@@ -62,7 +163,36 @@ const styles = {
   },
 };
 
+let num = 1000000;
+const getId = () => {
+  num = num + 1;
+  return num;
+};
+const data = Array(15)
+  .fill(undefined)
+  .map(() => ({
+    id: getId(),
+    action: "-",
+  }));
 const PayCalculation = () => {
+  const [checkedItem, setCheckedItem]: any = React.useState([]);
+  function checkHandler(checked: Boolean, id: Number) {
+    if (checked == true) {
+      setCheckedItem([...checkedItem, id]);
+    } else {
+      setCheckedItem(checkedItem.filter((i: number) => i != id));
+    }
+  }
+  function checkAllHandler(checked: Boolean) {
+    if (checked) {
+      const ids: Number[] = [];
+      data.forEach((i) => ids.push(i.id));
+      setCheckedItem(ids);
+    } else {
+      setCheckedItem([]);
+    }
+  }
+  const history = useHistory();
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
@@ -276,6 +406,7 @@ const PayCalculation = () => {
           height: "fitContent",
           fontWeight: "bold",
           marginTop: 5,
+          paddingLeft: step.name === "5.평가" ? 8 : 0,
         }}
       >
         {step.name}
@@ -291,6 +422,8 @@ const PayCalculation = () => {
       newSteps[Idx + 1].state = "now";
       setStpes(newSteps);
       setNow(Idx + 1);
+    } else if (now === 5) {
+      history.push({ pathname: "/hr/PayCalcSummary" });
     }
   };
   const OnPrev = () => {
@@ -305,6 +438,239 @@ const PayCalculation = () => {
   };
 
   /*steps */
+  type TableProps = {
+    width: any;
+    height: any;
+  };
+  const TestTable = ({ width, height }: TableProps) => {
+    // 화면 확인용
+    return (
+      <TableContainer style={{ width: width, height: height }}>
+        <HcTable style={{ tableLayout: "fixed" }}>
+          <thead>
+            <tr style={{ textAlign: "left" }}>
+              <th style={{ width: 46 }}>
+                <div style={{ marginTop: 6, marginLeft: 4 }}>
+                  <HcCheckBox
+                    checked={checkedItem.length > 0 ? true : false}
+                    onChange={(e) => checkAllHandler(e.target.checked)}
+                  />
+                </div>
+              </th>
+              <th style={{ width: 100 }}>이름</th>
+              <th style={{ width: 100 }}>사원번호</th>
+              <th style={{ width: 200 }}>법인회사</th>
+              <th style={{ width: 160 }}>조직</th>
+              <th style={{ width: 100 }}>직책</th>
+              <th style={{ width: 100 }}>직위</th>
+              <th style={{ width: 254 }}>소급 처리 이유</th>
+              <th style={{ width: 140 }}>소급 금액</th>
+              <th style={{ width: 120 }}>-</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((x) => (
+              <tr>
+                <td>
+                  <div style={{ marginTop: 7, marginLeft: 4 }}>
+                    <HcCheckBox
+                      checked={checkedItem.includes(x.id)}
+                      onChange={(e) => {
+                        checkHandler(e.target.checked, x.id);
+                      }}
+                    />
+                  </div>
+                </td>
+                <td>홍길동</td>
+                <td>{x.id}</td>
+                <td>티맥스에이아이</td>
+                <td>AI본부 / AI1-2팀</td>
+                <td>팀장</td>
+                <td>연구원</td>
+                <td>신규입사 미정산 급여</td>
+                <td>500,000</td>
+                <td>
+                  <TableActionBtn />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </HcTable>
+      </TableContainer>
+    );
+  };
+  const Table = () => {
+    return (
+      <div style={{ display: "flex", height: 492, overflowY: "auto" }}>
+        <div className="table-left" style={{ position: "relative" }}>
+          <TableCenter>
+            <thead>
+              <tr style={{ textAlign: "left" }}>
+                <th style={{ width: 46 }}>
+                  <div style={{ marginTop: 6, marginLeft: 4 }}>
+                    <HcCheckBox
+                      checked={checkedItem.length > 0 ? true : false}
+                      onChange={(e) => checkAllHandler(e.target.checked)}
+                    />
+                  </div>
+                </th>
+                <th style={{ width: 120, minWidth: 120 }}> 이름</th>
+                <th style={{ width: 120, minWidth: 120 }}>사원번호</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {data.map((x) => (
+                <tr>
+                  <td>
+                    <div style={{ marginTop: 7, marginLeft: 4 }}>
+                      <HcCheckBox
+                        checked={checkedItem.includes(x.id)}
+                        onChange={(e) => {
+                          checkHandler(e.target.checked, x.id);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>홍길동</td>
+                  <td>{x.id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </TableCenter>
+        </div>
+        <div className="table-center" style={{ width: 834 }}>
+          {" "}
+          <CenterContainer>
+            <TableCenter>
+              <thead>
+                <tr style={{ textAlign: "left", position: "sticky", top: 0 }}>
+                  <th
+                    style={{
+                      width: 160,
+                      minWidth: 160,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    법인회사
+                  </th>
+
+                  <th
+                    style={{
+                      width: 160,
+                      minWidth: 160,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    조직
+                  </th>
+                  <th
+                    style={{
+                      width: 160,
+                      minWidth: 160,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    직책
+                  </th>
+                  <th
+                    style={{
+                      width: 160,
+                      minWidth: 160,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    직위
+                  </th>
+                  <th
+                    style={{
+                      width: 160,
+                      minWidth: 160,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    근무 상태
+                  </th>
+
+                  <th
+                    style={{
+                      width: 120,
+                      minWidth: 120,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    근무일수
+                  </th>
+                  <th
+                    style={{
+                      width: 120,
+                      minWidth: 120,
+                      position: "sticky",
+                      top: 0,
+                    }}
+                  >
+                    기본 근무시간
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {" "}
+                {data.map((x) => (
+                  <tr>
+                    <td>티맥스에이아이</td>
+                    <td>AI본부 / AI1-2팀</td>
+                    <td>팀장</td>
+                    <td>연구원</td>
+                    <td>휴직</td>
+                    <td>30</td>
+                    <td>160</td>
+                  </tr>
+                ))}
+              </tbody>
+            </TableCenter>
+          </CenterContainer>
+        </div>
+        <div className="table-right" style={{ position: "relative" }}>
+          <TableCenter>
+            <thead>
+              {" "}
+              <tr>
+                <th style={{ width: 120, minWidth: 120 }}> 초과 근무 보상</th>
+              </tr>
+            </thead>
+            <tbody>
+              {" "}
+              {data.map((x) => (
+                <tr>
+                  <td>502,000</td>
+                </tr>
+              ))}
+            </tbody>
+            {/* <tr>
+              <td
+                style={{
+                  position: "absolute",
+                  width: 1240,
+                  zIndex: 30,
+                  right: 0,
+                }}
+                colSpan={9}
+              >
+                총액
+              </td>
+            </tr> */}
+          </TableCenter>
+        </div>
+      </div>
+    );
+  };
   return (
     <>
       <ComponentWrapper
@@ -331,27 +697,31 @@ const PayCalculation = () => {
             marginTop: 59,
           }}
         >
-          <ul>{StepProgress}</ul>
+          <ul style={{ marginLeft: 13 }}>{StepProgress}</ul>
         </div>
         <div
           style={{
             width: 1320,
             height: 1,
             background: "#e0e0e0",
-            marginTop: "38px",
           }}
         />
         {now === 0 ? (
           <>
-            <Container style={{ marginTop: 24, height: 404 }}>
+            <Container style={{ marginTop: 24, height: 634 }}>
               <SubTitle>입사/퇴직/휴직 근무자</SubTitle>
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
-                <HcButton styles="secondary" size="medium">
+                <HcButton
+                  styles="secondary"
+                  size="medium"
+                  style={{ marginBottom: 12 }}
+                >
                   +생성
                 </HcButton>
+                <Table />
               </div>
             </Container>
-            <Container style={{ marginTop: 24, height: 404 }}>
+            <Container style={{ marginTop: 24, height: 634 }}>
               <SubTitle>재직 근무자</SubTitle>
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
@@ -365,26 +735,119 @@ const PayCalculation = () => {
         )}
         {now === 1 ? (
           <>
-            {" "}
             <SubTitle style={{ marginTop: "30px" }}>
               소급 급여 대상자(4)
             </SubTitle>
             <HcButton
               styles="secondary"
               size="medium"
-              style={{ marginTop: 18 }}
+              style={{ marginTop: 18, marginBottom: 20 }}
             >
               급여 계산
             </HcButton>
-            <HcTableContainer
-              style={{ width: 1320, height: 400 }}
-            ></HcTableContainer>
+            <TestTable width={1320} height={215} />
+          </>
+        ) : (
+          ""
+        )}
+        {now === 2 ? (
+          <>
+            <SubTitle style={{ marginTop: "30px" }}>수당 항목</SubTitle>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>식비</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton
+                  styles="secondary"
+                  size="medium"
+                  style={{ marginBottom: 12 }}
+                >
+                  +생성
+                </HcButton>
+                <TestTable width={1240} height={261} />
+              </div>
+            </Container>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>인재 추천비</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton
+                  styles="secondary"
+                  size="medium"
+                  style={{ marginBottom: 12 }}
+                >
+                  +생성
+                </HcButton>
+                <TestTable width={1240} height={261} />
+              </div>
+            </Container>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>차량 유지비</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton
+                  styles="secondary"
+                  size="medium"
+                  style={{ marginBottom: 12 }}
+                >
+                  +생성
+                </HcButton>
+                <TestTable width={1240} height={261} />
+              </div>
+            </Container>
+          </>
+        ) : (
+          ""
+        )}
+        {now === 3 ? (
+          <>
+            <SubTitle style={{ marginTop: "30px" }}>필수 공제</SubTitle>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>근로 소득세</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton styles="secondary" size="medium">
+                  +생성
+                </HcButton>
+              </div>
+            </Container>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>4대 보험료</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton styles="secondary" size="medium">
+                  +생성
+                </HcButton>
+              </div>
+            </Container>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>학자금 대출금</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton styles="secondary" size="medium">
+                  +생성
+                </HcButton>
+              </div>
+            </Container>
+            <Container style={{ marginTop: 18, height: 404 }}>
+              <SubTitle>선지급금 - 생일 축하금</SubTitle>
+              <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
+                <HcButton styles="secondary" size="medium">
+                  +생성
+                </HcButton>
+              </div>
+            </Container>
+          </>
+        ) : (
+          ""
+        )}
+        {now === 5 ? (
+          <>
+            <SubTitle style={{ marginTop: "30px", marginBottom: 70 }}>
+              급여 대상자(200)
+            </SubTitle>
+
+            <TestTable width={1320} height={520} />
           </>
         ) : (
           ""
         )}
       </ComponentWrapper>
-      <HcBottomBar open={barOpen} style={{ width: 1400 }}>
+      <HcBottomBar open={barOpen} style={{ width: 1400, zIndex: 50 }}>
         <div>
           <HcButton
             onClick={OnPrev}

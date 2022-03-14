@@ -37,6 +37,7 @@ import {
   WorkSchedule,
   PayManagement,
   PayCalculation,
+  PayCalcSummary,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -253,6 +254,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/PayCalculation`}
         component={PayCalculation}
+      />
+      <Route
+        path={`${props.match.url}/PayCalcSummary`}
+        component={PayCalcSummary}
       />
     </div>
   );

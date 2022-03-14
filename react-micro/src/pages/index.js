@@ -257,6 +257,12 @@ export const PayCalculation = loadable(
     fallback: Loading,
   }
 );
+export const PayCalcSummary = loadable(
+  () => import("../components/HR/PayCalcSummary"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {
