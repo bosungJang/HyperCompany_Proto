@@ -158,10 +158,11 @@ export const HcTextFieldLabel: React.FC<TextFieldIProps> = ({
 };
 
 /*HcSelect */
-const StyledSelect = styled.select`
+export const StyledSelect = styled.select`
   min-width: 224px;
   height: 40px;
 
+  font-family: Noto Sans KR;
   color: #3c3c3c;
   background-color: white !important;
   padding-left: 11px;
