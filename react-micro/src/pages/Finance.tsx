@@ -19,6 +19,10 @@ import {
   CardAprrovalHistoryPage,
   BillingCurrentStatusPage,
   BillingTypePage,
+  CreditFinancialStatusPage,
+  CustomerCreditFinancePage,
+  CashDisbursementVoucherPage,
+  BillManagementPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -126,6 +130,40 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "채권 / 채무관리",
+    path: "/fi/creditAndFinancialManagement/creditAndFinancialCurrentStatus",
+    submenu: [
+      {
+        title: "채권 / 채무 현황",
+        path: "/fi/creditAndFinancialManagement/creditAndFinancialCurrentStatus",
+      },
+      {
+        title: "거래처별 채권 / 채무 관리",
+        path: "/fi/creditAndFinancialManagement/customerCreditAndFinancialManagement",
+      },
+    ],
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "자금 관리",
+    path: "/fi/fundManagement/cashDisbursementVoucher",
+    submenu: [
+      {
+        title: "지출결의서 관리",
+        path: "/fi/fundManagement/cashDisbursementVoucher",
+      },
+      {
+        title: "자금계획",
+        path: "/fi/fundManagement/fundsPlanning",
+      },
+      {
+        title: "어음 관리",
+        path: "/fi/fundManagement/billManagement",
+      },
+    ],
+  },
 ];
 
 const Finance = (props: FinanceProps) => {
@@ -202,6 +240,22 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/billingManagement/billingType`}
         component={BillingTypePage}
+      />
+      <Route
+        path={`${props.match.url}/creditAndFinancialManagement/creditAndFinancialCurrentStatus`}
+        component={CreditFinancialStatusPage}
+      />
+      <Route
+        path={`${props.match.url}/creditAndFinancialManagement/customerCreditAndFinancialManagement`}
+        component={CustomerCreditFinancePage}
+      />
+      <Route
+        path={`${props.match.url}/fundManagement/cashDisbursementVoucher`}
+        component={CashDisbursementVoucherPage}
+      />
+      <Route
+        path={`${props.match.url}/fundManagement/billManagement`}
+        component={BillManagementPage}
       />
     </div>
   );

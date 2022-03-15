@@ -378,6 +378,35 @@ export const BillingTypePage = loadable(
     fallback: Loading,
   }
 );
+
+export const CreditFinancialStatusPage = loadable(
+  () => import("../components/Fi/CreditFinancialStatus"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const CustomerCreditFinancePage = loadable(
+  () => import("../components/Fi/CustomerCreditFinance"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const CashDisbursementVoucherPage = loadable(
+  () => import("../components/Fi/CashDisbursementVoucher"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BillManagementPage = loadable(
+  () => import("../components/Fi/BillManagement"),
+  {
+    fallback: Loading,
+  }
+);
+
 /*Fi END*/
 
 /*CRM Start*/

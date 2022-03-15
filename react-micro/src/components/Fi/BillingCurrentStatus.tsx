@@ -17,6 +17,8 @@ import { VariableMultiLayout } from "common/HcCommonLayout";
 import HcBottomBar from "common/HcBottomBar";
 import { HcPopup, HcContentPopupFi } from "common/HcPopup";
 import ImageUploader from "common/HcUploader";
+import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
+import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
 
 const TotalDataDiv = styled.div`
   font-family: Noto Sans KR;
@@ -118,12 +120,19 @@ const ApprovalWrapper = styled.div`
 const ApprovalContent = styled.div`
   background: #f9f9f9;
   border-radius: 4px;
-  padding: 13px;
+  //padding: 13px;
   height: 50px;
   margin-bottom: 6px;
   &: last-child {
     margin-bottom: 0;
   }
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 15px;
+  font-family: Noto Sans KR;
+  color: #5d5d62;
 `;
 
 const CheckedItemTitle = styled.div`
@@ -142,6 +151,22 @@ const CheckedItemSubTitle = styled.div`
   text-transform: uppercase;
   color: #2d2d31;
   margin-left: 16px;
+`;
+
+const TextArea = styled.textarea`
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  width: 100%;
+  min-height: 200px;
+  resize: none;
+  padding: 5px;
+  font-family: Noto Sans KR;
+  font-weight: 500;
+  font-size: 16px;
+
+  &: focus {
+    outline: none;
+  }
 `;
 
 const data1 = Array(43)
@@ -229,6 +254,28 @@ interface MatchParams {
   id: string;
 }
 
+const approvalLineData = [
+  { state: "기안", name: "홍길동", position: "연구원", department: "AB2-4팀" },
+  {
+    state: "결재",
+    name: "곱단이",
+    position: "연구원(팀장)",
+    department: "AB2-4팀",
+  },
+  {
+    state: "합의(승인부서)",
+    name: "차돌바위",
+    position: "매니저",
+    department: "인사팀",
+  },
+  {
+    state: "결재(승인부서)",
+    name: "호피",
+    position: "매니저",
+    department: "인사팀",
+  },
+];
+
 const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
   const [adminYn, setAdminYn] = React.useState(false);
   const [data, setData] = React.useState(adminYn ? data2 : data1);
@@ -251,6 +298,8 @@ const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
   const [tempItem, setTempItem]: any = React.useState(checkedItem);
 
   const [images, setImages]: any = React.useState([]);
+  const [approvalLineDatas, setApprovalLineDatas]: any =
+    React.useState(approvalLineData);
 
   React.useEffect(() => {
     console.log(images);
@@ -633,13 +682,7 @@ const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
                     >
                       상세 내용
                     </div>
-                    <div
-                      style={{
-                        border: "1px solid #CECECE",
-                        borderRadius: "3px",
-                        minHeight: 200,
-                      }}
-                    ></div>
+                    <TextArea></TextArea>
                   </div>
                 </ContentWrapper>
               </>
@@ -741,10 +784,62 @@ const BillingCurrentStatus = ({ match }: RouteComponentProps<MatchParams>) => {
               </div>
             </div>
             <ApprovalWrapper>
-              <ApprovalContent></ApprovalContent>
-              <ApprovalContent></ApprovalContent>
-              <ApprovalContent></ApprovalContent>
-              <ApprovalContent></ApprovalContent>
+              {approvalLineDatas.map((item: any, key: number) => (
+                <>
+                  <ApprovalContent>
+                    <div
+                      style={{
+                        display: "inline-table",
+                        width: "50px",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <ListIcon style={{ verticalAlign: "middle" }} />
+                    </div>
+                    <div style={{ display: "inline-block", width: "280px" }}>
+                      {item.state}
+                    </div>
+                    <div style={{ display: "inline-table", width: "344px" }}>
+                      <img
+                        src="https://cdnweb01.wikitree.co.kr/webdata/editor/202110/06/img_20211006130837_bdb87ae2.webp"
+                        style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: "50%",
+                          marginRight: "8px",
+                          verticalAlign: "middle",
+                        }}
+                        alt={item.name}
+                      />
+                      {item.name}
+                    </div>
+                    <div style={{ display: "inline-block", width: "319px" }}>
+                      {item.position}
+                    </div>
+                    <div style={{ display: "inline-block", width: "208px" }}>
+                      {item.department}
+                    </div>
+                    <div
+                      style={{
+                        display: "inline-table",
+                        width: "50px",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        let temp = JSON.parse(
+                          JSON.stringify(approvalLineDatas)
+                        );
+                        temp.splice(key, 1);
+                        setApprovalLineDatas(temp);
+                      }}
+                    >
+                      <CloseIcon style={{ verticalAlign: "middle" }} />
+                    </div>
+                  </ApprovalContent>
+                </>
+              ))}
             </ApprovalWrapper>
             <div style={{ marginTop: "40px" }}>
               <div

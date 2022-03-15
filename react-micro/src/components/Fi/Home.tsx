@@ -12,6 +12,7 @@ import EmployeeChart from "common/Chart/OrganizationChartDemo";
 import HcDropDownTable from "common/HcDropDownTable";
 import BalkanChart from "common/Chart/BalkanOrganizationChart";
 import ImageUploader from "common/HcUploader";
+import HcCalendar from "common/Calendar/HcCalendar";
 
 interface MatchParams {
   id: string;
@@ -20,6 +21,7 @@ const testData =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci vel, viverra egestas ligula.";
 
 const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
+  const [file, setFile] = React.useState("파일선택");
   return (
     <div style={{ width: "inherit" }}>
       <ComponentWrapper>
@@ -136,8 +138,27 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       </ComponentWrapper>
 
       <ComponentWrapper>
-        {/*<ImageUploader />
-         */}
+        <div className="filebox bs3-primary">
+          <input className="upload-name" value="파일선택" disabled />
+
+          <label htmlFor="ex_filename">{file}</label>
+          <button>test</button>
+          <input
+            type="file"
+            id="ex_filename"
+            className="upload-hidden"
+            style={{ display: "none" }}
+            onChange={(value) => {
+              console.log(value);
+              let a = value.target.value.split("\\");
+              setFile(a[a.length - 1]);
+            }}
+          />
+        </div>
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <HcCalendar />
       </ComponentWrapper>
     </div>
   );
