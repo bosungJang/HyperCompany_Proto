@@ -14,7 +14,6 @@ import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import styled from "styled-components";
 import "common/Table.css";
 import HcButton from "common/HcButton";
-import HcCheckBox from "common/HcCheckBox";
 import HcBottomBar from "common/HcBottomBar";
 const Title = styled.div`
   font-family: Noto Sans CJK KR;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import {
   HRHome,
   HRAppointment,
@@ -11,7 +11,7 @@ import {
   HRAppointmentCreate,
   HRAppointmentDetail,
   HRAppointmentStandards,
-  HROrganizationManagemetnt,
+  HROrganizationManagement,
   HRProfessionalManagement,
   HRProfessionalDetail,
   HRProfessionalCreate,
@@ -38,6 +38,11 @@ import {
   PayManagement,
   PayCalculation,
   PayCalcSummary,
+  PayCalcDetail,
+  PayRoll,
+  PayStubMail,
+  ExtraPayManagement,
+  ExtraPayDetail,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -76,7 +81,7 @@ const testArray = [
     title: "조직 관리",
     path: "/hr/hrOrganizationManagemetnt",
     submenu: [
-      { title: "조직 정보 관리", path: "/hr/hrOrganizationManagemetnt" },
+      { title: "조직 정보 관리", path: "/hr/hrOrganizationManagement" },
       {
         title: "직능 관리",
         path: "/hr/hrProfessionalManagement",
@@ -106,7 +111,10 @@ const testArray = [
     icon: "HR/Personnel_Management_Icon",
     title: "급여 관리",
     path: "/hr/PayManagement",
-    submenu: [{ title: "급여 계산/관리", path: "/hr/PayManagement" }],
+    submenu: [
+      { title: "급여 계산/관리", path: "/hr/PayManagement" },
+      { title: "수당/지급설정", path: "/hr/ExtraPayManagement" },
+    ],
   },
 ];
 
@@ -164,8 +172,8 @@ const HumanResourgcePage = (props: HRProps) => {
         component={HRAppointmentStandards}
       />
       <Route
-        path={`${props.match.url}/hrOrganizationManagemetnt`}
-        component={HROrganizationManagemetnt}
+        path={`${props.match.url}/hrOrganizationManagement`}
+        component={HROrganizationManagement}
       />
       <Route
         path={`${props.match.url}/hrOrganizationType`}
@@ -258,6 +266,20 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/PayCalcSummary`}
         component={PayCalcSummary}
+      />
+      <Route
+        path={`${props.match.url}/PayCalcDetail`}
+        component={PayCalcDetail}
+      />
+      <Route path={`${props.match.url}/PayRoll`} component={PayRoll} />
+      <Route path={`${props.match.url}/PayStubMail`} component={PayStubMail} />
+      <Route
+        path={`${props.match.url}/ExtraPayManagement`}
+        component={ExtraPayManagement}
+      />
+      <Route
+        path={`${props.match.url}/ExtraPayDetail`}
+        component={ExtraPayDetail}
       />
     </div>
   );

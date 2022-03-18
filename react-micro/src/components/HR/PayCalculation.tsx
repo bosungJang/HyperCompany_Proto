@@ -3,7 +3,7 @@ import { ComponentWrapper } from "common/HcCommonLayout";
 import { HcTitleTextField } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import {
@@ -682,13 +682,15 @@ const PayCalculation = () => {
         }}
       >
         <HcTitleTextField titleName="급여 계산" isBackIcon={true} />
-        <HcButton
-          style={{ position: "absolute", top: 44, left: 1242 }}
-          styles={"line"}
-          size={"small"}
-        >
-          급여 대장 미리보기
-        </HcButton>
+        <Link to={"/hr/PayRoll"}>
+          <HcButton
+            style={{ position: "absolute", top: 44, left: 1242 }}
+            styles={"line"}
+            size={"small"}
+          >
+            급여 대장 미리보기
+          </HcButton>
+        </Link>
         <div
           style={{
             width: 1320,

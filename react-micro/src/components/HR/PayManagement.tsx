@@ -6,7 +6,7 @@ import { HcTitleTextField } from "common/HcTextField";
 import { TableActionBtn } from "common/HcTableComponent";
 
 import HcButton from "common/HcButton";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import HcCheckBox from "common/HcCheckBox";
 import "common/bulkActionTest.scss";
 import { HcTable, HcTableContainer } from "common/HcTableComponent";
@@ -35,6 +35,7 @@ const data = Array(10)
   }));
 
 const PayManagement = () => {
+  const history = useHistory();
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
@@ -132,10 +133,35 @@ const PayManagement = () => {
                             />
                           </div>
                         </td>
-                        <td>2021.06</td>
-                        <td>2021.07.15</td>
-                        <td>133명</td>
-                        <td style={{ textAlign: "center" }}>523,654,223</td>
+                        <td
+                          onClick={() =>
+                            history.push({ pathname: "/hr/payCalcDetail" })
+                          }
+                        >
+                          2021.06
+                        </td>
+                        <td
+                          onClick={() =>
+                            history.push({ pathname: "/hr/payCalcDetail" })
+                          }
+                        >
+                          2021.07.15
+                        </td>
+                        <td
+                          onClick={() =>
+                            history.push({ pathname: "/hr/payCalcDetail" })
+                          }
+                        >
+                          133명
+                        </td>
+                        <td
+                          style={{ textAlign: "center" }}
+                          onClick={() =>
+                            history.push({ pathname: "/hr/payCalcDetail" })
+                          }
+                        >
+                          523,654,223
+                        </td>
                         <td>
                           <UnderLine>급여대장보기</UnderLine>
                         </td>

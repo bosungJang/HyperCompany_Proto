@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import "./scroll.scss";
 const StyledSelect = styled.select`
   border: none;
   width: 120px;
@@ -116,6 +116,65 @@ const StyledTable = styled.table`
     border-radius: 10px;
   }
 `;
+
+const FixedTableContainer = styled.div`
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+  table {
+    width: 100%;
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  th {
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background: #fff;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  td {
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background: #fff;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  thead {
+    background: #f9f9f9;
+  }
+`;
+const FixedTableWrap = styled.div`
+  width: 100%;
+  overflow: auto;
+`;
+const FixedTable = styled.table`
+  thead tr th {
+    visibility: visible;
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+  }
+  tr th {
+    border: 1px solid #000;
+
+    visibility: visible;
+    position: sticky;
+    left: 0;
+    top: 0;
+  }
+  th {
+    border: 1px solid #000;
+    visibility: visible;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+`;
 export function TableSelect({ children }: any) {
   return <StyledSelect>{children}</StyledSelect>;
 }
@@ -124,6 +183,153 @@ export function HcTable({ children }: any) {
 }
 export function HcTableContainer({ children }: any) {
   return <TableContainer>{children}</TableContainer>;
+}
+export function CenterScrollTable() {
+  return (
+    <>
+      <FixedTableContainer>
+        <FixedTableWrap>
+          <FixedTable>
+            <thead>
+              <tr>
+                <th scope="col">head</th>
+                <th scope="col">Header 2</th>
+                <th scope="col">Header 3</th>
+                <th scope="col">Header 4</th>
+                <th scope="col">Header 5</th>
+                <th scope="col">Header 6</th>
+                <th scope="col">Header 7</th>
+                <th scope="col">Header 8</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Left Column</th>
+                <td>
+                  Cell content
+                  <br />
+                  test
+                </td>
+                <td>
+                  <a href="#">Cell content longer</a>
+                </td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+              <tr>
+                <th>Left Column</th>
+                <td>Cell content</td>
+                <td>Cell content longer</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+              <tr>
+                <th>Left Column</th>
+                <td>Cell content</td>
+                <td>Cell content longer</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+              <tr>
+                <th>Left Column</th>
+                <td>Cell content</td>
+                <td>Cell content longer</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+              <tr>
+                <th>Left Column</th>
+                <td>Cell content</td>
+                <td>Cell content longer</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+              <tr>
+                <th>Left Column</th>
+                <td>Cell content</td>
+                <td>Cell content longer</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+                <td>Cell content</td>
+              </tr>
+            </tbody>
+          </FixedTable>
+        </FixedTableWrap>
+      </FixedTableContainer>
+      <div className="total-wrapper">
+        <div className="fix-column">
+          <div className="thead">
+            <span>Int1</span>
+          </div>
+          <div className="tbody">
+            <div className="trow">
+              <span>Lorem</span>
+            </div>
+            <div className="trow">
+              <span>Lorem</span>
+            </div>
+            <div className="trow">
+              <span>Lorem</span>
+            </div>
+            <div className="trow">
+              <span>Lorem</span>
+            </div>
+          </div>
+        </div>
+        <div className="rest-columns">
+          <div className="thead">
+            <span>Int2</span>
+            <span>Int3</span>
+            <span>Int4</span>
+            <span>Int5</span>
+          </div>
+          <div className="tbody">
+            <div className="trow">
+              <span>ipsum</span>
+              <span>dolor</span>
+              <span>sit</span>
+              <span>amet</span>
+            </div>
+            <div className="trow">
+              <span>ipsum</span>
+              <span>dolor</span>
+              <span>sit</span>
+              <span>amet</span>
+            </div>
+            <div className="trow">
+              <span>ipsum</span>
+              <span>dolor</span>
+              <span>sit</span>
+              <span>amet</span>
+            </div>
+            <div className="trow">
+              <span>ipsum</span>
+              <span>dolor</span>
+              <span>sit</span>
+              <span>amet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 export function TableActionBtn() {
   return (

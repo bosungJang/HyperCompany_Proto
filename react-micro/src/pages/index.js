@@ -101,7 +101,7 @@ export const HRAppointmentStandards = loadable(
     fallback: Loading,
   }
 );
-export const HROrganizationManagemetnt = loadable(
+export const HROrganizationManagement = loadable(
   () => import("../components/HR/OrganizationManagement"),
   {
     fallback: Loading,
@@ -259,6 +259,33 @@ export const PayCalculation = loadable(
 );
 export const PayCalcSummary = loadable(
   () => import("../components/HR/PayCalcSummary"),
+  {
+    fallback: Loading,
+  }
+);
+export const PayCalcDetail = loadable(
+  () => import("../components/HR/PayCalcDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const PayRoll = loadable(() => import("../components/HR/PayRoll"), {
+  fallback: Loading,
+});
+export const PayStubMail = loadable(
+  () => import("../components/HR/PayStubMail"),
+  {
+    fallback: Loading,
+  }
+);
+export const ExtraPayManagement = loadable(
+  () => import("../components/HR/ExtraPayManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const ExtraPayDetail = loadable(
+  () => import("../components/HR/ExtraPayDetail"),
   {
     fallback: Loading,
   }
