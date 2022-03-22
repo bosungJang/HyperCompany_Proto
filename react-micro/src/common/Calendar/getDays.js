@@ -1,16 +1,16 @@
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  "1월",
+  "2월",
+  "3월",
+  "4월",
+  "5월",
+  "6월",
+  "7월",
+  "8월",
+  "9월",
+  "10월",
+  "11월",
+  "12월",
 ];
 
 const WEEKDAYS = [
@@ -55,7 +55,7 @@ const getDaysInWeeksInMonth = (year, month) => {
     startIndex = 0;
     weeksInMonth.push(week);
   }
-
+  console.log("weeksInMonth: ", weeksInMonth);
   return weeksInMonth;
 };
 
