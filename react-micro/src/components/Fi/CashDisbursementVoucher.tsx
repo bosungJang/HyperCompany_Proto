@@ -20,6 +20,8 @@ import ImageUploader from "common/HcUploader";
 import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
 import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
 import { ReactComponent as NoFileIcon } from "resources/images/NoFile_Icon.svg";
+import { ReactComponent as TrashIcon } from "resources/images/Trash_Icon.svg";
+import HcFileUploader from "common/HcFileUploader";
 
 interface MatchParams {
   id: string;
@@ -91,6 +93,30 @@ const ContentTitle = styled.div`
   font-size: 20px;
 `;
 
+const ApprovalWrapper = styled.div`
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px 10px;
+`;
+
+const ApprovalContent = styled.div`
+  background: #f9f9f9;
+  border-radius: 4px;
+  //padding: 13px;
+  height: 50px;
+  margin-bottom: 6px;
+  &: last-child {
+    margin-bottom: 0;
+  }
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 15px;
+  font-family: Noto Sans KR;
+  color: #5d5d62;
+`;
+
 const columns = [
   "문서번호",
   "문서제목",
@@ -117,12 +143,38 @@ const data = Array(7)
     outstandingUser: "곱단이",
   }));
 
+const approvalLineData = [
+  { state: "기안", name: "홍길동", position: "연구원", department: "AB2-4팀" },
+  {
+    state: "결재",
+    name: "곱단이",
+    position: "연구원(팀장)",
+    department: "AB2-4팀",
+  },
+  {
+    state: "합의(승인부서)",
+    name: "차돌바위",
+    position: "매니저",
+    department: "인사팀",
+  },
+  {
+    state: "결재(승인부서)",
+    name: "호피",
+    position: "매니저",
+    department: "인사팀",
+  },
+];
+
 const CashDisbursementVoucher = ({
   match,
 }: RouteComponentProps<MatchParams>) => {
   const history = useHistory();
 
   const fileInput = React.useRef();
+  const [file, setFile]: any = React.useState([]);
+
+  const [approvalLineDatas, setApprovalLineDatas]: any =
+    React.useState(approvalLineData);
 
   const CreateState = () => {
     return (
@@ -217,115 +269,284 @@ const CashDisbursementVoucher = ({
               </p>
             </VariableMultiLayout>
           </ContentWrapper>
-          <ContentWrapper style={{ padding: "20px 24px", marginTop: "24px" }}>
-            <ContentTitle>내역1</ContentTitle>
-            <div style={{ width: "inheirt", paddingLeft: "20px" }}>
-              <VariableMultiLayout>
-                <p style={{ flexGrow: 1 }}>
-                  <div
-                    style={{
-                      width: 390,
-                      height: 439,
-                      background: "#F9F9F9",
-                      borderRadius: "4px",
-                      padding: "20px",
-                    }}
-                  >
-                    <HcSelect
-                      titleName="예산"
-                      required
-                      style={{ width: "360px" }}
-                      value={""}
-                      onChange={(e) => {}}
+          <ContentWrapper style={{ marginTop: "24px", padding: "0px 0px" }}>
+            <div style={{ padding: "20px 24px" }}>
+              <ContentTitle>내역1</ContentTitle>
+              <div style={{ width: "inheirt", paddingLeft: "20px" }}>
+                <VariableMultiLayout>
+                  <p style={{ flexGrow: 1 }}>
+                    <div
+                      style={{
+                        width: 390,
+                        height: 439,
+                        background: "#F9F9F9",
+                        borderRadius: "4px",
+                        padding: "20px",
+                      }}
                     >
-                      <option value="" hidden>
-                        Enterprise UX 팀 판공비
-                      </option>
-                      <option value={1}>Enterprise UX 팀 판공비</option>
-                    </HcSelect>
-                  </div>
-                </p>
-                <p style={{ flexGrow: 1 }}>
-                  <Wrapper style={{ marginBottom: "80px" }}>
-                    <Title required={true}>{"신청금액"}</Title>
-                    <LabelPictureTextField>
-                      {"신청금액 입력"}
-                    </LabelPictureTextField>
-                  </Wrapper>
-                  <Wrapper>
-                    <Title required={true}>{"사용처"}</Title>
-                    <LabelPictureTextField>
-                      {"사용처 입력"}
-                    </LabelPictureTextField>
-                  </Wrapper>
-                </p>
-                <p style={{ flexGrow: 1 }}>
-                  <Wrapper>
-                    <Title required={true}>{"사용일"}</Title>
-                    <LabelPictureTextField>{"날짜 선택"}</LabelPictureTextField>
-                  </Wrapper>
-                </p>
-              </VariableMultiLayout>
-            </div>
-            <ContentWrapper
-              style={{ padding: "20px 22.5px", marginTop: "24px" }}
-            >
-              <div
-                style={{
-                  fontFamily: "Noto Sans KR",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  paddingLeft: "1.5px",
-                }}
-              >
-                첨부 파일
+                      <HcSelect
+                        titleName="예산"
+                        required
+                        style={{ width: "360px" }}
+                        value={""}
+                        onChange={(e) => {}}
+                      >
+                        <option value="" hidden>
+                          Enterprise UX 팀 판공비
+                        </option>
+                        <option value={1}>Enterprise UX 팀 판공비</option>
+                      </HcSelect>
+                    </div>
+                  </p>
+                  <p style={{ flexGrow: 1 }}>
+                    <Wrapper style={{ marginBottom: "80px" }}>
+                      <Title required={true}>{"신청금액"}</Title>
+                      <LabelPictureTextField>
+                        {"신청금액 입력"}
+                      </LabelPictureTextField>
+                    </Wrapper>
+                    <Wrapper>
+                      <Title required={true}>{"사용처"}</Title>
+                      <LabelPictureTextField>
+                        {"사용처 입력"}
+                      </LabelPictureTextField>
+                    </Wrapper>
+                  </p>
+                  <p style={{ flexGrow: 1 }}>
+                    <Wrapper>
+                      <Title required={true}>{"사용일"}</Title>
+                      <LabelPictureTextField>
+                        {"날짜 선택"}
+                      </LabelPictureTextField>
+                    </Wrapper>
+                  </p>
+                </VariableMultiLayout>
               </div>
-              <Wrapper style={{ marginTop: "28px" }}>
-                <Title required={false}>{"파일 업로드"}</Title>
-
-                <LabelPictureTextField
-                  style={{ display: "inline-block", cursor: "pointer" }}
-                  onClick={() => {
-                    alert("test");
-                  }}
-                >
-                  {"파일을 첨부해주세요."}
-                </LabelPictureTextField>
-                <input type="file" />
-                <HcButton
-                  onClick={() => {}}
-                  styles="line"
-                  size="medium"
+              <ContentWrapper
+                style={{ padding: "20px 22.5px", marginTop: "24px" }}
+              >
+                <div
                   style={{
-                    display: "inline-block",
-                    width: 72,
-                    height: 36,
-                    marginLeft: 4,
-                    fontSize: "13px",
-                    padding: "unset",
+                    fontFamily: "Noto Sans KR",
+                    fontWeight: 500,
+                    fontSize: "20px",
+                    paddingLeft: "1.5px",
                   }}
                 >
-                  업로드
-                </HcButton>
-              </Wrapper>
-              <div style={{ marginTop: "20px" }}>
+                  첨부 파일
+                </div>
+                <Wrapper
+                  style={{
+                    marginTop: "28px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  <HcFileUploader file={file} setFile={setFile} />
+                </Wrapper>
+              </ContentWrapper>
+              <div style={{ marginTop: "24px" }}>
+                <Title>상세내용</Title>
                 <div
                   style={{
                     width: "100%",
-                    height: "211px",
-                    background: "#F9F9F9",
-                    borderRadius: "2px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    minHeight: 88,
+                    padding: "8px 10px",
+                    fontWeight: 500,
+                    fontSize: 14,
+                    border: " 1px solid #CECECE",
+                    borderRadius: "3px",
+                    fontFamily: "Noto Sans KR",
                   }}
-                >
-                  <div>
-                    <NoFileIcon />
-                  </div>
-                </div>
+                ></div>
               </div>
-            </ContentWrapper>
+            </div>
+            <div style={{ background: "#F9F9F9", height: 40 }}>
+              <div
+                style={{
+                  float: "right",
+                  lineHeight: "40px",
+                  marginRight: "8px",
+                }}
+              >
+                <TrashIcon style={{ verticalAlign: "middle" }} />
+              </div>
+            </div>
+          </ContentWrapper>
+          <HcButton
+            onClick={() => {
+              //setModalOpen(true);
+            }}
+            styles="line"
+            style={{
+              width: "151px",
+              marginTop: "24px",
+              padding: "7px 18px 6px 18px",
+              fontSize: "12px",
+            }}
+            size="medium"
+          >
+            + 지출 내역 추가
+          </HcButton>
+
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              background: "#E0E0E0",
+              marginTop: "16px",
+              marginBottom: "24px",
+            }}
+          />
+          <div>
+            <div
+              style={{
+                fontFamily: "Noto Sans KR",
+                fontWeight: 500,
+                fontSize: "14px",
+                color: "black",
+                display: "inline-block",
+                marginRight: "14px",
+              }}
+            >
+              총&nbsp;
+              <span
+                style={{
+                  fontFamily: "Noto Sans KR",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  color: "#257CFF",
+                }}
+              >
+                {0}
+              </span>
+              건
+            </div>
+            <div
+              style={{
+                fontFamily: "Noto Sans KR",
+                fontWeight: 500,
+                fontSize: "14px",
+                color: "black",
+                display: "inline-block",
+              }}
+            >
+              합계&nbsp;
+              <span
+                style={{
+                  fontFamily: "Noto Sans KR",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  color: "#257CFF",
+                }}
+              >
+                {0}
+              </span>
+            </div>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              background: "#E0E0E0",
+              marginTop: "16px",
+              marginBottom: "24px",
+            }}
+          />
+          <ContentWrapper style={{ padding: "20px 24px" }}>
+            <ContentTitle>결재선</ContentTitle>
+            <div style={{ marginTop: "10px", marginBottom: "14px" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  fontFamily: "Noto Sans KR",
+                  fontSize: "15px",
+                }}
+              >
+                결재선 지정
+              </div>
+            </div>
+            <ApprovalWrapper>
+              {approvalLineDatas.map((item: any, key: number) => (
+                <>
+                  <ApprovalContent>
+                    <div
+                      style={{
+                        display: "inline-table",
+                        width: "50px",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <ListIcon style={{ verticalAlign: "middle" }} />
+                    </div>
+                    <div style={{ display: "inline-block", width: "280px" }}>
+                      {item.state}
+                    </div>
+                    <div style={{ display: "inline-table", width: "344px" }}>
+                      <img
+                        src="https://cdnweb01.wikitree.co.kr/webdata/editor/202110/06/img_20211006130837_bdb87ae2.webp"
+                        style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: "50%",
+                          marginRight: "8px",
+                          verticalAlign: "middle",
+                        }}
+                        alt={item.name}
+                      />
+                      {item.name}
+                    </div>
+                    <div style={{ display: "inline-block", width: "319px" }}>
+                      {item.position}
+                    </div>
+                    <div style={{ display: "inline-block", width: "208px" }}>
+                      {item.department}
+                    </div>
+                    <div
+                      style={{
+                        display: "inline-table",
+                        width: "50px",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        let temp = JSON.parse(
+                          JSON.stringify(approvalLineDatas)
+                        );
+                        temp.splice(key, 1);
+                        setApprovalLineDatas(temp);
+                      }}
+                    >
+                      <CloseIcon style={{ verticalAlign: "middle" }} />
+                    </div>
+                  </ApprovalContent>
+                </>
+              ))}
+            </ApprovalWrapper>
+            <div style={{ marginTop: "40px" }}>
+              <div
+                style={{
+                  fontFamily: "Noto Sans KR",
+                  fontSize: "15px",
+                  color: "#5D5D62",
+                }}
+              >
+                결재 알림
+              </div>
+              <StyledSelect
+                style={{ width: "400px", fontWeight: 500, marginTop: "16px" }}
+                value={""}
+                onChange={(e) => {}}
+              >
+                <option value="" hidden>
+                  결재 요청(승인부서제외) + 완결 통보(기안, 통보자)
+                </option>
+                <option value={1}>
+                  결재 요청(승인부서제외) + 완결 통보(기안, 통보자)
+                </option>
+              </StyledSelect>
+            </div>
           </ContentWrapper>
         </div>
       </>

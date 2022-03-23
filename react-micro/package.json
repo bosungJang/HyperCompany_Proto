@@ -62,6 +62,7 @@
     "font-awesome": "^4.7.0",
     "framer-motion": "^5.3.3",
     "fs-extra": "^9.0.1",
+    "haml-jsx-loader": "^1.0.2",
     "history": "^5.2.0",
     "html-webpack-plugin": "4.5.0",
     "i18next": "^21.6.6",
