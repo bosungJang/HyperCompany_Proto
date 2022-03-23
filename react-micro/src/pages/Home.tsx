@@ -193,6 +193,7 @@ const Home = (props: HomeProps) => {
               }}
             />
             <br />
+
             <HcTagNoInput tags={tags2} setTags={setTags2} />
           </HcPopOver>
 

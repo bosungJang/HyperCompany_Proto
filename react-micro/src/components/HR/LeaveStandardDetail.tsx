@@ -676,6 +676,9 @@ const LeaveStandardDetail = () => {
         open={modalOpen}
         close={closeModal}
         style={{ zIndex: 2 }}
+        Containerheight={""}
+        primaryBtn={"확인"}
+        secondBtn={""}
       >
         <>
           <HcTabsAdv

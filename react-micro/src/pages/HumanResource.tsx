@@ -43,6 +43,8 @@ import {
   PayStubMail,
   ExtraPayManagement,
   ExtraPayDetail,
+  ExtraPayCreate,
+  DeductManagement,
 } from "pages";
 import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -114,6 +116,7 @@ const testArray = [
     submenu: [
       { title: "급여 계산/관리", path: "/hr/PayManagement" },
       { title: "수당/지급설정", path: "/hr/ExtraPayManagement" },
+      { title: "공제 설정", path: "/hr/DeductManagement" },
     ],
   },
 ];
@@ -280,6 +283,14 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/ExtraPayDetail`}
         component={ExtraPayDetail}
+      />
+      <Route
+        path={`${props.match.url}/ExtraPayCreate`}
+        component={ExtraPayCreate}
+      />
+      <Route
+        path={`${props.match.url}/DeductManagement`}
+        component={DeductManagement}
       />
     </div>
   );

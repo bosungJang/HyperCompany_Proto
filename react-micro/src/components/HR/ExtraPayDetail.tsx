@@ -14,7 +14,7 @@ import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import styled from "styled-components";
 import HcButton from "common/HcButton";
 import HcBottomBar from "common/HcBottomBar";
-
+import InfoIconTooltip from "common/HcTooltip";
 const Title = styled.div`
   font-family: Noto Sans CJK KR;
   font-style: bold;
@@ -120,23 +120,7 @@ export default function ExtraPayDetail() {
           titleName={edit === false ? "수당/지급 항목 상세" : "수당/지급 수정"}
           isBackIcon={edit === false ? false : true}
         />
-        <>
-          {" "}
-          <div
-            style={{
-              width: "fit-contnet",
-              height: "fit-content",
-              position: "relative",
-              display: "flex",
-            }}
-          >
-            hi
-            <div style={{ marginTop: 3 }}>
-              {" "}
-              <InfoIcon message="test" />
-            </div>
-          </div>
-        </>
+
         <>
           <div
             style={{
@@ -211,7 +195,7 @@ export default function ExtraPayDetail() {
             )}
             <Title style={{ marginBottom: -20 }}>
               비과세 여부{" "}
-              <InfoIcon message="식사를 별도로 제공하지 않는 회사의 경우, 최대 월 10만원까지 세금을 부여하지 않습니다." />
+              <InfoIconTooltip message="식사를 별도로 제공하지 않는 회사의 경우, 최대 월 10만원까지 세금을 부여하지 않습니다." />
             </Title>
             <HcTextFieldLabel
               titleName=" "
@@ -221,7 +205,7 @@ export default function ExtraPayDetail() {
             </HcTextFieldLabel>
             <Title style={{ marginBottom: 23 }}>
               입사월에 지급
-              <InfoIcon
+              <InfoIconTooltip
                 message={
                   "월 중간에 입사한 구성원의 경우, 해당 수당의 지급 방법을 선택합니다."
                 }
@@ -291,7 +275,9 @@ export default function ExtraPayDetail() {
 
             <Title style={{ marginBottom: -20 }}>
               지급율{" "}
-              <InfoIcon message={"기본급의 지급 비율을 설정할 수 있습니다."} />
+              <InfoIconTooltip
+                message={"기본급의 지급 비율을 설정할 수 있습니다."}
+              />
             </Title>
             {edit === false ? (
               <>
@@ -321,7 +307,7 @@ export default function ExtraPayDetail() {
             )}
             <Title style={{ marginBottom: 23, marginTop: 20 }}>
               통상임금 포함 여부
-              <InfoIcon
+              <InfoIconTooltip
                 message={
                   "소정근로의 대가로 근로자에게 지급되는 금품으로 정기적ㆍ일률적ㆍ고정적으로 지급되는 임금입니다."
                 }
@@ -342,7 +328,7 @@ export default function ExtraPayDetail() {
             </div>
             <Title style={{ marginBottom: 23, marginTop: 20 }}>
               퇴사월에 지급
-              <InfoIcon
+              <InfoIconTooltip
                 message={
                   "월 중간에 퇴사한 구성원의 경우, 해당 수당의 지급 방법을 선택합니다."
                 }

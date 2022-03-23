@@ -538,7 +538,7 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
     const Tag = ({ children, tags, setTags, tagIndex }: TagProps) => {
       return (
         <TagWrapperNo>
-          {children}{" "}
+          {children}
           {props.delete === true ? (
             <TagDelete
               role="img"

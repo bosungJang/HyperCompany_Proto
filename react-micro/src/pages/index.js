@@ -290,6 +290,18 @@ export const ExtraPayDetail = loadable(
     fallback: Loading,
   }
 );
+export const ExtraPayCreate = loadable(
+  () => import("../components/HR/ExtraPayCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const DeductManagement = loadable(
+  () => import("../components/HR/DeductManagement"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

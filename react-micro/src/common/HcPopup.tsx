@@ -47,7 +47,7 @@ const SideBarContainer = styled.div`
 `;
 const ContentContainer = styled.div`
   width: 730px;
-  height: 630px;
+
   background: #ffffff;
   border: 1px solid lightgray;
   border-radius: 6px;
@@ -382,12 +382,28 @@ export function SideBar(props: any) {
   );
 }
 export function HcContentPopup(props: any) {
-  const { open, close, header } = props;
+  //팝업 창 크기, 버튼 내용 조절 가능한 팝업
+  const { open, close, header, Containerheight, primaryBtn, secondBtn } = props;
+  const style = {
+    cnt: {
+      height: Containerheight === "" ? "630px" : Containerheight,
+      marginTop: (1080 - Containerheight) / 2,
+    },
+    primary: {
+      display: primaryBtn === "" ? "none" : "",
+      marginRight: "6px",
+      marginBottom: 6,
+    },
+    second: {
+      display: secondBtn === "" ? "none" : "",
+      border: "0.82197px solid #A7A7A7",
+    },
+  };
 
   return (
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
-        <ContentContainer>
+        <ContentContainer style={style.cnt}>
           <Popup_Title2> {header}</Popup_Title2>
           <button
             onClick={close}
@@ -420,19 +436,15 @@ export function HcContentPopup(props: any) {
           <Popup_Buttons>
             <HcButton
               styles="primary"
-              style={{ marginRight: "6px", marginBottom: 6 }}
+              style={style.primary}
               size="medium"
               onClick={close}
             >
-              확인
+              {primaryBtn}
             </HcButton>
-            {/* <HcButton
-              styles="line"
-              size="medium"
-              style={{ border: "0.82197px solid #A7A7A7" }}
-            >
+            <HcButton styles="line" size="medium" style={style.second}>
               취소
-            </HcButton> */}
+            </HcButton>
           </Popup_Buttons>
         </ContentContainer>
       ) : null}
