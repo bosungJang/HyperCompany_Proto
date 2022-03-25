@@ -184,151 +184,44 @@ export function HcTable({ children }: any) {
 export function HcTableContainer({ children }: any) {
   return <TableContainer>{children}</TableContainer>;
 }
-export function CenterScrollTable() {
+
+const Wrapper = styled.div`
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+`;
+export function TableWrapper(props: any) {
+  const { tableWidth, tableHeight, children } = props;
+  const styles = {
+    stickyCol: {
+      // position: "-webkit-sticky",
+      position: "sticky",
+    },
+    firstCol: {
+      width: 160,
+      minWidth: 160,
+      maxWidth: 160,
+      left: 0,
+    },
+    lastCol: {
+      width: 150,
+      minWidth: 150,
+      maxWidth: 150,
+      right: 0,
+    },
+    th: {
+      position: "sticky",
+      top: 0,
+      zIndex: 100,
+    },
+    tr: { zIndex: 150 },
+  };
   return (
-    <>
-      <FixedTableContainer>
-        <FixedTableWrap>
-          <FixedTable>
-            <thead>
-              <tr>
-                <th scope="col">head</th>
-                <th scope="col">Header 2</th>
-                <th scope="col">Header 3</th>
-                <th scope="col">Header 4</th>
-                <th scope="col">Header 5</th>
-                <th scope="col">Header 6</th>
-                <th scope="col">Header 7</th>
-                <th scope="col">Header 8</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>Left Column</th>
-                <td>
-                  Cell content
-                  <br />
-                  test
-                </td>
-                <td>
-                  <a href="#">Cell content longer</a>
-                </td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-              <tr>
-                <th>Left Column</th>
-                <td>Cell content</td>
-                <td>Cell content longer</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-              <tr>
-                <th>Left Column</th>
-                <td>Cell content</td>
-                <td>Cell content longer</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-              <tr>
-                <th>Left Column</th>
-                <td>Cell content</td>
-                <td>Cell content longer</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-              <tr>
-                <th>Left Column</th>
-                <td>Cell content</td>
-                <td>Cell content longer</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-              <tr>
-                <th>Left Column</th>
-                <td>Cell content</td>
-                <td>Cell content longer</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-                <td>Cell content</td>
-              </tr>
-            </tbody>
-          </FixedTable>
-        </FixedTableWrap>
-      </FixedTableContainer>
-      <div className="total-wrapper">
-        <div className="fix-column">
-          <div className="thead">
-            <span>Int1</span>
-          </div>
-          <div className="tbody">
-            <div className="trow">
-              <span>Lorem</span>
-            </div>
-            <div className="trow">
-              <span>Lorem</span>
-            </div>
-            <div className="trow">
-              <span>Lorem</span>
-            </div>
-            <div className="trow">
-              <span>Lorem</span>
-            </div>
-          </div>
-        </div>
-        <div className="rest-columns">
-          <div className="thead">
-            <span>Int2</span>
-            <span>Int3</span>
-            <span>Int4</span>
-            <span>Int5</span>
-          </div>
-          <div className="tbody">
-            <div className="trow">
-              <span>ipsum</span>
-              <span>dolor</span>
-              <span>sit</span>
-              <span>amet</span>
-            </div>
-            <div className="trow">
-              <span>ipsum</span>
-              <span>dolor</span>
-              <span>sit</span>
-              <span>amet</span>
-            </div>
-            <div className="trow">
-              <span>ipsum</span>
-              <span>dolor</span>
-              <span>sit</span>
-              <span>amet</span>
-            </div>
-            <div className="trow">
-              <span>ipsum</span>
-              <span>dolor</span>
-              <span>sit</span>
-              <span>amet</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className="view" style={{ width: tableWidth }}>
+      <Wrapper style={{ height: tableHeight, width: tableWidth }}>
+        {children}
+      </Wrapper>
+    </div>
   );
 }
 export function TableActionBtn() {

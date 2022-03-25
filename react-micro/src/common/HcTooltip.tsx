@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import React from "react";
 const MessageBox = styled.div`
   background: #2d2d31;
@@ -96,50 +96,57 @@ export default function InfoIconTooltip(props: { message: string }) {
 export function TooltipMessage(props: {
   message: string;
   children: any;
-  tipstyle: React.CSSProperties;
+  ItemHeight: number;
 }) {
-  const [style, setStyle] = React.useState({ display: "inline-block" });
+  const Container = styled.div`
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    &:hover > .tooltip,
+    &:active > .tooltip {
+      display: block;
+    }
+  `;
+
+  const Content = styled(MessageBox)`
+    display: none;
+    position: absolute;
+    z-index: 200;
+    bottom: 0;
+    margin-left: 22%;
+  `;
+  const Arrow = styled.svg`
+    display: none;
+  `;
   return (
     <>
-      <MessageBox
-        className="tooltip"
-        style={Object.assign({} as React.CSSProperties, style, props.tipstyle)}
-      >
-        {props.message}
-      </MessageBox>
-      <svg
-        className="arrow"
-        xmlns="http://www.w3.org/2000/svg"
-        style={Object.assign(
-          {
+      <Container>
+        <Content
+          className="tooltip"
+          style={{ marginBottom: props.ItemHeight + 15 }}
+        >
+          {props.message}
+        </Content>
+        <Arrow
+          className="tooltip"
+          xmlns="http://www.w3.org/2000/svg"
+          style={Object.assign({
             position: "absolute",
-            bottom: 22,
-            marginLeft: 5,
-          } as React.CSSProperties,
-          style,
-          props.tipstyle
-        )}
-        width="17"
-        height="12"
-        viewBox="0 0 17 12"
-        fill="none"
-      >
-        <path
-          d="M8.20508 12L0.205078 0L16.2051 1.36279e-06L8.20508 12Z"
-          fill="#2D2D31"
-        />
-      </svg>
-
-      <div
-      // onMouseEnter={(e) => {
-      //   setStyle({ display: "inline-block" });
-      // }}
-      // onMouseLeave={(e) => {
-      //   setStyle({ display: "none" });
-      // }}
-      >
+            bottom: props.ItemHeight + 6,
+            marginLeft: "45%",
+          } as React.CSSProperties)}
+          width="17"
+          height="12"
+          viewBox="0 0 17 12"
+          fill="none"
+        >
+          <path
+            d="M8.20508 12L0.205078 0L16.2051 1.36279e-06L8.20508 12Z"
+            fill="#2D2D31"
+          />
+        </Arrow>
         {props.children}
-      </div>
+      </Container>
     </>
   );
 }

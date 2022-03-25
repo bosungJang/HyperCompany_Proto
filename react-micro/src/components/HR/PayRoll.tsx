@@ -6,20 +6,9 @@ import HcBottomBar from "common/HcBottomBar";
 import { useHistory } from "react-router-dom";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
-import {
-  HcTable,
-  HcTableContainer,
-  TableActionBtn,
-  CenterScrollTable,
-} from "common/HcTableComponent";
+import { HcTable } from "common/HcTableComponent";
 import { ContentPopup } from "common/HcPopup";
-const Container = styled.div`
-  background: #ffffff;
-  width: 1320px;
-  border: 1px solid #cecece;
-  border-radius: 6px;
-  padding: 20px 24px 30px 24px;
-`;
+
 const SubTitle = styled.div`
   height: fit-content;
   width: fit-content;
@@ -322,7 +311,7 @@ const PayRoll = () => {
             </HcButton>
           </div>
           <TestTable width={1320} height={520} />
-          <CenterScrollTable />
+
           <ContentPopup
             open={modalOpen}
             close={closeModal}
