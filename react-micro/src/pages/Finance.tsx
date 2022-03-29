@@ -23,6 +23,7 @@ import {
   CustomerCreditFinancePage,
   CashDisbursementVoucherPage,
   BillManagementPage,
+  FundsPlanningPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -252,6 +253,10 @@ const Finance = (props: FinanceProps) => {
       <Route
         path={`${props.match.url}/fundManagement/cashDisbursementVoucher`}
         component={CashDisbursementVoucherPage}
+      />
+      <Route
+        path={`${props.match.url}/fundManagement/fundsPlanning`}
+        component={FundsPlanningPage}
       />
       <Route
         path={`${props.match.url}/fundManagement/billManagement`}

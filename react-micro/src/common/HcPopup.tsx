@@ -45,9 +45,9 @@ const SideBarContainer = styled.div`
 
   overflow: hidden;
 `;
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   width: 730px;
-
+  height: 630px;
   background: #ffffff;
   border: 1px solid lightgray;
   border-radius: 6px;
@@ -56,6 +56,8 @@ const ContentContainer = styled.div`
   animation: ${PopupShow} 0.3s;
   overflow: hidden;
   z-index: 99;
+
+  transition: width 0.5s, height 0.5s;
 `;
 const MailContainer = styled.div`
   width: 746px;
@@ -117,7 +119,7 @@ const Popup_Title2 = styled.div`
   position: absolute;
 `;
 
-const Popup_Buttons = styled.div`
+export const Popup_Buttons = styled.div`
   position: absolute;
   bottom: 24px;
   right: 24px;
@@ -164,7 +166,7 @@ const Mail_Content = styled.div`
   color: #717171;
 `;
 
-const styles: any = {
+export const styles: any = {
   modal: {
     display: "none",
     position: "fixed",

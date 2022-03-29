@@ -446,6 +446,13 @@ export const BillManagementPage = loadable(
   }
 );
 
+export const FundsPlanningPage = loadable(
+  () => import("../components/Fi/FundsPlanning"),
+  {
+    fallback: Loading,
+  }
+);
+
 /*Fi END*/
 
 /*CRM Start*/
