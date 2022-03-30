@@ -38,6 +38,8 @@ const Layout = () => {
 
   const [LNBArray, setLNBArray] = React.useState<LNBArrayProps[]>([]);
 
+  const div = React.useRef<any>();
+
   React.useEffect(() => {
     let sideBarOpen = getCookie("sideBar_open");
 
@@ -55,6 +57,23 @@ const Layout = () => {
       console.log("unmount");
     };
   }, []);
+
+  const onScroll = () => {
+    const mainScroll = document.getElementById("main")!.scrollTop;
+    console.log(mainScroll);
+    if (10 < mainScroll) {
+      console.log("ok");
+      /*
+      div.current.style.position = "fixed";
+      div.current.style.top = 0;
+      div.current.style.left = 0;
+      */
+      div.current.style.opacity = 1;
+    } else {
+      //div.current!.style.position = "relative";
+      div.current.style.opacity = 0;
+    }
+  };
 
   /* SideBar */
   function openNav() {
@@ -135,7 +154,33 @@ const Layout = () => {
                     marginBottom: "6px",
                   }
             }
+            onScroll={onScroll}
           >
+            <div
+              style={{
+                width: "100%",
+                height: "60px",
+                background: "#FFFFFF",
+                position: "absolute",
+                opacity: 0,
+                transition: "opacity 0.5s",
+                padding: "16px 40px",
+                border: "1px solid black",
+                zIndex: 99,
+                textAlign: "initial",
+              }}
+              ref={div}
+            >
+              <div
+                style={{
+                  fontFamily: "Noto Sans KR",
+                  fontWeight: 700,
+                  fontSize: "18px",
+                }}
+              >
+                TYPE01. BTN
+              </div>
+            </div>
             <App setLNBMenu={setLNBMenu} />
 
             {openGNBBar ? <Mask /> : null}
