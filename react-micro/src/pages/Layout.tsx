@@ -69,9 +69,11 @@ const Layout = () => {
       div.current.style.left = 0;
       */
       div.current.style.opacity = 1;
+      div.current.style.top = "68px";
     } else {
       //div.current!.style.position = "relative";
       div.current.style.opacity = 0;
+      div.current.style.top = "-50px";
     }
   };
 
@@ -163,11 +165,12 @@ const Layout = () => {
                 background: "#FFFFFF",
                 position: "absolute",
                 opacity: 0,
-                transition: "opacity 0.5s",
+                transition: "all 0.5s",
                 padding: "16px 40px",
                 border: "1px solid black",
                 zIndex: 99,
                 textAlign: "initial",
+                //top: "-50px",
               }}
               ref={div}
             >
