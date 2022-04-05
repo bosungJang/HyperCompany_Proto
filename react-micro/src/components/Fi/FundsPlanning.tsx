@@ -569,7 +569,7 @@ const FundsPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
                     <ContentContainer
                       style={{
                         width: "460px",
-                        height: "598px",
+                        height: "689px",
                         padding: "20px 30px",
                       }}
                     >

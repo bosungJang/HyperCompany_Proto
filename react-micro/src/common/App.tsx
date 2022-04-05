@@ -16,54 +16,52 @@ interface AppProps {
   setLNBMenu?: (menu: LNBArrayProps[]) => void;
 }
 
-class App extends Component<AppProps> {
-  render() {
-    return (
-      <div
-        style={{
-          //backgroundColor: " white",
-          width: "1400px",
-          display: "inline-block",
-          textAlign: "initial",
-          borderRadius: "10px",
-          marginTop: "60px",
-        }}
-      >
-        <Route
-          exact
-          path="/"
-          component={(props: any) => (
-            <Home setLNBMenu={this.props.setLNBMenu} {...props} />
-          )}
-        />
-        <Switch>
-          <Route path="/about/:name" component={About} />
-          <Route path="/about" component={About} />
-        </Switch>
-        <Route path="/posts" component={Posts} />
-        <Route path="/table" component={Table} />
-        <Route path="/test" component={Test} />
-        <Route
-          path="/fi"
-          component={(props: any) => (
-            <Finance setLNBMenu={this.props.setLNBMenu} {...props} />
-          )}
-        />
-        <Route
-          path="/hr"
-          component={(props: any) => (
-            <HumanResource setLNBMenu={this.props.setLNBMenu} {...props} />
-          )}
-        />
-        <Route
-          path="/crm"
-          component={(props: any) => (
-            <CustomerService setLNBMenu={this.props.setLNBMenu} {...props} />
-          )}
-        />
-      </div>
-    );
-  }
-}
+const App = React.forwardRef((prop: AppProps, ref) => {
+  return (
+    <div
+      style={{
+        //backgroundColor: " white",
+        width: "1400px",
+        display: "inline-block",
+        textAlign: "initial",
+        borderRadius: "10px",
+        marginTop: "60px",
+      }}
+    >
+      <Route
+        exact
+        path="/"
+        component={(props: any) => (
+          <Home setLNBMenu={prop.setLNBMenu} {...props} />
+        )}
+      />
+      <Switch>
+        <Route path="/about/:name" component={About} />
+        <Route path="/about" component={About} />
+      </Switch>
+      <Route path="/posts" component={Posts} />
+      <Route path="/table" component={Table} />
+      <Route path="/test" component={Test} />
+      <Route
+        path="/fi"
+        component={(props: any) => (
+          <Finance setLNBMenu={prop.setLNBMenu} {...props} ref={ref} />
+        )}
+      />
+      <Route
+        path="/hr"
+        component={(props: any) => (
+          <HumanResource setLNBMenu={prop.setLNBMenu} {...props} />
+        )}
+      />
+      <Route
+        path="/crm"
+        component={(props: any) => (
+          <CustomerService setLNBMenu={prop.setLNBMenu} {...props} />
+        )}
+      />
+    </div>
+  );
+});
 
 export default App;

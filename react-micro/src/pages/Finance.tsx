@@ -167,7 +167,7 @@ const testArray = [
   },
 ];
 
-const Finance = (props: FinanceProps) => {
+const Finance = React.forwardRef((props: FinanceProps, ref) => {
   React.useEffect(() => {
     props.setLNBMenu(testArray);
   }, []);
@@ -216,7 +216,9 @@ const Finance = (props: FinanceProps) => {
       />
       <Route
         path={`${props.match.url}/accountAndCardManagement/bankAccountManagement`}
-        component={BankAccountManagementPage}
+        component={(prop: any) => (
+          <BankAccountManagementPage ref={ref} {...prop} />
+        )}
       />
       <Route
         path={`${props.match.url}/accountAndCardManagement/accountDetail`}
@@ -264,6 +266,6 @@ const Finance = (props: FinanceProps) => {
       />
     </div>
   );
-};
+});
 
 export default Finance;

@@ -65,7 +65,7 @@ interface MatchParams {
   id: string;
 }
 
-const BankAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
+const BankAccountManagement = React.forwardRef<HTMLDivElement>((props, ref) => {
   let num = 100000;
   const getId = () => {
     num = num + 1;
@@ -108,7 +108,7 @@ const BankAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
     "-",
   ];
 
-  const data = Array(55)
+  const data = Array(105)
     .fill(undefined)
     .map(() => ({
       id: getId(),
@@ -217,7 +217,11 @@ const BankAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                     </svg>
                   </button>
                 </div>
-                <TableContainer>
+
+                <TableContainer
+                  style={{ height: "100%", marginBottom: "1200px" }}
+                  ref={ref}
+                >
                   <table className="table table-hover">
                     <thead>
                       <tr>
@@ -227,47 +231,46 @@ const BankAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {tableData
-                        .slice(rowsPerPage * (page - 1), page * rowsPerPage)
-                        .map(
-                          ({
-                            id,
-                            accountName,
-                            accountClassification,
-                            accountNumber,
-                            accountHolder,
-                            useYn,
-                            OpeningDate,
-                            ExpirationDate,
-                            action,
-                          }) => (
-                            <tr
-                              style={{
-                                textAlign: "center",
-                                backgroundColor: checkedItem.includes(id)
-                                  ? "#DFECFF"
-                                  : "",
-                              }}
-                            >
-                              <td>
-                                <HcCheckBox
-                                  checked={checkedItem.includes(id)}
-                                  onChange={(e) => {
-                                    checkHandler(e.target.checked, id);
-                                  }}
-                                />
-                              </td>
-                              <td>{accountName}</td>
-                              <td>{accountClassification}</td>
-                              <td>{accountNumber}</td>
-                              <td>{accountHolder}</td>
-                              <td>{useYn}</td>
-                              <td>{OpeningDate}</td>
-                              <td>{ExpirationDate}</td>
-                              <td>{action}</td>
-                            </tr>
-                          )
-                        )}
+                      {tableData.map(
+                        ({
+                          id,
+                          accountName,
+                          accountClassification,
+                          accountNumber,
+                          accountHolder,
+                          useYn,
+                          OpeningDate,
+                          ExpirationDate,
+                          action,
+                        }) => (
+                          <tr
+                            style={{
+                              textAlign: "center",
+                              backgroundColor: checkedItem.includes(id)
+                                ? "#DFECFF"
+                                : "",
+                            }}
+                          >
+                            <td>
+                              <HcCheckBox
+                                checked={checkedItem.includes(id)}
+                                onChange={(e) => {
+                                  checkHandler(e.target.checked, id);
+                                }}
+                              />
+                            </td>
+                            <td>{accountName}</td>
+                            <td>{accountClassification}</td>
+                            <td>{"하나은행"}</td>
+                            <td>{accountNumber}</td>
+                            <td>{accountHolder}</td>
+                            <td>{useYn}</td>
+                            <td>{OpeningDate}</td>
+                            <td>{ExpirationDate}</td>
+                            <td>{action}</td>
+                          </tr>
+                        )
+                      )}
                     </tbody>
                   </table>
                 </TableContainer>
@@ -303,5 +306,5 @@ const BankAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
       </div>
     </>
   );
-};
+});
 export default BankAccountManagement;
