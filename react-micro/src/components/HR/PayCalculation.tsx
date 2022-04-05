@@ -6,11 +6,7 @@ import HcBottomBar from "common/HcBottomBar";
 import { useHistory, Link } from "react-router-dom";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
-import {
-  HcTable,
-  HcTableContainer,
-  TableActionBtn,
-} from "common/HcTableComponent";
+import { HcTable, TableActionBtn } from "common/HcTableComponent";
 const Container = styled.div`
   background: #ffffff;
   width: 1320px;
@@ -203,6 +199,7 @@ const PayCalculation = () => {
     {
       state: "now",
       name: "1.근무시간",
+      id: 1,
       icon: (
         <svg
           width="18"
@@ -221,6 +218,7 @@ const PayCalculation = () => {
     {
       state: "none",
       name: "2.소급 급여",
+      id: 2,
       icon: (
         <svg
           width="10"
@@ -239,6 +237,7 @@ const PayCalculation = () => {
     {
       state: "none",
       name: "3.일시 수당",
+      id: 3,
       icon: (
         <svg
           width="14"
@@ -259,6 +258,7 @@ const PayCalculation = () => {
     {
       state: "none",
       name: "4.일시 공제",
+      id: 4,
       icon: (
         <svg
           width="20"
@@ -274,6 +274,7 @@ const PayCalculation = () => {
     {
       state: "none",
       name: "5.평가",
+      id: 5,
       icon: (
         <svg
           style={{ marginTop: "-1px" }}
@@ -294,6 +295,7 @@ const PayCalculation = () => {
     {
       state: "none",
       name: "6.급여대상자",
+      id: 6,
       icon: (
         <svg
           width="16"

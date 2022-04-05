@@ -302,6 +302,24 @@ export const DeductManagement = loadable(
     fallback: Loading,
   }
 );
+export const EvaluationManagement = loadable(
+  () => import("../components/HR/EvaluationManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationDetail = loadable(
+  () => import("../components/HR/EvaluationDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationResult = loadable(
+  () => import("../components/HR/EvaluationResult"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

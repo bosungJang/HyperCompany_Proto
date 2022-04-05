@@ -141,7 +141,7 @@ const Popup_Text = styled.div`
 
 const Popup_Content = styled.div`
   position: absolute;
-  width: 650px;
+  width: fit-content;
   height: fit-content;
   top: 83px;
   right: 40px;
@@ -385,19 +385,21 @@ export function SideBar(props: any) {
 }
 export function HcContentPopup(props: any) {
   //팝업 창 크기, 버튼 내용 조절 가능한 팝업
-  const { open, close, header, Containerheight, primaryBtn, secondBtn } = props;
-  const style = {
+  const { open, close, header, height, primaryBtn, secondBtn, width, style } =
+    props;
+  const innerStyle = {
     cnt: {
-      height: Containerheight === "" ? "630px" : Containerheight,
-      marginTop: (1080 - Containerheight) / 2,
+      height: height === "" ? "630px" : height,
+      marginTop: (1080 - height) / 2,
+      width: width,
     },
     primary: {
-      display: primaryBtn === "" ? "none" : "",
+      display: primaryBtn ? "" : "none",
       marginRight: "6px",
       marginBottom: 6,
     },
     second: {
-      display: secondBtn === "" ? "none" : "",
+      display: secondBtn ? "" : "none",
       border: "0.82197px solid #A7A7A7",
     },
   };
@@ -405,7 +407,7 @@ export function HcContentPopup(props: any) {
   return (
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
-        <ContentContainer style={style.cnt}>
+        <ContentContainer style={Object.assign(innerStyle.cnt)}>
           <Popup_Title2> {header}</Popup_Title2>
           <button
             onClick={close}
@@ -434,17 +436,17 @@ export function HcContentPopup(props: any) {
             </svg>
           </button>
 
-          <Popup_Content> {props.children}</Popup_Content>
+          <Popup_Content style={style}> {props.children}</Popup_Content>
           <Popup_Buttons>
             <HcButton
               styles="primary"
-              style={style.primary}
+              style={innerStyle.primary}
               size="medium"
               onClick={close}
             >
               {primaryBtn}
             </HcButton>
-            <HcButton styles="line" size="medium" style={style.second}>
+            <HcButton styles="line" size="medium" style={innerStyle.second}>
               취소
             </HcButton>
           </Popup_Buttons>

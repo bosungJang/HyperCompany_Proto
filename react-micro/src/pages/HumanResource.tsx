@@ -45,9 +45,11 @@ import {
   ExtraPayDetail,
   ExtraPayCreate,
   DeductManagement,
+  EvaluationManagement,
+  EvaluationResult,
 } from "pages";
-import { RouteComponentProps } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
+import EvaluationDetail from "components/HR/EvaluationDetail";
 
 interface HRProps {
   match: any;
@@ -81,7 +83,7 @@ const testArray = [
   {
     icon: "HR/Personnel_Management_Icon",
     title: "조직 관리",
-    path: "/hr/hrOrganizationManagemetnt",
+    path: "/hr/hrOrganizationManagement",
     submenu: [
       { title: "조직 정보 관리", path: "/hr/hrOrganizationManagement" },
       {
@@ -117,6 +119,15 @@ const testArray = [
       { title: "급여 계산/관리", path: "/hr/PayManagement" },
       { title: "수당/지급설정", path: "/hr/ExtraPayManagement" },
       { title: "공제 설정", path: "/hr/DeductManagement" },
+    ],
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "성과 및 평가",
+    path: "/hr/EvaluationManagement",
+    submenu: [
+      { title: "목표  및 성과 관리", path: "/hr/" },
+      { title: "평가 관리", path: "/hr/EvaluationManagement" },
     ],
   },
 ];
@@ -291,6 +302,18 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/DeductManagement`}
         component={DeductManagement}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationManagement`}
+        component={EvaluationManagement}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationDetail`}
+        component={EvaluationDetail}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationResult`}
+        component={EvaluationResult}
       />
     </div>
   );
