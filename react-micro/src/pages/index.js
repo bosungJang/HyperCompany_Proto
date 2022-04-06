@@ -302,6 +302,18 @@ export const DeductManagement = loadable(
     fallback: Loading,
   }
 );
+export const DeductDetail = loadable(
+  () => import("../components/HR/DeductDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const DeductCreate = loadable(
+  () => import("../components/HR/DeductCreate"),
+  {
+    fallback: Loading,
+  }
+);
 export const EvaluationManagement = loadable(
   () => import("../components/HR/EvaluationManagement"),
   {
@@ -316,6 +328,18 @@ export const EvaluationDetail = loadable(
 );
 export const EvaluationResult = loadable(
   () => import("../components/HR/EvaluationResult"),
+  {
+    fallback: Loading,
+  }
+);
+export const CalcResignationPay = loadable(
+  () => import("../components/HR/CalcResignationPay"),
+  {
+    fallback: Loading,
+  }
+);
+export const ResignationPayManagement = loadable(
+  () => import("../components/HR/ResignationPayManagement"),
   {
     fallback: Loading,
   }

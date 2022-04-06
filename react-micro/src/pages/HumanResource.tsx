@@ -45,20 +45,16 @@ import {
   ExtraPayDetail,
   ExtraPayCreate,
   DeductManagement,
-<<<<<<< HEAD
+  EvaluationDetail,
   DeductDetail,
   DeductCreate,
   ResignationPayManagement,
   CalcResignationPay,
-} from "pages";
-import { LNBArrayProps } from "components/LNB/LNB";
-=======
   EvaluationManagement,
   EvaluationResult,
 } from "pages";
+
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
-import EvaluationDetail from "components/HR/EvaluationDetail";
->>>>>>> 2310dc089f9ff904a68aeacbbfe7118d57f4cdbd
 
 interface HRProps {
   match: any;
@@ -133,18 +129,13 @@ const testArray = [
   },
   {
     icon: "HR/Personnel_Management_Icon",
-<<<<<<< HEAD
-    title: "평가 관리",
-    path: "/hr/PayManagement",
-    submenu: [{ title: "평가 계획", path: "/hr/" }],
-=======
+
     title: "성과 및 평가",
     path: "/hr/EvaluationManagement",
     submenu: [
       { title: "목표  및 성과 관리", path: "/hr/" },
       { title: "평가 관리", path: "/hr/EvaluationManagement" },
     ],
->>>>>>> 2310dc089f9ff904a68aeacbbfe7118d57f4cdbd
   },
 ];
 
@@ -320,7 +311,6 @@ const HumanResourgcePage = (props: HRProps) => {
         component={DeductManagement}
       />
       <Route
-<<<<<<< HEAD
         path={`${props.match.url}/DeductDetail`}
         component={DeductDetail}
       />
@@ -335,9 +325,6 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/CalcResignationPay`}
         component={CalcResignationPay}
-=======
-        path={`${props.match.url}/EvaluationManagement`}
-        component={EvaluationManagement}
       />
       <Route
         path={`${props.match.url}/EvaluationDetail`}
@@ -346,7 +333,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/EvaluationResult`}
         component={EvaluationResult}
->>>>>>> 2310dc089f9ff904a68aeacbbfe7118d57f4cdbd
+      />
+      <Route
+        path={`${props.match.url}/EvaluationManagement`}
+        component={EvaluationManagement}
       />
     </div>
   );
