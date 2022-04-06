@@ -7,6 +7,7 @@ import {
 } from "./getDays";
 
 import { StyledSelect } from "common/HcTextField";
+import { Any } from "@react-spring/types";
 
 /* Styles */
 const dayStyle = {
@@ -51,12 +52,12 @@ const initialState = {
   day: today.getDate(),
 };
 
-const Calendar = ({ debug = false, data, sum }) => {
+const Calendar = (props) => {
   const [selectedDate, setDate] = useState({
     ...initialState,
   });
 
-  const [total, setTotal] = useState(sum);
+  const [total, setTotal] = useState(props.sum);
 
   const previousMonth = () => {
     setDate(({ year, month }) => ({
@@ -98,9 +99,9 @@ const Calendar = ({ debug = false, data, sum }) => {
     let tempArray = [];
     var tempSum = 0;
 
-    data.forEach(function (v, i) {
+    props.data.forEach(function (v, i) {
       if (v.month === w + 1) {
-        tempArray.push(data[i]);
+        tempArray.push(props.data[i]);
       }
     });
 
@@ -141,13 +142,14 @@ const Calendar = ({ debug = false, data, sum }) => {
     }
   };
 
-  const SetSumFinance = (d, w) => {
+  const SetSumFinance = (d, w, i, k) => {
     let tempArray = [];
-    var tempSum = 0;
+    var tempSum = total;
+    console.log("!!!!!!", d, w, i, k);
 
-    data.forEach(function (v, i) {
+    props.data.forEach(function (v, i) {
       if (v.month === w + 1) {
-        tempArray.push(data[i]);
+        tempArray.push(props.data[i]);
       }
     });
 
@@ -157,6 +159,7 @@ const Calendar = ({ debug = false, data, sum }) => {
     if (tempArray[tempArray.findIndex((x) => x.day === d)] != null) {
       income = tempArray[tempArray.findIndex((x) => x.day === d)].income;
       expense = tempArray[tempArray.findIndex((x) => x.day === d)].expense;
+      tempSum = tempSum + income - expense;
     }
 
     return (
@@ -186,7 +189,7 @@ const Calendar = ({ debug = false, data, sum }) => {
               float: "right",
             }}
           >
-            {total}
+            {tempSum}
           </span>
         </div>
       </>
@@ -241,9 +244,9 @@ const Calendar = ({ debug = false, data, sum }) => {
             >
               ❮
             </span>
-            <span>{`${getShortMonthName(selectedDate.month)} ${
-              selectedDate.year
-            }`}</span>
+            <span>{`${selectedDate.year}년 ${getShortMonthName(
+              selectedDate.month
+            )} `}</span>
             <span
               onClick={nextMonth}
               style={{
@@ -329,7 +332,7 @@ const Calendar = ({ debug = false, data, sum }) => {
                     height: "184px",
                   }}
                 >
-                  {w.map((d, i) => {
+                  {w.map((d, k) => {
                     const date = new Date();
                     const isToday =
                       d === date.getDate() &&
@@ -342,9 +345,13 @@ const Calendar = ({ debug = false, data, sum }) => {
 
                     return (
                       <td
-                        key={`day_${i}`}
+                        key={`day_${k}`}
                         style={{
                           position: "relative",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          props.CalendarClick(d, selectedDate.month);
                         }}
                       >
                         <div
@@ -393,7 +400,7 @@ const Calendar = ({ debug = false, data, sum }) => {
                             padding: "6px 7px",
                           }}
                         >
-                          {SetSumFinance(d, selectedDate.month)}
+                          {SetSumFinance(d, selectedDate.month, i, k)}
                         </div>
                       </td>
                     );

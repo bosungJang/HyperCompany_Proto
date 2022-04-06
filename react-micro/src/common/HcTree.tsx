@@ -190,7 +190,9 @@ const HcTree = (props: any) => {
           <HcSearchTextField
             name="name"
             value={inputVal}
-            placeholder="계정코드 또는 계정과목명"
+            placeholder={
+              props.placeholder ? props.placeholder : "계정코드 또는 계정과목명"
+            }
             style={{ width: "276px", height: "36px" }}
             onChange={(e) => {
               const lengthOfInputValue = inputVal.split("").length;
@@ -317,6 +319,7 @@ const HcTree = (props: any) => {
                       </ArrowWrapper>
                     ) : (
                       <ArrowWrapper>
+                        {console.log(item.id)}
                         <DotIcon />
                       </ArrowWrapper>
                     )}

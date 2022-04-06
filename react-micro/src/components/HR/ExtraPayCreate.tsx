@@ -387,7 +387,7 @@ export default function ExtraPayCreate() {
         header="계산식 설정"
         open={modalOpen}
         close={closeModal}
-        Containerheight={objClick === false ? 836 : 1153}
+        height={objClick === false ? 836 : 1153}
         primaryBtn={"저장"}
         secondBtn={"취소"}
       >

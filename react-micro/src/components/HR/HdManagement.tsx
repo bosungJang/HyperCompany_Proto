@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
@@ -10,9 +9,7 @@ import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
 import HcCheckBox from "common/HcCheckBox";
 import { EditText, EditTextarea } from "react-edit-text";
-import "common/bulkActionTest.scss";
 
-const startEditActions = ["click", "dblClick"];
 const TableContainer = styled.div`
   width: 100%;
   height: 722px;

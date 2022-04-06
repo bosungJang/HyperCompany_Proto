@@ -653,7 +653,7 @@ const LeaveStandardDetail = () => {
         open={modalOpen}
         close={closeModal}
         style={{ zIndex: 2 }}
-        Containerheight={""}
+        height={""}
         primaryBtn={"확인"}
         secondBtn={""}
       >

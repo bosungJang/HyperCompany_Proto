@@ -4,7 +4,11 @@ import styled from "styled-components";
 import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
 import HcTextField, { HcTitleTextField } from "common/HcTextField";
-import { TableActionBtn } from "common/HcTableComponent";
+import {
+  TableActionBtn,
+  HcTableContainer,
+  HcTable,
+} from "common/HcTableComponent";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
@@ -24,7 +28,7 @@ const DropDownHeader = styled("div")`
   height: 46px;
   width: 122px;
   background: #f4f4f4;
-  font-family: Noto Sans KR;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -40,7 +44,7 @@ const State = styled.div`
   height: 29px;
   padding: 4px;
   border-radius: 2px;
-  font-family: Noto Sans KR;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -69,7 +73,7 @@ const ListItem = styled("li")`
   border-radius: 4px;
   height: 42px;
   width: 122px;
-  font-family: Noto Sans KR;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -98,46 +102,6 @@ const styles = {
   } as React.CSSProperties,
 };
 const options = ["정상", "휴가", "반차", "공가", "지각", "결근"];
-
-const TableContainer = styled.div`
-  width: 100%;
-  height: 722px;
-  overflow-x: auto;
-  overflow-y: auto;
-  float: left;
-  &::-webkit-scrollbar-track {
-    background: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
-  }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-    text-align: left;
-    height: 32px;
-    z-index: 5;
-  }
-  tbody td {
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 21px;
-    text-align: left;
-    height: 46px !important;
-  }
-`;
 
 let num = 1000000;
 const getId = () => {
@@ -190,7 +154,7 @@ const OrganizationType = () => {
     }
   }
   const columns = [
-    <div style={{ marginTop: 7, marginLeft: 16 }}>
+    <div style={{ marginTop: 6, marginLeft: 4, width: 46, textAlign: "left" }}>
       {" "}
       <HcCheckBox
         checked={checkedItem.length > 0 ? true : false}
@@ -242,12 +206,9 @@ const OrganizationType = () => {
               +생성
             </HcButton> */}
             <div style={{ display: "flex" }}>
-              <TableContainer>
-                <table
-                  className="table table-hover"
-                  style={{ width: 1320, tableLayout: "fixed" }}
-                >
-                  <thead>
+              <HcTableContainer style={{ height: 722, width: "100%" }}>
+                <HcTable style={{ width: 1320, tableLayout: "fixed" }}>
+                  <thead style={{ textAlign: "left" }}>
                     <tr>
                       {columns.map((column: any) => (
                         <th key={column}>{column}</th>
@@ -259,7 +220,6 @@ const OrganizationType = () => {
                     {tableData.map((x) => (
                       <tr
                         style={{
-                          textAlign: "center",
                           height: 46,
                         }}
                         onClick={() => {
@@ -280,24 +240,18 @@ const OrganizationType = () => {
                             }}
                           />
                         </td>
-                        <td style={{ width: 120, minWidth: 120, height: 46 }}>
-                          홍길동
-                        </td>
-                        <td style={{ width: 180, minWidth: 180 }}>
-                          AB 본부 / AB2실
-                        </td>
+                        <td style={{ minWidth: 120 }}>홍길동</td>
+                        <td style={{ minWidth: 180 }}>AB 본부 / AB2실</td>
                         <td
                           style={{
-                            width: 122,
                             maxWidth: 122,
                           }}
                         >
                           연구원
                         </td>
-                        <td style={{ width: 122, minWidth: 122 }}>연구원</td>
+                        <td style={{ minWidth: 122 }}>연구원</td>
                         <td
                           style={{
-                            width: 122,
                             maxWidth: 122,
                           }}
                         >
@@ -305,7 +259,6 @@ const OrganizationType = () => {
                         </td>
                         <td
                           style={{
-                            width: 122,
                             maxWidth: 122,
                           }}
                         >
@@ -383,7 +336,7 @@ const OrganizationType = () => {
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </HcTable>
                 <DropDownContainer>
                   {isOpen === false ? (
                     <State
@@ -422,7 +375,7 @@ const OrganizationType = () => {
                     </DropDownListContainer>
                   )}
                 </DropDownContainer>
-              </TableContainer>
+              </HcTableContainer>
             </div>
           </div>
           <HcPopup open={modalOpen} close={closeModal} header="저장">

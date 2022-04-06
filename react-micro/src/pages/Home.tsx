@@ -165,7 +165,7 @@ const Home = (props: HomeProps) => {
   return (
     <>
       <div style={{ width: "inherit" }}>
-        <ComponentWrapper>
+        <ComponentWrapper style={{ paddingTop: "0px" }}>
           <HcPopOver
             isPopOver={isPopOver}
             setIsPopOver={setIsPopOver}
@@ -197,7 +197,23 @@ const Home = (props: HomeProps) => {
             <HcTagNoInput tags={tags2} setTags={setTags2} />
           </HcPopOver>
 
-          <HcTitleTextField titleName={t("test")} isBackIcon={true} />
+          <HcTitleTextField
+            titleName={t("test")}
+            isBackIcon={true}
+            style={{ display: "inline-table", minWidth: "0px" }}
+          />
+          <img
+            src={process.env.PUBLIC_URL + "/images/animation_500_l1k84gb4.gif"}
+            alt="test"
+            style={{
+              transform: "matrix(-1, 0, 0, 1, 0, 0)",
+              width: "77px",
+              height: "77px",
+              display: "inline-block",
+              verticalAlign: "bottom",
+            }}
+          />
+
           <Counter counter={myCounter} />
           <div>
             <br />

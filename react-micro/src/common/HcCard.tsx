@@ -7,14 +7,14 @@ const Card = styled.div`
   height: 296px;
   background: #ffffff;
   float: left;
-  //padding: 20px 24px 20px 24px;
-  padding: 20px 13px 20px 22px;
+  padding: 20px 24px 20px 24px;
+  //padding: 20px 13px 20px 22px;
   display: flex;
   flex-direction: column;
 `;
 
 const Card_title = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-size: 16px;
   line-height: 24px;
@@ -25,7 +25,7 @@ const Card_date = styled.div`
   margin-top: 8px;
   margin-left: 1px;
   //margin-bottom: 8px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -36,8 +36,9 @@ const Card_date = styled.div`
 interface CardProps {
   boxStyle: "solid" | "boxShadow";
   children: React.ReactNode;
-  title: string;
-  date: any;
+  title?: string;
+  date?: any;
+  style?: React.CSSProperties;
 }
 export default function HcCard(props: CardProps) {
   const solid: any = {
@@ -60,9 +61,15 @@ export default function HcCard(props: CardProps) {
   };
   return (
     <>
-      <Card style={handleStyle(props.boxStyle)}>
-        <Card_title style={{ fontWeight: 800 }}>{props.title}</Card_title>
-        <Card_date>{props.date}</Card_date>
+      <Card style={Object.assign(handleStyle(props.boxStyle), props.style)}>
+        <Card_title
+          style={{ fontWeight: 500, display: props.title ? "" : "none" }}
+        >
+          {props.title}
+        </Card_title>
+        <Card_date style={{ display: props.title ? "" : "none" }}>
+          {props.date}
+        </Card_date>
         {props.children}
       </Card>
     </>

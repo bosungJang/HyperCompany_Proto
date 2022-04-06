@@ -596,8 +596,8 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
     };
 
     return (
-      <Wrapper>
-        <div>
+      <Wrapper style={{ width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <NoInputFieldWrapper style={{ ...props.style }}>
             <div
               style={{ display: "block", alignItems: "center", height: "100%" }}

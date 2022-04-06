@@ -302,26 +302,20 @@ export const DeductManagement = loadable(
     fallback: Loading,
   }
 );
-export const DeductDetail = loadable(
-  () => import("../components/HR/DeductDetail"),
+export const EvaluationManagement = loadable(
+  () => import("../components/HR/EvaluationManagement"),
   {
     fallback: Loading,
   }
 );
-export const DeductCreate = loadable(
-  () => import("../components/HR/DeductCreate"),
+export const EvaluationDetail = loadable(
+  () => import("../components/HR/EvaluationDetail"),
   {
     fallback: Loading,
   }
 );
-export const ResignationPayManagement = loadable(
-  () => import("../components/HR/ResignationPayManagement"),
-  {
-    fallback: Loading,
-  }
-);
-export const CalcResignationPay = loadable(
-  () => import("../components/HR/CalcResignationPay"),
+export const EvaluationResult = loadable(
+  () => import("../components/HR/EvaluationResult"),
   {
     fallback: Loading,
   }
@@ -465,6 +459,13 @@ export const CashDisbursementVoucherPage = loadable(
 
 export const BillManagementPage = loadable(
   () => import("../components/Fi/BillManagement"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const FundsPlanningPage = loadable(
+  () => import("../components/Fi/FundsPlanning"),
   {
     fallback: Loading,
   }
