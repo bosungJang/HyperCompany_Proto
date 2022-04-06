@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
 import { HcTabsAdv } from "common/HcTabs";
@@ -13,17 +13,6 @@ const Container = styled.div`
   border-radius: 6px;
   position: relative;
   padding: 18px 23px 18px 20px;
-`;
-
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 29px;
-  color: #303030;
 `;
 
 const Number = styled.div`
@@ -62,7 +51,7 @@ const Table = styled.table`
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -84,7 +73,7 @@ const Table = styled.table`
   thead > tr {
     height: 32px;
     background-color: #ededed;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -135,9 +124,10 @@ const PayCalcDetail = () => {
         </Link>
         {edit === false ? (
           <>
-            <SubTitle style={{ marginTop: 59, marginBottom: 28 }}>
-              7월 급여 계산 요약
-            </SubTitle>
+            <SubHeading
+              titleName="7월 급여 계산 요약"
+              style={{ marginTop: 59, marginBottom: 28 }}
+            />
             <Container style={{ height: 160 }}>
               <Name style={{ left: 80 }}>급여 대상자</Name>
               <Number style={{ left: 80 }}>200명</Number>
@@ -170,9 +160,10 @@ const PayCalcDetail = () => {
               <Name style={{ left: 1088 }}>공제 금액(원)</Name>
               <Number style={{ left: 1088 }}>122,034,271원</Number>
             </Container>
-            <SubTitle style={{ marginTop: 40, marginBottom: 28 }}>
-              지급 내역
-            </SubTitle>
+            <SubHeading
+              titleName=" 지급 내역"
+              style={{ marginTop: 40, marginBottom: 28 }}
+            />
 
             <Table>
               <thead>
@@ -250,9 +241,11 @@ const PayCalcDetail = () => {
                 </tr>
               </tbody>
             </Table>
-            <SubTitle style={{ marginTop: 44, marginBottom: 28 }}>
-              공제 내역
-            </SubTitle>
+            <SubHeading
+              titleName="공제 내역"
+              style={{ marginTop: 44, marginBottom: 28 }}
+            />
+
             <Table>
               <thead>
                 <tr>
@@ -329,9 +322,10 @@ const PayCalcDetail = () => {
                 </tr>
               </tbody>
             </Table>
-            <SubTitle style={{ marginTop: 44, marginBottom: 28 }}>
-              4대 보험료(회사 부담)
-            </SubTitle>
+            <SubHeading
+              titleName="4대 보험료(회사 부담)"
+              style={{ marginTop: 44, marginBottom: 28 }}
+            />
             <Table>
               <thead>
                 <tr>
@@ -392,7 +386,7 @@ const PayCalcDetail = () => {
                 "1": (
                   <>
                     <Container style={{ marginTop: 24, height: 404 }}>
-                      <SubTitle>입사/퇴직/휴직 근무자</SubTitle>
+                      <SubHeading titleName="입사/퇴직/휴직 근무자" />
                       <div
                         style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}
                       >
@@ -406,7 +400,7 @@ const PayCalcDetail = () => {
                       </div>
                     </Container>
                     <Container style={{ marginTop: 24, height: 404 }}>
-                      <SubTitle>재직 근무자</SubTitle>
+                      <SubHeading titleName="재직 근무자" />
                       <div
                         style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}
                       >

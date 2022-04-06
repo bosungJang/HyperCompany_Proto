@@ -15,9 +15,8 @@ import HcBottomBar from "common/HcBottomBar";
 import InfoIconTooltip, { TooltipMessage } from "common/HcTooltip";
 import { HcContentPopup } from "common/HcPopup";
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
+  font-family: Noto Sans KR;
+ 
   font-size: 13px;
   position: relative;
   line-height: 19px;
@@ -171,7 +170,7 @@ export default function ExtraPayCreate() {
               float: "left",
               width: 387,
               marginRight: 79,
-              marginTop: 61,
+              marginTop: 40,
             }}
           >
             <HcTextField

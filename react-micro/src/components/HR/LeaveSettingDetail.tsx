@@ -17,7 +17,7 @@ import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcBottomBar from "common/HcBottomBar";
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -53,17 +53,6 @@ const TypeLi = styled.li`
   &:lastt-child {
     margin-right: 0px;
   }
-`;
-const SubTitle = styled.div`
-  height: 29px;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-  margin-top: 41px;
 `;
 const DataForm = styled.div`
   width: 1320px;

@@ -17,7 +17,7 @@ import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcBottomBar from "common/HcBottomBar";
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;

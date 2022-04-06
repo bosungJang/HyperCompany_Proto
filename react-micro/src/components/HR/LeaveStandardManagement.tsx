@@ -10,7 +10,6 @@ import "common/bulkActionTest.scss";
 
 import "common/bulkActionTest.scss";
 
-
 const TableContainer = styled.div`
   width: 100%;
   height: 722px;
@@ -41,7 +40,7 @@ const TableContainer = styled.div`
     height: 32px;
   }
   tbody td {
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

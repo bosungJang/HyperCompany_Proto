@@ -8,11 +8,24 @@ import ko from "date-fns/locale/ko";
 import { getMonth, getYear, addDays, subDays } from "date-fns";
 import range from "lodash/range";
 
+const StyledInput = styled.input`
+  border-radius: 3px;
+  height: 36px;
+  width: 387px;
+  border: 1px solid #cecece;
+  padding-left: 12px;
+`;
 const DatePickerContainer = styled.div`
   // position: absolute;
   margin-top: 20;
 `;
-export function HcDatePicker() {
+interface DatePickerIProps {
+  titleName?: string;
+  disabled?: boolean;
+  style?: CSSProperties;
+  getDate?: Date;
+}
+export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
   const [startDate, setStartDate] = useState(new Date());
   const years = range(1990, getYear(new Date()) + 1, 1);
   const months = [
@@ -32,37 +45,12 @@ export function HcDatePicker() {
   registerLocale("ko", ko);
   return (
     <DatePickerContainer>
-      <span style={{ marginLeft: 0 }}>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M2.2929 14.3989C1.9113 14.3989 1.6001 14.0875 1.6001 13.7049V6.41339L14.4001 6.41339V13.7049C14.4001 14.0875 14.0897 14.3989 13.7065 14.3989H2.2929ZM13.7065 3.19931C14.0897 3.19931 14.4001 3.51071 14.4001 3.89336V4.81236H1.6001V3.89336C1.6001 3.51071 1.9113 3.19931 2.2929 3.19931L13.7065 3.19931ZM12.4862 1.59833V0.758085C12.4862 0.341018 12.1446 -8.37645e-10 11.7278 -8.37645e-10H11.5934C11.1766 -8.37645e-10 10.8358 0.341018 10.8358 0.758085V1.59833H5.3119V0.782901C5.3119 0.365834 4.9703 0.0248159 4.5543 0.0248159H4.4199C4.0023 0.0248159 3.6615 0.365834 3.6615 0.782901V1.59833H2.2928C1.0288 1.59833 0 2.62779 0 3.8934V13.7049C0 14.9705 1.0288 16 2.2928 16H13.7064C14.9712 16 16 14.9705 16 13.7049V3.8934C16 2.62779 14.9712 1.59833 13.7064 1.59833H12.4862Z"
-            fill="#A7A7A7"
-          />
-        </svg>
-      </span>
       <DatePicker
+        {...(props.getDate = startDate)}
         locale="ko"
         dateFormat="yyyy.MM.dd"
         disabledKeyboardNavigation
-        customInput={
-          <input
-            style={{
-              borderRadius: 3,
-              height: 36,
-              width: 400,
-              border: "1px solid #CECECE",
-              paddingLeft: 12,
-            }}
-          ></input>
-        }
+        customInput={<StyledInput {...props}></StyledInput>}
         renderCustomHeader={({
           date,
           changeYear,
@@ -112,11 +100,13 @@ export function HcDatePicker() {
           </div>
         )}
         selected={startDate}
-        onChange={(date: Date) => setStartDate(date)}
+        onChange={(date: Date) => {
+          setStartDate(date);
+        }}
       />
     </DatePickerContainer>
   );
-}
+};
 const CustomInput = styled.input`
   border-radius: 3px;
   height: 36px;

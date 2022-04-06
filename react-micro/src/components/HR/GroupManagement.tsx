@@ -6,7 +6,12 @@ import { TableActionBtn } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
-import { HcTitleTextField } from "common/HcTextField";
+import HcTextField from "common/HcTextField";
+import {
+  HcTitleTextField,
+  HcEditableTextField,
+  HcTextFieldLabel,
+} from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcTable from "common/HcTable";
 import { HcTreePopup } from "common/HcPopup";
@@ -54,24 +59,14 @@ const CrateContainer = styled.div`
   margin-left: -100px;
   padding: 28px 24px 28px 24px;
 `;
-const SubTitle = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-weight: bold;
-  font-size: 24px;
-  color: #000000;
-  margin-left: 12px;
-  margin-top: 10px;
-  width: 284px;
-  height: 56px;
-  border-bottom: 1px solid #e0e0e0;
-`;
+
 // const StyledHr = styled.div`
 //   height: 1px;
 //   width: 284px;
 //   background-color: #e0e0e0;
 // `;
 const Memeber = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-weight: bold;
   font-size: 20px;
   height: 30px;
@@ -81,7 +76,7 @@ const Memeber = styled.div`
   margin-bottom: 20px;
 `;
 const TextField = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-weight: bold;
   font-size: 16px;
   width: 284px;
@@ -402,7 +397,21 @@ const HRManagement = () => {
       <CrateContainer
         style={{ display: groupCreate == true ? "" : "none", float: "left" }}
       >
-        <SubTitle>새 그룹</SubTitle>
+        <HcEditableTextField
+          titleName={""}
+          style={{
+            width: 284,
+            fontSize: "24px",
+            borderBottom: "1px solid #E0E0E0",
+            fontWeight: 500,
+            fontFamily: "Noto Sans KR",
+            padding: 12,
+
+            marginTop: -21,
+          }}
+          value={"새그룹"}
+          readonly
+        />
 
         <div style={{ display: "block", marginBottom: 40 }}>
           <TextField>시장 동향에 대해 조사하는 팀입니다.</TextField>

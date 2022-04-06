@@ -99,7 +99,7 @@ const Chip = styled.div`
   height: 26px;
 
   background: #dfecff;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-size: 13px;
   border: 1px solid #5799fb;
   box-sizing: border-box;

@@ -58,7 +58,7 @@ const CrateContainer = styled.div`
   padding: 28px 24px 28px 24px;
 `;
 const SubTitle = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-weight: bold;
   font-size: 24px;
   color: #000000;
@@ -74,7 +74,7 @@ const SubTitle = styled.div`
 //   background-color: #e0e0e0;
 // `;
 const Memeber = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-weight: bold;
   font-size: 20px;
   height: 30px;
@@ -84,7 +84,7 @@ const Memeber = styled.div`
   margin-bottom: 20px;
 `;
 const TextField = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-weight: bold;
   font-size: 16px;
   width: 284px;

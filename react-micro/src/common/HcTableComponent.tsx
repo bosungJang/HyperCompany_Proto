@@ -16,22 +16,19 @@ const StyledSelect = styled.select`
   }
 `;
 const TableContainer = styled.div`
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
+  overflow-y: overlay;
 
   &::-webkit-scrollbar-track {
     background: none;
-
     position: absolute;
+    z-index: 1;
   }
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
-    background-color: #f5f5f5;
-    display: none;
-    &:hover {
-      display: inline;
-    }
+    background-color: none;
+    position: absolute;
   }
   &::-webkit-scrollbar-thumb {
     background: #cecece;
@@ -41,20 +38,28 @@ const TableContainer = styled.div`
     position: sticky;
     top: 0;
     background-color: #ededed;
+    z-index: 3;
   }
 `;
 
 const StyledTable = styled.table`
+  text-align: left;
+  table-layout: fixed;
+
   td {
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
     color: #000000;
+    border-collapse: collapse !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   tr th {
     padding-left: 12px;
@@ -66,15 +71,15 @@ const StyledTable = styled.table`
     color: #636363;
     height: 32px;
   }
-  tr &:hover {
+  tr:hover {
     background-color: #eff5ff;
     transition: all 0.3s ease;
   }
-  tr&:active {
+  tr:active {
     background-color: #cee2ff;
     transition: all 0.3s ease;
   }
-  thead tr &:hover {
+  thead > tr:hover {
     background-color: #e0e0e0;
     transition: all 0.3s ease;
   }
@@ -85,7 +90,7 @@ const StyledTable = styled.table`
   thead > tr {
     height: 32px;
     background-color: #ededed;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -181,8 +186,9 @@ export function TableSelect({ children }: any) {
 export function HcTable({ children }: any) {
   return <StyledTable>{children}</StyledTable>;
 }
-export function HcTableContainer({ children }: any) {
-  return <TableContainer>{children}</TableContainer>;
+export function HcTableContainer(props?: any) {
+  const { children, style } = props;
+  return <TableContainer style={style}>{children}</TableContainer>;
 }
 
 const Wrapper = styled.div`

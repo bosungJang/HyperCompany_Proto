@@ -7,6 +7,7 @@ import {
   HcSelect,
   HcEditableTextField,
   HcTextFieldLabel,
+  SubHeading,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
@@ -20,16 +21,6 @@ const Container = styled.div`
   border: 1px solid #cecece;
   border-radius: 6px;
   padding: 20px 24px 30px 24px;
-`;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 89px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
 `;
 const TableContainer = styled.div`
   width: 1239px;
@@ -85,7 +76,7 @@ const HRCard = styled.div`
   border: 1px solid #ededed;
   box-sizing: border-box;
   border-radius: 4px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 16px;
@@ -234,7 +225,7 @@ const HRAppointmentCreate = () => {
     >
       <HcTitleTextField titleName="발령 생성" isBackIcon={true} />
       <Container style={{ marginTop: 39, height: 258 }}>
-        <SubTitle>발령 정보</SubTitle>
+        <SubHeading titleName="발령 정보" />
         <HcEditableTextField titleName="발령 번호" />
         <HcEditableTextField
           titleName="발령 내용"
@@ -261,7 +252,7 @@ const HRAppointmentCreate = () => {
         <HcEditableTextField titleName="시행일시" type="date" required />
       </Container>
       <Container style={{ marginTop: 24, height: 404 }}>
-        <SubTitle>발령 대상</SubTitle>
+        <SubHeading titleName="발령 대상" />
         <HcButton
           onClick={() => {
             setIsOpen(!isOpen);
@@ -299,7 +290,7 @@ const HRAppointmentCreate = () => {
             right: isOpen == true ? 0 : "-600px",
           }}
         >
-          <SubTitle style={{ width: 120 }}>대상자 추가</SubTitle>
+          <SubHeading titleName="대상자 추가" />
           <div style={{ float: "left" }}>
             {" "}
             <HcSelect titleName="" name="kinds" style={{ width: 190 }}>
@@ -356,7 +347,7 @@ const HRAppointmentCreate = () => {
         </SideBar>
       </Container>
       <Container style={{ marginTop: 26, height: 142 }}>
-        <SubTitle>기타 설정</SubTitle>
+        <SubHeading titleName="기타 설정" />
         <div>
           <HcToggleBtn
             id="test-switch"

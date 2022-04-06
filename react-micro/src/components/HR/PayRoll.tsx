@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField, HcTextFieldLabel } from "common/HcTextField";
+import {
+  HcTitleTextField,
+  HcTextFieldLabel,
+  SubHeading,
+} from "common/HcTextField";
 import styled, { keyframes } from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
 import { useHistory } from "react-router-dom";
@@ -9,14 +13,6 @@ import HcCheckBox from "common/HcCheckBox";
 import { HcTable } from "common/HcTableComponent";
 import { ContentPopup } from "common/HcPopup";
 
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-size: 20px;
-  line-height: 29px;
-  color: #303030;
-`;
 const Info = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
@@ -38,7 +34,7 @@ const TableCenter = styled.table`
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -74,7 +70,7 @@ const TableCenter = styled.table`
   thead > tr {
     height: 32px;
     background-color: #ededed;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -277,9 +273,11 @@ const PayRoll = () => {
         </HcButton>
 
         <>
-          <SubTitle style={{ marginTop: "59px", marginBottom: 10 }}>
-            2022년 7월
-          </SubTitle>
+          <SubHeading
+            titleName="2022년 7월"
+            style={{ marginTop: "59px", marginBottom: 10 }}
+          />
+
           <p
             style={{
               fontSize: "15px",
@@ -317,9 +315,10 @@ const PayRoll = () => {
             close={closeModal}
             header="급여 명세서 미리보기"
           >
-            <SubTitle style={{ marginTop: "20px", marginBottom: 10 }}>
-              2022년 7월
-            </SubTitle>
+            <SubHeading
+              titleName="2022년 7월"
+              style={{ marginTop: "20px", marginBottom: 10 }}
+            />
             <p
               style={{
                 fontSize: "15px",

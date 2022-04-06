@@ -65,6 +65,16 @@ export const Title = styled.div<{ required?: boolean }>`
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
 `;
 
+const StyledDiv = styled.div`
+  height: 30px;
+  width: 100px;
+  font-family: Noto Sans KR;
+  font-style: bold;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #303030;
+`;
 export const Wrapper = styled.div`
   display: inline-table;
 `;
@@ -105,7 +115,35 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
     </Wrapper>
   );
 };
+interface HeaddingIProps {
+  titleName: string;
 
+  style?: CSSProperties;
+
+  required?: boolean;
+}
+export const SubHeading: React.FC<TextFieldIProps> = ({
+  titleName,
+  ...props
+}) => {
+  const SubHeadingField = styled.div<{ required?: boolean }>`
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    width: fit-content;
+    height: fit-content;
+    color: #303030;
+    ${(props) =>
+      props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
+  `;
+  return (
+    <>
+      <SubHeadingField {...props}>{titleName}</SubHeadingField>
+    </>
+  );
+};
 interface EditTextFieldIProps {
   titleName: string;
   style?: CSSProperties;

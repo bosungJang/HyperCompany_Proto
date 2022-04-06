@@ -5,7 +5,7 @@ import { TableSelect, TableActionBtn, HcTable } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTabs from "common/HcTabs";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcSlider from "./HcSlider";
 interface MatchParams {
@@ -43,22 +43,13 @@ const ContentContainer = styled.div`
   border-radius: 5px;
   padding: 20px 24px 30px 24px;
 `;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 155px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-`;
+
 const SubContent = styled.div`
   width: 400px;
   height: 21px;
   margin-top: 18px;
   margin-bottom: 40px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -607,7 +598,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
         <div style={{ display: tab == true ? "" : "none" }}>
           {/*발령 분석*/}
           <ContentContainer style={{ height: 401, marginTop: 24 }}>
-            <SubTitle>직책 후보자 추천</SubTitle>
+            <SubHeading titleName="직책 후보자 추천" />
             <SubContent>
               직책별 후보자를 업무 성취도가 높은 구성원으로 추천합니다.
             </SubContent>
@@ -616,7 +607,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             </div>
           </ContentContainer>
           <ContentContainer style={{ height: 788, marginTop: 23 }}>
-            <SubTitle>적합 부서 추천</SubTitle>
+            <SubHeading titleName="적합 부서 추천" />
             <SubContent>
               구성원의 역량을 기반으로 적합한 부서를 추천합니다.
             </SubContent>

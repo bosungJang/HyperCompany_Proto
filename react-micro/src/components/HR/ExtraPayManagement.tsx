@@ -5,6 +5,7 @@ import styled from "styled-components";
 import "common/Table.css";
 import HcButton from "common/HcButton";
 import { TrademarkOutlined } from "@ant-design/icons";
+import { SubHeading } from "common/HcTextField";
 const Container = styled.div`
   background: #ffffff;
   width: 1320px;
@@ -14,16 +15,7 @@ const Container = styled.div`
   position: relative;
   height: 179px;
 `;
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-`;
+
 const Amount = styled.div`
   justify-content: center;
   align-items: center;
@@ -197,7 +189,7 @@ const WorkManagement = () => {
   const history = useHistory();
   function Cards(
     id: number,
-    name: {} | null | undefined,
+    name: string,
     legallyreq: boolean,
     amount: {} | null | undefined,
     taxFree: boolean,
@@ -246,7 +238,7 @@ const WorkManagement = () => {
         </Tooltip>
         <div>
           {" "}
-          <SubTitle>{name}</SubTitle>
+          <SubHeading titleName={name} />
           {amount === null ? "" : <Amount> {amount}</Amount>}
         </div>
         <div style={{ position: "absolute", top: 78, right: 40 }}>
@@ -315,9 +307,11 @@ const WorkManagement = () => {
         }}
       >
         <HcTitleTextField titleName="수당/지급설정" isBackIcon={false} />
-        <SubTitle style={{ marginTop: 59, marginBottom: 18 }}>
-          지급 기준 설정
-        </SubTitle>
+        <SubHeading
+          titleName="지급 기준 설정"
+          style={{ marginTop: 59, marginBottom: 18 }}
+        />
+
         <div style={{ display: "flex", marginBottom: 22 }}>
           {" "}
           <HcSelect
@@ -349,9 +343,11 @@ const WorkManagement = () => {
           다음 급여부터 급여일이 당월 15일로 변경됩니다.(변경 후 첫 지급일 :
           2022.03.15)
         </Alert>
-        <SubTitle style={{ marginTop: 40, marginBottom: 18 }}>
-          수당 항목
-        </SubTitle>
+        <SubHeading
+          titleName="수당 항목"
+          style={{ marginTop: 40, marginBottom: 18 }}
+        />
+
         <HcButton
           onClick={() => {
             history.push({
@@ -372,9 +368,11 @@ const WorkManagement = () => {
           .map(({ id, name, legallyreq, amount, taxFree, normalWage }) =>
             Cards(id, name, legallyreq, amount, taxFree, normalWage)
           )}
-        <SubTitle style={{ marginTop: 60, marginBottom: 18 }}>
-          보상 항목
-        </SubTitle>
+        <SubHeading
+          titleName="보상 항목"
+          style={{ marginTop: 60, marginBottom: 18 }}
+        />
+
         <HcButton
           onClick={() => {
             history.push({

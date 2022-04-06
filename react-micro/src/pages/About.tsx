@@ -72,7 +72,7 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
         content
       </HcCard>
       <br />
-      <HcDatePicker />
+      <HcDatePicker style={{ width: 387 }} />
       <HcDateRangePicker />
       <CustomDatepicker />
       <HcFilter />

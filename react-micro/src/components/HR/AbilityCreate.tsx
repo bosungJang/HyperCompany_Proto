@@ -6,7 +6,7 @@ import { TableSelect, TableActionBtn } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTabs from "common/HcTabs";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
+import HcTextField, { HcTitleTextField, SubHeading } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import HcBottomBar from "common/HcBottomBar";
@@ -21,9 +21,8 @@ const TableContainer = styled.div`
   padding-top: 20px;
 `;
 const RadioTitle = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
+  font-family: Noto Sans KR;
+
   font-size: 13px;
   line-height: 19px;
   text-transform: uppercase;
@@ -31,16 +30,6 @@ const RadioTitle = styled.div`
   height: 20px;
   color: #656565;
   margin-bottom: 23px;
-`;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 100px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
 `;
 
 const AbilityDetail = () => {
@@ -197,10 +186,8 @@ const AbilityDetail = () => {
           </div>
         </TextFieldContainer>
 
-        <TableContainer style={{ display: "block", paddingTop: 302 }}>
-          <SubTitle>
-            역량 등급<b style={{ color: " " }}>*</b>
-          </SubTitle>
+        <TableContainer style={{ display: "block", paddingTop: 362 }}>
+          <SubHeading titleName="역량 등급" required />
           <HcButton
             styles="secondary"
             size="medium"
@@ -226,7 +213,7 @@ const AbilityDetail = () => {
           </table>
         </TableContainer>
         <TableContainer style={{ display: "block", paddingTop: 70 }}>
-          <SubTitle>자격증</SubTitle>
+          <SubHeading titleName="자격증" />
           <HcButton
             styles="secondary"
             size="medium"

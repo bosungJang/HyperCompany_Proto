@@ -1,4 +1,4 @@
-import { RouteComponentProps, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import "common/Table.css";
 import styled from "styled-components";
@@ -6,11 +6,12 @@ import { HcContentPopup, SideBar } from "common/HcPopup";
 import { TableSelect, TableActionBtn } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTabs from "common/HcTabs";
-import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
+import { ComponentWrapper } from "common/HcCommonLayout";
 import HcTextField, {
   HcTitleTextField,
   HcTextFieldLabel,
   HcSelect,
+  SubHeading,
 } from "common/HcTextField";
 import { HcTabsAdv } from "common/HcTabs";
 import HcButton from "common/HcButton";
@@ -29,7 +30,7 @@ const TableContainer = styled.div`
   margin-top: 295px;
 `;
 const RadioTitle = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -40,19 +41,8 @@ const RadioTitle = styled.div`
   color: #656565;
   margin-bottom: 23px;
 `;
-const SubTitle = styled.div`
-  height: 30px;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  padding-top: 335px;
-  color: #303030;
-`;
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -62,23 +52,7 @@ const Title = styled.div`
   height: 20px;
   color: #656565;
 `;
-const StyledSpan = styled.span`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 11px;
-  line-height: 16px;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  text-decoration-line: underline;
-  text-transform: uppercase;
-  margin-left: 10px;
-  /* SuperCompany/Color/Red */
 
-  color: #f93737;
-`;
 const StyledUl = styled.ul`
   height: fit-content;
   width: fit-content;
@@ -479,7 +453,10 @@ const LeaveStandardDetail = () => {
           </TextFieldContainer>
         )}
         <TableContainer style={{ display: "block" }}>
-          <SubTitle>근속연수별 연차 설정</SubTitle>
+          <SubHeading
+            titleName="근속연수별 연차 설정"
+            style={{ paddingTop: 335 }}
+          />
           <HcButton
             styles="secondary"
             size="medium"

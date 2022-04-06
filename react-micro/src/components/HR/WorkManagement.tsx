@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import "common/Table.css";
 import HcButton from "common/HcButton";
@@ -11,16 +11,6 @@ const Container = styled.div`
   border-radius: 6px;
   padding: 30px 30px 24px 40px;
   position: relative;
-`;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 130px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
 `;
 const WorkTime = styled.div`
   justify-content: center;
@@ -236,7 +226,7 @@ const WorkManagement = () => {
               </Tooltip>
               <div>
                 {" "}
-                <SubTitle>{name}</SubTitle>
+                <SubHeading titleName={name} />
                 {startend !== "none" ? (
                   <WorkTime>출퇴근-{startend}</WorkTime>
                 ) : (

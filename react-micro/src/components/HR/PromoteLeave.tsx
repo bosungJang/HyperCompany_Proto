@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
+import HcTextField, { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import HcButton from "common/HcButton";
 import { useLocation } from "react-router";
 import { ToastContext } from "common/Toast";
 import { HcMailPopup } from "common/HcPopup";
 import { EditText, EditTextarea } from "react-edit-text";
-const SubTitle = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  width: fit-content;
-  height: fit-content;
-  color: #303030;
-`;
+
 const MailContent = styled.div`
   height: 305px;
   width: 1320px;
   border-radius: 4px;
   border: 1px solid #cecece;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 13px;
@@ -98,14 +90,14 @@ export default function () {
       </div>
 
       <NewHRInfo style={{ float: "left" }}>
-        <SubTitle>연차 사용 촉진 대상자</SubTitle>
+        <SubHeading titleName="연차 사용 촉진 대상자" />
 
         <HRCard style={{ marginRight: 24 }}>1</HRCard>
         <HRCard style={{ marginRight: 24 }}>2</HRCard>
         <HRCard>3</HRCard>
       </NewHRInfo>
       <MainSendContainer>
-        <SubTitle>촉진 메일 전송</SubTitle>
+        <SubHeading titleName="촉진 메일 전송" />
         <HcButton
           onClick={() => {
             message("촉진 메일 전송 완료하였습니다.", "test");
@@ -170,7 +162,14 @@ export default function () {
         </div>
       </MainSendContainer>
 
-      <HcMailPopup open={modalOpen} close={closeModal}  save={()=>{console.log("saved")}} header="촉진 메일 수정">
+      <HcMailPopup
+        open={modalOpen}
+        close={closeModal}
+        save={() => {
+          console.log("saved");
+        }}
+        header="촉진 메일 수정"
+      >
         <p
           style={{
             marginTop: "13px",

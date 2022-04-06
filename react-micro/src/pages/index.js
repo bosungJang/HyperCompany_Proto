@@ -302,6 +302,30 @@ export const DeductManagement = loadable(
     fallback: Loading,
   }
 );
+export const DeductDetail = loadable(
+  () => import("../components/HR/DeductDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const DeductCreate = loadable(
+  () => import("../components/HR/DeductCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const ResignationPayManagement = loadable(
+  () => import("../components/HR/ResignationPayManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const CalcResignationPay = loadable(
+  () => import("../components/HR/CalcResignationPay"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

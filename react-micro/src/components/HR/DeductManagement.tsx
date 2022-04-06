@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField, HcSelect } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import "common/Table.css";
 import HcButton from "common/HcButton";
@@ -16,9 +16,8 @@ const Container = styled.div`
   height: 179px;
 `;
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
+  font-family: Noto Sans KR;
+
   font-size: 13px;
   position: relative;
   line-height: 19px;
@@ -27,16 +26,7 @@ const Title = styled.div`
   height: 20px;
   color: #656565;
 `;
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-`;
+
 const Amount = styled.div`
   justify-content: center;
   align-items: center;
@@ -173,7 +163,7 @@ const WorkManagement = () => {
   const history = useHistory();
   function Cards(
     id: number,
-    name: {} | null | undefined,
+    name: string,
     legallyreq: boolean,
     amount: {} | null | undefined,
     taxFree: boolean,
@@ -183,7 +173,7 @@ const WorkManagement = () => {
       <Container
         onClick={() => {
           history.push({
-            pathname: "/hr/ExtraPayDetail",
+            pathname: "/hr/DeductDetail",
             state: {
               legallyreq: legallyreq,
               id: id,
@@ -222,7 +212,7 @@ const WorkManagement = () => {
         </Tooltip>
         <div>
           {" "}
-          <SubTitle>{name}</SubTitle>
+          <SubHeading titleName={name} />
           {amount === null ? "" : <Amount> {amount}</Amount>}
         </div>
         <div style={{ position: "absolute", top: 78, right: 40 }}>
@@ -291,13 +281,15 @@ const WorkManagement = () => {
         }}
       >
         <HcTitleTextField titleName="공제 설정" isBackIcon={false} />
-        <SubTitle style={{ marginTop: 59, marginBottom: 18 }}>
-          근로소득세 계산 기준
-        </SubTitle>
+        <SubHeading
+          style={{ marginTop: 59, marginBottom: 18 }}
+          titleName="근로소득세 계산 기준"
+        />
         <div
           style={{
             float: "left",
             width: 285,
+            marginBottom: 40,
           }}
         >
           <Title style={{ marginBottom: 22 }}>지급 시기</Title>
@@ -342,13 +334,11 @@ const WorkManagement = () => {
           </div>
         </div>
 
-        <SubTitle style={{ marginTop: 40, marginBottom: 18 }}>
-          수당 항목
-        </SubTitle>
+        <SubHeading titleName="공제 항목" style={{ marginBottom: 18 }} />
         <HcButton
           onClick={() => {
             history.push({
-              pathname: "/hr/ExtraPayCreate",
+              pathname: "/hr/DeductCreate",
             });
           }}
           styles="secondary"

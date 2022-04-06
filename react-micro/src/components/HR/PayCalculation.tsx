@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
 import { useHistory, Link } from "react-router-dom";
@@ -18,16 +18,6 @@ const Container = styled.div`
   border-radius: 6px;
   padding: 20px 24px 30px 24px;
 `;
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 29px;
-  color: #303030;
-`;
 
 const TableCenter = styled.table`
   table-layout: fixed;
@@ -40,7 +30,7 @@ const TableCenter = styled.table`
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -76,7 +66,7 @@ const TableCenter = styled.table`
   thead > tr {
     height: 32px;
     background-color: #ededed;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -711,7 +701,7 @@ const PayCalculation = () => {
         {now === 0 ? (
           <>
             <Container style={{ marginTop: 24, height: 634 }}>
-              <SubTitle>입사/퇴직/휴직 근무자</SubTitle>
+              <SubHeading titleName="입사/퇴직/휴직 근무자" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton
                   styles="secondary"
@@ -724,7 +714,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 24, height: 634 }}>
-              <SubTitle>재직 근무자</SubTitle>
+              <SubHeading titleName="재직 근무자" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
                   +생성
@@ -737,9 +727,10 @@ const PayCalculation = () => {
         )}
         {now === 1 ? (
           <>
-            <SubTitle style={{ marginTop: "30px" }}>
-              소급 급여 대상자(4)
-            </SubTitle>
+            <SubHeading
+              titleName="소급 급여 대상자(4)"
+              style={{ marginTop: "30px" }}
+            />
             <HcButton
               styles="secondary"
               size="medium"
@@ -754,9 +745,9 @@ const PayCalculation = () => {
         )}
         {now === 2 ? (
           <>
-            <SubTitle style={{ marginTop: "30px" }}>수당 항목</SubTitle>
+            <SubHeading titleName="수당 항목" style={{ marginTop: "30px" }} />
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>식비</SubTitle>
+              <SubHeading titleName="식비" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton
                   styles="secondary"
@@ -769,7 +760,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>인재 추천비</SubTitle>
+              <SubHeading titleName="인재 추천비" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton
                   styles="secondary"
@@ -782,7 +773,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>차량 유지비</SubTitle>
+              <SubHeading titleName="차량 유지비" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton
                   styles="secondary"
@@ -800,9 +791,9 @@ const PayCalculation = () => {
         )}
         {now === 3 ? (
           <>
-            <SubTitle style={{ marginTop: "30px" }}>필수 공제</SubTitle>
+            <SubHeading titleName="필수 공제" style={{ marginTop: "30px" }} />
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>근로 소득세</SubTitle>
+              <SubHeading titleName="근로 소득세" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
                   +생성
@@ -810,7 +801,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>4대 보험료</SubTitle>
+              <SubHeading titleName="4대 보험료" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
                   +생성
@@ -818,7 +809,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>학자금 대출금</SubTitle>
+              <SubHeading titleName="학자금 대출금" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
                   +생성
@@ -826,7 +817,7 @@ const PayCalculation = () => {
               </div>
             </Container>
             <Container style={{ marginTop: 18, height: 404 }}>
-              <SubTitle>선지급금 - 생일 축하금</SubTitle>
+              <SubHeading titleName="선지급금 - 생일 축하금" />
               <div style={{ marginTop: 18, padding: "0px 16px 0px 16px" }}>
                 <HcButton styles="secondary" size="medium">
                   +생성
@@ -839,9 +830,10 @@ const PayCalculation = () => {
         )}
         {now === 5 ? (
           <>
-            <SubTitle style={{ marginTop: "30px", marginBottom: 70 }}>
-              급여 대상자(200)
-            </SubTitle>
+            <SubHeading
+              titleName="급여 대상자(200)"
+              style={{ marginTop: "30px", marginBottom: 70 }}
+            />
 
             <TestTable width={1320} height={520} />
           </>

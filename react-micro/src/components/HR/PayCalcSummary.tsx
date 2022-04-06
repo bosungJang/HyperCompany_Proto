@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
 
@@ -35,20 +35,7 @@ const Shortcuts = styled.div`
   height: fit-content;
   width: fit-content;
 `;
-const SubTitle = styled.div`
-  height: fit-content;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 29px;
-  color: #303030;
-`;
-const TaxTitle = styled(SubTitle)`
-  font-size: 18px;
-  font-weight: 800;
-`;
+
 const TaxWon = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
@@ -120,7 +107,7 @@ const Table = styled.table`
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -142,7 +129,7 @@ const Table = styled.table`
   thead > tr {
     height: 32px;
     background-color: #ededed;
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -207,9 +194,10 @@ const PayCalcSummary = () => {
             >
               급여 대장 미리보기
             </HcButton>
-            <SubTitle style={{ marginTop: 59, marginBottom: 28 }}>
-              7월 급여 계산 요약
-            </SubTitle>
+            <SubHeading
+              titleName="7월 급여 계산 요약"
+              style={{ marginTop: 59, marginBottom: 28 }}
+            />
             <Container style={{ height: 160 }}>
               <Name style={{ left: 80 }}>급여 대상자</Name>
               <Number style={{ left: 80 }}>200명</Number>
@@ -242,9 +230,10 @@ const PayCalcSummary = () => {
               <Name style={{ left: 1088 }}>공제 금액(원)</Name>
               <Number style={{ left: 1088 }}>122,034,271원</Number>
             </Container>
-            <SubTitle style={{ marginTop: 40, marginBottom: 28 }}>
-              지급 내역
-            </SubTitle>
+            <SubHeading
+              titleName="지급 내역"
+              style={{ marginTop: 40, marginBottom: 28 }}
+            />
 
             <Table>
               <thead>
@@ -363,9 +352,9 @@ const PayCalcSummary = () => {
               <ShortCutIcon />
             </Shortcuts>
             <div style={{ marginTop: 59, marginBottom: 10, display: "flex" }}>
-              <SubTitle>급여 대장</SubTitle>
+              <SubHeading titleName="급여 대장" />
 
-              <SubTitle style={{ marginLeft: 581 }}>급여 이체</SubTitle>
+              <SubHeading titleName="급여 이체" style={{ marginLeft: 581 }} />
             </div>
             <div style={{ display: "flex" }}>
               <StyledP>7월 급여대장을 확인할 수 있습니다.</StyledP>
@@ -378,7 +367,7 @@ const PayCalcSummary = () => {
             </div>
             <div style={{ display: "flex" }}>
               <Card>
-                <SubTitle>7월 급여 대장</SubTitle>
+                <SubHeading titleName="7월 급여 대장" />
                 <svg
                   style={{ top: 35, left: 545, position: "absolute" }}
                   width="40"
@@ -407,7 +396,7 @@ const PayCalcSummary = () => {
                 </Info>
               </Card>
               <Card style={{ marginLeft: 50 }}>
-                <SubTitle>7월 급여 대량 이체 리스트</SubTitle>
+                <SubHeading titleName="7월 급여 대량 이체 리스트" />
                 <svg
                   style={{ top: 35, left: 545, position: "absolute" }}
                   width="40"
@@ -435,11 +424,12 @@ const PayCalcSummary = () => {
                 </Info>
               </Card>
             </div>
-            <SubTitle style={{ marginTop: 60, marginBottom: 18 }}>
-              세금 보험료 납부
-            </SubTitle>
+            <SubHeading
+              titleName="세금 보험료 납부"
+              style={{ marginTop: 60, marginBottom: 18 }}
+            />
             <Container style={{ height: 106, marginBottom: 12 }}>
-              <TaxTitle>소득세</TaxTitle>
+              <SubHeading titleName="소득세" style={{ fontSize: "18px" }} />
               <TaxWon>122,034,271원</TaxWon>
               <Shortcuts>
                 홈텍스 바로가기
@@ -465,7 +455,10 @@ const PayCalcSummary = () => {
               </Info>
             </Container>
             <Container style={{ height: 106, marginBottom: 12 }}>
-              <TaxTitle>지방 소득세</TaxTitle>
+              <SubHeading
+                titleName="지방 소득세"
+                style={{ fontSize: "18px" }}
+              />
               <TaxWon>122,034,271원</TaxWon>
               <Shortcuts>
                 위텍스 바로가기
@@ -491,7 +484,7 @@ const PayCalcSummary = () => {
               </Info>
             </Container>
             <Container style={{ height: 106 }}>
-              <TaxTitle>4대 보험료</TaxTitle>
+              <SubHeading titleName="4대 보험료" style={{ fontSize: "18px" }} />
               <TaxWon>122,034,271원</TaxWon>
               <Info style={{ color: "#F93737", marginTop: 22 }}>
                 <svg

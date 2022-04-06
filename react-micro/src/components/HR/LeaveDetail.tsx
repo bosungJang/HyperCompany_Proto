@@ -6,6 +6,7 @@ import {
   HcSelect,
   HcEditableTextField,
   HcTextFieldLabel,
+  SubHeading,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
@@ -21,16 +22,6 @@ const Container = styled.div`
   border-radius: 6px;
   padding: 20px 24px 30px 24px;
 `;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 120px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-`;
 const TableContainer = styled.div`
   width: 1240px;
   height: 290px;
@@ -38,7 +29,7 @@ const TableContainer = styled.div`
   margin-top: 31px;
 `;
 const RadioTitle = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -130,7 +121,7 @@ const LeaveDetail = () => {
       >
         <HcTitleTextField titleName="휴가 상세" isBackIcon={true} />
         <Container style={{ marginTop: 39, height: 258 }}>
-          <SubTitle>휴가 대상자</SubTitle>
+          <SubHeading titleName="휴가 대상자" />
           <div style={{ marginTop: 28 }}>
             <HcEditableTextField
               titleName="발령번호"
@@ -184,7 +175,7 @@ const LeaveDetail = () => {
           </div>
         </Container>
         <Container style={{ marginTop: 24, height: 258 }}>
-          <SubTitle>휴가 정보</SubTitle>
+          <SubHeading titleName="휴가 정보" />
           <div style={{ marginTop: 28 }}>
             <HcEditableTextField
               titleName="발령번호"
@@ -238,7 +229,7 @@ const LeaveDetail = () => {
           </div>
         </Container>
         <Container style={{ marginTop: 24, height: 404 }}>
-          <SubTitle>결재선</SubTitle>
+          <SubHeading titleName="결재선" />
 
           <TableContainer>
             <table className="table table-hover">
@@ -272,7 +263,7 @@ const LeaveDetail = () => {
             display: "inline",
           }}
         >
-          <SubTitle>기타 설정</SubTitle>
+          <SubHeading titleName="기타 설정" />
           <div style={{ float: "left", display: "inline" }}>
             <span>결재 안내 메일 전송</span>
             <HcToggleBtn

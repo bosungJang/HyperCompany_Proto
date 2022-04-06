@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField, HcSelects, HcSelect } from "common/HcTextField";
+import { HcTitleTextField, HcSelect, SubHeading } from "common/HcTextField";
 import styled from "styled-components";
 import img from "common/img/bgimg.png";
 import HcTabs from "common/HcTabs";
@@ -40,15 +40,7 @@ const MoreInfoContent = styled.div`
   margin-top: 20px;
   padding: 20px 40px 30px 40px;
 `;
-const SubTitle = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  width: 140px;
-  height: 40px;
-  color: #303030;
-`;
+
 const TableContainer = styled.div`
   height: 172px;
   width: 1241px;
@@ -494,15 +486,15 @@ const HRInfoCreate = () => {
       </BasicContainer>
       <MoreInfoContainer style={{ display: Info == false ? "" : "none" }}>
         <MoreInfoContent>
-          <SubTitle>
-            기본 정보
+          <div style={{ display: "flex" }}>
+            <SubHeading titleName="기본 정보" />
             <svg
               width="14"
               height="16"
               viewBox="0 0 14 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ marginLeft: 11 }}
+              style={{ marginLeft: 8, marginTop: 8 }}
             >
               <path
                 d="M12.4202 3.88598C12.2945 3.73458 12.0613 3.73458 11.9177 3.8523L11.3613 4.34017C11.2356 4.458 11.2177 4.64296 11.3254 4.77759C12.1151 5.66933 12.5458 6.79659 12.5458 7.9912C12.5458 10.7505 10.2484 13.0388 7.3587 13.1902V11.9115C7.3587 11.6592 7.0715 11.5077 6.83826 11.6423L3.57166 13.51C3.35632 13.6446 3.35632 13.9306 3.57166 14.0652L6.85621 15.9496C7.08958 16.0842 7.37665 15.9328 7.37665 15.6804V14.5531H7.41258C11.1099 14.3512 13.9996 11.4741 13.9996 7.99127C13.9996 6.47706 13.4433 5.03007 12.4203 3.88592L12.4202 3.88598Z"
@@ -513,7 +505,7 @@ const HRInfoCreate = () => {
                 fill="#5D5D62"
               />
             </svg>
-          </SubTitle>
+          </div>
           <div style={{ height: 235, width: 1240, marginTop: 28 }}>
             <HcDatePicker />
             <HcSelect
@@ -568,15 +560,15 @@ const HRInfoCreate = () => {
           </div>
         </MoreInfoContent>
         <MoreInfoContent style={{ marginTop: 24 }}>
-          <SubTitle>
-            학력
+          <div style={{ display: "flex" }}>
+            <SubHeading titleName="학력" />
             <svg
               width="14"
               height="16"
               viewBox="0 0 14 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ marginLeft: 11 }}
+              style={{ marginLeft: 8, marginTop: 8 }}
             >
               <path
                 d="M12.4202 3.88598C12.2945 3.73458 12.0613 3.73458 11.9177 3.8523L11.3613 4.34017C11.2356 4.458 11.2177 4.64296 11.3254 4.77759C12.1151 5.66933 12.5458 6.79659 12.5458 7.9912C12.5458 10.7505 10.2484 13.0388 7.3587 13.1902V11.9115C7.3587 11.6592 7.0715 11.5077 6.83826 11.6423L3.57166 13.51C3.35632 13.6446 3.35632 13.9306 3.57166 14.0652L6.85621 15.9496C7.08958 16.0842 7.37665 15.9328 7.37665 15.6804V14.5531H7.41258C11.1099 14.3512 13.9996 11.4741 13.9996 7.99127C13.9996 6.47706 13.4433 5.03007 12.4203 3.88592L12.4202 3.88598Z"
@@ -587,7 +579,7 @@ const HRInfoCreate = () => {
                 fill="#5D5D62"
               />
             </svg>
-          </SubTitle>
+          </div>
           <HcButton
             onClick={() => {
               onCreate();

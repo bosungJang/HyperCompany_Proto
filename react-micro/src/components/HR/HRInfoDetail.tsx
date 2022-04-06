@@ -1,6 +1,6 @@
 import React, { useState, CSSProperties } from "react";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField, SubHeading } from "common/HcTextField";
 import { useLocation } from "react-router";
 import img from "common/img/bgimg.png";
 import styled from "styled-components";
@@ -40,15 +40,6 @@ const PfUploadButton = styled.div`
   position: absolute;
 `;
 
-const SubTitle = styled.div`
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  width: 140px;
-  height: 40px;
-  color: #303030;
-`;
 const TextTitle = styled.div<{ required?: boolean }>`
   min-width: 33px;
   height: 21px;
@@ -348,28 +339,28 @@ const HRInfoDetail = () => {
         </TextBoxField>
       </BasicContainer>
       <InfoContainer>
-        <SubTitle>기본 정보</SubTitle>
+        <SubHeading titleName="기본 정보" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>학력</SubTitle>
+        <SubHeading titleName="학력" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>경력</SubTitle>
+        <SubHeading titleName="경력" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>교육</SubTitle>
+        <SubHeading titleName="교육" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>어학</SubTitle>
+        <SubHeading titleName="어학" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>자격증</SubTitle>
+        <SubHeading titleName="자격증" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>가족</SubTitle>
+        <SubHeading titleName="가족" />
       </InfoContainer>
       <InfoContainer>
-        <SubTitle>활동</SubTitle>
+        <SubHeading titleName="활동" />
       </InfoContainer>
     </ComponentWrapper>
   );

@@ -5,8 +5,7 @@ import HcTextField, {
   HcTitleTextField,
   HcSelects,
   HcSelect,
-  HcEditableTextField,
-  HcTextFieldLabel,
+  SubHeading,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
@@ -16,7 +15,7 @@ import HcToggleBtn from "common/HcToggleBtn";
 import HcButton from "common/HcButton";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 const RadioTitle = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -33,16 +32,6 @@ const Container = styled.div`
   //   border: 1px solid #cecece;
   //   border-radius: 6px;
   //   padding: 20px 24px 30px 24px;
-`;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 89px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
 `;
 const TableContainer = styled.div`
   width: 1320px;
@@ -98,7 +87,7 @@ const HRCard = styled.div`
   border: 1px solid #ededed;
   box-sizing: border-box;
   border-radius: 4px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 16px;
@@ -398,9 +387,7 @@ const HRAppointmentCreate = () => {
           </div>
         </Container>
         <Container style={{ marginTop: 40, height: 404 }}>
-          <SubTitle style={{ width: 100 }}>
-            필요 역량<b style={{ color: "red" }}>*</b>
-          </SubTitle>
+          <SubHeading titleName="필요 역량" required />
           <HcButton
             onClick={() => {
               setIsOpen(!isOpen);
@@ -437,7 +424,7 @@ const HRAppointmentCreate = () => {
               right: isOpen == true ? 0 : "-600px",
             }}
           >
-            <SubTitle style={{ width: 120 }}>대상자 추가</SubTitle>
+            <SubHeading titleName="대상자 추가" />
             <div style={{ float: "left" }}>
               {" "}
               <HcSelect titleName="" name="kinds" style={{ width: 190 }}>

@@ -25,7 +25,7 @@ const DropDownHeader = styled("div")`
   height: 46px;
   width: 122px;
   background: #f4f4f4;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -41,7 +41,7 @@ const State = styled.div`
   height: 29px;
   padding: 4px;
   border-radius: 2px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -70,7 +70,7 @@ const ListItem = styled("li")`
   border-radius: 4px;
   height: 42px;
   width: 122px;
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -136,7 +136,7 @@ const TableContainer = styled.div`
     pading-left: 12px;
   }
   tbody td {
-    font-family: Noto Sans CJK KR;
+    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

@@ -8,6 +8,7 @@ import {
   HcSelect,
   HcTagNoInput,
   HcSearchTextField,
+  SubHeading,
 } from "common/HcTextField";
 import { useLocation } from "react-router-dom";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
@@ -17,7 +18,7 @@ import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import HcBottomBar from "common/HcBottomBar";
 const Title = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -53,17 +54,6 @@ const TypeLi = styled.li`
   &:lastt-child {
     margin-right: 0px;
   }
-`;
-const SubTitle = styled.div`
-  height: 29px;
-  width: fit-content;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-  margin-top: 41px;
 `;
 const DataForm = styled.div`
   width: 1320px;
@@ -267,7 +257,7 @@ const WorkManagementDetail = () => {
         </DataForm>
         <div style={{ width: 1320, height: 404, marginBottom: 20 }}>
           {/*table field */}
-          <SubTitle>출퇴근 시간</SubTitle>
+          <SubHeading style={{ marginTop: 41 }} titleName="출퇴근 시간" />
 
           <HcButton
             styles="secondary"

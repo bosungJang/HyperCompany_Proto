@@ -10,6 +10,7 @@ import HcTextField, {
   HcTitleTextField,
   HcTextFieldLabel,
   HcSelect,
+  SubHeading,
 } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
@@ -26,7 +27,7 @@ const TableContainer = styled.div`
   margin-top: 295px;
 `;
 const RadioTitle = styled.div`
-  font-family: Noto Sans CJK KR;
+  font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 13px;
@@ -36,17 +37,6 @@ const RadioTitle = styled.div`
   height: 20px;
   color: #656565;
   margin-bottom: 23px;
-`;
-const SubTitle = styled.div`
-  height: 30px;
-  width: 100px;
-  font-family: Noto Sans CJK KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  padding-top: 335px;
-  color: #303030;
 `;
 
 const ProfessionalDetail = () => {
@@ -321,9 +311,11 @@ const ProfessionalDetail = () => {
           </TextFieldContainer>
         )}
         <TableContainer style={{ display: "block" }}>
-          <SubTitle>
-            필요 역량<b style={{ color: "red" }}>*</b>
-          </SubTitle>
+          <SubHeading
+            titleName="필요역량"
+            required
+            style={{ paddingTop: 335 }}
+          />
           <HcButton
             styles="secondary"
             size="medium"
