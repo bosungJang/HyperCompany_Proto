@@ -533,6 +533,7 @@ const PayRoll = () => {
                     color: "#5799fb",
                     fontSize: "18px",
                     fontWeight: "bold",
+                    marginBottom: 60,
                   }}
                 >
                   지급액계
@@ -563,7 +564,7 @@ const PayRoll = () => {
               style={{
                 color: "#000000",
                 fontSize: "16px",
-                marginBottom: 14,
+                marginBottom: 12,
                 marginLeft: 8,
               }}
             >

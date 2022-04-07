@@ -211,7 +211,7 @@ export function HcVerticalSteps(props: any) {
                     ? "#C4C4C4"
                     : step.state === "prev"
                     ? "#ADCEFF"
-                    : `linear-gradient(to right, rgb(173, 206, 255) , rgb(87, 153, 251) )`,
+                    : `linear-gradient(to bottom, rgb(173, 206, 255) , rgb(87, 153, 251) )`,
               }}
             />
           ) : (

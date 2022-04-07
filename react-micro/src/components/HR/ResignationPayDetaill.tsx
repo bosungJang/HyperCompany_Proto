@@ -25,7 +25,7 @@ export default function CalcResignationPay() {
   return (
     <>
       <ComponentWrapper style={{ display: "block" }}>
-        <HcTitleTextField titleName="퇴직금 계산" isBackIcon />
+        <HcTitleTextField titleName="퇴직금 상세" isBackIcon />
         <div style={{ display: "flex" }}>
           <Container style={{ marginTop: 59 }}>
             <HcSelect style={{ width: 376 }} titleName={"적용 대상자"}>

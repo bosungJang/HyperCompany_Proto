@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import Select from "react-select";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import { ReactComponent as IconSearch } from "../resources/images/SearchIcon.svg";
-import { ReactComponent as BackIcon } from "../resources/images/TitleArrowIcon.svg";
+import { ReactComponent as BackIcon } from "../resources/images/TitleArrowIcon2.svg";
 import HcButton from "./HcButton";
 import { useHistory } from "react-router-dom";
 import { Any } from "@react-spring/types";
@@ -108,7 +108,9 @@ interface TextFieldIProps {
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   return (
     <Wrapper>
-      <Title required={props.required}>{titleName}</Title>
+      <Title required={props.required} style={{ marginLeft: "5px" }}>
+        {titleName}
+      </Title>
       <TextField {...props} autoComplete="off">
         {props.children}
       </TextField>
@@ -767,7 +769,7 @@ export const HcTitleTextField: React.FC<TitleTextFieldIProps> = ({
     <TitleFieldWrapper style={props.style}>
       {props.isBackIcon ? (
         <BackIcon
-          style={{ cursor: "pointer", marginRight: "10px" }}
+          style={{ cursor: "pointer", marginRight: "16px" }}
           onClick={() => {
             history.goBack();
           }}

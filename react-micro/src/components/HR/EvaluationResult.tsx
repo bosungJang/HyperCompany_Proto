@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import { HcTableContainer, HcTable } from "common/HcTableComponent";
-import { HcTitleTextField, HcTextFieldLabel } from "common/HcTextField";
+import {
+  HcTitleTextField,
+  HcTextFieldLabel,
+  SubHeading,
+} from "common/HcTextField";
 import HcTree from "common/HcTree";
 import styled from "styled-components";
 import { useState } from "react";
@@ -41,7 +45,7 @@ const IdContainer = styled.div`
   display: flex;
   padding: 10px;
   border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 const Name = styled.div`
   font-family: Noto Sans KR;
@@ -170,7 +174,7 @@ export default function EvaluationResult() {
                   <Name>{currentData.title}</Name>
                   <Position>티맥스 소프트 / CEO</Position>
                 </IdContainer>
-                <div>평가 요약(2022년 1분기 평가)</div>
+                <SubHeading titleName="평가 요약(2022년 1분기 평가)" />
                 {/*card */}
                 <div
                   style={{ display: "flex", marginTop: 18, marginBottom: 44 }}
@@ -247,6 +251,10 @@ export default function EvaluationResult() {
                   </HcCard>
                 </div>
                 {/*card */}
+                <SubHeading
+                  titleName="역량 평가"
+                  style={{ marginBottom: 18 }}
+                />
                 <HcTableContainer
                   style={{
                     maxHeight: 400,
@@ -306,6 +314,10 @@ export default function EvaluationResult() {
                     </tbody>
                   </HcTable>
                 </HcTableContainer>
+                <SubHeading
+                  titleName="성과 평가"
+                  style={{ marginBottom: 18, marginTop: 44 }}
+                />
                 <HcTableContainer
                   style={{
                     maxHeight: 400,
@@ -334,12 +346,25 @@ export default function EvaluationResult() {
                         <th style={{ minWidth: 90, textAlign: "center" }}>
                           하향평가
                         </th>
-                        <th style={{ minWidth: 100 }}>평가의견</th>
+                        <td onClick={openModal}>
+                          <a
+                            style={{
+                              textDecoration: "underLine",
+                              color: "#257CFF",
+                            }}
+                          >
+                            평가의견
+                          </a>
+                        </td>
                       </tr>
                     </thead>
                     <tbody></tbody>
                   </HcTable>
                 </HcTableContainer>
+                <SubHeading
+                  titleName="기타 평가"
+                  style={{ marginBottom: 18, marginTop: 44 }}
+                />
                 <HcTableContainer
                   style={{
                     maxHeight: 400,

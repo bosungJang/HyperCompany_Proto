@@ -50,6 +50,7 @@ const StyledTable = styled.table`
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;
+    padding-right: 12px;
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;

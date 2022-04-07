@@ -21,12 +21,15 @@
   border-radius: 50%;
   font-weight: 700;
 }
-
+.react-datepicker-popper {
+  z-index: 50;
+}
 .react-datepicker__input-container,
 .react-datepicker-wrapper {
   float: left !important;
   display: inline;
   width: 170;
+  z-index: 50;
 }
 
 .react-datepicker__day--selected {
