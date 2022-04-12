@@ -15,6 +15,8 @@ import ImageUploader from "common/HcUploader";
 import HcCalendar from "common/Calendar/HcCalendar";
 
 import HcFileUploader from "common/HcFileUploader";
+import HcStickyTable, { TestTable } from "common/HcStickyTable";
+import HcDndTreeview from "common/HcDndTreeview";
 
 interface MatchParams {
   id: string;
@@ -26,6 +28,32 @@ const calData = [
   { day: 3, month: 2, income: 10000, expense: 300000 },
   { day: 5, month: 4, income: 90000000000000000, expense: 20000 },
 ];
+
+const columns = [
+  "어음번호",
+  "어음금액",
+  "잔액",
+  "발행일자",
+  "어음종류",
+  "수취구분",
+  "발행인",
+  "배서인",
+  "지급은행",
+];
+
+const data = Array(30)
+  .fill(undefined)
+  .map(() => ({
+    billNumber: "12345678901",
+    billAmount: 2000000,
+    balance: 400000,
+    date: "2022.01.01",
+    billType: "전자어음",
+    receptionType: "받을어음",
+    publisher: "홍길동",
+    endorser: "홍길동",
+    bankName: "KB국민은행",
+  }));
 
 const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
   const sum = 100000;
@@ -154,6 +182,20 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       <ComponentWrapper>
         <HcCalendar data={calData} sum={sum} />
       </ComponentWrapper>
+      <ComponentWrapper>
+        <HcStickyTable
+          headerCount={1}
+          columnCount={1}
+          columns={columns}
+          data={data}
+        />
+      </ComponentWrapper>
+
+      <ComponentWrapper>
+        <TestTable />
+      </ComponentWrapper>
+
+      <ComponentWrapper></ComponentWrapper>
     </div>
   );
 };

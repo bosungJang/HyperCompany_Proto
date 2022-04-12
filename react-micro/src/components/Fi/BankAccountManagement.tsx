@@ -62,10 +62,10 @@ const TableContainer = styled.div`
   }
 `;
 interface MatchParams {
-  id: string;
+  forwardRef?: any;
 }
 
-const BankAccountManagement = React.forwardRef<HTMLDivElement>((props, ref) => {
+const BankAccountManagement = React.forwardRef((props: MatchParams, ref) => {
   let num = 100000;
   const getId = () => {
     num = num + 1;
@@ -220,11 +220,11 @@ const BankAccountManagement = React.forwardRef<HTMLDivElement>((props, ref) => {
 
                 <TableContainer
                   style={{ height: "100%", marginBottom: "1200px" }}
-                  ref={ref}
+                  ref={(el: any) => (props.forwardRef.current[2] = el)}
                 >
                   <table className="table table-hover">
                     <thead>
-                      <tr>
+                      <tr ref={(el: any) => (props.forwardRef.current[3] = el)}>
                         {columns.map((column: any) => (
                           <th key={column}>{column}</th>
                         ))}
