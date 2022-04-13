@@ -199,7 +199,7 @@ export const HcTextFieldLabel: React.FC<TextFieldIProps> = ({
 
 /*HcSelect */
 export const StyledSelect = styled.select`
-  min-width: 224px;
+  min-width: 100px;
   height: 40px;
 
   font-family: Noto Sans KR;
@@ -241,7 +241,9 @@ export const HcSelect: React.FC<SelectIProps> = ({ titleName, ...props }) => {
   return (
     <Wrapper>
       <Title required={props.required}>{titleName}</Title>
-      <StyledSelect {...props}>{props.children}</StyledSelect>
+      <StyledSelect {...props} style={props.style}>
+        {props.children}
+      </StyledSelect>
     </Wrapper>
   );
 };
@@ -253,6 +255,7 @@ interface SelectsIProps {
   placeholder: string;
   multiValue: any;
   filterOptions: any;
+  style?: CSSProperties;
   handleMultiChange: (option: any) => void;
 }
 
@@ -260,13 +263,7 @@ export const HcSelects: React.FC<SelectsIProps> = ({ titleName, ...props }) => {
   return (
     <Wrapper>
       <Title required={props.required}>{titleName}</Title>
-      <Select
-        name={props.name}
-        placeholder={props.placeholder}
-        value={props.multiValue}
-        options={props.filterOptions}
-        onChange={props.handleMultiChange}
-      />
+      <StyledSelect {...props}>{props.children}</StyledSelect>
     </Wrapper>
   );
 };

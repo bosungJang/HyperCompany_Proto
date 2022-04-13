@@ -1,18 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import "./scroll.scss";
-const StyledSelect = styled.select`
+const StyledSelect = styled.select<{ disabled?: boolean }>`
   border: none;
-  width: 120px;
-  height: 46;
-  text-align: center;
+  width: 100%;
+  height: 46px;
+  text-align: left;
+  cursor: pointer;
+  background: url(/images/Select_Arrow.png) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  option input {
+    border: none;
+    width: 100%;
+    height: 46px;
+    text-align: left;
+  }
 
-  &:hover {
-    background: #eff5ff;
-
-    input {
-      background: #eff5ff;
-    }
+  &:focus {
+    border: 1px solid #257cff;
+    pointer-events: none;
+  }
+  &:focus-visible {
+    border: 1px solid #257cff;
+    pointer-events: none;
+  }
+  &:active {
+    border: 1px solid #257cff;
+    pointer-events: none;
+  }
+  &:after {
+    border: 1px solid #257cff;
+    pointer-events: none;
   }
 `;
 const TableContainer = styled.div`
@@ -123,66 +146,13 @@ const StyledTable = styled.table`
   }
 `;
 
-const FixedTableContainer = styled.div`
-  position: relative;
-  max-width: 600px;
-  margin: auto;
-  overflow-x: auto;
-  max-height: 200px;
-  overflow-y: auto;
-  table {
-    width: 100%;
-    margin: auto;
-    border-collapse: separate;
-    border-spacing: 0;
-  }
-  th {
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background: #fff;
-    white-space: nowrap;
-    vertical-align: top;
-  }
-  td {
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background: #fff;
-    white-space: nowrap;
-    vertical-align: top;
-  }
-  thead {
-    background: #f9f9f9;
-  }
-`;
-const FixedTableWrap = styled.div`
-  width: 100%;
-  overflow: auto;
-`;
-const FixedTable = styled.table`
-  thead tr th {
-    visibility: visible;
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-  }
-  tr th {
-    border: 1px solid #000;
-
-    visibility: visible;
-    position: sticky;
-    left: 0;
-    top: 0;
-  }
-  th {
-    border: 1px solid #000;
-    visibility: visible;
-    position: sticky;
-    top: 0;
-    left: 0;
-  }
-`;
-export function TableSelect({ children }: any) {
-  return <StyledSelect>{children}</StyledSelect>;
+export function TableSelect(props?: any) {
+  const { children, style, disabled } = props;
+  return (
+    <StyledSelect style={style} disabled={disabled}>
+      {children}
+    </StyledSelect>
+  );
 }
 export function HcTable({ children }: any) {
   return <StyledTable>{children}</StyledTable>;

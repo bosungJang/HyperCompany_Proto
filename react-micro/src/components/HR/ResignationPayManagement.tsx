@@ -5,7 +5,7 @@ import HcButton from "common/HcButton";
 import { HcTitleTextField } from "common/HcTextField";
 import HcCheckBox from "common/HcCheckBox";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 let num = 2022110;
 const getId = () => {
@@ -41,6 +41,10 @@ export default function ResignationPayManagement() {
       setCheckedItem([]);
     }
   }
+  const history = useHistory();
+  function RowOnClick() {
+    history.push({ pathname: "/hr/ResignationPayDetail", state: {} });
+  }
   return (
     <ComponentWrapper style={{ display: "block" }}>
       <HcTitleTextField titleName="퇴직금 계산 / 관리" isBackIcon={false} />
@@ -54,11 +58,19 @@ export default function ResignationPayManagement() {
           퇴직금 계산
         </HcButton>
       </Link>
-      <HcTableContainer style={{ height: "unset", width: "100%" }}>
+      <HcTableContainer style={{ height: "unset", width: "1320px" }}>
         <HcTable>
           <thead>
             <tr>
-              <th style={{ minWidth: 46, maxWidth: 46 }}>-</th>
+              <th style={{ minWidth: 46, maxWidth: 46 }}>
+                <div style={{ marginTop: 2 }}>
+                  {" "}
+                  <HcCheckBox
+                    checked={checkedItem.length > 0 ? true : false}
+                    onChange={(e) => checkAllHandler(e.target.checked)}
+                  />
+                </div>
+              </th>
               <th style={{ minWidth: 120, maxWidth: 120 }}>이름</th>
               <th style={{ minWidth: 120, maxWidth: 120 }}>사원번호</th>
               <th style={{ minWidth: 120, maxWidth: 120 }}>법인회사</th>
@@ -68,16 +80,23 @@ export default function ResignationPayManagement() {
               <th style={{ minWidth: 120, maxWidth: 120 }}>입사일자</th>
               <th style={{ minWidth: 120, maxWidth: 120 }}>퇴사일자</th>
               <th style={{ minWidth: 80, maxWidth: 80 }}>근속연수</th>
-              <th style={{ minWidth: 120, maxWidth: 120, textAlign: "center" }}>
+              <th style={{ minWidth: 120, textAlign: "center", maxWidth: 120 }}>
                 실지급액
               </th>
               <th style={{ minWidth: 80, maxWidth: 80 }}>-</th>
             </tr>
           </thead>
           <tbody>
-            {data.map(() => (
-              <tr>
-                <td>-</td>
+            {data.map(({ id }) => (
+              <tr onClick={() => RowOnClick()}>
+                <td onClick={(event) => event.stopPropagation()}>
+                  <HcCheckBox
+                    checked={checkedItem.includes(id)}
+                    onChange={(e) => {
+                      checkHandler(e.target.checked, id);
+                    }}
+                  />
+                </td>
                 <td>홍길동</td>
                 <td>2022110</td>
                 <td>티맥스에이아이</td>

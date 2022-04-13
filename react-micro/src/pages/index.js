@@ -344,6 +344,30 @@ export const ResignationPayManagement = loadable(
     fallback: Loading,
   }
 );
+export const ResignationPayDetail = loadable(
+  () => import("../components/HR/ResignationPayDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const KPIManagement = loadable(
+  () => import("../components/HR/KPIManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationPlan = loadable(
+  () => import("../components/HR/EvaluationPlan"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationPlanDetail = loadable(
+  () => import("../components/HR/EvaluationPlanDetail"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

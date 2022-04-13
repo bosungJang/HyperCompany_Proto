@@ -173,18 +173,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
   };
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   const history = useHistory();
-  const MoveToDatail = ({ id, content, hc, start, end }: any) => {
-    history.push({
-      pathname: "/hr/hrAppointmentDetail",
-      state: {
-        id: id,
-        content: content,
-        hc: hc,
-        start: start,
-        end: end,
-      },
-    });
-  };
+
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
       setCheckedItem([...checkedItem, id]);
@@ -406,7 +395,6 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                     <th key={column}>{column}</th>
                   ))} */}
                   <th style={{ width: 46, marginLeft: 4 }}>
-                    {" "}
                     <div style={{ paddingTop: 7 }}>
                       <HcCheckBox
                         checked={checkedItem.length > 0 ? true : false}
@@ -434,8 +422,24 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                           ? "#DFECFF"
                           : "",
                       }}
+                      onClick={() => {
+                        history.push({
+                          pathname: "/hr/hrAppointmentDetail",
+                          state: {
+                            id: id,
+                            content: content,
+                            hc: hc,
+                            start: start,
+                            end: end,
+                            edit: false,
+                          },
+                        });
+                      }}
                     >
-                      <td style={{ marginLeft: 4 }}>
+                      <td
+                        style={{ marginLeft: 4 }}
+                        onClick={(event) => event.stopPropagation()}
+                      >
                         <Checkbox
                           checked={checkedItem.includes(id)}
                           onChange={(e) => {
@@ -443,109 +447,13 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                           }}
                         />
                       </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {id}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {content}
-                      </td>
+                      <td>{id}</td>
+                      <td>{content}</td>
                       <td>입사</td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {hc}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {start}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {end}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrAppointmentDetail",
-                            state: {
-                              id: id,
-                              content: content,
-                              hc: hc,
-                              start: start,
-                              end: end,
-                              edit: false,
-                            },
-                          });
-                        }}
-                      >
-                        {action}
-                      </td>
+                      <td>{hc}</td>
+                      <td>{start}</td>
+                      <td>{end}</td>
+                      <td>{action}</td>
                     </tr>
                   ))}
               </tbody>

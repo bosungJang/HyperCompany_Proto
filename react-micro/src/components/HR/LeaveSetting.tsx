@@ -148,15 +148,22 @@ const LeaveSetting = () => {
                   <tbody>
                     {tableData.map((x) => (
                       <tr
+                        onClick={() => {
+                          history.push({
+                            pathname: "/hr/hrLeaveSettingDetail",
+                          });
+                        }}
                         style={{
                           textAlign: "center",
                           backgroundColor: checkedItem.includes(x.id)
                             ? "#DFECFF"
                             : "",
                         }}
-                        onClick={() => {}}
                       >
-                        <td style={{ width: 46, padding: "7px 16px 9px 16px" }}>
+                        <td
+                          style={{ width: 46, padding: "7px 16px 9px 16px" }}
+                          onClick={(event) => event.stopPropagation()}
+                        >
                           <HcCheckBox
                             checked={checkedItem.includes(x.id)}
                             onChange={(e) => {
@@ -164,52 +171,13 @@ const LeaveSetting = () => {
                             }}
                           />
                         </td>
-                        <td
-                          style={{ width: 140, minWidth: 140 }}
-                          onClick={() => {
-                            history.push({
-                              pathname: "/hr/hrLeaveSettingDetail",
-                            });
-                          }}
-                        >
+                        <td style={{ width: 140, minWidth: 140 }}>
                           회사 지정 휴가
                         </td>
+                        <td style={{ width: 140, minWidth: 140 }}>1000001</td>
+                        <td style={{ width: 140, minWidth: 140 }}>리프레시</td>
+                        <td style={{ width: 120, minWidth: 120 }}>사용</td>
                         <td
-                          onClick={() => {
-                            history.push({
-                              pathname: "/hr/hrLeaveSettingDetail",
-                            });
-                          }}
-                          style={{ width: 140, minWidth: 140 }}
-                        >
-                          1000001
-                        </td>
-                        <td
-                          onClick={() => {
-                            history.push({
-                              pathname: "/hr/hrLeaveSettingDetail",
-                            });
-                          }}
-                          style={{ width: 140, minWidth: 140 }}
-                        >
-                          리프레시
-                        </td>
-                        <td
-                          onClick={() => {
-                            history.push({
-                              pathname: "/hr/hrLeaveSettingDetail",
-                            });
-                          }}
-                          style={{ width: 120, minWidth: 120 }}
-                        >
-                          사용{" "}
-                        </td>
-                        <td
-                          onClick={() => {
-                            history.push({
-                              pathname: "/hr/hrLeaveSettingDetail",
-                            });
-                          }}
                           style={{
                             width: 614,
                             maxWidth: "unset",

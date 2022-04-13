@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
 import {
   HcTitleTextField,
-  HcSelects,
   HcSelect,
   HcEditableTextField,
   HcTextFieldLabel,

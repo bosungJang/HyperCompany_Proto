@@ -548,8 +548,26 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                           ? "#DFECFF"
                           : "",
                       }}
+                      onClick={() => {
+                        history.push({
+                          pathname: "/hr/abilityDetail",
+                          state: {
+                            id: id,
+                            comment: comment,
+                            name: name,
+                            ability: ability,
+                            grade: grade,
+                            group: group,
+                            edit: false,
+                            type: type,
+                          },
+                        });
+                      }}
                     >
-                      <td style={{ maxWidth: 46, paddingLeft: 16 }}>
+                      <td
+                        style={{ maxWidth: 46, paddingLeft: 16 }}
+                        onClick={(event) => event.stopPropagation()}
+                      >
                         <HcCheckBox
                           checked={checkedItem.includes(id)}
                           onChange={(e) => {
@@ -557,44 +575,10 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                           }}
                         />
                       </td>
-                      <td
-                        style={{ maxWidth: 160, paddingLeft: 12 }}
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/abilityDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
+                      <td style={{ maxWidth: 160, paddingLeft: 12 }}>
                         경영 환경 분석
                       </td>
-                      <td
-                        style={{ maxWidth: 160, paddingLeft: 12 }}
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/abilityDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
+                      <td style={{ maxWidth: 160, paddingLeft: 12 }}>
                         경영 지원 역량
                       </td>
                       <td
@@ -603,42 +587,10 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                           maxWidth: 378,
                           paddingLeft: 12,
                         }}
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/abilityDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
                       >
                         {comment}
                       </td>
-                      <td
-                        style={{ width: 120, paddingLeft: 12 }}
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/abilityDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
+                      <td style={{ width: 120, paddingLeft: 12 }}>
                         2022.01.02
                       </td>
 

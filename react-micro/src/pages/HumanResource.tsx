@@ -49,9 +49,13 @@ import {
   DeductDetail,
   DeductCreate,
   ResignationPayManagement,
+  ResignationPayDetail,
   CalcResignationPay,
   EvaluationManagement,
   EvaluationResult,
+  KPIManagement,
+  EvaluationPlan,
+  EvaluationPlanDetail,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -135,6 +139,8 @@ const testArray = [
     submenu: [
       { title: "목표  및 성과 관리", path: "/hr/" },
       { title: "평가 관리", path: "/hr/EvaluationManagement" },
+      { title: "KPI 관리", path: "/hr/KPIManagement" },
+      { title: "평가 계획", path: "/hr/EvaluationPlan" },
     ],
   },
 ];
@@ -323,6 +329,10 @@ const HumanResourgcePage = (props: HRProps) => {
         component={ResignationPayManagement}
       />
       <Route
+        path={`${props.match.url}/ResignationPayDetail`}
+        component={ResignationPayDetail}
+      />
+      <Route
         path={`${props.match.url}/CalcResignationPay`}
         component={CalcResignationPay}
       />
@@ -337,6 +347,18 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/EvaluationManagement`}
         component={EvaluationManagement}
+      />
+      <Route
+        path={`${props.match.url}/KPIManagement`}
+        component={KPIManagement}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationPlan`}
+        component={EvaluationPlan}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationPlanDetail`}
+        component={EvaluationPlanDetail}
       />
     </div>
   );

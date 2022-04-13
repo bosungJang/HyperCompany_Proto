@@ -3,7 +3,6 @@ import { ComponentWrapper } from "common/HcCommonLayout";
 import HcCheckBox from "common/HcCheckBox";
 import {
   HcTitleTextField,
-  HcSelects,
   HcSelect,
   HcEditableTextField,
   HcTextFieldLabel,

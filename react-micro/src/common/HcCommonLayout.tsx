@@ -35,7 +35,7 @@ export const VariableMultiLayout = styled.div`
   }
 `;
 
-export const Container = (props: any) => {
+export const Container = (props?: any) => {
   const Arrow = styled.svg`
     transition: all 0.2s ease;
     &:active {
@@ -52,14 +52,28 @@ export const Container = (props: any) => {
     padding-left: 24px;
     position: relative;
     transition: all 0.7s ease;
+    overflow: hidden;
   `;
 
-  const { defaultHeight, maxHeight, width, title, state, setState, style } =
-    props;
+  const {
+    defaultHeight,
+    maxHeight,
+    width,
+    title,
+    state,
+    setState,
+    style,
+    arrow,
+  } = props;
   const styles = {
     cnt: {
       width: width,
-      height: state === true ? maxHeight : defaultHeight,
+      minHeight:
+        arrow === false
+          ? maxHeight
+          : state === true
+          ? maxHeight
+          : defaultHeight,
     },
     title: {
       width: "fit-content",
@@ -87,6 +101,7 @@ export const Container = (props: any) => {
           position: "absolute",
           transition: "all 0.7s ease",
           transform: state === true ? "rotate(-180deg)" : "",
+          display: arrow === false ? "none" : "",
         }}
         width="24"
         height="24"

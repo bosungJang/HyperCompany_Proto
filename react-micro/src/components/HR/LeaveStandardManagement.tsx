@@ -88,7 +88,7 @@ const HRAppointmentStadards = () => {
     }
   }
   const columns = [
-    <div style={{ marginTop: 7, marginLeft: 16 }}>
+    <div style={{ marginTop: 7, marginLeft: 12 }}>
       {" "}
       <HcCheckBox
         checked={checkedItem.length > 0 ? true : false}
@@ -152,10 +152,15 @@ const HRAppointmentStadards = () => {
                           style={{
                             textAlign: "center",
                           }}
-                          onClick={() => {}}
+                          onClick={() => {
+                            history.push({
+                              pathname: "/hr/hrLeaveStandardDetail",
+                            });
+                          }}
                         >
                           <td
-                            style={{ width: 46, padding: "7px 16px 9px 16px" }}
+                            style={{ width: 46, padding: "7px 16px 9px 12px" }}
+                            onClick={(event) => event?.stopPropagation()}
                           >
                             <HcCheckBox
                               checked={checkedItem.includes(id)}
@@ -164,64 +169,20 @@ const HRAppointmentStadards = () => {
                               }}
                             />
                           </td>
-                          <td
-                            style={{ width: 192, minWidth: 192, height: 46 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
+                          <td style={{ width: 192, minWidth: 192, height: 46 }}>
                             {id}
                           </td>
-                          <td
-                            style={{ width: 192, minWidth: 192 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
-                            {kind}
-                          </td>
-                          <td
-                            style={{ width: 192, minWidth: 192 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
+                          <td style={{ width: 192, minWidth: 192 }}>{kind}</td>
+                          <td style={{ width: 192, minWidth: 192 }}>
                             {comment}
                           </td>
-                          <td
-                            style={{ width: 192, minWidth: 192, height: 46 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
+                          <td style={{ width: 192, minWidth: 192, height: 46 }}>
                             {month}
                           </td>
-                          <td
-                            style={{ width: 192, minWidth: 192, height: 46 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
+                          <td style={{ width: 192, minWidth: 192, height: 46 }}>
                             {year}
                           </td>
-                          <td
-                            style={{ width: 192, minWidth: 192, height: 46 }}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/hr/hrLeaveStandardDetail",
-                              });
-                            }}
-                          >
+                          <td style={{ width: 192, minWidth: 192, height: 46 }}>
                             {date}
                           </td>
                           <td style={{ width: 120, minWidth: 120, height: 46 }}>

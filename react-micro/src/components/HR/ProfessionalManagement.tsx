@@ -571,8 +571,23 @@ const ProfessionalManagement = ({
                           ? "#DFECFF"
                           : "",
                       }}
+                      onClick={() => {
+                        history.push({
+                          pathname: "/hr/hrProfessionalDetail",
+                          state: {
+                            id: id,
+                            comment: comment,
+                            name: name,
+                            ability: ability,
+                            grade: grade,
+                            group: group,
+                            edit: false,
+                            type: type,
+                          },
+                        });
+                      }}
                     >
-                      <td>
+                      <td onClick={(event) => event.stopPropagation()}>
                         <HcCheckBox
                           checked={checkedItem.includes(id)}
                           onChange={(e) => {
@@ -580,120 +595,12 @@ const ProfessionalManagement = ({
                           }}
                         />
                       </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {name}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {group}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {comment}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {type}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {ability}
-                      </td>
-                      <td
-                        onClick={() => {
-                          history.push({
-                            pathname: "/hr/hrProfessionalDetail",
-                            state: {
-                              id: id,
-                              comment: comment,
-                              name: name,
-                              ability: ability,
-                              grade: grade,
-                              group: group,
-                              edit: false,
-                              type: type,
-                            },
-                          });
-                        }}
-                      >
-                        {grade}
-                      </td>
+                      <td>{name}</td>
+                      <td>{group}</td>
+                      <td>{comment}</td>
+                      <td>{type}</td>
+                      <td>{ability}</td>
+                      <td>{grade}</td>
                       <td>{action}</td>
                     </tr>
                   )

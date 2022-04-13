@@ -82,29 +82,17 @@ export default function DeductCreate() {
               <option value="none">공제 유형 선택</option>
             </HcSelect>
 
-            <HcSearchTextField
-              titleName="적용 대상자"
-              name="name"
-              value={inputVal}
-              placeholder="조직 검색"
-              onChange={(e) => {
-                const lengthOfInputValue = inputVal.split("").length;
-
-                if (lengthOfInputValue !== 10)
-                  setInputVal(e.currentTarget.value);
-              }}
-              onKeyDown={(e) => {
-                if (
-                  e.key === "Enter" &&
-                  inputVal.trim() !== "" /*&& props.tags.length < 4 */
-                ) {
-                  setTags2([...tags2, e.currentTarget.value]);
-                  setInputVal("");
-                }
-              }}
-            />
-            <br />
-            <HcTagNoInput tags={tags2} setTags={setTags2} />
+            <div style={{ display: "flex" }}>
+              <HcSelect
+                titleName="적용 대상자"
+                style={{ width: 100, marginRight: 10 }}
+              >
+                <option>조직</option>
+              </HcSelect>
+              <HcSelect titleName="" style={{ width: 276, marginTop: 0 }}>
+                <option>조직선택</option>
+              </HcSelect>
+            </div>
           </div>
           <div
             style={{

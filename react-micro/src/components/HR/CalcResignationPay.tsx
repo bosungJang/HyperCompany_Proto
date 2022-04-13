@@ -28,9 +28,17 @@ export default function CalcResignationPay() {
         <HcTitleTextField titleName="퇴직금 계산" isBackIcon />
         <div style={{ display: "flex" }}>
           <Container style={{ marginTop: 59 }}>
-            <HcSelect style={{ width: 376 }} titleName={"적용 대상자"}>
-              <option>조직선택</option>
-            </HcSelect>
+            <div style={{ display: "flex" }}>
+              <HcSelect
+                titleName="적용 대상자"
+                style={{ width: 100, marginRight: 10 }}
+              >
+                <option>조직</option>
+              </HcSelect>
+              <HcSelect titleName="" style={{ width: 276 }}>
+                <option>조직선택</option>
+              </HcSelect>
+            </div>
 
             <Title style={{ marginTop: 20 }} required>
               입사 일자
@@ -130,7 +138,7 @@ export default function CalcResignationPay() {
             style={{ marginRight: "5px" }}
             size="big"
           >
-            저장
+            퇴직금 계산 완료
           </HcButton>
           <HcButton
             onClick={() => {

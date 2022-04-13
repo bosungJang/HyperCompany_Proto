@@ -2,7 +2,7 @@ import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import {
   HcTitleTextField,
   HcTextFieldLabel,
-  HcTagInput,
+  Title,
   HcTagNoInput,
 } from "common/HcTextField";
 import { CalendarIcon } from "common/HcDatePicker";
@@ -411,7 +411,7 @@ export default function EvaluationDetail() {
               >
                 2022.01.01~2022.01.01
               </HcTextFieldLabel>
-              <div>평가 대상자</div>
+              <Title>평가 대상자</Title>
               <HcTagNoInput
                 tags={tag}
                 setTags={setTag}

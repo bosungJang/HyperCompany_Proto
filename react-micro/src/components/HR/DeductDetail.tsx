@@ -7,7 +7,6 @@ import {
   HcTextFieldLabel,
   HcSelect,
   HcTagNoInput,
-  HcSearchTextField,
 } from "common/HcTextField";
 import { useLocation } from "react-router-dom";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
@@ -25,26 +24,6 @@ const Title = styled.div`
   width: fit-content;
   height: 20px;
   color: #656565;
-`;
-
-const Content = styled.div`
-  background: #2d2d31;
-  border-radius: 3px;
-  height: 39px;
-  width: max-content;
-  color: #ffffff;
-  position: absolute;
-  display: block;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 19px;
-  clear: both;
-  z-index: 50;
-  bottom: 33px;
-  margin-left: -10px;
-  padding: 10px 14px 10px 14px;
 `;
 
 export default function DeductDetail() {
@@ -125,47 +104,46 @@ export default function DeductDetail() {
                 >
                   공제율
                 </HcTextFieldLabel>{" "}
+                <Title>적용 대상자</Title>
+                <HcTagNoInput
+                  tags={tags2}
+                  setTags={setTags2}
+                  delete={false}
+                  style={{
+                    backgroundColor: "#ffffff",
+                    minHeight: 26,
+                    borderBottom: "1px solid #e0e0e0",
+                  }}
+                />
               </>
             ) : (
               <>
                 <HcSelect
-                  titleName="지급 유형"
+                  titleName="공제 유형"
                   style={{ marginBottom: 20, width: 387 }}
                 >
                   <option>지급율</option>
                 </HcSelect>
+                <div style={{ display: "flex" }}>
+                  <HcSelect
+                    titleName="적용 대상자"
+                    style={{ width: 100, marginRight: 10 }}
+                  >
+                    <option>조직</option>
+                  </HcSelect>
+                  <HcSelect titleName="" style={{ width: 276, marginTop: 0 }}>
+                    <option>조직선택</option>
+                  </HcSelect>
+                </div>
               </>
             )}
-            <HcSearchTextField
-              titleName="적용 대상자"
-              name="name"
-              value={inputVal}
-              placeholder="조직 검색"
-              onChange={(e) => {
-                const lengthOfInputValue = inputVal.split("").length;
-
-                if (lengthOfInputValue !== 10)
-                  setInputVal(e.currentTarget.value);
-              }}
-              onKeyDown={(e) => {
-                if (
-                  e.key === "Enter" &&
-                  inputVal.trim() !== "" /*&& props.tags.length < 4 */
-                ) {
-                  setTags2([...tags2, e.currentTarget.value]);
-                  setInputVal("");
-                }
-              }}
-            />{" "}
-            <br />
-            <HcTagNoInput tags={tags2} setTags={setTags2} />
           </div>
           <div
             style={{
               float: "left",
               width: 387,
               marginRight: 77,
-              marginTop: 61,
+              marginTop: 60,
             }}
           >
             <Title style={{ marginBottom: 23, marginTop: 70 }}>공제 시기</Title>
@@ -193,7 +171,12 @@ export default function DeductDetail() {
               <>
                 <HcTextFieldLabel
                   titleName=""
-                  style={{ marginBottom: 20, width: 387, position: "relative" }}
+                  style={{
+                    marginBottom: 20,
+                    width: 387,
+                    position: "relative",
+                    height: 36,
+                  }}
                 >
                   0
                   <div
