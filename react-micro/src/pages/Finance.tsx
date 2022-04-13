@@ -30,6 +30,7 @@ import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 interface FinanceProps {
   match: any;
   setLNBMenu: (menu: LNBArrayProps[]) => void;
+  forwardRef?: any;
 }
 
 const testArray = [
@@ -217,7 +218,11 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/accountAndCardManagement/bankAccountManagement`}
         component={(prop: any) => (
-          <BankAccountManagementPage ref={ref} {...prop} />
+          <BankAccountManagementPage
+            ref={ref}
+            forwardRef={props.forwardRef}
+            {...prop}
+          />
         )}
       />
       <Route

@@ -411,6 +411,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
     }),
   });
   const opacity = isDragging ? 0.4 : 1;
+  const border = isDragging ? "1px solid blue" : "1px solid #a7a7a7";
   const [, drop] = useDrop<DragObjectWithType & { node: Node }, {}, {}>({
     accept: ItemTypes.NODE,
     drop: (item, monitor) => {
@@ -437,6 +438,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
             //e.currentTarget.className = "card_wrapper_click";
             setClicked(true);
           }}
+          style={{ border: border }}
         >
           <div className="card_body">
             <div className="card_title">
