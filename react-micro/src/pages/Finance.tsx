@@ -36,7 +36,7 @@ interface FinanceProps {
 const testArray = [
   { icon: "Home_Icon", title: "재무 회계 홈", path: "/fi" },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Basic_Information_Management",
     title: "기초 정보 관리",
     path: "/fi/basicInfoManagement/accountManagement",
     submenu: [
@@ -48,7 +48,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Statement_And_Director",
     title: "전표 및 원장 정리",
     path: "/fi/documentLedgerManagement/documentManagement",
     submenu: [
@@ -72,7 +72,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Financial_Statement",
     title: "결산 및 재무 제표",
     path: "/fi/closingFinancialStatements/totalTrialBalance",
     submenu: [
@@ -91,7 +91,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Account_And_Card_Management",
     title: "계좌 및 카드 관리",
     path: "/fi/accountAndCardManagement/bankAccountManagement",
     submenu: [
@@ -118,7 +118,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Billing_Management",
     title: "청구 관리",
     path: "/fi/billingManagement/billingCurrentStatus",
     submenu: [
@@ -133,7 +133,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Debt",
     title: "채권 / 채무관리",
     path: "/fi/creditAndFinancialManagement/creditAndFinancialCurrentStatus",
     submenu: [
@@ -148,7 +148,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "Finance/Fund_Management",
     title: "자금 관리",
     path: "/fi/fundManagement/cashDisbursementVoucher",
     submenu: [

@@ -16,7 +16,9 @@ import HcCalendar from "common/Calendar/HcCalendar";
 
 import HcFileUploader from "common/HcFileUploader";
 import HcStickyTable, { TestTable } from "common/HcStickyTable";
-import HcDndTreeview from "common/HcDndTreeview";
+import { HcOrderTreeview } from "common/DndTree/HcDndTreeview";
+
+import HcDndTestTree from "common/DndTree/HcDndTreeviewSortable";
 
 interface MatchParams {
   id: string;
@@ -59,6 +61,7 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
   const sum = 100000;
 
   const [file, setFile]: any = React.useState([]);
+  const [treeData, setTreeData] = React.useState([]);
 
   return (
     <div style={{ width: "inherit" }}>
@@ -195,7 +198,12 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
         <TestTable />
       </ComponentWrapper>
 
-      <ComponentWrapper></ComponentWrapper>
+      <ComponentWrapper>
+        <HcOrderTreeview />
+      </ComponentWrapper>
+      <ComponentWrapper>
+        <HcDndTestTree />
+      </ComponentWrapper>
     </div>
   );
 };
