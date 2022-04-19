@@ -109,8 +109,8 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
 };
 const CustomInput = styled.input`
   border-radius: 3px;
-  height: 36px;
-  width: 170px;
+  height: 40px;
+  width: 160px;
   border: 1px solid #cecece;
   padding-left: 12px;
 `;
@@ -248,8 +248,8 @@ export function HcDateRangePicker() {
           float: "left",
           width: 12,
           height: 30,
-          marginLeft: 24,
-          marginRight: 24,
+          marginLeft: 14,
+          marginRight: 14,
           marginTop: 4,
           color: "#656565",
         }}

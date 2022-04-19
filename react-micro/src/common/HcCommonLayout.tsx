@@ -53,6 +53,7 @@ export const Container = (props?: any) => {
     position: relative;
     transition: all 0.7s ease;
     overflow: hidden;
+    z-index: 1;
   `;
 
   const {
@@ -68,7 +69,7 @@ export const Container = (props?: any) => {
   const styles = {
     cnt: {
       width: width,
-      minHeight:
+      eight:
         arrow === false
           ? maxHeight
           : state === true
@@ -100,19 +101,19 @@ export const Container = (props?: any) => {
           right: 20,
           position: "absolute",
           transition: "all 0.7s ease",
-          transform: state === true ? "rotate(-180deg)" : "",
+          transform: state === false ? "rotate(-180deg)" : "",
           display: arrow === false ? "none" : "",
         }}
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
+        width="14"
+        height="8"
+        viewBox="0 0 14 8"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
-          d="M18.3642 15.6368C18.7547 15.2463 18.7547 14.6131 18.3642 14.2226L12.7074 8.56584L12.7073 8.56573C12.3168 8.1752 11.6836 8.1752 11.2931 8.56573C11.2888 8.57005 11.2845 8.5744 11.2803 8.57878L5.63638 14.2227C5.24585 14.6132 5.24585 15.2464 5.63638 15.6369C6.0269 16.0274 6.66007 16.0274 7.05059 15.6369L12.0003 10.6872L16.95 15.6368C17.3405 16.0273 17.9737 16.0273 18.3642 15.6368Z"
+          d="M13.2929 7.70711C13.6834 7.31658 13.6834 6.68342 13.2929 6.29289L7.63616 0.636155L7.63604 0.636039C7.24551 0.245514 6.61235 0.245515 6.22183 0.636039C6.2175 0.640361 6.21323 0.644712 6.209 0.649093L0.565087 6.29301C0.174562 6.68353 0.174563 7.3167 0.565087 7.70722C0.955611 8.09775 1.58878 8.09775 1.9793 7.70722L6.92905 2.75748L11.8787 7.70711C12.2692 8.09763 12.9024 8.09763 13.2929 7.70711Z"
           fill="#5D5D62"
         />
       </Arrow>

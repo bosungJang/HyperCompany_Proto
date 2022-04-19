@@ -16,33 +16,16 @@ const MessageBox = styled.div`
   line-height: 19px;
   clear: both;
   z-index: 50;
-  bottom: 33px;
+  bottom: 31px;
   margin-left: -10px;
   padding: 10px 14px 10px 14px;
 `;
 
-{
-  //Icon tool tip 사용 예
-  /* <div
-  style={{
-    width: "fit-contnet",
-    height: "fit-content",
-    position: "relative",
-    display: "flex",
-  }}
->
-  hi
-  <div style={{ marginTop: 3 }}>
-    {" "}
-    <InfoIcon message="test" />
-  </div>
-</div>; */
-}
 export default function InfoIconTooltip(props: { message: string }) {
-  const [style, setStyle] = React.useState({ display: "none" });
+  const [styles, setStyle] = React.useState({ display: "none" });
   return (
     <>
-      <MessageBox className="tooltip" style={style}>
+      <MessageBox className="tooltip" style={Object.assign(styles)}>
         {props.message}
       </MessageBox>
       <svg
@@ -51,10 +34,10 @@ export default function InfoIconTooltip(props: { message: string }) {
         style={Object.assign(
           {
             position: "absolute",
-            bottom: 22,
+            bottom: 21,
             marginLeft: 5,
           } as React.CSSProperties,
-          style
+          styles
         )}
         width="17"
         height="12"
@@ -73,7 +56,7 @@ export default function InfoIconTooltip(props: { message: string }) {
         viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ marginLeft: 3, position: "absolute", top: 1 }}
+        style={Object.assign({ marginLeft: 3, position: "absolute", top: 2 })}
         onMouseEnter={(e) => {
           setStyle({ display: "inline-block" });
         }}

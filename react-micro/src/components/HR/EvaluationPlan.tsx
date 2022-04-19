@@ -4,7 +4,7 @@ import { HcTitleTextField } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcCheckBox from "common/HcCheckBox";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 let num = 100000;
 const getId = () => {
   num = num + 1;
@@ -42,13 +42,15 @@ export default function EvaluationPlan() {
     <>
       <ComponentWrapper style={{ display: "block" }}>
         <HcTitleTextField titleName="평가 계획" isBackIcon={false} />
-        <HcButton
-          styles="secondary"
-          size="medium"
-          style={{ marginTop: "37px", marginBottom: "24px" }}
-        >
-          +생성
-        </HcButton>
+        <Link to="/hr/EvaluationPlanCreate">
+          <HcButton
+            styles="secondary"
+            size="medium"
+            style={{ marginTop: "37px", marginBottom: "24px" }}
+          >
+            +생성
+          </HcButton>
+        </Link>
         <HcTableContainer style={{ width: "100%", height: "unset" }}>
           <HcTable>
             <thead>

@@ -56,6 +56,7 @@ import {
   KPIManagement,
   EvaluationPlan,
   EvaluationPlanDetail,
+  EvaluationPlanCreate,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -359,6 +360,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/EvaluationPlanDetail`}
         component={EvaluationPlanDetail}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationPlanCreate`}
+        component={EvaluationPlanCreate}
       />
     </div>
   );

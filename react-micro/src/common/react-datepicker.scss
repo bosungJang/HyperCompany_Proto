@@ -23,13 +23,14 @@
 }
 .react-datepicker-popper {
   z-index: 50;
+  position: absolute;
 }
 .react-datepicker__input-container,
 .react-datepicker-wrapper {
   float: left !important;
   display: inline;
   width: 170;
-  z-index: 50;
+  z-index: 1;
 }
 
 .react-datepicker__day--selected {

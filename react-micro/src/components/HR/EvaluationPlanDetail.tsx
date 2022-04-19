@@ -1,18 +1,23 @@
-import tag from "antd/lib/tag";
 import HcCheckBox from "common/HcCheckBox";
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import { CalendarIcon } from "common/HcDatePicker";
-import {
+import HcTextField, {
   HcTagNoInput,
   HcTextFieldLabel,
   HcTitleTextField,
   Title,
+  HcSelect,
 } from "common/HcTextField";
 import { useState } from "react";
 import styled from "styled-components";
+import HcButton from "common/HcButton";
+import HcToggleBtn from "common/HcToggleBtn";
+import InfoIconTooltip from "common/HcTooltip";
+import HcBottomBar from "common/HcBottomBar";
+import { HcDateRangePicker, HcDatePicker } from "common/HcDatePicker";
+
 const Card = (props: any) => {
-  const { name, type, start, end, percent, reOrganization, superior, style } =
-    props;
+  const { name, type, start, end, percent, style, edit } = props;
   const StyledDiv = styled.div`
     background: #ffffff;
     width: 1272px;
@@ -61,135 +66,213 @@ const Card = (props: any) => {
     width: 80,
     position: "absolute",
     bottom: 14,
-    left: 204,
+    left: 284,
     border: "1px solid #E0E0E0",
-    background: "#F4F4F4",
+    background: edit === false ? "#F4F4F4" : "#fffff",
     borderRadius: "3px",
+    fontSize: "14px",
     color: "#CECECE",
+    fontWeight: 500,
   } as React.CSSProperties;
   return (
-    <StyledDiv style={{ height: superior ? 244 : 184 }}>
-      <div style={{ marginTop: -23 }}>
-        <HcTextFieldLabel style={{ width: 200, marginRight: 16 }} titleName="">
-          {type}
-        </HcTextFieldLabel>
-        <HcTextFieldLabel style={{ width: 486, marginRight: 40 }} titleName="">
-          {name}
-        </HcTextFieldLabel>
-        <HcTextFieldLabel
-          style={{ width: 160, marginRight: 14, position: "relative" }}
-          titleName=""
-        >
-          {start}
-          <CalendarIcon style={{ left: 110 }} />
-        </HcTextFieldLabel>
-        ~
-        <HcTextFieldLabel
-          style={{ width: 160, marginLeft: 14, position: "relative" }}
-          titleName=""
-        >
-          {end}
-          <CalendarIcon style={{ left: 110 }} />
-        </HcTextFieldLabel>
-        <HcTextFieldLabel
-          style={{
-            width: 80,
-            marginLeft: 35,
-            position: "relative",
-            marginTop: -63,
-          }}
-          titleName=""
-        >
-          {percent}
-          {percentIcon()}
-        </HcTextFieldLabel>
+    <StyledDiv style={{ height: edit === true ? 278 : 232 }}>
+      <div
+        style={{
+          fontFamily: "Noto Sans KR",
+          fontWeight: 400,
+          fontSize: "18px",
+          color: " #2D2D31",
+          marginBottom: 24,
+        }}
+      >
+        평가 단계 설정
+      </div>
+      <div>
+        {edit === false ? (
+          <div style={{ marginTop: -23 }}>
+            {" "}
+            <HcTextFieldLabel
+              style={{ width: 200, marginRight: 16 }}
+              titleName=""
+            >
+              {type}
+            </HcTextFieldLabel>
+            <HcTextFieldLabel
+              style={{ width: 486, marginRight: 40 }}
+              titleName=""
+            >
+              {name}
+            </HcTextFieldLabel>
+            <HcTextFieldLabel
+              style={{ width: 160, marginRight: 14, position: "relative" }}
+              titleName=""
+            >
+              {start}
+              <CalendarIcon style={{ left: 110 }} />
+            </HcTextFieldLabel>
+            ~
+            <HcTextFieldLabel
+              style={{ width: 160, marginLeft: 14, position: "relative" }}
+              titleName=""
+            >
+              {end}
+              <CalendarIcon style={{ left: 110 }} />
+            </HcTextFieldLabel>
+            <HcTextFieldLabel
+              style={{
+                width: 80,
+                marginLeft: 35,
+                position: "relative",
+                marginTop: -63,
+                height: 36,
+              }}
+              titleName=""
+            >
+              {percent}
+              {percentIcon()}
+            </HcTextFieldLabel>
+          </div>
+        ) : (
+          <div style={{ display: "flex" }}>
+            {" "}
+            <div style={{ marginTop: -23 }}>
+              <HcSelect titleName="" style={{ width: 200 }}>
+                <option>본인 평가</option>
+              </HcSelect>
+              <HcTextField
+                value="1차 본인 평가"
+                titleName=""
+                style={{
+                  width: "480px",
+                  marginLeft: 14,
+                  marginRight: 35,
+                }}
+              />{" "}
+            </div>
+            <HcDateRangePicker />
+            <HcTextFieldLabel
+              style={{
+                borderRadius: "3px",
+                fontSize: "14px",
+                color: "#CECECE",
+                fontWeight: 500,
+                border: "1px solid #E0E0E0",
+                marginTop: -23,
+                marginLeft: 30,
+                width: 80,
+                position: "relative",
+              }}
+              titleName=""
+            >
+              가중치{percentIcon()}
+            </HcTextFieldLabel>
+          </div>
+        )}
       </div>
       <CheckField>
-        <HcCheckBox checked={true} onChange={(e) => {}} disabled />
+        <HcCheckBox
+          checked={true}
+          onChange={(e) => {}}
+          disabled={edit === true ? false : true}
+        />
         <Name>역량</Name>
         <HcTextFieldLabel
-          style={{ width: 80, position: "absolute", bottom: 17, left: 204 }}
+          style={{ width: 80, position: "absolute", bottom: 17, left: 284 }}
           titleName=""
         >
           100{percentIcon()}
         </HcTextFieldLabel>
       </CheckField>
       <CheckField style={{ marginLeft: 42 }}>
-        <HcCheckBox checked={false} onChange={(e) => {}} disabled />
+        <HcCheckBox
+          checked={false}
+          onChange={(e) => {}}
+          disabled={edit === true ? false : true}
+        />
         <Name>성과</Name>
         <HcTextFieldLabel style={styles} titleName="">
           가중치{percentIcon()}
         </HcTextFieldLabel>
       </CheckField>
       <CheckField style={{ marginLeft: 42 }}>
-        <HcCheckBox checked={false} onChange={(e) => {}} disabled />
+        <HcCheckBox
+          checked={false}
+          onChange={(e) => {}}
+          disabled={edit === true ? false : true}
+        />
         <Name>기타</Name>
+        <HcButton
+          size="medium"
+          styles="line"
+          style={{
+            marginTop: -8,
+            marginLeft: 6,
+            display: edit === true ? "" : "none",
+          }}
+        >
+          선택
+        </HcButton>
         <HcTextFieldLabel style={styles} titleName="">
           가중치{percentIcon()}
         </HcTextFieldLabel>
       </CheckField>
-      {reOrganization ? (
-        <div style={{}}>
-          <HcTextFieldLabel
-            style={{
-              width: 200,
-              marginRight: 10,
-              marginTop: -8,
-            }}
-            titleName=""
-          >
-            {reOrganization}
-          </HcTextFieldLabel>
-          <HcTextFieldLabel
-            style={{
-              width: 200,
-              marginTop: -8,
-              marginRight: 40,
-            }}
-            titleName=""
-          >
-            {superior}
-          </HcTextFieldLabel>
-          <HcCheckBox checked={false} onChange={(e) => {}} />
-          <svg
-            width="139"
-            height="14"
-            viewBox="0 0 139 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ marginLeft: 10 }}
-          >
-            <path
-              d="M8.66 0.422V13.106H10.116V0.422H8.66ZM3.382 1.36C1.506 1.36 0.134 3.096 0.134 5.812C0.134 8.556 1.506 10.278 3.382 10.278C5.272 10.278 6.644 8.556 6.644 5.812C6.644 3.096 5.272 1.36 3.382 1.36ZM3.382 2.662C4.488 2.662 5.258 3.852 5.258 5.812C5.258 7.8 4.488 8.99 3.382 8.99C2.29 8.99 1.52 7.8 1.52 5.812C1.52 3.852 2.29 2.662 3.382 2.662ZM19.3269 3.824V5.014H21.6229V9.69H23.0649V0.449999H21.6229V3.824H19.3269ZM20.1109 6.778C18.2209 6.12 17.1429 4.538 17.1429 2.984V2.55H19.7749V1.388H13.0129V2.55H15.6869V2.984C15.6869 4.692 14.5389 6.358 12.5789 7.044L13.3209 8.178C14.8189 7.66 15.8829 6.554 16.4429 5.182C16.9749 6.428 17.9969 7.422 19.3969 7.898L20.1109 6.778ZM16.3169 11.664V8.892H14.8749V12.84H23.3869V11.664H16.3169ZM37.6463 8.206H39.0883V0.436H37.6463V2.592H35.8123V3.754H37.6463V4.902H35.8123V6.064H37.6463V8.206ZM31.4863 2.508H33.0963V6.316C32.5503 6.344 32.0183 6.358 31.4863 6.372V2.508ZM35.9103 6.092C35.4483 6.148 34.9723 6.204 34.4823 6.218V2.508H35.6163V1.332H28.9523V2.508H30.1003V6.4C29.5823 6.4 29.0783 6.4 28.6163 6.4L28.7843 7.59C30.8143 7.59 33.6143 7.548 35.9943 7.142L35.9103 6.092ZM34.8743 11.972C33.0683 11.972 32.0603 11.538 32.0603 10.768C32.0603 9.97 33.0683 9.55 34.8743 9.55C36.6803 9.55 37.7023 9.97 37.7023 10.768C37.7023 11.538 36.6803 11.972 34.8743 11.972ZM34.8743 8.43C32.2283 8.43 30.6183 9.284 30.6183 10.768C30.6183 12.224 32.2283 13.078 34.8743 13.078C37.5203 13.078 39.1443 12.224 39.1443 10.768C39.1443 9.284 37.5203 8.43 34.8743 8.43ZM42.1113 1.766V2.942H46.5353C46.2413 5.854 44.5753 8.08 41.4813 9.662L42.2793 10.768C46.4093 8.682 47.9772 5.434 47.9772 1.766H42.1113ZM53.1993 5.42H51.2813V0.422H49.8393V13.064H51.2813V6.624H53.1993V5.42ZM64.7567 5.826C63.2307 6.148 61.8727 6.218 59.4787 6.232V2.648H63.6647V1.472H58.0367V7.422H59.0587C61.7747 7.422 63.2587 7.338 64.8967 6.988L64.7567 5.826ZM60.8367 8.654H59.3807V12.84H67.8927V11.664H60.8367V8.654ZM67.3887 4.048V0.422H65.9467V9.578H67.3887V5.238H69.1807V4.048H67.3887ZM77.2716 3.852H75.6756C75.7736 3.264 75.8156 2.634 75.8156 1.99H70.9296V3.152H74.3876C74.1776 5.742 72.9176 7.8 70.3136 9.382L71.1396 10.404C73.5056 8.99 74.8356 7.156 75.4236 5.028H77.2716V7.03H75.1996V8.206H77.2716V12.462H78.6156V0.744H77.2716V3.852ZM79.8196 0.436V13.078H81.2056V0.436H79.8196ZM95.451 3.278V4.58H92.357V5.7H95.451V6.848H96.893V0.436H95.451V2.158H92.833C92.903 1.794 92.931 1.402 92.931 0.996H87.275V2.158H91.335C91.139 3.922 89.585 5.308 86.589 5.952L87.093 7.128C89.879 6.498 91.741 5.21 92.525 3.278H95.451ZM90.131 11.804V10.642H96.893V7.366H88.661V8.514H95.451V9.564H88.689V12.966H97.243V11.804H90.131ZM105.922 7.548C106.272 5.308 106.272 3.712 106.272 2.606V1.766H99.8459V2.928H104.858C104.858 3.992 104.83 5.462 104.508 7.422L105.922 7.548ZM103.094 5.392H101.68V9.2C100.798 9.214 99.9439 9.228 99.1739 9.228L99.3279 10.418C101.54 10.418 104.438 10.362 107.042 9.928L106.972 8.864C105.74 9.032 104.41 9.102 103.094 9.158V5.392ZM110.962 5.63H109.1V0.436H107.644V13.078H109.1V6.848H110.962V5.63ZM118.039 4.566H124.031V6.638H118.039V4.566ZM121.749 10.348V7.8H125.459V1.276H124.031V3.404H118.039V1.276H116.611V7.8H120.307V10.348H115.323V11.538H126.775V10.348H121.749ZM128.916 1.766V2.942H133.424C133.172 5.854 131.604 8.08 128.286 9.676L129.056 10.824C133.396 8.724 134.908 5.532 134.908 1.766H128.916ZM137.19 0.436V13.078H138.632V0.436H137.19Z"
-              fill="#5D5D62"
-            />
-          </svg>
-        </div>
-      ) : (
-        ""
-      )}
+      <div
+        className="DeleteField"
+        style={{
+          width: 1270,
+          height: "40px",
+          backgroundColor: "#F9F9F9",
+          marginTop: 122,
+          marginLeft: "-24px",
+          borderBottomRightRadius: "4px",
+          borderBottomLeftRadius: "4px",
+          display: edit === false ? "none" : "",
+        }}
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ marginLeft: 1238, marginTop: 8 }}
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M8 4.75C8 4.33579 8.33579 4 8.75 4H15.25C15.6642 4 16 4.33579 16 4.75C16 5.16421 15.6642 5.5 15.25 5.5H8.75C8.33579 5.5 8 5.16421 8 4.75ZM4 7.25C4 6.83579 4.33579 6.5 4.75 6.5H19.25C19.6642 6.5 20 6.83579 20 7.25C20 7.66421 19.6642 8 19.25 8H18.75V17.5C18.75 18.7426 17.7426 19.75 16.5 19.75H8C6.75736 19.75 5.75 18.7426 5.75 17.5V8H4.75C4.33579 8 4 7.66421 4 7.25ZM7.25 8V17.5C7.25 17.9142 7.58579 18.25 8 18.25H16.5C16.9142 18.25 17.25 17.9142 17.25 17.5V8H7.25ZM10.75 9C10.3358 9 10 9.33579 10 9.75V15.25C10 15.6642 10.3358 16 10.75 16C11.1642 16 11.5 15.6642 11.5 15.25V9.75C11.5 9.33579 11.1642 9 10.75 9ZM13 9.75C13 9.33579 13.3358 9 13.75 9C14.1642 9 14.5 9.33579 14.5 9.75V15.25C14.5 15.6642 14.1642 16 13.75 16C13.3358 16 13 15.6642 13 15.25V9.75Z"
+            fill="#5D5D62"
+          />
+        </svg>
+      </div>
     </StyledDiv>
   );
 };
 
 export default function EvaluationPlanDetail() {
-  /* pop up */
-  const [modalOpen, setModalOpen] = useState(false);
+  /*BottomBar */
+  const [barOpen, setbarOpen] = useState(true);
+  /*BottomBar */
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-  /* pop up */
+  /*ToggleBtn */
+  const [isToggled, setIsToggled] = useState(false);
+  /*ToggleBtn */
+
   const [tag, setTag] = useState(["티맥스 엔터프라이즈"]);
   const [openInfo, setInfo] = useState(true);
   const [openSteps, setSteps] = useState(true);
+  const [openSetting, setSetting] = useState(true);
   const [edit, setEdit] = useState(false);
   return (
     <>
-      <ComponentWrapper style={{ display: "block", minHeight: 1000 }}>
+      <ComponentWrapper
+        style={{
+          display: "block",
+          minHeight: 1300,
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         <HcTitleTextField
           titleName={edit === false ? "평가 계획 상세" : "평가 계획 수정"}
           isBackIcon
@@ -201,66 +284,131 @@ export default function EvaluationPlanDetail() {
           width={1320}
           state={openInfo}
           setState={setInfo}
-          style={{ marginTop: 39 }}
+          style={{ marginTop: 39, overflow: "visible", zIndex: 2 }}
         >
           <div style={{ display: "flex" }}>
-            <div style={{ marginRight: 80, display: "block", width: 360 }}>
-              <HcTextFieldLabel
-                titleName={"평가 계획명"}
-                style={{ width: 360, marginBottom: 20 }}
-              >
-                1분기 평가
-              </HcTextFieldLabel>
-              <HcTextFieldLabel
-                titleName={"평가 대상 기간"}
-                style={{ width: 360, marginBottom: 20 }}
-              >
-                2022.01.01~2022.01.01
-              </HcTextFieldLabel>
-              <Title>평가 대상자</Title>
-              <HcTagNoInput
-                tags={tag}
-                setTags={setTag}
-                style={{
-                  background: "#FFFFFF",
-                  maxWidth: "360px",
-                  borderBottom: "1px solid #CECECE",
-                  borderRadius: 0,
-                  minHeight: 26,
-                }}
-                delete={false}
-              />
-            </div>
-            <div style={{ marginRight: 80, display: "block", width: 360 }}>
-              <HcTextFieldLabel
-                titleName={"평가 종류"}
-                style={{ width: 360, marginBottom: 20 }}
-              >
-                분기 평가
-              </HcTextFieldLabel>
-              <HcTextFieldLabel
-                titleName={"평가 실시 기간"}
-                style={{ width: 360, marginBottom: 20 }}
-              >
-                2022.01.01~2022.01.01
-              </HcTextFieldLabel>
-            </div>
-            <div style={{ display: "block", width: 360, marginTop: 85 }}>
-              <HcTextFieldLabel
-                titleName={"평가 결과 공개 일자"}
-                style={{ width: 360, marginBottom: 20 }}
-              >
-                2022.03.01
-              </HcTextFieldLabel>
-            </div>
+            {edit === false ? (
+              <>
+                <div style={{ marginRight: 80, display: "block", width: 360 }}>
+                  <HcTextFieldLabel
+                    titleName={"평가 계획명"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    1분기 평가
+                  </HcTextFieldLabel>
+                  <HcTextFieldLabel
+                    titleName={"평가 대상 기간"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    2022.01.01~2022.01.01
+                  </HcTextFieldLabel>
+                  <Title>평가 대상자</Title>
+                  <HcTagNoInput
+                    tags={tag}
+                    setTags={setTag}
+                    style={{
+                      background: "#FFFFFF",
+                      maxWidth: "360px",
+                      borderBottom: "1px solid #CECECE",
+                      borderRadius: 0,
+                      minHeight: 26,
+                    }}
+                    delete={false}
+                  />
+                </div>
+
+                <div style={{ marginRight: 80, display: "block", width: 360 }}>
+                  <HcTextFieldLabel
+                    titleName={"평가 종류"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    분기 평가
+                  </HcTextFieldLabel>
+                  <HcTextFieldLabel
+                    titleName={"평가 실시 기간"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    2022.01.01~2022.01.01
+                  </HcTextFieldLabel>
+                </div>
+                <div style={{ display: "block", width: 360, marginTop: 85 }}>
+                  <HcTextFieldLabel
+                    titleName={"평가 결과 공개 일자"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    2022.03.01
+                  </HcTextFieldLabel>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ marginRight: 80, display: "block", width: 360 }}>
+                  <HcTextField
+                    value="2022년 1분기 평가"
+                    titleName="평가 계획명"
+                    style={{ width: 360, marginBottom: 20 }}
+                  />
+                  <Title>평가 대상 기간</Title>
+                  <HcDateRangePicker />
+                  <div
+                    style={{ marginTop: 56, display: "flex", marginBottom: 10 }}
+                  >
+                    <HcSelect titleName="평가대상자" style={{ width: 160 }}>
+                      <option>조직 개편일</option>
+                    </HcSelect>
+                    <HcSelect
+                      titleName=""
+                      style={{ width: 120, marginLeft: 10 }}
+                    >
+                      <option>조직</option>
+                    </HcSelect>
+                    <HcSelect
+                      titleName=""
+                      style={{ width: 300, marginLeft: 10 }}
+                    >
+                      <option>조직 선택</option>
+                    </HcSelect>
+                  </div>
+                  <HcTagNoInput
+                    tags={tag}
+                    setTags={setTag}
+                    style={{
+                      background: "#FFFFFF",
+                      maxWidth: "360px",
+                      marginLeft: -10,
+                      borderRadius: 0,
+                      marginTop: -10,
+                      minHeight: 36,
+                    }}
+                    delete
+                  />
+                </div>
+                <div style={{ marginRight: 80, display: "block", width: 360 }}>
+                  <HcSelect
+                    titleName={"평가 종류"}
+                    style={{ width: 360, marginBottom: 20 }}
+                  >
+                    <option>분기 평가</option>
+                  </HcSelect>
+
+                  <Title>평가 실시 기간</Title>
+                  <HcDateRangePicker />
+                </div>{" "}
+                <div style={{ display: "block", width: 360, marginTop: 85 }}>
+                  <Title>평가 결과 공개 일자</Title>
+                  <HcDatePicker style={{ width: 360 }} />
+                </div>
+              </>
+            )}
           </div>
         </Container>
         <Container
           title="평가 단계"
-          maxHeight={376}
+          maxHeight={370}
           width={1320}
           state={openSteps}
           setState={setSteps}
+          style={{ overflow: "visible", zIndex: 1 }}
         >
           <div style={{ display: "block", marginLeft: -16 }}>
             {" "}
@@ -270,10 +418,110 @@ export default function EvaluationPlanDetail() {
               start={"2022.01.01"}
               end={"2022.01.01"}
               percent={100}
+              edit={edit}
             />
+            <HcButton size="medium" styles="line" style={{ marginTop: 20 }}>
+              + 평가 단계 추가
+            </HcButton>
+          </div>
+        </Container>
+        <Container
+          title="기타 설정"
+          maxHeight={142}
+          width={1320}
+          state={openSetting}
+          setState={setSetting}
+        >
+          <div style={{ display: "flex" }}>
+            {" "}
+            <Title
+              style={{
+                display: "flex",
+                marginRight: "50px",
+                color: "#5D5D62",
+                fontSize: "16px",
+                position: "relative",
+                lineHeight: "23px",
+              }}
+            >
+              평가 안내 알림
+              <div style={{ marginTop: "5px" }}>
+                <InfoIconTooltip message="평가안내알림" />
+              </div>
+            </Title>
+            <HcToggleBtn
+              id="test-switch"
+              toggled={isToggled}
+              onChange={(e) => {
+                if (edit === true) setIsToggled(e.target.checked);
+              }}
+            />
+            <Title
+              style={{ marginLeft: "6px", color: "#5D5D62", fontSize: "16px" }}
+            >
+              {isToggled == true ? "On" : "Off"}
+            </Title>
           </div>
         </Container>
       </ComponentWrapper>
+      <HcBottomBar open={barOpen} style={{ width: 1400 }}>
+        {edit === false ? (
+          <div>
+            <HcButton
+              onClick={() => {
+                setEdit(true);
+              }}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              수정
+            </HcButton>
+            <HcButton
+              onClick={() => {
+                setbarOpen(false);
+              }}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              삭제
+            </HcButton>
+            <HcButton
+              onClick={() => {
+                setbarOpen(false);
+              }}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              취소
+            </HcButton>
+          </div>
+        ) : (
+          <div>
+            <HcButton
+              onClick={() => {}}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              저장
+            </HcButton>
+
+            <HcButton
+              onClick={() => {
+                setEdit(false);
+              }}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              취소
+            </HcButton>
+          </div>
+        )}
+      </HcBottomBar>
     </>
   );
 }

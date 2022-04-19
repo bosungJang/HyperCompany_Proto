@@ -368,6 +368,12 @@ export const EvaluationPlanDetail = loadable(
     fallback: Loading,
   }
 );
+export const EvaluationPlanCreate = loadable(
+  () => import("../components/HR/EvaluationPlanCreate"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

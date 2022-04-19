@@ -446,7 +446,12 @@ export function HcContentPopup(props: any) {
             >
               {primaryBtn}
             </HcButton>
-            <HcButton styles="line" size="medium" style={innerStyle.second}>
+            <HcButton
+              styles="line"
+              size="medium"
+              style={innerStyle.second}
+              onClick={close}
+            >
               취소
             </HcButton>
           </Popup_Buttons>

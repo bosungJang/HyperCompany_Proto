@@ -70,6 +70,7 @@ const StyledTable = styled.table`
   table-layout: fixed;
 
   td {
+    cursor: pointer;
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
     padding-left: 12px;

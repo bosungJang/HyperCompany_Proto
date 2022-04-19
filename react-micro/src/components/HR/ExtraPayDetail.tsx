@@ -105,7 +105,6 @@ export default function ExtraPayDetail() {
             )}
             <Title style={{ marginBottom: 23 }}>지급 방식</Title>
             <div style={{ marginBottom: 22 }}>
-              {" "}
               <HcRadioGroup
                 defaultValue="true"
                 onChange={(value) => console.log("value: ", value)}
