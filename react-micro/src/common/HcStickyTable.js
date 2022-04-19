@@ -75,7 +75,12 @@ export function TestTable() {
   return (
     <div>
       <div style={{ width: "1300px", height: "500px" }}>
-        <StickyTable stickyHeaderCount={1} leftStickyColumnCount={1}>
+        <StickyTable
+          stickyHeaderCount={1}
+          leftStickyColumnCount={1}
+          rightStickyColumnCount={1}
+          stickyFooterCount={1}
+        >
           {rows}
         </StickyTable>
       </div>
