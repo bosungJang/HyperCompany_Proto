@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import styled from "styled-components";
 import {
   Home,
   About,
@@ -13,13 +14,57 @@ import {
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 import { referenceEnhancer } from "mobx/dist/internal";
 import HcCheckBox from "common/HcCheckBox";
+import { ReactComponent as CollectiveIcon } from "resources/images/Collective_Registration_Icon.svg";
+import { ReactComponent as ExportIcon } from "resources/images/Export_Icon.svg";
+import { ReactComponent as ShareIcon } from "resources/images/Share_Icon.svg";
+import { ReactComponent as PrintIcon } from "resources/images/Print_Icon.svg";
+import InfoIconTooltip, { TooltipMessage } from "common/HcTooltip";
 
 interface AppProps {
   setLNBMenu?: (menu: LNBArrayProps[]) => void;
   forwardRef?: any;
 }
+const IconWrapper = styled.div`
+  margin-right: 16px;
+  display: inline-block;
+  cursor: pointer;
+  &: hover {
+    rect {
+      fill: #ededed;
+      transition: all 0.5s ease;
+    }
+    svg {
+      background-color: #ededed;
+      transition: all 0.5s ease;
+    }
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  height: 32px;
+  padding: 7.5px 18px 6px 10px;
+  margin-right: 10px;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #a7a7a7;
+  border-radius: 2.5px;
+  min-width: 76px;
+  div {
+    display: inline-block;
+    font-family: Noto Sans KR;
+    font-weight: 500;
+    font-size: 13px;
+    vertical-align: top;
+    margin-left: 6px;
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
 
 const App = (prop: AppProps) => {
+  const [iconState, setIconState] = React.useState(false);
   return (
     <div
       style={{
@@ -40,7 +85,7 @@ const App = (prop: AppProps) => {
           position: "absolute",
           opacity: 0,
           transition: "all 0.3s",
-          padding: "16px 40px",
+          padding: "14px 40px",
           border: "1px solid black",
           zIndex: 99,
           textAlign: "initial",
@@ -53,9 +98,58 @@ const App = (prop: AppProps) => {
             fontFamily: "Noto Sans KR",
             fontWeight: 700,
             fontSize: "18px",
+            paddingTop: "2px",
+            display: "inline-block",
           }}
         >
-          TYPE01. BTN
+          지출결의서 관리
+        </div>
+        <div style={{ float: "right", display: "inline-block" }}>
+          {iconState == true ? (
+            <>
+              <IconWrapper
+                onClick={() => {
+                  setIconState(!iconState);
+                }}
+              >
+                <ExportIcon />
+              </IconWrapper>
+              <IconWrapper>
+                <TooltipMessage message={"일괄등록"} ItemHeight={18}>
+                  <CollectiveIcon />
+                </TooltipMessage>
+              </IconWrapper>
+              <IconWrapper>
+                <PrintIcon />
+              </IconWrapper>
+              <IconWrapper style={{ marginRight: "0px" }}>
+                <ShareIcon />
+              </IconWrapper>
+            </>
+          ) : (
+            <>
+              <ButtonWrapper
+                onClick={() => {
+                  setIconState(!iconState);
+                }}
+              >
+                <ExportIcon />
+                <div>내보내기</div>
+              </ButtonWrapper>
+              <ButtonWrapper>
+                <CollectiveIcon />
+                <div>일괄등록</div>
+              </ButtonWrapper>
+              <ButtonWrapper>
+                <PrintIcon />
+                <div>인쇄</div>
+              </ButtonWrapper>
+              <ButtonWrapper style={{ marginRight: "0px" }}>
+                <ShareIcon />
+                <div>공유</div>
+              </ButtonWrapper>
+            </>
+          )}
         </div>
       </div>
       <div
