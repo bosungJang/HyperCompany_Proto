@@ -57,6 +57,8 @@ import {
   EvaluationPlan,
   EvaluationPlanDetail,
   EvaluationPlanCreate,
+  RaterManagement,
+  GoalAndPerformance,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -138,9 +140,10 @@ const testArray = [
     title: "성과 및 평가",
     path: "/hr/EvaluationManagement",
     submenu: [
-      { title: "목표  및 성과 관리", path: "/hr/" },
-      { title: "평가 관리", path: "/hr/EvaluationManagement" },
+      { title: "목표  및 성과 관리", path: "/hr/GoalAndPerformance" },
       { title: "KPI 관리", path: "/hr/KPIManagement" },
+      { title: "평가 관리", path: "/hr/EvaluationManagement" },
+      { title: "평가자 관리", path: "/hr/RaterManagement" },
       { title: "평가 계획", path: "/hr/EvaluationPlan" },
     ],
   },
@@ -364,6 +367,14 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/EvaluationPlanCreate`}
         component={EvaluationPlanCreate}
+      />
+      <Route
+        path={`${props.match.url}/GoalAndPerformance`}
+        component={GoalAndPerformance}
+      />
+      <Route
+        path={`${props.match.url}/RaterManagement`}
+        component={RaterManagement}
       />
     </div>
   );

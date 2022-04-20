@@ -374,6 +374,18 @@ export const EvaluationPlanCreate = loadable(
     fallback: Loading,
   }
 );
+export const RaterManagement = loadable(
+  () => import("../components/HR/RaterManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const GoalAndPerformance = loadable(
+  () => import("../components/HR/GoalAndPerformance"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {
