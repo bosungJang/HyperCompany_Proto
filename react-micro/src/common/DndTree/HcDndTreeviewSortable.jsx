@@ -25,7 +25,15 @@ export default class Tree extends Component {
 
   render() {
     return (
-      <div style={{ width: "100%" }}>
+      <div
+        style={{
+          border: "1px solid #CECECE",
+          width: "312px",
+          minHeight: "832px",
+          borderRadius: "5px",
+          display: "inline-block",
+        }}
+      >
         <SortableTree
           treeData={this.state.treeData}
           onChange={(treeData) => this.setState({ treeData })}
@@ -48,13 +56,8 @@ export default class Tree extends Component {
               extendedNode.node.title === "item1" ? [<button>X</button>] : [],
               */
           })}
-          style={{
-            border: "1px solid #CECECE",
-            width: "312px",
-            minHeight: "832px",
-            borderRadius: "5px",
-            padding: "10px",
-          }}
+          style={{ margin: "10px" }}
+          //nodeContentRenderer={CustomNodeContentRenderer}
         />
       </div>
     );

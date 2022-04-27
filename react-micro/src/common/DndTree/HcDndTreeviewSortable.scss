@@ -9,4 +9,104 @@
 
 .rstcustom__node {
   line-height: 30px;
+  left: 7.5px;
+}
+.rstcustom__row {
+  //margin-left: 10px;
+}
+
+.rstcustom__expandButton {
+  appearance: none;
+  border: none;
+  background: #ededed;
+  padding: 0;
+  z-index: 2;
+  position: absolute;
+  top: 45%;
+  width: 20px;
+  height: 20px;
+  transform: translate3d(-50%, -50%, 0);
+  //left: 17.5px !important;
+  cursor: pointer;
+  border-radius: 3px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    transform-origin: 7px 4px;
+    transform: translate3d(-50%, -20%, 0);
+    border: solid transparent 10px;
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-color: #c4c4c4;
+  }
+
+  &:hover::after {
+    border-top-color: #c4c4c4;
+  }
+
+  &:hover ~ .rstcustom__rowWrapper .rstcustom__rowLabel > span > div {
+    color: #257cff !important;
+  }
+
+  &:focus {
+    outline: none;
+
+    &::after {
+      filter: drop-shadow(0 0 1px #83bef9) drop-shadow(0 0 1px #83bef9)
+        drop-shadow(0 0 1px #83bef9);
+    }
+  }
+}
+
+.rstcustom__expandButton::after {
+  transform: translate3d(-50%, -20%, 0) rotateZ(-90deg);
+}
+
+.rstcustom__collapseButton {
+  appearance: none;
+  border: none;
+  border-radius: 3px;
+  background: #cee2ff;
+  padding: 0;
+  z-index: 2;
+  position: absolute;
+  top: 45%;
+  width: 20px;
+  height: 20px;
+  transform: translate3d(-50%, -50%, 0);
+  //left: 17.5px !important;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    transform-origin: 7px 4px;
+    transform: translate3d(-50%, -20%, 0);
+    border: solid transparent 10px;
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-color: #257cff;
+  }
+
+  &:hover::after {
+    border-top-color: #257cff;
+  }
+
+  ~ .rstcustom__rowWrapper {
+    background-color: #eff5ff;
+    .rstcustom__rowLabel > span > div {
+      font-weight: 700 !important;
+      font-size: 14px !important;
+    }
+  }
+
+  &:focus {
+    outline: none;
+
+    &::after {
+      filter: drop-shadow(0 0 1px #83bef9) drop-shadow(0 0 1px #83bef9)
+        drop-shadow(0 0 1px #83bef9);
+    }
+  }
 }

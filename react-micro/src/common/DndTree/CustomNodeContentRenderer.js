@@ -213,6 +213,7 @@ FileThemeNodeContentRenderer.defaultProps = {
 };
 
 FileThemeNodeContentRenderer.propTypes = {
+  /*
   buttons: PropTypes.arrayOf(PropTypes.node),
   canDrag: PropTypes.bool,
   className: PropTypes.string,
@@ -236,6 +237,7 @@ FileThemeNodeContentRenderer.propTypes = {
   treeId: PropTypes.string.isRequired,
   rowDirection: PropTypes.string.isRequired,
   rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  */
 
   // Drag and drop API functions
   // Drag source

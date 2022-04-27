@@ -4055,6 +4055,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, can
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001292.tgz"
   integrity sha512-jnT4Tq0Q4ma+6nncYQVe7d73kmDmE9C3OGTx3MvW7lBM/eY1S1DZTMBON7dqV481RhNiS5OxD7k9JQvmDOTirw==
 
+canvas-to-image@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/canvas-to-image/-/canvas-to-image-2.0.0.tgz#ecd21535c775d8752f1802c8791155364c5cd629"
+  integrity sha1-7NIVNcd12HUvGALIeRFVNkxc1ik=
+
 capture-exit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/capture-exit/-/capture-exit-2.0.0.tgz"
@@ -10571,7 +10576,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.5.9, prop-types@^15.8.1:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -11128,6 +11133,13 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-avatar-editor@11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.0.4.tgz#a32e2e10f1edc8480b1b852f3ab287c7b56c7ced"
+  integrity sha1-oy4uEPHtyEgLG4UvOrKHx7VsfO0=
+  dependencies:
+    prop-types "^15.5.8"
+
 react-balkangraph-orgchart@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/react-balkangraph-orgchart/-/react-balkangraph-orgchart-1.0.1.tgz"
@@ -11385,6 +11397,11 @@ react-icons@^4.3.1:
   version "4.3.1"
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.3.1.tgz"
   integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
+
+react-image-crop@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-4.0.1.tgz#8a9c441dfe9c3af9dd988528dade340d7aa65a06"
+  integrity sha512-PQhS8+Zg/Z3xAEpVWXhsooysCemRymbsWfZdeeFixmdZYt67NQfUsC0EuPf39jSM4oDeC3zCJyS7gJDCMppBAA==
 
 react-is@^16.10.2, react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, "react-is@^16.8.0 || ^17.0.0", react-is@^16.8.1:
   version "16.13.1"
