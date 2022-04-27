@@ -59,6 +59,8 @@ import {
   EvaluationPlanCreate,
   RaterManagement,
   GoalAndPerformance,
+  GoalAndPerformanceDetail,
+  GoalAndPerformanceCreate,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -375,6 +377,14 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/RaterManagement`}
         component={RaterManagement}
+      />
+      <Route
+        path={`${props.match.url}/GoalAndPerformanceDetail`}
+        component={GoalAndPerformanceDetail}
+      />
+      <Route
+        path={`${props.match.url}/GoalAndPerformanceCreate`}
+        component={GoalAndPerformanceCreate}
       />
     </div>
   );

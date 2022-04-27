@@ -49,6 +49,43 @@ export const TextField = styled.input<{ disabled?: boolean }>`
   }
 `;
 
+const TextArea = styled.textarea<{ disabled?: boolean }>`
+  background: ${(props) => (props.disabled ? "#EDEDED" : "#ffffff")};
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 400px;
+  height: 40px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all 150ms;
+  autocomplete: off;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  //text-transform: uppercase;
+  color: ${(props) => (props.disabled ? "#C0C0C0" : "#3c3c3c")};
+  padding-left: 11px;
+
+  &:focus-visible {
+    outline: 1px solid #257cff;
+  }
+  &:hover {
+    box-shadow: ${(props) => (props.disabled ? null : "0 0 5px #257cff")};
+  }
+
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: #b5b5b5;
+  }
+  :-ms-input-placeholder {
+    color: #b5b5b5;
+  }
+`;
+
 export const Title = styled.div<{ required?: boolean }>`
   min-width: 33px;
   height: 21px;
@@ -103,8 +140,22 @@ interface TextFieldIProps {
   onKeyDown?: (e: any) => void;
   required?: boolean;
   onChange?: (e: any) => void;
+  placeholder?: string;
 }
-
+interface TextAreaIProps {
+  disabled?: boolean;
+  style?: CSSProperties;
+  value?: string | number;
+  maxlength?: string;
+  id?: string;
+  name?: string;
+  type?: any;
+  onKeyDown?: (e: any) => void;
+  required?: boolean;
+  onChange?: (e: any) => void;
+  placeholder?: string;
+  row: number;
+}
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   return (
     <Wrapper>
@@ -114,6 +165,15 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
       <TextField {...props} autoComplete="off">
         {props.children}
       </TextField>
+    </Wrapper>
+  );
+};
+export const HcTextArea: React.FC<TextAreaIProps> = ({ ...props }) => {
+  return (
+    <Wrapper>
+      <TextArea {...props} autoComplete="off">
+        {props.children}
+      </TextArea>
     </Wrapper>
   );
 };

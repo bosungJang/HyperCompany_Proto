@@ -386,6 +386,18 @@ export const GoalAndPerformance = loadable(
     fallback: Loading,
   }
 );
+export const GoalAndPerformanceDetail = loadable(
+  () => import("../components/HR/GoalAndPerformanceDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const GoalAndPerformanceCreate = loadable(
+  () => import("../components/HR/GoalAndPerformanceCreate"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {
