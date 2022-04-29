@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
+import "common/Table.css";
 
 const TableContainer = styled.div`
   font-family: sans-serif;
@@ -112,3 +113,50 @@ const HcDropDownTable = () => {
 };
 
 export default HcDropDownTable;
+
+export const HcDropDownTableAnother = () => {
+  const [expandedRows, setExpandedRows] = useState<number | null>(null);
+
+  const handleExpandRow = (userId: number) => {
+    let currentExpandedRows = null;
+    const isRowExpanded = currentExpandedRows === userId ? userId : null;
+    const newExpandedRows = isRowExpanded
+      ? null
+      : (currentExpandedRows = userId);
+    if (expandedRows !== userId) {
+      setExpandedRows(newExpandedRows);
+    } else {
+      setExpandedRows(null);
+    }
+  };
+
+  return (
+    <table className="table table-hover">
+      <thead>
+        <tr>
+          <th>S.no</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      {data.map((item: any, index: number) => (
+        <tbody>
+          <tr key={index} onClick={() => handleExpandRow(index)}>
+            <td>{index + 1}</td>
+            <td>{item.company}</td>
+            <td>{item.contact}</td>
+            <td>{item.country}</td>
+          </tr>
+          {expandedRows === index ? (
+            <tr>
+              <td colSpan={4} className="collaps-viewer">
+                <div className="no-data"> No activity found! </div>
+              </td>
+            </tr>
+          ) : null}
+        </tbody>
+      ))}
+    </table>
+  );
+};

@@ -561,4 +561,8 @@ export const CustomerPage = loadable(
     fallback: Loading,
   }
 );
+
+export const LeadPage = loadable(() => import("../components/CRM/Lead"), {
+  fallback: Loading,
+});
 /*CRM END*/

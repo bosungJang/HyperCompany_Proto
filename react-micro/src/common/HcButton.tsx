@@ -237,4 +237,83 @@ const HcButton = (props: HcButtonProps) => {
   );
 };
 
+const HcDropDownMenu = styled("ul")`
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  //display: none;
+  width: 188px;
+  background: #ffffff;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-top: 7px;
+  margin-left: -20px;
+`;
+
+const HcDropDownItem = styled("li")`
+  padding: 11px;
+  color: #3c3c3c;
+  font-family: Noto Sans CJK KR;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  height: 42px;
+  line-height: 21px;
+
+  &:hover {
+    background: #eff5ff;
+  }
+`;
+
+const HcDropDownWrapper = styled("div")<{ open: boolean }>`
+  border-radius: 4px;
+  background: #2d2d31;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: unset;
+  min-width: 66px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 9px 20px;
+  display: inline-block;
+  ${HcDropDownMenu} {
+    display: ${(props) => (props.open == true ? "block" : "none")};
+  }
+`;
+
+interface HcDropDownButtonProps {
+  title: string;
+  dropDownMenu: any;
+}
+
+export const HcDropDownButton = (props: HcDropDownButtonProps) => {
+  const el = React.useRef<any>();
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <HcDropDownWrapper
+        onClick={() => {
+          setOpen(!open);
+        }}
+        open={open}
+        ref={el}
+      >
+        {props.title}
+        <HcDropDownMenu>
+          {props.dropDownMenu.map((item: any) => (
+            <HcDropDownItem onClick={item.onClick}>{item.title}</HcDropDownItem>
+          ))}
+        </HcDropDownMenu>
+      </HcDropDownWrapper>
+    </>
+  );
+};
+
 export default HcButton;
