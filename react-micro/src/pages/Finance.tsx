@@ -24,6 +24,9 @@ import {
   CashDisbursementVoucherPage,
   BillManagementPage,
   FundsPlanningPage,
+  BudgetAllocationPage,
+  BudgetApplicationPage,
+  BudgetRevisionPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -166,6 +169,52 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "Finance/Budget_Management",
+    title: "예산 관리",
+    path: "/fi/budgetManagement/budgetAllocation",
+    submenu: [
+      {
+        title: "예산 배정",
+        path: "/fi/budgetManagement/budgetAllocation",
+      },
+      {
+        title: "예산 신청",
+        path: "/fi/budgetManagement/budgetApplication",
+      },
+      {
+        title: "예산 변경",
+        path: "/fi/budgetManagement/budgetRevision",
+      },
+      {
+        title: "예실대비현황",
+        path: "/fi/budgetManagement/executiveBudgetComparison",
+      },
+    ],
+  },
+  {
+    icon: "Finance/Tax_Management",
+    title: "세무 관리",
+    path: "/fi/taxManagement/budgetAllocation",
+    submenu: [
+      {
+        title: "전자 세금 계산서",
+        path: "/fi/taxManagement/digitalTaxInvoice",
+      },
+      {
+        title: "세금계산서 합계표",
+        path: "/fi/taxManagement/sumTaxIInvoices",
+      },
+      {
+        title: "부가세 신고 문서 서식관리",
+        path: "/fi/taxManagement/VATReportingManagement",
+      },
+      {
+        title: "인증서 등록",
+        path: "/fi/taxManagement/certificateRegistration",
+      },
+    ],
+  },
 ];
 
 const Finance = React.forwardRef((props: FinanceProps, ref) => {
@@ -268,6 +317,18 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/fundManagement/billManagement`}
         component={BillManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/budgetManagement/budgetAllocation`}
+        component={BudgetAllocationPage}
+      />
+      <Route
+        path={`${props.match.url}/budgetManagement/budgetApplication`}
+        component={BudgetApplicationPage}
+      />
+      <Route
+        path={`${props.match.url}/budgetManagement/budgetRevision`}
+        component={BudgetRevisionPage}
       />
     </div>
   );

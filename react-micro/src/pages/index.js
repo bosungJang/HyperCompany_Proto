@@ -542,8 +542,29 @@ export const BillManagementPage = loadable(
   }
 );
 
+export const BudgetAllocationPage = loadable(
+  () => import("../components/Fi/BudgetAllocation"),
+  {
+    fallback: Loading,
+  }
+);
+
 export const FundsPlanningPage = loadable(
   () => import("../components/Fi/FundsPlanning"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BudgetApplicationPage = loadable(
+  () => import("../components/Fi/BudgetApplication"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BudgetRevisionPage = loadable(
+  () => import("../components/Fi/BudgetRevision"),
   {
     fallback: Loading,
   }
