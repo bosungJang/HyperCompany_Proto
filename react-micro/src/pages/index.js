@@ -570,6 +570,13 @@ export const BudgetRevisionPage = loadable(
   }
 );
 
+export const ExecutiveBudgetComparisonPage = loadable(
+  () => import("../components/Fi/ExecutiveBudgetComparison"),
+  {
+    fallback: Loading,
+  }
+);
+
 /*Fi END*/
 
 /*CRM Start*/
