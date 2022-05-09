@@ -577,6 +577,19 @@ export const ExecutiveBudgetComparisonPage = loadable(
   }
 );
 
+export const DigitalTaxInvoicePage = loadable(
+  () => import("../components/Fi/DigitalTaxInvoice"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const SumTaxIInvoicesPage = loadable(
+  () => import("../components/Fi/SumTaxIInvoices"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
