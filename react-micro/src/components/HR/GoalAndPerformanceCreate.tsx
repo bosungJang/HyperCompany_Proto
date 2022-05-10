@@ -1,11 +1,11 @@
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import HcTextField, {
   HcTitleTextField,
-  HcSearchTextField,
   HcSelect,
   Title,
+  SubHeading,
 } from "common/HcTextField";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ProgressBar from "common/HcProgressBar";
 import HcButton from "common/HcButton";
 import { HcTable, HcTableContainer, NullTbody } from "common/HcTableComponent";
@@ -13,86 +13,24 @@ import styled from "styled-components";
 import InfoIconTooltip from "common/HcTooltip";
 import { HcDateRangePicker } from "common/HcDatePicker";
 import HcBottomBar from "common/HcBottomBar";
-
-const Settings = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: 2px;
-  padding: 5.5px 10.5px;
-  position: absolute;
-  //   top: 22px;
-  right: 0px;
-  &:hover {
-    background-color: #cecece;
-  }
-  &:active {
-    background-color: #cecece;
-  }
-`;
-
-const Option = ({ children, message }: any) => {
-  const Menucontainer = styled.div`
-    position: absolute;
-    width: fit-content;
-    height: fit-content;
-    top: 18px;
-    right: 14px;
-    &:hover > .tooltip,
-    &:active > .tooltip {
-      display: block;
-      position: absolute;
-    }
-    overflow: visible;
-  `;
-
-  const Content = styled.div`
-    display: none;
-    position: absolute;
-    z-index: 200;
-    width: fit-content;
-    height: fit-content;
-    background: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  `;
-  const Items = styled.li`
-    height: 42px;
-    width: 170px;
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    padding-top: 11px;
-    color: #3c3c3c;
-    &:hover {
-      text-decoration: underline;
-    }
-  `;
-  return (
-    <Menucontainer>
-      {children}
-      <Content className="tooltip">
-        <ul style={{ padding: "0px 0px 0px 12px", margin: 0 }}>
-          <Items onClick={() => {}}>기본 설정 활성화</Items>
-          <Items>수정</Items>
-          <Items>삭제</Items>
-        </ul>
-      </Content>
-    </Menucontainer>
-  );
-};
-const Img = styled.div`
-  width: 50px;
-  height: 50px;
-  left: 20px;
-  top: 20px;
-  position: absolute;
+import HcSideBar from "common/HcSideBar";
+import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+const Item = styled.div`
   border: 1px solid #cecece;
-  border-radius: 50%;
-
-  background: url(smiling-asian-man-sitting-desk-front-laptop-office-looking-camera-face.jpg);
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 15px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 10px;
+  display: flex;
 `;
+const KPIs = Array(100)
+  .fill(undefined)
+  .map(() => "경영성과 적시 보고");
 
 export default function GoalAndPerformanceCreate() {
   const [info, openInfo] = useState(true);
@@ -102,6 +40,21 @@ export default function GoalAndPerformanceCreate() {
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
+  /*side bar */
+  const [sideBar, setSideBar] = useState(false);
+  const modalEl: any = useRef();
+  const handleClickOutside = ({ target }: any) => {
+    if (sideBar && !modalEl.current.contains(target)) setSideBar(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  /*side bar*/
   return (
     <>
       <ComponentWrapper
@@ -167,6 +120,9 @@ export default function GoalAndPerformanceCreate() {
                     marginLeft: 10,
                     height: 36,
                     padding: "7px 18px 6px",
+                  }}
+                  onClick={() => {
+                    setSideBar(true);
                   }}
                 >
                   선택
@@ -304,6 +260,68 @@ export default function GoalAndPerformanceCreate() {
           </HcButton>
         </div>
       </HcBottomBar>
+      <HcSideBar open={sideBar} ref={modalEl}>
+        <SubHeading titleName="KPI 선택" />
+        <div style={{ display: "flex", marginBottom: 20 }}>
+          {" "}
+          <HcSelect
+            titleName=""
+            style={{ width: 190, height: 36, marginRight: 294 }}
+          >
+            <option>KPI그룹 선택</option>
+          </HcSelect>
+          <svg
+            width="20"
+            height="19"
+            viewBox="0 0 20 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ marginTop: 35 }}
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.45 3.49741C14.715 5.76245 14.715 9.43481 12.45 11.6999C10.185 13.9649 6.51261 13.9649 4.24757 11.6999C1.98253 9.43481 1.98253 5.76245 4.24757 3.49741C6.51261 1.23237 10.185 1.23237 12.45 3.49741ZM14.235 12.2477C16.5661 9.30381 16.3718 5.01503 13.6521 2.29533C10.7232 -0.6336 5.97442 -0.6336 3.04549 2.29533C0.116556 5.22426 0.116556 9.973 3.04549 12.9019C5.67321 15.5297 9.76569 15.7999 12.6947 13.7126L17.3199 18.3379C17.7349 18.7528 18.4076 18.7528 18.8225 18.3379C19.2375 17.9229 19.2375 17.2502 18.8225 16.8353L14.235 12.2477Z"
+              fill="#5D5D62"
+            />
+          </svg>
+        </div>
+        <div style={{ width: 514, height: 614, overflowY: "auto" }}>
+          {KPIs.map((KPI) => (
+            <Item>
+              {KPI}
+              <div
+                className="radioButton"
+                style={{ marginLeft: 330, marginTop: -2, cursor: "pointer" }}
+              >
+                <HcRadioGroup
+                  defaultValue="true"
+                  onChange={(value) => console.log("value: ", value)}
+                >
+                  <HcRadioButton value="false" />
+                </HcRadioGroup>
+              </div>
+            </Item>
+          ))}
+        </div>
+        <div style={{ display: "flex", marginTop: 30, marginLeft: 364 }}>
+          <HcButton
+            size="medium"
+            styles="secondary"
+            onClick={() => setSideBar(false)}
+            style={{ marginRight: 10 }}
+          >
+            선택
+          </HcButton>
+          <HcButton
+            size="medium"
+            styles="line"
+            onClick={() => setSideBar(false)}
+          >
+            취소
+          </HcButton>
+        </div>
+      </HcSideBar>
     </>
   );
 }

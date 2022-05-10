@@ -472,7 +472,7 @@ export default function GoalAndPerformanceDetail() {
           <div style={{ position: "relative", marginBottom: 20 }}>
             <HcTextArea
               row={3}
-              style={{ width: 1240, height: 108, resize: "none" }}
+              style={{ width: 1240, height: 108 }}
               placeholder="목표 및 진행 상황에 대한 피드백 입력"
             />
             <HcButton

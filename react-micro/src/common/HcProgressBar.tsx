@@ -10,7 +10,7 @@ const StyledFiller = styled.div`
   background: linear-gradient(270deg, #005dea -8.23%, #5799fb 96.59%);
   height: 100%;
   border-radius: inherit;
-  transition: width 200ms;
+  transition: 0.5s;
 `;
 
 const Filler = (props: any) => {

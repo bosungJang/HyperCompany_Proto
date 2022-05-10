@@ -61,6 +61,12 @@ import {
   GoalAndPerformance,
   GoalAndPerformanceDetail,
   GoalAndPerformanceCreate,
+  EvaluationEnvironment,
+  EvaluationStepDetail,
+  EvaluationStepCreate,
+  EtcEvaluationDetail,
+  EtcEvaluationCreate,
+  Evaluation,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -147,6 +153,7 @@ const testArray = [
       { title: "평가 관리", path: "/hr/EvaluationManagement" },
       { title: "평가자 관리", path: "/hr/RaterManagement" },
       { title: "평가 계획", path: "/hr/EvaluationPlan" },
+      { title: "평가 환경 설정", path: "/hr/EvaluationEnvironment" },
     ],
   },
 ];
@@ -386,6 +393,27 @@ const HumanResourgcePage = (props: HRProps) => {
         path={`${props.match.url}/GoalAndPerformanceCreate`}
         component={GoalAndPerformanceCreate}
       />
+      <Route
+        path={`${props.match.url}/EvaluationEnvironment`}
+        component={EvaluationEnvironment}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationStepDetail`}
+        component={EvaluationStepDetail}
+      />
+      <Route
+        path={`${props.match.url}/EvaluationStepCreate`}
+        component={EvaluationStepCreate}
+      />
+      <Route
+        path={`${props.match.url}/EtcEvaluationDetail`}
+        component={EtcEvaluationDetail}
+      />
+      <Route
+        path={`${props.match.url}/EtcEvaluationCreate`}
+        component={EtcEvaluationCreate}
+      />
+      <Route path={`${props.match.url}/Evaluation`} component={Evaluation} />
     </div>
   );
 };

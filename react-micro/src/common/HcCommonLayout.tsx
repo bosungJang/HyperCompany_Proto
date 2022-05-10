@@ -69,7 +69,7 @@ export const Container = (props?: any) => {
   const styles = {
     cnt: {
       width: width,
-      height:
+      minHeight:
         arrow === false
           ? maxHeight
           : state === true

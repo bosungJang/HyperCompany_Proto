@@ -61,12 +61,11 @@ const TextArea = styled.textarea<{ disabled?: boolean }>`
   overflow: hidden;
   transition: all 150ms;
   autocomplete: off;
-
+  resize: none;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  //text-transform: uppercase;
   color: ${(props) => (props.disabled ? "#C0C0C0" : "#3c3c3c")};
   padding-left: 11px;
 
@@ -289,7 +288,7 @@ export const StyledSelect = styled.select`
 `;
 
 interface SelectIProps {
-  titleName: string;
+  titleName?: string;
   disabled?: boolean;
   style?: CSSProperties;
   value?: string | number;
@@ -297,10 +296,15 @@ interface SelectIProps {
   onChange?: (e: any) => void;
   name?: string;
 }
-export const HcSelect: React.FC<SelectIProps> = ({ titleName, ...props }) => {
+export const HcSelect: React.FC<SelectIProps> = ({ ...props }) => {
   return (
     <Wrapper>
-      <Title required={props.required}>{titleName}</Title>
+      <Title
+        required={props.required}
+        style={{ display: props.titleName ? "" : "none" }}
+      >
+        {props.titleName}
+      </Title>
       <StyledSelect {...props} style={props.style}>
         {props.children}
       </StyledSelect>

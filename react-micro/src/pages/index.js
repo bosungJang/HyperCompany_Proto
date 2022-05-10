@@ -398,6 +398,42 @@ export const GoalAndPerformanceCreate = loadable(
     fallback: Loading,
   }
 );
+export const EvaluationEnvironment = loadable(
+  () => import("../components/HR/EvaluationEnvironment"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationStepDetail = loadable(
+  () => import("../components/HR/EvaluationStepDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const EvaluationStepCreate = loadable(
+  () => import("../components/HR/EvaluationStepCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const EtcEvaluationDetail = loadable(
+  () => import("../components/HR/EtcEvaluationDetail"),
+  {
+    fallback: Loading,
+  }
+);
+export const EtcEvaluationCreate = loadable(
+  () => import("../components/HR/EtcEvaluationCreate"),
+  {
+    fallback: Loading,
+  }
+);
+export const Evaluation = loadable(
+  () => import("../components/HR/Evaluation"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

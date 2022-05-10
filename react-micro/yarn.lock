@@ -4055,10 +4055,10 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, can
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001292.tgz"
   integrity sha512-jnT4Tq0Q4ma+6nncYQVe7d73kmDmE9C3OGTx3MvW7lBM/eY1S1DZTMBON7dqV481RhNiS5OxD7k9JQvmDOTirw==
 
-canvas-to-image@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/canvas-to-image/-/canvas-to-image-2.0.0.tgz#ecd21535c775d8752f1802c8791155364c5cd629"
-  integrity sha1-7NIVNcd12HUvGALIeRFVNkxc1ik=
+canvas-to-image@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/canvas-to-image/-/canvas-to-image-2.2.0.tgz#6499ef16f058aaaa9d7eaf66344b1b19a73078ad"
+  integrity sha512-B75aD8NNrbRpt7YbqNRBdhpVBnmo9sDpIoZHKtxecmRUS+gqg374dDwvPiowZ1qTk3aDz2rsTPBugClyiDx8+w==
 
 capture-exit@^2.0.0:
   version "2.0.0"

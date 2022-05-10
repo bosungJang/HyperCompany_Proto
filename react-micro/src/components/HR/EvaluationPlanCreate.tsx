@@ -1,4 +1,4 @@
-import tag from "antd/lib/tag";
+
 import HcCheckBox from "common/HcCheckBox";
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import { CalendarIcon } from "common/HcDatePicker";
@@ -300,7 +300,6 @@ export default function EvaluationPlanCreate() {
           state={openSteps}
           setState={setSteps}
           style={{
-            overflow: "visible",
             zIndex: 1,
           }}
         >

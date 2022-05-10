@@ -66,7 +66,8 @@ const SideBar = styled.div`
   bottom: 0px;
   background-color: white;
   transition: 0.5s;
-  padding: 20px 30px 20px 24px;
+  padding: 30px 30px 20px 30px;
+  z-index: 500;
 `;
 const HRCard = styled.div`
   height: 54px;
