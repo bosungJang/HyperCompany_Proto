@@ -626,6 +626,13 @@ export const SumTaxIInvoicesPage = loadable(
     fallback: Loading,
   }
 );
+
+export const VATReportingManagementPage = loadable(
+  () => import("../components/Fi/VATReportingManagement"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/

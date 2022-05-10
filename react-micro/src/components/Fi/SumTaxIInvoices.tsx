@@ -294,6 +294,53 @@ const SumTaxIInvoices = () => {
                                   </svg>
                                 </button>
                               </div>
+                              <TableContainer>
+                                <table className="table table-hover">
+                                  <thead
+                                    style={{
+                                      display: "table",
+                                      width: "100%",
+                                      tableLayout: "fixed",
+                                    }}
+                                  >
+                                    <tr>
+                                      <th> </th>
+                                      <th>{"거래처명"}</th>
+                                      <th>{"등록번호"}</th>
+                                      <th>{"매수"}</th>
+                                      {/*
+                                    <th>{"공급가액"}</th>
+                                    <th>{"부가세액"}</th>
+                                    <th>{"합계금액"}</th>
+                                    <th>{"대표자명"}</th>
+                                     */}
+                                    </tr>
+                                  </thead>
+                                  <tbody
+                                    style={{
+                                      display: "block",
+                                      height: 598,
+                                      overflow: "auto",
+                                    }}
+                                  >
+                                    <tr
+                                      style={{
+                                        display: "table",
+                                        width: "100%",
+                                        tableLayout: "fixed",
+                                      }}
+                                    >
+                                      <td>{2}</td>
+                                      <td>{"백두상사"}</td>
+                                      <td>{"123-45-67890"}</td>
+                                      <td>{3}</td>
+                                    </tr>
+                                    <tr>
+                                      <td></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </TableContainer>
                             </div>
                           </div>
                         </>
