@@ -5,9 +5,9 @@ import HcTextField, {
   HcSearchTextField,
   HcTitleTextField,
 } from "common/HcTextField";
-import { ReactComponent as AddIcon } from "resources/images/Icon_Add.svg";
+import { ReactComponent as AddIcon } from "resources/images/Add_Icon_Blue.svg";
 
-const ContentWrapper = styled.div<{ keys: boolean }>`
+const ContentWrapper = styled.div<{ keys: boolean; add: boolean }>`
   width: 312px;
   height: 180px;
   border: 1px solid #cecece;
@@ -16,6 +16,15 @@ const ContentWrapper = styled.div<{ keys: boolean }>`
   margin-bottom: 24px;
   padding: 16px;
   margin-left: ${(props) => (props.keys === false ? `24px` : `0px`)};
+  transition: all 0.5s ease;
+  overflow: auto;
+  ${(props) =>
+    props.add === true
+      ? `&:hover{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      transition: all 0.5s ease;
+  }`
+      : ``}
 `;
 
 const VATReportingManagement = () => {
@@ -34,7 +43,7 @@ const VATReportingManagement = () => {
     <>
       <div style={{ width: "100%" }}>
         <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
-          <div style={{ display: "block", width: "inherit" }}>
+          <div style={{ display: "block", width: "100%" }}>
             <HcTitleTextField
               titleName="부가세 신고문서 서식 관리"
               isBackIcon={false}
@@ -47,15 +56,33 @@ const VATReportingManagement = () => {
                     <ContentWrapper
                       keys={key % 4 === 0 ? true : false}
                       onClick={onClickNew}
+                      add={true}
+                      style={{
+                        overflow: "hidden",
+                        textAlign: "center",
+                      }}
                     >
                       <div>
                         <AddIcon />
+                        <div
+                          style={{
+                            marginTop: "14px",
+                            color: "#5D5D62",
+                            fontSize: "14px",
+                            fontWeight: 500,
+                          }}
+                        >
+                          새 양식 생성
+                        </div>
                       </div>
                     </ContentWrapper>
                   ) : (
                     <></>
                   )}
-                  <ContentWrapper keys={(key + 1) % 4 === 0 ? true : false}>
+                  <ContentWrapper
+                    keys={(key + 1) % 4 === 0 ? true : false}
+                    add={false}
+                  >
                     <div>
                       <div
                         style={{
