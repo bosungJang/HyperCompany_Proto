@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
+
 import canvasToImage from "canvas-to-image";
 import AvatarEditor from "react-avatar-editor";
 import Cropper from "./Cropper";
-import { renderToStaticMarkup } from "react-dom/server";
 
-import "./ImageEditor.scss";
+import "./ImageEditor.css";
 
 class ImageEditor extends Component {
   constructor(props) {

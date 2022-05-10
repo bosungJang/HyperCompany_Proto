@@ -319,6 +319,7 @@ const Home = (props: HomeProps) => {
                   alert("SUCCESS");
                 }
               }}
+              placeholder="test"
               required
             />
           </div>

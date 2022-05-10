@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
-import { CRMHome, CustomerPage } from "pages";
+import { CRMHome, CustomerPage, LeadPage } from "pages";
 
 interface CustomerProps {
   match: any;
@@ -9,7 +9,7 @@ interface CustomerProps {
 }
 
 const LNBArray = [
-  { icon: "Home_Icon", title: "고객 관리 홈", path: "/crm" },
+  { icon: "Home_Icon", title: "고객", path: "/crm" },
   {
     icon: "HR/Personnel_Management_Icon",
     title: "고객",
@@ -17,8 +17,13 @@ const LNBArray = [
   },
   {
     icon: "HR/Personnel_Management_Icon",
-    title: "로열티 등급 관리",
-    path: "/crm/royaltyManagement",
+    title: "리드",
+    path: "/crm/lead",
+  },
+  {
+    icon: "HR/Personnel_Management_Icon",
+    title: "고객 등급 관리",
+    path: "/crm/customerClassManagement",
   },
 ];
 
@@ -32,6 +37,11 @@ const CustomerCare = (props: CustomerProps) => {
       <Route exact path={props.match.url} component={CRMHome} />
       <Route
         path={`${props.match.url}/customerPage`}
+        component={CustomerPage}
+      />
+      <Route path={`${props.match.url}/lead`} component={LeadPage} />
+      <Route
+        path={`${props.match.url}/customerClassManagement`}
         component={CustomerPage}
       />
     </div>

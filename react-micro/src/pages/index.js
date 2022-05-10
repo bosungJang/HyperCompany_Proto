@@ -578,6 +578,13 @@ export const BillManagementPage = loadable(
   }
 );
 
+export const BudgetAllocationPage = loadable(
+  () => import("../components/Fi/BudgetAllocation"),
+  {
+    fallback: Loading,
+  }
+);
+
 export const FundsPlanningPage = loadable(
   () => import("../components/Fi/FundsPlanning"),
   {
@@ -585,6 +592,40 @@ export const FundsPlanningPage = loadable(
   }
 );
 
+export const BudgetApplicationPage = loadable(
+  () => import("../components/Fi/BudgetApplication"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const BudgetRevisionPage = loadable(
+  () => import("../components/Fi/BudgetRevision"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const ExecutiveBudgetComparisonPage = loadable(
+  () => import("../components/Fi/ExecutiveBudgetComparison"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const DigitalTaxInvoicePage = loadable(
+  () => import("../components/Fi/DigitalTaxInvoice"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const SumTaxIInvoicesPage = loadable(
+  () => import("../components/Fi/SumTaxIInvoices"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
@@ -597,4 +638,8 @@ export const CustomerPage = loadable(
     fallback: Loading,
   }
 );
+
+export const LeadPage = loadable(() => import("../components/CRM/Lead"), {
+  fallback: Loading,
+});
 /*CRM END*/
