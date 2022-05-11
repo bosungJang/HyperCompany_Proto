@@ -633,6 +633,13 @@ export const VATReportingManagementPage = loadable(
     fallback: Loading,
   }
 );
+
+export const CertificateRegistrationPage = loadable(
+  () => import("../components/Fi/CertificateRegistration"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/

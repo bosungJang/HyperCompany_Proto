@@ -60,6 +60,7 @@ const columns = [
 const DropDownIconWrapper = styled.div<{ menuOpen?: boolean }>`
   float: right;
   cursor: pointer;
+  position: relative;
 
   &:hover {
     svg {
