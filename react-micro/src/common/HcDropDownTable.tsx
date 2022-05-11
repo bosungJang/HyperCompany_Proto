@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
-import "common/Table.css";
-
+// import "common/Table.css";
+import { HcTable, HcTableContainer } from "common/HcTableComponent";
 const TableContainer = styled.div`
   font-family: sans-serif;
   text-align: center;
@@ -71,8 +71,8 @@ const HcDropDownTable = () => {
   };
 
   return (
-    <TableContainer>
-      <StyledTable>
+    <HcTableContainer>
+      <HcTable>
         <thead>
           <tr>
             <th>Company</th>
@@ -107,8 +107,8 @@ const HcDropDownTable = () => {
             </Fragment>
           ))}
         </tbody>
-      </StyledTable>
-    </TableContainer>
+      </HcTable>
+    </HcTableContainer>
   );
 };
 

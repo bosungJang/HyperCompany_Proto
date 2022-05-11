@@ -9,132 +9,54 @@ import { HcTitleTextField } from "common/HcTextField";
 import { HcTable, HcTableContainer } from "common/HcTableComponent";
 import HcButton from "common/HcButton";
 import { HcTabsAdv } from "common/HcTabs";
+import styled, { keyframes } from "styled-components";
 
-let num = 100000;
-const getId = () => {
-  num = num + 1;
-  return num;
-};
-
-const data2 = Array(17)
-  .fill(undefined)
-  .map(() => ({
-    id: getId(),
-    name: "회계",
-    group: "경영지원",
-    comment: "재무나 회계에 대한 업무를 하는 직무입니다.",
-    type: "연봉제",
-    grade: "1등급",
-    ability: ["협상능력", "설득능력", "대인관계력", "어학능력", "분석력"],
-    date: "2021.01.01",
-    action: <TableActionBtn />,
-  }));
-const data = [
-  {
-    subject: "자산",
-    currentAmount: "",
-    priorAmount: "",
-    total: "",
-    subMenu: [
-      {
-        subject: "1. 유동자산",
-        currentAmount: "",
-        priorAmount: "",
-        total: "350,000,000",
-        subMenu: [
-          {
-            subject: "제품 매출",
-            currentAmount: "",
-            priorAmount: "350,000,000",
-            total: "350,000,000",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    subject: "Ⅱ.매출원가",
-    currentAmount: "",
-    priorAmount: "",
-    total: "57,500,000",
-    subMenu: [
-      {
-        subject: "제품매출원가",
-        currentAmount: "",
-        priorAmount: "",
-        total: "57,500,000",
-        subMenu: [
-          {
-            subject: "기초제품재고액",
-            currentAmount: "11,200,000",
-            priorAmount: "10,000,000",
-            total: "",
-          },
-          {
-            subject: "당기제품제조원가",
-            currentAmount: "",
-            priorAmount: "58,700,000",
-            total: "",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    subject: "Ⅲ.매출총이익",
-    currentAmount: "",
-    priorAmount: "",
-    total: "292,500,000",
-  },
-  {
-    subject: "Ⅳ.판매비와 관리비",
-    currentAmount: "",
-    priorAmount: "",
-    total: "197,912,000",
-    subMenu: [
-      {
-        subject: "급여",
-        currentAmount: "",
-        priorAmount: "10,000,000",
-        total: "",
-      },
-      {
-        subject: "복리후생비",
-        currentAmount: "",
-        priorAmount: "58,700,000",
-        total: "",
-      },
-      {
-        subject: "여비교통비",
-        currentAmount: "",
-        priorAmount: "10,000,000",
-        total: "",
-      },
-    ],
-  },
-];
-export function arrowBtn() {
-  return (
-    <div style={{ marginTop: 5 }}>
-      <svg
-        style={{ marginRight: 5 }}
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M6.74412 14.2447C7.06956 14.5702 7.59719 14.5702 7.92263 14.2447L12.6366 9.53078L12.6367 9.53068C12.9621 9.20525 12.9621 8.67761 12.6367 8.35217C12.6331 8.34856 12.6294 8.34499 12.6258 8.34146L7.92253 3.63822C7.5971 3.31279 7.06946 3.31279 6.74402 3.63822C6.41859 3.96366 6.41859 4.4913 6.74402 4.81673L10.8688 8.94153L6.74412 13.0662C6.41868 13.3917 6.41868 13.9193 6.74412 14.2447Z"
-          fill="black"
-        />
-      </svg>
-    </div>
-  );
+const boxFade = keyframes`
+from {
+  opacity: 0;
 }
+to {
+  opacity: 1;
+}
+`;
+const StyledTr = styled.tr`
+  opacity: 1;
+  animation: ${boxFade} 1s;
+`;
+
 const GoalAndPerformance = () => {
+  function arrowBtn(id: any) {
+    return (
+      <div
+        style={{ marginTop: 5 }}
+        onClick={(e: any) => {
+          e.stopPropagation();
+          setArrow(!arrow);
+          let prev = toggle;
+          if (prev[id] === true) prev[id] = false;
+          else prev[id] = true;
+          setToggle(prev);
+          console.log("toggle" + toggle);
+        }}
+      >
+        <svg
+          style={{ marginRight: 5 }}
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M6.74412 14.2447C7.06956 14.5702 7.59719 14.5702 7.92263 14.2447L12.6366 9.53078L12.6367 9.53068C12.9621 9.20525 12.9621 8.67761 12.6367 8.35217C12.6331 8.34856 12.6294 8.34499 12.6258 8.34146L7.92253 3.63822C7.5971 3.31279 7.06946 3.31279 6.74402 3.63822C6.41859 3.96366 6.41859 4.4913 6.74402 4.81673L10.8688 8.94153L6.74412 13.0662C6.41868 13.3917 6.41868 13.9193 6.74412 14.2447Z"
+            fill="black"
+          />
+        </svg>
+      </div>
+    );
+  }
   const history = useHistory();
   /*checkbox */
 
@@ -162,10 +84,6 @@ const GoalAndPerformance = () => {
   /*Create */
   const [isCreate, setIsCreates] = React.useState(false);
   /*Create */
-
-  /*Search */
-  const [searchVal, setsearchVal] = React.useState("");
-  /*Search */
 
   /* Current Data*/
   const [currentData, setcurrentData] = React.useState({
@@ -199,10 +117,11 @@ const GoalAndPerformance = () => {
   /*Tabs */
   const [Tabs, setTabs] = React.useState("1");
   /*Tabs */
-
+  const [arrow, setArrow] = React.useState(true);
+  const [toggle, setToggle] = React.useState(Array(3).fill(false));
   const [data, setData] = React.useState([
     {
-      id: getId(),
+      id: 0,
       subject: "전사 수익성 증가",
       type: "정량",
       period: "2022.01.01 ~ 2022.03.01",
@@ -210,7 +129,7 @@ const GoalAndPerformance = () => {
       achievement: 100,
       subMenu: [
         {
-          id: getId(),
+          id: 1,
           subject: "신규 고객 확보",
           type: "정량",
           period: "2022.01.01 ~ 2022.03.01",
@@ -218,7 +137,7 @@ const GoalAndPerformance = () => {
           achievement: 70,
           subMenu: [
             {
-              id: getId(),
+              id: 2,
               subject: "온라인 프로모션",
               type: "정량",
               period: "2022.01.01 ~ 2022.03.01",
@@ -239,54 +158,114 @@ const GoalAndPerformance = () => {
     function loop(items: any, depth: number) {
       return (
         <>
-          {items.map((item: any) => (
-            <>
-              <tr
-                style={{ borderCollapse: "collapse" }}
-                onClick={() =>
-                  history.push({ pathname: "/hr/GoalAndPerformanceDetail" })
-                }
-              >
-                <td>
-                  <div style={{ paddingTop: 6 }}>
-                    <HcCheckBox
-                      checked={checkedItem.includes(item.id)}
-                      onChange={(e: any) => {
-                        checkHandler(e.target.checked, item.id);
+          {/* {arrow === true
+            ? items.map((item: any) => (
+                <>
+                  <StyledTr
+                    onClick={() =>
+                      history.push({
+                        pathname: "/hr/GoalAndPerformanceDetail",
+                      })
+                    }
+                  >
+                    <td>
+                      <div style={{ paddingTop: 6 }}>
+                        <HcCheckBox
+                          checked={checkedItem.includes(item.id)}
+                          onChange={(e: any) => {
+                            checkHandler(e.target.checked, item.id);
+                          }}
+                        />
+                      </div>
+                    </td>
+                    <td
+                      style={{
+                        paddingLeft: (depth + 1) * 30 + 11,
+                        display: "flex",
                       }}
+                    >
+                      {item.subMenu.length > 0 ? arrowBtn(item.id) : <></>}{" "}
+                      {item.subject}
+                    </td>
+                    <td>{item.type}</td>
+                    <td>{item.weight}</td>
+                    <td>{item.period}</td>
+                    <td
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        paddingTop: 13,
+                        top: 5,
+                      }}
+                    >
+                      <ProgressBar
+                        percentage={item.achievement}
+                        style={{ marginTop: 4, marginRight: 10 }}
+                      />
+                      {item.achievement}%
+                    </td>
+                    <td>-</td>
+                  </StyledTr>
+
+                  {item.subMenu != null ? loop(item.subMenu, depth + 1) : null}
+                </>
+              ))
+            : ""} */}
+          {items.map((item: any) =>
+            toggle[item.id - 1] === true ? (
+              <>
+                <StyledTr
+                  onClick={() =>
+                    history.push({
+                      pathname: "/hr/GoalAndPerformanceDetail",
+                    })
+                  }
+                >
+                  <td>
+                    <div style={{ paddingTop: 6 }}>
+                      <HcCheckBox
+                        checked={checkedItem.includes(item.id)}
+                        onChange={(e: any) => {
+                          checkHandler(e.target.checked, item.id);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td
+                    style={{
+                      paddingLeft: (depth + 1) * 30 + 11,
+                      display: "flex",
+                    }}
+                  >
+                    {item.subMenu.length > 0 ? arrowBtn(item.id) : <></>}{" "}
+                    {item.subject}
+                  </td>
+                  <td>{item.type}</td>
+                  <td>{item.weight}</td>
+                  <td>{item.period}</td>
+                  <td
+                    style={{
+                      position: "relative",
+                      display: "flex",
+                      paddingTop: 13,
+                      top: 5,
+                    }}
+                  >
+                    <ProgressBar
+                      percentage={item.achievement}
+                      style={{ marginTop: 4, marginRight: 10 }}
                     />
-                  </div>
-                </td>
-                <td
-                  style={{
-                    paddingLeft: (depth + 1) * 30 + 11,
-                    display: "flex",
-                  }}
-                >
-                  {item.subMenu.length > 0 ? arrowBtn() : <></>} {item.subject}
-                </td>
-                <td>{item.type}</td>
-                <td>{item.weight}</td>
-                <td>{item.period}</td>
-                <td
-                  style={{
-                    position: "relative",
-                    display: "flex",
-                    paddingTop: 13,
-                    top: 5,
-                  }}
-                >
-                  <ProgressBar
-                    percentage={item.achievement}
-                    style={{ marginTop: 4, marginRight: 10 }}
-                  />
-                  {item.achievement}%
-                </td>
-                <td>-</td>
-              </tr>
-              {item.subMenu != null ? loop(item.subMenu, depth + 1) : null}
-            </>
-          ))}
+                    {item.achievement}%
+                  </td>
+                  <td>-</td>
+                </StyledTr>
+
+                {item.subMenu != null ? loop(item.subMenu, depth + 1) : null}
+              </>
+            ) : (
+              ""
+            )
+          )}
         </>
       );
     }
@@ -321,8 +300,7 @@ const GoalAndPerformance = () => {
                     </div>
                   </td>
                   <td>
-                    {" "}
-                    {subMenu.length > 0 ? arrowBtn() : <></>} {subject}
+                    {subMenu.length > 0 ? arrowBtn(id) : <></>} {subject}
                   </td>
                   <td>{type}</td>
                   <td>{weight}</td>
