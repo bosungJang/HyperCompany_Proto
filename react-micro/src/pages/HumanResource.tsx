@@ -101,7 +101,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "HR/Organization_Management_Icon",
     title: "조직 관리",
     path: "/hr/hrOrganizationManagement",
     submenu: [
@@ -117,7 +117,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "HR/Working_Hours_Management_Icon",
     title: "근태 관리",
     path: "/hr/hrEmployeeStatus",
     submenu: [
@@ -132,7 +132,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "HR/Salary_Icon",
     title: "급여 관리",
     path: "/hr/PayManagement",
     submenu: [
@@ -143,7 +143,7 @@ const testArray = [
     ],
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "HR/Performance_Icon",
 
     title: "성과 및 평가",
     path: "/hr/EvaluationManagement",
