@@ -10,6 +10,7 @@ import HcTextField, {
 import HcButton from "common/HcButton";
 import { HcDateRangePicker } from "common/HcDatePicker";
 import { HcTabsAdv } from "common/HcTabs";
+import { ReactComponent as ArrowIcon } from "resources/images/RevenueDetailArrow_Icon.svg";
 
 const BorderWrapper = styled.div`
   border: 1px solid #cecece;
@@ -58,8 +59,157 @@ const TableContainer = styled.div`
 
 const columns = ["구분", "거래처", "매수", "공급가액", "부가세액", "합계금액"];
 
+const StyledRow = styled.li<{ rowExpand: boolean }>`
+  transition: all 0.5s ease;
+  overflow: hidden;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+
+  ${(props) =>
+    props.rowExpand === false
+      ? ` border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9; height: 46px;
+    svg{
+      transform: rotate(90deg);
+      transition: all 0.5s ease;
+    }
+    `
+      : `border: 1px solid #ADCEFF;
+      background: rgba(239, 245, 255, 0.5); height: 187px;
+      svg{
+        transform: rotate(270deg);
+        transition: all 0.5s ease;
+      }
+      `};
+`;
+
+const StyledRowDiv = styled.div`
+  display: inline-block;
+  padding: 12px;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Noto Sans KR;
+`;
+
 const SumTaxIInvoices = () => {
   const [Tabs, setTabs] = React.useState("1");
+
+  const [data, setData] = React.useState([{}, {}]);
+
+  const ExpandableRow = () => {
+    const [rowExpand, setRowExpand] = React.useState(false);
+    return (
+      <>
+        <StyledRow rowExpand={rowExpand}>
+          <div>
+            <StyledRowDiv
+              style={{
+                width: 39,
+              }}
+            >
+              1
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              백두상사
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              111-22-33333
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              3
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              12,000,000
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              1,200,000
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "180px",
+              }}
+            >
+              13,200,000
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "154px",
+              }}
+            >
+              백두산
+            </StyledRowDiv>
+            <StyledRowDiv
+              style={{
+                width: "44px",
+              }}
+            >
+              <ArrowIcon
+                onClick={() => {
+                  setRowExpand(!rowExpand);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            </StyledRowDiv>
+          </div>
+          <div style={{ padding: "20px 40px 30px 40px" }}>
+            <div style={{ display: "inline-block", width: "100%" }}>
+              <TableContainer style={{ minHeight: "unset" }}>
+                <table className="table table-hover" style={{ width: "100%" }}>
+                  <thead>
+                    <tr>
+                      <th>전표일</th>
+                      <th>전표 번호</th>
+                      <th>전표 유형</th>
+                      <th>적요</th>
+                      <th>과세유형</th>
+                      <th>공급가액</th>
+                      <th>부가세액</th>
+                      <th>합계금액</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ background: "white" }}>
+                      <td>2022.01.01</td>
+                      <td>20220131-072</td>
+                      <td>매출 전표</td>
+                      <td>상품 매출</td>
+                      <td>과세</td>
+                      <td>4,000,000</td>
+                      <td>400,000</td>
+                      <td>4,400,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
+          </div>
+        </StyledRow>
+      </>
+    );
+  };
+
   return (
     <>
       <div style={{ width: "inherit" }}>
@@ -295,7 +445,10 @@ const SumTaxIInvoices = () => {
                                 </button>
                               </div>
                               <TableContainer>
-                                <table className="table table-hover">
+                                <table
+                                  className="table table-hover"
+                                  style={{ borderSpacing: "0px" }}
+                                >
                                   <thead
                                     style={{
                                       display: "table",
@@ -304,40 +457,57 @@ const SumTaxIInvoices = () => {
                                     }}
                                   >
                                     <tr>
-                                      <th> </th>
-                                      <th>{"거래처명"}</th>
-                                      <th>{"등록번호"}</th>
-                                      <th>{"매수"}</th>
-                                      {/*
-                                    <th>{"공급가액"}</th>
-                                    <th>{"부가세액"}</th>
-                                    <th>{"합계금액"}</th>
-                                    <th>{"대표자명"}</th>
-                                     */}
+                                      <th style={{ width: 40 }}> </th>
+                                      <th
+                                        style={{
+                                          width: "180px",
+                                          textAlign: "start",
+                                        }}
+                                      >
+                                        {"거래처명"}
+                                      </th>
+                                      <th
+                                        style={{
+                                          width: "180px",
+                                          textAlign: "start",
+                                        }}
+                                      >
+                                        {"등록번호"}
+                                      </th>
+                                      <th style={{ width: "180px" }}>
+                                        {"매수"}
+                                      </th>
+                                      <th style={{ width: "180px" }}>
+                                        {"공급가액"}
+                                      </th>
+                                      <th style={{ width: "180px" }}>
+                                        {"부가세액"}
+                                      </th>
+                                      <th style={{ width: "180px" }}>
+                                        {"합계금액"}
+                                      </th>
+                                      <th
+                                        style={{
+                                          width: "154px",
+                                          textAlign: "start",
+                                        }}
+                                      >
+                                        {"대표자명"}
+                                      </th>
+                                      <th style={{ width: "46px" }}> </th>
                                     </tr>
                                   </thead>
                                   <tbody
                                     style={{
                                       display: "block",
                                       height: 598,
-                                      overflow: "auto",
                                     }}
                                   >
-                                    <tr
-                                      style={{
-                                        display: "table",
-                                        width: "100%",
-                                        tableLayout: "fixed",
-                                      }}
-                                    >
-                                      <td>{2}</td>
-                                      <td>{"백두상사"}</td>
-                                      <td>{"123-45-67890"}</td>
-                                      <td>{3}</td>
-                                    </tr>
-                                    <tr>
-                                      <td></td>
-                                    </tr>
+                                    <ul style={{ paddingInlineStart: "0px" }}>
+                                      {data.map(() => (
+                                        <ExpandableRow />
+                                      ))}
+                                    </ul>
                                   </tbody>
                                 </table>
                               </TableContainer>
