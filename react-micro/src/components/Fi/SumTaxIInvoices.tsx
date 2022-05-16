@@ -70,14 +70,14 @@ const StyledRow = styled.li<{ rowExpand: boolean }>`
     props.rowExpand === false
       ? ` border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9; height: 46px;
+    border-bottom: 1px solid #d9d9d9; max-height: 46px;
     svg{
       transform: rotate(90deg);
       transition: all 0.5s ease;
     }
     `
       : `border: 1px solid #ADCEFF;
-      background: rgba(239, 245, 255, 0.5); height: 187px;
+      background: rgba(239, 245, 255, 0.5); max-height: 359px;
       svg{
         transform: rotate(270deg);
         transition: all 0.5s ease;
@@ -189,7 +189,7 @@ const SumTaxIInvoices = () => {
                       <th>합계금액</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style={{ overflow: "auto", maxHeight: "230px" }}>
                     <tr style={{ background: "white" }}>
                       <td>2022.01.01</td>
                       <td>20220131-072</td>
@@ -444,7 +444,7 @@ const SumTaxIInvoices = () => {
                                   </svg>
                                 </button>
                               </div>
-                              <TableContainer>
+                              <TableContainer style={{ minHeight: "unset" }}>
                                 <table
                                   className="table table-hover"
                                   style={{ borderSpacing: "0px" }}
@@ -500,14 +500,33 @@ const SumTaxIInvoices = () => {
                                   <tbody
                                     style={{
                                       display: "block",
-                                      height: 598,
                                     }}
                                   >
-                                    <ul style={{ paddingInlineStart: "0px" }}>
+                                    <ul
+                                      style={{
+                                        paddingInlineStart: "0px",
+                                        marginBottom: "0px",
+                                      }}
+                                    >
                                       {data.map(() => (
                                         <ExpandableRow />
                                       ))}
                                     </ul>
+                                    <tr
+                                      style={{
+                                        display: "table",
+                                        width: "100%",
+                                        tableLayout: "fixed",
+                                        background: "#F4F4F4",
+                                      }}
+                                    >
+                                      <td colSpan={2}>합계</td>
+                                      <td colSpan={2}>17</td>
+                                      <td>60,900,000</td>
+                                      <td>5,970,000</td>
+                                      <td>66,870,000</td>
+                                      <td colSpan={2}> </td>
+                                    </tr>
                                   </tbody>
                                 </table>
                               </TableContainer>
