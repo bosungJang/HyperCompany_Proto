@@ -21,6 +21,11 @@ import ImageUploader from "common/HcUploader";
 import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
 import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
+/*DND */
+import EssDnd from "common/EssDnd/EssDnd";
+import "common/EssDnd/styles.css";
 
 interface MatchParams {
   id: string;
@@ -725,6 +730,11 @@ const BudgetApplication = ({ match }: RouteComponentProps<MatchParams>) => {
                       </ColumnTd>
                     </tr>
                   </table>
+                </div>
+                <div>
+                  <DndProvider backend={Backend}>
+                    <EssDnd />
+                  </DndProvider>
                 </div>
               </ContentWrapper>
             </div>

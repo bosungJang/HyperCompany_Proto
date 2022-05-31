@@ -31,6 +31,7 @@ import {
   DigitalTaxInvoicePage,
   SumTaxIInvoicesPage,
   VATReportingManagementPage,
+  CertificateRegistrationPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -349,6 +350,10 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/taxManagement/VATReportingManagement`}
         component={VATReportingManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/taxManagement/certificateRegistration`}
+        component={CertificateRegistrationPage}
       />
     </div>
   );
