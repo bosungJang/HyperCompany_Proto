@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
-import { HcTitleTextField, SubHeading } from "common/HcTextField";
+import { ComponentWrapper } from "common/HcCommonLayout";
+import { HcTitleTextField, SubHeading, Title } from "common/HcTextField";
 import styled from "styled-components";
 import HcButton from "common/HcButton";
 import { useLocation } from "react-router";
@@ -8,19 +8,20 @@ import { ToastContext } from "common/Toast";
 import { HcMailPopup } from "common/HcPopup";
 import { EditText, EditTextarea } from "react-edit-text";
 
-const MailContent = styled.div`
+const TextStyle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  text-transform: uppercase;
+`;
+const MailContent = styled(TextStyle)`
   height: 305px;
   width: 1320px;
   border-radius: 4px;
   border: 1px solid #cecece;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
   font-size: 13px;
   line-height: 19px;
-  text-transform: uppercase;
   color: #5d5d62;
-  margin-top: 45px;
+  margin-top: 10px;
   padding: 20px 16px 20px 16px;
 `;
 const NewHRInfo = styled.div`
@@ -40,7 +41,31 @@ const HRCard = styled.div`
   width: 424px;
   float: left;
   margin-top: 18px;
-  margin-botto: 60px;
+  margin-bottom: 60px;
+  padding: 20px 0px 20px 115px;
+  display: block;
+  position: relative;
+`;
+const Name = styled(TextStyle)`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: #5d5d62;
+`;
+const Info = styled(Title)`
+  color: #838181;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+`;
+const Profile = styled.img`
+  width: 75px;
+  height: 65px;
+  position: absolute;
+  top: 21px;
+  left: 19px;
+  border-radius: 50%;
+  border: 1px solid #257cff;
 `;
 export default function () {
   const location = useLocation();
@@ -61,13 +86,29 @@ export default function () {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  const HRInfo = (props: any) => {
+    return (
+      <>
+        {" "}
+        <HRCard style={props.style}>
+          <Profile src="" />
+          <Name>최민식</Name>
+          <Info>AB본부 / AB2실 / AB2-4팀</Info>
+          <Info style={{ color: "#2D2D31", fontSize: "13px" }}>
+            2020.01.01 입사
+          </Info>
+        </HRCard>
+      </>
+    );
+  };
   return (
     <ComponentWrapper style={{ display: "block", height: 1013 }}>
       <div
         style={{
           float: "left",
           height: 40,
-          marginBottom: 59,
+          marginBottom: 60,
           width: "364px",
         }}
       >
@@ -108,9 +149,9 @@ export default function () {
 
       <NewHRInfo style={{ float: "left" }}>
         <SubHeading titleName="신규 인사 정보" />
-        <HRCard style={{ marginRight: 24 }}>1</HRCard>
-        <HRCard style={{ marginRight: 24 }}>2</HRCard>
-        <HRCard>3</HRCard>
+        <HRInfo style={{ marginRight: 24 }} />
+        <HRInfo style={{ marginRight: 24 }} />
+        <HRInfo />
       </NewHRInfo>
       <MainSendContainer>
         <SubHeading titleName="초대 메일 전송" />
@@ -120,7 +161,7 @@ export default function () {
           }}
           styles="secondary"
           style={{
-            marginTop: "39px",
+            margin: "18px 0px 16px 0px",
           }}
           size="medium"
         >
@@ -131,13 +172,13 @@ export default function () {
           styles="line"
           style={{
             marginLeft: "10px",
-            marginTop: "39px",
+            margin: "18px 0px 16px 10px",
           }}
           size="medium"
         >
           수정
         </HcButton>
-
+        <Title style={{ marginLeft: "10px" }}>메일 미리보기</Title>
         <MailContent>{mail}</MailContent>
       </MainSendContainer>
       <HcMailPopup

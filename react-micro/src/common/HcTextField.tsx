@@ -154,6 +154,7 @@ interface TextAreaIProps {
   onChange?: (e: any) => void;
   placeholder?: string;
   row: number;
+  titleName?: string;
 }
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   return (
@@ -170,6 +171,13 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
 export const HcTextArea: React.FC<TextAreaIProps> = ({ ...props }) => {
   return (
     <Wrapper>
+      {props.titleName ? (
+        <Title required={props.required} style={{ marginLeft: "5px" }}>
+          {props.titleName}
+        </Title>
+      ) : (
+        ""
+      )}
       <TextArea {...props} autoComplete="off">
         {props.children}
       </TextArea>
@@ -301,7 +309,7 @@ export const HcSelect: React.FC<SelectIProps> = ({ ...props }) => {
     <Wrapper>
       <Title
         required={props.required}
-        style={{ display: props.titleName ? "" : "none" }}
+        style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
       >
         {props.titleName}
       </Title>

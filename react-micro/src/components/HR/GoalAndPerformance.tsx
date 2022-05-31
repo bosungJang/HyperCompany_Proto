@@ -152,65 +152,54 @@ const GoalAndPerformance = () => {
       ],
       toggle: true,
     },
+    {
+      id: 3,
+      subject: "고객 문제 해결할 서비스 제공",
+      type: "정량",
+      period: "2022.01.01 ~ 2022.03.01",
+      weight: "50%",
+      achievement: 100,
+      subMenu: [
+        {
+          id: 4,
+          subject: "신규 고객 확보",
+          type: "정량",
+          period: "2022.01.01 ~ 2022.03.01",
+          weight: "50%",
+          achievement: 70,
+          subMenu: [
+            {
+              id: 5,
+              subject: "온라인 프로모션",
+              type: "정량",
+              period: "2022.01.01 ~ 2022.03.01",
+              weight: "50%",
+              achievement: 50,
+              subMenu: [],
+              toggle: true,
+            },
+          ],
+          toggle: true,
+        },
+        {
+          id: 4,
+          subject: "제품 내 부가상품 추가",
+          type: "정량",
+          period: "2022.01.01 ~ 2022.03.01",
+          weight: "50%",
+          achievement: 100,
+          subMenu: [],
+          toggle: true,
+        },
+      ],
+      toggle: true,
+    },
   ]);
 
   const tableBodySlot = (item: Object) => {
     function loop(items: any, depth: number) {
       return (
         <>
-          {/* {arrow === true
-            ? items.map((item: any) => (
-                <>
-                  <StyledTr
-                    onClick={() =>
-                      history.push({
-                        pathname: "/hr/GoalAndPerformanceDetail",
-                      })
-                    }
-                  >
-                    <td>
-                      <div style={{ paddingTop: 6 }}>
-                        <HcCheckBox
-                          checked={checkedItem.includes(item.id)}
-                          onChange={(e: any) => {
-                            checkHandler(e.target.checked, item.id);
-                          }}
-                        />
-                      </div>
-                    </td>
-                    <td
-                      style={{
-                        paddingLeft: (depth + 1) * 30 + 11,
-                        display: "flex",
-                      }}
-                    >
-                      {item.subMenu.length > 0 ? arrowBtn(item.id) : <></>}{" "}
-                      {item.subject}
-                    </td>
-                    <td>{item.type}</td>
-                    <td>{item.weight}</td>
-                    <td>{item.period}</td>
-                    <td
-                      style={{
-                        position: "relative",
-                        display: "flex",
-                        paddingTop: 13,
-                        top: 5,
-                      }}
-                    >
-                      <ProgressBar
-                        percentage={item.achievement}
-                        style={{ marginTop: 4, marginRight: 10 }}
-                      />
-                      {item.achievement}%
-                    </td>
-                    <td>-</td>
-                  </StyledTr>
-
-                  {item.subMenu != null ? loop(item.subMenu, depth + 1) : null}
-                </>
-              ))
-            : ""} */}
           {items.map((item: any) =>
             toggle[item.id - 1] === true ? (
               <>
@@ -227,6 +216,7 @@ const GoalAndPerformance = () => {
                         checked={checkedItem.includes(item.id)}
                         onChange={(e: any) => {
                           checkHandler(e.target.checked, item.id);
+                          e.stopPropagation();
                         }}
                       />
                     </div>
@@ -295,6 +285,7 @@ const GoalAndPerformance = () => {
                         checked={checkedItem.includes(id)}
                         onChange={(e: any) => {
                           checkHandler(e.target.checked, id);
+                          e.stopPropagation();
                         }}
                       />
                     </div>

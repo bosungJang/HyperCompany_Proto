@@ -434,6 +434,33 @@ export const Evaluation = loadable(
     fallback: Loading,
   }
 );
+export const TaxReturnManagement = loadable(
+  () => import("../components/HR/TaxReturnManagement"),
+  {
+    fallback: Loading,
+  }
+);
+export const EarnedIncome = loadable(
+  () => import("../components/HR/EarnedIncome"),
+  {
+    fallback: Loading,
+  }
+);
+export const SubmissionsReview = loadable(
+  () => import("../components/HR/SubmissionsReview"),
+  {
+    fallback: Loading,
+  }
+);
+export const Receipt = loadable(() => import("../components/HR/Receipt"), {
+  fallback: Loading,
+});
+export const ReceiptList = loadable(
+  () => import("../components/HR/ReceiptList"),
+  {
+    fallback: Loading,
+  }
+);
 /*HR END*/
 
 export const FiHome = loadable(() => import("../components/Fi/Home"), {

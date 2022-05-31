@@ -149,7 +149,7 @@ const Popup_Content = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 21px;
+  line-height: 23px;
   color: #717171;
 `;
 const Mail_Content = styled.div`
@@ -383,10 +383,20 @@ export function SideBar(props: any) {
     </div>
   );
 }
-export function HcContentPopup(props: any) {
+export function HcContentPopup(props?: any) {
   //팝업 창 크기, 버튼 내용 조절 가능한 팝업
-  const { open, close, header, height, primaryBtn, secondBtn, width, style } =
-    props;
+  const {
+    open,
+    close,
+    header,
+    height,
+    primaryBtn,
+    secondBtn,
+    width,
+    style,
+    primaryFunc,
+    secondFunc,
+  } = props;
   const innerStyle = {
     cnt: {
       height: height === "" ? "630px" : height,
@@ -407,7 +417,9 @@ export function HcContentPopup(props: any) {
   return (
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
-        <ContentContainer style={Object.assign(innerStyle.cnt)}>
+        <ContentContainer
+          style={Object.assign(innerStyle.cnt, { overflow: "visible" })}
+        >
           <Popup_Title2> {header}</Popup_Title2>
           <button
             onClick={close}
@@ -442,7 +454,7 @@ export function HcContentPopup(props: any) {
               styles="primary"
               style={innerStyle.primary}
               size="medium"
-              onClick={close}
+              onClick={primaryFunc ? primaryFunc : close}
             >
               {primaryBtn}
             </HcButton>
@@ -450,9 +462,9 @@ export function HcContentPopup(props: any) {
               styles="line"
               size="medium"
               style={innerStyle.second}
-              onClick={close}
+              onClick={secondFunc ? secondFunc : close}
             >
-              취소
+              {secondBtn}
             </HcButton>
           </Popup_Buttons>
         </ContentContainer>

@@ -67,6 +67,11 @@ import {
   EtcEvaluationDetail,
   EtcEvaluationCreate,
   Evaluation,
+  TaxReturnManagement,
+  EarnedIncome,
+  SubmissionsReview,
+  Receipt,
+  ReceiptList,
 } from "pages";
 
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
@@ -140,6 +145,16 @@ const testArray = [
       { title: "퇴직금 계산/관리", path: "/hr/ResignationPayManagement" },
       { title: "수당/지급설정", path: "/hr/ExtraPayManagement" },
       { title: "공제 설정", path: "/hr/DeductManagement" },
+    ],
+  },
+  {
+    icon: "HR/Performance_Icon",
+
+    title: "연말 정산",
+    path: "/hr/TaxReturnManagement",
+    submenu: [
+      { title: "연말 정산 관리", path: "/hr/TaxReturnManagement" },
+      { title: "원천징수 영수증", path: "/hr/ReceiptList" },
     ],
   },
   {
@@ -414,6 +429,20 @@ const HumanResourgcePage = (props: HRProps) => {
         component={EtcEvaluationCreate}
       />
       <Route path={`${props.match.url}/Evaluation`} component={Evaluation} />
+      <Route
+        path={`${props.match.url}/TaxReturnManagement`}
+        component={TaxReturnManagement}
+      />
+      <Route
+        path={`${props.match.url}/EarnedIncome`}
+        component={EarnedIncome}
+      />
+      <Route
+        path={`${props.match.url}/SubmissionsReview`}
+        component={SubmissionsReview}
+      />
+      <Route path={`${props.match.url}/Receipt`} component={Receipt} />
+      <Route path={`${props.match.url}/ReceiptList`} component={ReceiptList} />
     </div>
   );
 };

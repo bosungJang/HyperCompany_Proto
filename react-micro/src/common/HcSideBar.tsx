@@ -32,7 +32,8 @@ const SideBar = styled.div`
   top: 0;
   bottom: 0;
   background-color: white;
-  transition: 0.5s;
+  transition: 0.4s ease-in;
+  right: 0;
   padding: 30px 30px 20px 30px;
   z-index: 500;
 `;

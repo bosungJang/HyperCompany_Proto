@@ -74,8 +74,9 @@ const StyledTable = styled.table`
     cursor: pointer;
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
-    padding-left: 12px;
-    padding-right: 12px;
+    // padding-left: 12px;
+    // padding-right: 12px;
+    padding: 12px;
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
@@ -97,13 +98,22 @@ const StyledTable = styled.table`
     color: #636363;
     height: 32px;
   }
+  tr > td {
+    background-color: #ffffff;
+  }
   tr:hover {
     background-color: #eff5ff;
     transition: all 0.3s ease;
+    td {
+      background-color: #eff5ff;
+    }
   }
   tr:active {
     background-color: #cee2ff;
     transition: all 0.3s ease;
+    td {
+      background-color: #cee2ff;
+    }
   }
   thead > tr:hover {
     background-color: #e0e0e0;
@@ -160,14 +170,20 @@ export function HcTable({ children }: any) {
   return <StyledTable>{children}</StyledTable>;
 }
 
-export function NullTbody({ colspan }: any) {
-  const toNum: number = +colspan;
+export function NullTbody(props: any) {
+  const toNum: number = +props.colspan;
   return (
     <tr>
-      {console.log(typeof colspan + colspan)}
       <td
         colSpan={toNum}
-        style={{ width: "100%", verticalAlign: "middle", textAlign: "center" }}
+        style={Object.assign(
+          {
+            width: "100%",
+            paddingLeft: "calc(50% - 60px)",
+            backgroundColor: "#ffffff",
+          },
+          props.style
+        )}
       >
         <svg
           width="120"

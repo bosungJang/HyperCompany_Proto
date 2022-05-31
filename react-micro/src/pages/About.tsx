@@ -9,6 +9,7 @@ import {
   HcDatePicker,
   HcDateRangePicker,
   CustomDatepicker,
+  DatePickerOption,
 } from "../common/HcDatePicker";
 import styled from "styled-components";
 interface MatchParams {
@@ -27,6 +28,8 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
   const query = queryString.parse(location.search);
 
   const myCounter = useCounter();
+
+  const [startDate, setStartDate] = useState(new Date());
 
   const detail = query.detail === "true";
 
@@ -75,6 +78,11 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
       <HcDatePicker style={{ width: 387 }} />
       <HcDateRangePicker />
       <CustomDatepicker />
+      <DatePickerOption
+        date={startDate}
+        setDate={setStartDate}
+        option={"day"}
+      />
       <HcFilter />
       <br /> <br /> <br />
       <table style={{ top: 770 }}>

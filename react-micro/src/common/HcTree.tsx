@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { ReactComponent as ArrrowIcon } from "../resources/images/TreeArrow.svg";
 import { ReactComponent as DotIcon } from "../resources/images/depth_dot_normal.svg";
-import { HcSearchTextField } from "common/HcTextField";
+import { HcSearchTextField, HcSelect } from "common/HcTextField";
 import { ReactComponent as AddIcon } from "resources/images/Icon_Add.svg";
 
 const Wrapper = styled.div`
@@ -371,4 +371,160 @@ const HcTree = (props: any) => {
   }
 };
 
+export const HRTree = (props: any) => {
+  const [inputVal, setInputVal] = React.useState("");
+  function searchTree(element: any, searchKeyword: string): any {
+    console.log("work?", element, searchKeyword);
+    let result: any = null;
+
+    function loop(element: any, searchKeyword: string): any {
+      if (result == null) {
+        for (var i = 0; i < element.length; i++) {
+          if (String(element[i].id) == String(searchKeyword)) {
+            result = element[i];
+            console.log("match", result);
+            break;
+          } else {
+            if (element[i].items != null) {
+              loop(element[i].items, searchKeyword);
+            }
+          }
+        }
+      }
+    }
+    loop(element, searchKeyword);
+    return result;
+  }
+  function HrItems(items: any[]) {
+    const Item = styled.li`
+      height: 80px;
+      width: 288px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+      padding: 17px 0px 14px 74px;
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: #2d2d31;
+      display: block;
+      position: relative;
+    `;
+    const Position = styled.div`
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      color: #2d2d31;
+      margin-top: 7px;
+    `;
+    const CoverBar = styled.div`
+      width: 10px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      -webkit-transition: all 0.5s;
+      opacity: 1;
+      background: #f9f9f9;
+    `;
+    const Img = styled.img`
+      position: absolute;
+      width: 50px;
+      left: 10px;
+      top: 15;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #257cff;
+      background: url(smiling-asian-man-sitting-desk-front-laptop-office-looking-camera-face.jpg);
+    `;
+    const Ul = styled.ul`
+      height: 632px;
+      margin-bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0;
+      position: relative;
+      &::-webkit-scrollbar {
+        display: none;
+        opacity: 0;
+      }
+      &::-webkit-scrollbar-track {
+        display: none;
+        opacity: 0;
+      }
+    `;
+    return (
+      <Ul>
+        {items.map((item) => (
+          <Item
+            onClick={() => props.setState(item.id)}
+            style={{
+              background: props.state === item.id ? "#EFF5FF" : "#FFFFFF",
+            }}
+          >
+            <Img
+              src="https://upload.dogzer.es/img_global/4-7-perro-chihuahua/_light-233175-chloe.jpg"
+              style={{
+                border:
+                  props.state === item.id
+                    ? "2px solid #257CFF"
+                    : "1px solid #cecece",
+              }}
+            />
+            {item.name}
+            <Position>{item.position}</Position>
+          </Item>
+        ))}
+      </Ul>
+    );
+  }
+  return (
+    <Wrapper style={{ height: "832px" }}>
+      <TitleWrapper style={{ margin: "6px 0px 0px 10px" }}>
+        <span>{props.title}</span>
+        {props.isCreate != null ? (
+          <div
+            style={{ float: "right", marginTop: "2px", cursor: "pointer" }}
+            onClick={() => props.setIsCreates(true)}
+          >
+            <AddIcon />
+          </div>
+        ) : null}
+      </TitleWrapper>
+
+      <HcSelect
+        style={{
+          width: "276px",
+          margin: "12px 0px 10px 6px",
+          height: "36px",
+        }}
+      >
+        <option>조직 선택</option>
+      </HcSelect>
+      <HcSearchTextField
+        name="name"
+        value={inputVal}
+        placeholder={"사원 검색"}
+        style={{ width: "276px", height: "36px", marginLeft: "6px" }}
+        onChange={(e) => {
+          const lengthOfInputValue = inputVal.split("").length;
+
+          if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+        }}
+        onKeyDown={(e) => {
+          // if (e.key === "Enter" && inputVal.trim() !== "") {
+          //   if (searchTree(items, e.currentTarget.value) != null)
+          //     alert(searchTree(items, e.currentTarget.value).title);
+          // }
+        }}
+      />
+
+      {props.children ? props.children : ""}
+      {HrItems(props.items)}
+    </Wrapper>
+  );
+};
 export default HcTree;

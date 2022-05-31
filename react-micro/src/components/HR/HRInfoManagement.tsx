@@ -1,50 +1,23 @@
-import { RouteComponentProps } from "react-router-dom";
 import React, { useState } from "react";
 import "common/Table.css";
 import styled from "styled-components";
-import { TableActionBtn } from "common/HcTableComponent";
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+} from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
 import { HcTitleTextField } from "common/HcTextField";
 import HcButton from "common/HcButton";
-import { HRInfoDetail } from "pages";
 import { Link, useHistory } from "react-router-dom";
-import { checkServerIdentity } from "tls";
 
 const TreeContainer = styled.div`
   height: 832px;
   width: 312px;
   margin-top: 39px;
   float: left;
-`;
-
-const TableContainer = styled.div`
-  width: 989px;
-  height: 700px;
-  overflow-x: auto;
-  overflow-y: auto;
-  float: left;
-  &::-webkit-scrollbar-track {
-    background: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
-  }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-  }
 `;
 
 const items = [
@@ -110,6 +83,9 @@ const HRManagement = () => {
     num = num + 1;
     return num;
   };
+  /*Create */
+  const [isCreate, setIsCreates] = React.useState(false);
+  /*Create */
   const history = useHistory();
   const [checkedItem, setCheckedItem]: any = React.useState([]);
 
@@ -172,7 +148,14 @@ const HRManagement = () => {
           <HcTitleTextField titleName="인사 정보 관리" isBackIcon={false} />
         </div>
         <TreeContainer>
-          <HcTree items={items} />
+          <HcTree
+            items={items}
+            title="조직도"
+            search={true}
+            isCreate={isCreate}
+            setIsCreates={setIsCreates}
+            placeholder={"검색"}
+          />
         </TreeContainer>
         <Link to={"/hr/hrInfoCreate"}>
           <HcButton
@@ -284,13 +267,26 @@ const HRManagement = () => {
         </svg>
 
         <div style={{ marginLeft: 19, float: "left" }}>
-          <TableContainer>
-            <table className="table table-hover">
+          <HcTableContainer style={{ width: 984, overflow: "auto" }}>
+            <HcTable>
               <thead>
                 <tr>
-                  {columns.map((column: any) => (
-                    <th key={column}>{column}</th>
-                  ))}
+                  <th style={{ width: 46 }}>
+                    <div style={{ paddingTop: 7 }}>
+                      <HcCheckBox
+                        checked={checkedItem.length > 0 ? true : false}
+                        onChange={(e) => checkAllHandler(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                  <th style={{ width: 120 }}>이름</th>
+                  <th style={{ width: 120 }}>사원번호</th>
+                  <th style={{ width: 120 }}>법인회사</th>
+                  <th style={{ width: 120 }}>조직</th>
+                  <th style={{ width: 120 }}>직책</th>
+                  <th style={{ width: 120 }}>직위</th>
+                  <th style={{ width: 120 }}>입사일</th>
+                  <th style={{ width: 120 }}>회사전화</th>
                 </tr>
               </thead>
 
@@ -308,7 +304,6 @@ const HRManagement = () => {
                   }) => (
                     <tr
                       style={{
-                        textAlign: "center",
                         backgroundColor: checkedItem.includes(id)
                           ? "#DFECFF"
                           : "",
@@ -334,8 +329,8 @@ const HRManagement = () => {
                   )
                 )}
               </tbody>
-            </table>
-          </TableContainer>
+            </HcTable>
+          </HcTableContainer>
         </div>
       </div>
     </ComponentWrapper>

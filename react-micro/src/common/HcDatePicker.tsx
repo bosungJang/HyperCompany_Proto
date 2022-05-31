@@ -5,9 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import HcButton from "./HcButton";
 import "./react-datepicker.scss";
 import ko from "date-fns/locale/ko";
-import { getMonth, getYear, addDays, subDays } from "date-fns";
+import { getMonth, getYear, add, sub } from "date-fns";
 import range from "lodash/range";
-
+import { Title } from "../common/HcTextField";
 const StyledInput = styled.input`
   border-radius: 3px;
   height: 36px;
@@ -20,10 +20,12 @@ const DatePickerContainer = styled.div`
   margin-top: 20;
 `;
 interface DatePickerIProps {
-  titleName?: string;
   disabled?: boolean;
   style?: CSSProperties;
-  getDate?: Date;
+  startDate?: Date;
+  setStartDate?: any;
+  required?: boolean;
+  titleName?: string;
 }
 export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -45,12 +47,23 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
   registerLocale("ko", ko);
   return (
     <DatePickerContainer>
+      {props.titleName ? (
+        <Title required={props.required ? true : false}>
+          {props.titleName}
+        </Title>
+      ) : (
+        ""
+      )}
       <DatePicker
-        {...(props.getDate = startDate)}
         locale="ko"
         dateFormat="yyyy.MM.dd"
         disabledKeyboardNavigation
-        customInput={<StyledInput {...props}></StyledInput>}
+        customInput={
+          <StyledInput
+            style={props.style}
+            disabled={props.disabled}
+          ></StyledInput>
+        }
         renderCustomHeader={({
           date,
           changeYear,
@@ -99,9 +112,10 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
             </button>
           </div>
         )}
-        selected={startDate}
+        selected={props.startDate ? props.startDate : startDate}
         onChange={(date: Date) => {
-          setStartDate(date);
+          if (props.setStartDate) props.setStartDate(date);
+          else setStartDate(date);
         }}
       />
     </DatePickerContainer>
@@ -117,10 +131,10 @@ const CustomInput = styled.input`
 export const CustomDatepicker = () => {
   const [startDate, setStartDate] = useState(new Date());
   const ClickNext = () => {
-    setStartDate(addDays(startDate, 1));
+    setStartDate(add(startDate, { days: 1 }));
   };
   const ClickPrev = () => {
-    setStartDate(subDays(startDate, 1));
+    setStartDate(sub(startDate, { days: 1 }));
   };
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick }: any, ref: any) => (
@@ -217,6 +231,142 @@ export const CustomDatepicker = () => {
         selected={startDate}
         dateFormat="yyyy년 MM월 dd일"
         onChange={(date: Date) => setStartDate(date)}
+        customInput={<ExampleCustomInput />}
+      />
+    </div>
+  );
+};
+export const DatePickerOption = (props?: any) => {
+  const { date, setDate, option, style } = props; //option: day,year,all
+
+  const ClickNext = () => {
+    switch (option) {
+      case "month":
+        setDate(add(date, { months: 1 }));
+        break;
+      case "day":
+        setDate(add(date, { days: 1 }));
+        break;
+      default:
+        setDate(add(date, { years: 1 }));
+        break;
+    }
+  };
+  const ClickPrev = () => {
+    switch (option) {
+      case "month":
+        setDate(sub(date, { months: 1 }));
+        break;
+      case "day":
+        setDate(sub(date, { days: 1 }));
+        break;
+      default:
+        setDate(sub(date, { years: 1 }));
+        break;
+    }
+  };
+  const ExampleCustomInput = React.forwardRef(
+    ({ value, onClick }: any, ref: any) => (
+      <div
+        style={Object.assign(
+          {
+            display: "flex",
+            msUserSelect: "none",
+            MozUserSelect: "-moz-none",
+            KhtmlUserSelect: "none",
+            WebkitUserSelect: "none",
+            userSelect: "none",
+            position: "relative",
+            width: "fit-content",
+          },
+          style
+        )}
+      >
+        <svg
+          onClick={ClickPrev}
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ marginRight: 10 }}
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.7071 3.70711C12.3166 3.31658 11.6834 3.31658 11.2929 3.70711L5.63615 9.36384L5.63604 9.36396C5.24551 9.75448 5.24551 10.3876 5.63604 10.7782C5.64036 10.7825 5.64471 10.7868 5.64909 10.791L11.293 16.4349C11.6835 16.8254 12.3167 16.8254 12.7072 16.4349C13.0977 16.0444 13.0977 15.4112 12.7072 15.0207L7.75747 10.071L12.7071 5.12132C13.0976 4.7308 13.0976 4.09763 12.7071 3.70711Z"
+            fill="#838181"
+          />
+        </svg>
+
+        <div
+          onClick={onClick}
+          ref={ref}
+          style={{
+            fontSize: "15px",
+            color: "#5D5D62",
+            backgroundColor: "none",
+            fontWeight: 500,
+            position: "relative",
+            bottom: 3,
+            fontFamily: "Noto Sans KR",
+            display: "flex",
+            minWidth:
+              option === "all" ? "150px" : option === "year" ? "70px" : "50px",
+            maxWidth: "unset",
+          }}
+        >
+          {value}
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ position: "relative", left: 8, top: 3 }}
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M4 0.75C4 0.335786 4.33579 0 4.75 0C5.16421 0 5.5 0.335786 5.5 0.75V2H11V0.75C11 0.335786 11.3358 0 11.75 0C12.1642 0 12.5 0.335786 12.5 0.75V2H14C15.1046 2 16 2.89543 16 4V14C16 15.1046 15.1046 16 14 16H2C0.895431 16 0 15.1046 0 14V4C0 2.89543 0.895431 2 2 2H4V0.75ZM2 3.5H14C14.2761 3.5 14.5 3.72386 14.5 4V5.5H1.5V4C1.5 3.72386 1.72386 3.5 2 3.5ZM1.5 7V14C1.5 14.2761 1.72386 14.5 2 14.5H14C14.2761 14.5 14.5 14.2761 14.5 14V7H1.5Z"
+              fill="#5D5D62"
+            />
+          </svg>
+        </div>
+        <svg
+          onClick={ClickNext}
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ marginLeft: 14 }}
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M7.29289 16.2929C7.68342 16.6834 8.31658 16.6834 8.70711 16.2929L14.3638 10.6362L14.364 10.636C14.7545 10.2455 14.7545 9.61235 14.364 9.22183C14.3596 9.2175 14.3553 9.21323 14.3509 9.209L8.70699 3.56509C8.31647 3.17456 7.6833 3.17456 7.29278 3.56509C6.90225 3.95561 6.90225 4.58878 7.29278 4.9793L12.2425 9.92905L7.29289 14.8787C6.90237 15.2692 6.90237 15.9024 7.29289 16.2929Z"
+            fill="#838181"
+          />
+        </svg>
+      </div>
+    )
+  );
+  return (
+    <div style={{ width: "fit-content", height: "fit-content" }}>
+      {" "}
+      <DatePicker
+        selected={date}
+        dateFormat={
+          option === "year"
+            ? "yyyy년"
+            : option === "month"
+            ? "M월"
+            : option === "day"
+            ? "d일"
+            : "yyyy년 MM월 dd일"
+        }
+        onChange={(date: Date) => setDate(date)}
         customInput={<ExampleCustomInput />}
       />
     </div>

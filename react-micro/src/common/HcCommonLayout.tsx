@@ -48,10 +48,10 @@ export const Container = (props?: any) => {
     margin-top: 24px;
     border-radius: 6px;
     border: 1px solid #cecece;
-    padding-top: 20px;
+    padding-top: 18px;
     padding-left: 24px;
     position: relative;
-    transition: all 0.7s ease;
+    transition: all 1s ease;
     overflow: hidden;
     z-index: 1;
   `;
@@ -69,11 +69,17 @@ export const Container = (props?: any) => {
   const styles = {
     cnt: {
       width: width,
-      minHeight:
+      height:
         arrow === false
           ? maxHeight
           : state === true
           ? maxHeight
+          : defaultHeight,
+      maxHeight:
+        arrow === false
+          ? defaultHeight
+          : state === true
+          ? "unset"
           : defaultHeight,
     },
     title: {
@@ -97,7 +103,7 @@ export const Container = (props?: any) => {
       <Arrow
         onClick={handleClick}
         style={{
-          top: 22,
+          top: state === false ? 30 : 23,
           right: 20,
           position: "absolute",
           transition: "all 0.7s ease",
