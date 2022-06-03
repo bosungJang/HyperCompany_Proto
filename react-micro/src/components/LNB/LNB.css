@@ -143,7 +143,7 @@ li {
 .menu_wrapper {
   width: 100%;
   height: calc(100% - 50px);
-  overflow: hidden;
+  overflow: auto;
 }
 .button_wrapper_close {
   width: inherit;

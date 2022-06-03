@@ -9,6 +9,7 @@ const style = {
   cursor: "move",
   width: "328px",
   height: "138px",
+  zIndex: "2",
 };
 const Component = ({ data, components, path }) => {
   const ref = useRef(null);
@@ -21,18 +22,15 @@ const Component = ({ data, components, path }) => {
   });
 
   const opacity = isDragging ? 0 : 1;
+
   drag(ref);
 
-  const component = components[data.id];
+  //const component = components[data.id];
 
   return (
-    <div
-      ref={ref}
-      style={{ ...style, opacity }}
-      className="component draggable"
-    >
+    <div ref={ref} style={{ ...style, opacity }} className={data.id}>
       <div>{data.title}</div>
-      <div>{component.content}</div>
+      <div>{data.id}</div>
     </div>
   );
 };

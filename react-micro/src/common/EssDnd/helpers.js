@@ -13,6 +13,7 @@ export const reorder = (list, startIndex, endIndex) => {
 export const remove = (arr, index) => [
   // part of the array before the specified index
   ...arr.slice(0, index),
+
   // part of the array after the specified index
   ...arr.slice(index + 1),
 ];
@@ -54,6 +55,7 @@ export const reorderChildren = (children, splitDropZonePath, splitItemPath) => {
 };
 
 export const removeChildFromChildren = (children, splitItemPath) => {
+  console.log(children, "///////", splitItemPath);
   if (splitItemPath.length === 1) {
     const itemIndex = Number(splitItemPath[0]);
     return remove(children, itemIndex);

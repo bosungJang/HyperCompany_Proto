@@ -21,6 +21,7 @@ import { HcOrderTreeview } from "common/DndTree/HcDndTreeview";
 import HcDndTestTree from "common/DndTree/HcDndTreeviewSortable";
 
 import ImageEditor from "common/ImageEditor/ImageEditor";
+import DndTempt from "common/EssDnd/DnDTempt";
 
 interface MatchParams {
   id: string;
@@ -207,7 +208,7 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
         <HcDndTestTree />
       </ComponentWrapper>
       <ComponentWrapper>
-        <ImageEditor />
+        <DndTempt />
       </ComponentWrapper>
     </div>
   );

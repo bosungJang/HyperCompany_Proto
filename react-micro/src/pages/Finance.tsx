@@ -32,8 +32,10 @@ import {
   SumTaxIInvoicesPage,
   VATReportingManagementPage,
   CertificateRegistrationPage,
+  VATReportingPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
+import VATReporting from "components/Fi/VATReporting";
 
 interface FinanceProps {
   match: any;
@@ -203,6 +205,10 @@ const testArray = [
     path: "/fi/taxManagement/budgetAllocation",
     submenu: [
       {
+        title: "인증서 등록",
+        path: "/fi/taxManagement/certificateRegistration",
+      },
+      {
         title: "전자 세금 계산서",
         path: "/fi/taxManagement/digitalTaxInvoice",
       },
@@ -215,8 +221,8 @@ const testArray = [
         path: "/fi/taxManagement/VATReportingManagement",
       },
       {
-        title: "인증서 등록",
-        path: "/fi/taxManagement/certificateRegistration",
+        title: "부가세 신고",
+        path: "/fi/taxManagement/VATReporting",
       },
     ],
   },
@@ -354,6 +360,10 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/taxManagement/certificateRegistration`}
         component={CertificateRegistrationPage}
+      />
+      <Route
+        path={`${props.match.url}/taxManagement/VATReporting`}
+        component={VATReporting}
       />
     </div>
   );

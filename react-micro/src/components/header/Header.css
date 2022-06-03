@@ -12,6 +12,7 @@
   z-index: -1;
   display: inline-block;
   background: #257cff;
+  text-align: center;
 }
 
 .header_nav {
@@ -44,7 +45,7 @@
 }
 
 .header_icon {
-  display: inline relative;
+  display: block;
 }
 .header_icon > svg {
   margin: 19px;
@@ -53,19 +54,65 @@
 .header_title {
   display: inline-block;
   margin-left: 76px;
+  position: absolute;
+  left: 0;
 }
 .header_title > svg {
   margin-bottom: 24.26px;
   margin-top: 24px;
 }
 .header_search {
+  width: 460px;
+  display: inline-block;
+  margin-top: 17px;
+  transition: all 0.5s ease;
+  position: absolute;
+  margin-left: -4.375rem;
+
+  /* 
   position: absolute;
   display: absolute;
-  left: 50%;
-  width: 460px;
-  margin-left: -230px;
-  margin-top: -57px;
+  left: 50%; 
+  margin-left: -14.375rem;
   margin-bottom: 17px;
+ 
+  */
+}
+.navButtonsMin {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .header_search {
+    transition: all 0.5s ease;
+    width: 230px;
+    margin-left: -3.375rem;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .header_search {
+    transition: opacity 0.5s, width 0.3s;
+    width: 0px;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header_wrapper {
+    width: 480px;
+    transition: all 0.5s ease;
+  }
+  .header_search {
+    transition: all 0.1s ease;
+    display: none;
+  }
+  .navButtons {
+    display: none;
+  }
+  .navButtonsMin {
+    display: block;
+  }
 }
 
 .header_search input::placeholder {

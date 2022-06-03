@@ -25,25 +25,20 @@ const Column = ({ data, components, handleDrop, path }) => {
   drag(ref);
 
   const renderComponent = (component, currentPath) => {
-    console.log(component);
-    if (component.id !== "") {
-      return (
-        <Component
-          key={component.id}
-          data={component}
-          components={components}
-          path={currentPath}
-        />
-      );
-    } else {
-      return <div style={{ width: "100%", height: "30px" }}>test</div>;
-    }
+    return (
+      <Component
+        key={component.id}
+        data={component}
+        components={components}
+        path={currentPath}
+      />
+    );
   };
 
   return (
     <div
       /*ref={ref}*/
-      style={{ ...style, opacity }}
+      style={{ ...style, opacity, display: "flex", flexDirection: "column" }}
       className="base draggable column"
     >
       {data.children.map((component, index) => {

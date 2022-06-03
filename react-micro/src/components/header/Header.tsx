@@ -147,6 +147,7 @@ const Header = (props: HeaderProps) => {
               Home
             </NavLink>
           </li>
+          {/* 
           <li>
             <NavLink exact to="/about" activeStyle={activeStyle}>
               About
@@ -167,6 +168,7 @@ const Header = (props: HeaderProps) => {
               Table
             </NavLink>
           </li>
+          */}
           <li style={{ marginTop: 14, marginRight: 20 }}>
             <HcNavButton />
           </li>
