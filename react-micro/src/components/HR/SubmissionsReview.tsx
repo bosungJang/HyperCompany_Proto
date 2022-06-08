@@ -194,6 +194,94 @@ export default function SubmissionsReview() {
                 </HcTable>
               </HcTableContainer>
             </Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
+            <Container
+              title="급여 명세"
+              state={payStub}
+              setState={setPayStub}
+              maxHeight={400}
+              defaultHeight={68}
+              width={988}
+            ></Container>
           </div>
         </div>
       </ComponentWrapper>

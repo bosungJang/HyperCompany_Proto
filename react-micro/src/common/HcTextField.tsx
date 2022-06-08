@@ -867,5 +867,93 @@ export const HcMainTitleField: React.FC<MainTitleFieldIProps> = ({
 }) => {
   return <MainTitleField>{titleName}</MainTitleField>;
 };
+const SelectContainer = styled.ul`
+  height: fit-content;
+  width: 360px;
+  min-height: 36px;
+  border: 1px solid #257cff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  padding: 0;
+`;
+const Li = styled.li`
+  width: calc(100%-3px);
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #3c3c3c;
+  height: 36px;
+  padding: 0px;
+  margin: 0px;
+`;
+const AddOption = styled.input`
+  width: 100%;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  background: #f4f4f4;
+  height: 36px;
+  padding: 7px 30px 7px 10px;
+  margin: 0px;
+  border: none;
+  border-right: 0px;
+  border-top: 0px;
+  boder-left: 0px;
+  boder-bottom: 0px;
+  placeholder {
+    color: #a7a7a7;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+export const EditableSelect = (props?: any) => {
+  const [items, setItems] = React.useState(["사업부", "PM본부", "EC본부"]);
+  const inputRef = React.useRef<HTMLHeadingElement>(null);
+  function list() {}
+  return (
+    <Wrapper>
+      <Title
+        required={props.required}
+        style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
+      >
+        {props.titleName}
+      </Title>
+      <SelectContainer style={props.style}>
+        <Li style={{ position: "relative" }}>
+          <AddOption
+            // ref={inputRef}
+            placeholder="신규 조직 직접 입력하여 생성"
+            // onBlur={() => {
+            //   let prev = items;
+            //   prev.push("“TF팀” 추가 후 입력하기");
+            //   setItems(prev);
+            // }}
+            // onKeyPress={(e: any) => {
+            //   if (e.key === "Enter") alert(inputRef.current);
+            // }}
+          />
+          <svg
+            style={{ position: "absolute", right: 6, top: 6 }}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M12 16L6.80385 10L17.1962 10L12 16Z" fill="#5D5D62" />
+          </svg>
+        </Li>
+        {items.map((item) => (
+          <Li style={{ padding: "7px 12px 7px 12px" }}>{item}</Li>
+        ))}
+        {props.children}
+        {/* option */}
+      </SelectContainer>
+    </Wrapper>
+  );
+};
 
 export default HcTextField;

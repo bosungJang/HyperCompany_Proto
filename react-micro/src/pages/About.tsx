@@ -11,6 +11,7 @@ import {
   CustomDatepicker,
   DatePickerOption,
 } from "../common/HcDatePicker";
+import { EditableSelect } from "../common/HcTextField";
 import styled from "styled-components";
 interface MatchParams {
   name: string;
@@ -135,6 +136,7 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
         maiores deserunt odit asperiores perferendis animi alias totam, dolore
         laboriosam.
       </HcPopup>
+      <EditableSelect titleName="조직" required></EditableSelect>
     </ComponentWrapper>
   );
 };
