@@ -959,7 +959,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                         <td></td>
                         <td>0</td>
                       </tr>
-                      <tr>
+                      <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={2}>합계</StyledTd>
                         <StyledTd>(9)</StyledTd>
                         <td>117,912</td>
@@ -1066,14 +1066,14 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           <Link to={"#"}>{"0"}</Link>
                         </td>
                       </tr>
-                      <tr>
+                      <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={2}>{"차감계[(15)-(16)]"}</StyledTd>
                         <StyledTd>(17)</StyledTd>
                         <td>{"52,151,000"}</td>
                         <td>{"(나)"}</td>
                         <td>{"52,151,000"}</td>
                       </tr>
-                      <tr>
+                      <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={5}>
                           {"납부(환급) 세액 [매출세액 (가) - 매입세액 (나)]"}
                         </StyledTd>
@@ -1313,12 +1313,24 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 height: "46px",
                               }}
                             >
-                              <td>{item.voucherType}</td>
-                              <td>{item.detail}</td>
-                              <td>{item.taxType}</td>
-                              <td>{item.numberCase}</td>
-                              <td>{item.supplyPrice}</td>
-                              <td>{item.VAT}</td>
+                              <td style={{ width: "86px", fontSize: "14px" }}>
+                                {item.voucherType}
+                              </td>
+                              <td style={{ width: "102px", fontSize: "14px" }}>
+                                {item.detail}
+                              </td>
+                              <td style={{ width: "86px", fontSize: "14px" }}>
+                                {item.taxType}
+                              </td>
+                              <td style={{ width: "70px", fontSize: "14px" }}>
+                                {item.numberCase}
+                              </td>
+                              <td style={{ width: "86px", fontSize: "14px" }}>
+                                {item.supplyPrice}
+                              </td>
+                              <td style={{ width: "86px", fontSize: "14px" }}>
+                                {item.VAT}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
