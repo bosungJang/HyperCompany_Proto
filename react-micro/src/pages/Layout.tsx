@@ -9,6 +9,9 @@ import styled from "styled-components";
 import ToastProvider from "common/Toast";
 import HcBottomBar from "common/HcBottomBar";
 
+//test
+import LNBTest from "components/LNB/LNBMenu";
+
 const Mask = styled.div`
   position: fixed;
   top: 0;
@@ -139,6 +142,14 @@ const Layout = () => {
             closeNav={closeNav}
             LNBArray={LNBArray}
           />
+
+          {/* 
+          <LNBTest
+            openSideBar={openSideBar}
+            setopenSideBar={setopenSideBar}
+            LNBArray={LNBArray}
+          />
+            */}
           <div
             id="main"
             style={

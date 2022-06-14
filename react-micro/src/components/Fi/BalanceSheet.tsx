@@ -170,9 +170,6 @@ const BalanceSheet = () => {
           ({ subject, currentAmount, priorAmount, total, subMenu }, index) => (
             <>
               <Fragment key={`${index}${subject}`}>
-                <tr>
-                  <td colSpan={5}>자산</td>
-                </tr>
                 <tr
                   style={{ background: "rgba(10,147,155,0.1)" }}
                   className="drop_down_row"

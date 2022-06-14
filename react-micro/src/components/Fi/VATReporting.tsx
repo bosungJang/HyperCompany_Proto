@@ -56,6 +56,14 @@ const TableContainer = styled.div`
     position: sticky;
     top: 0;
     background-color: #ededed;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  tbody td {
+    padding: 0px 12px;
+    font-family: Noto Sans KR;
+    font-weight: 400;
+    font-size: 14px;
   }
 `;
 
@@ -137,6 +145,20 @@ const PopupTitle = styled.div`
   font-size: 22px;
   color: #000000;
   display: inline-block;
+`;
+
+const VATTable = styled.table`
+  width: 100%;
+  border: 1px solid #d9d9d9;
+
+  tbody td {
+    padding: 0px 12px;
+    height: 46px;
+    font-family: Noto Sans KR;
+    font-weight: 400;
+    font-size: 14px;
+    max-width: unset;
+  }
 `;
 
 const data = Array(17)
@@ -350,7 +372,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                 {
                   {
                     "2": (
-                      <table style={{ width: "100%" }} className="budgetTable">
+                      <VATTable>
                         <thead>
                           <tr>
                             <th
@@ -377,38 +399,38 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                               세금 계산서 발급분
                             </StyledTd>
                             <StyledTd style={{ width: "50px" }}>(33)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td>10/100</td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd>기타</StyledTd>
                             <StyledTd>(34)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td>10/100</td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd rowSpan={2}>영세</StyledTd>
                             <StyledTd>세금 계산서 발급분</StyledTd>
                             <StyledTd>(35)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td>10/100</td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd>기타</StyledTd>
                             <StyledTd>(36)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td>10/100</td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd colSpan={2}>합계</StyledTd>
                             <StyledTd>(37)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td></td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd rowSpan={3} style={{ fontWeight: 500 }}>
@@ -417,26 +439,26 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                             <StyledTd colSpan={2}>세금계산서 발급분</StyledTd>
 
                             <StyledTd style={{ width: "50px" }}>(38)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td></td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd colSpan={2}>기타 공제 매입 세액</StyledTd>
                             <StyledTd style={{ width: "50px" }}>(39)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td></td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                           <tr>
                             <StyledTd colSpan={2}>합계</StyledTd>
                             <StyledTd style={{ width: "50px" }}>(40)</StyledTd>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                             <td></td>
-                            <td>0</td>
+                            <td style={{ textAlign: "end" }}>0</td>
                           </tr>
                         </tbody>
-                      </table>
+                      </VATTable>
                     ),
                     "5": (
                       <TableContainer style={{ height: "unset" }}>
@@ -473,7 +495,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 }}
                               >
                                 <td style={{ width: "430px" }}>{item.type}</td>
-                                <td>{item.num}</td>
+                                <td>({item.num})</td>
                                 <td>{item.price}</td>
                                 <td>{item.taxRate}</td>
                                 <td>{item.texation}</td>
@@ -624,10 +646,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                             paddingRight: "31px",
                           }}
                         >
-                          <table
-                            style={{ width: "100%" }}
-                            className="budgetTable"
-                          >
+                          <VATTable>
                             <thead>
                               <tr>
                                 <th
@@ -657,18 +676,24 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                   <StyledTd style={{ width: "274px" }}>
                                     {item.type}
                                   </StyledTd>
-                                  <StyledTd style={{ width: "50" }}>
+                                  <StyledTd style={{ width: "50px" }}>
                                     ({item.num})
                                   </StyledTd>
-                                  <td>{item.price}</td>
-                                  <td>{item.taxRate}</td>
-                                  <td>{item.texation}</td>
+                                  <td style={{ width: "120px" }}>
+                                    {item.price}
+                                  </td>
+                                  <td style={{ width: "120px" }}>
+                                    {item.taxRate}
+                                  </td>
+                                  <td style={{ width: "120px" }}>
+                                    {item.texation}
+                                  </td>
                                 </tr>
                               ))}
 
                               <tr style={{ background: "#F4F4F4" }}>
                                 <StyledTd>합계</StyledTd>
-                                <StyledTd style={{ width: "50" }}>
+                                <StyledTd style={{ width: "50px" }}>
                                   (79)
                                 </StyledTd>
                                 <td>0</td>
@@ -676,7 +701,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 <td>0</td>
                               </tr>
                             </tbody>
-                          </table>
+                          </VATTable>
                         </div>
                         <div
                           style={{
@@ -685,18 +710,15 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                             //paddingLeft: "12px",
                           }}
                         >
-                          <table
-                            style={{
-                              width: "100%",
-                              border: "1px solid #D9D9D9",
-                            }}
-                            className="budgetTable"
-                          >
+                          <VATTable>
                             <thead>
                               <tr>
                                 <th
                                   colSpan={2}
-                                  style={{ borderRight: "1px solid #D9D9D9" }}
+                                  style={{
+                                    borderRight: "1px solid #D9D9D9",
+                                    width: "420px",
+                                  }}
                                 >
                                   구분
                                 </th>
@@ -713,9 +735,9 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 <StyledTd style={{ width: "324px" }}>
                                   미제출
                                 </StyledTd>
-                                <td>{0}</td>
-                                <td>{"0.5/100"}</td>
-                                <td>{"0"}</td>
+                                <td style={{ width: "120px" }}>{0}</td>
+                                <td style={{ width: "120px" }}>{"0.5/100"}</td>
+                                <td style={{ width: "120px" }}>{"0"}</td>
                               </tr>
                               <tr>
                                 <StyledTd style={{ width: "324px" }}>
@@ -742,16 +764,9 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 <td>{"0"}</td>
                               </tr>
                             </tbody>
-                          </table>
+                          </VATTable>
 
-                          <table
-                            style={{
-                              width: "100%",
-                              marginTop: "24px",
-                              border: "1px solid #D9D9D9",
-                            }}
-                            className="budgetTable"
-                          >
+                          <VATTable style={{ marginTop: "24px" }}>
                             <tbody>
                               <tr>
                                 <StyledTd style={{ width: "96px" }} rowSpan={5}>
@@ -797,7 +812,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                                 <td>{"0"}</td>
                               </tr>
                             </tbody>
-                          </table>
+                          </VATTable>
                         </div>
                       </div>
                     ),
@@ -864,7 +879,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                     paddingRight: "11px",
                   }}
                 >
-                  <table style={{ width: "100%" }} className="budgetTable">
+                  <VATTable>
                     <thead>
                       <tr>
                         <th
@@ -879,7 +894,7 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr style={{ background: "#F9F9F9" }}>
                         <StyledTd
                           rowSpan={9}
                           style={{ width: "96px", fontWeight: 500 }}
@@ -891,45 +906,47 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           세금 계산서 발급분
                         </StyledTd>
                         <StyledTd style={{ width: "50px" }}>(1)</StyledTd>
-                        <td>117,912</td>
+                        <td style={{ textAlign: "end" }}>117,912</td>
                         <td>10/100</td>
-                        <td>11,792</td>
+                        <td style={{ textAlign: "end", width: "120px" }}>
+                          11,792
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd>매입자 발행 세금계산서</StyledTd>
                         <StyledTd>(2)</StyledTd>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                         <td>10/100</td>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                       </tr>
                       <tr>
                         <StyledTd>{"신용카드 / 현금영수증\n발행분"}</StyledTd>
                         <StyledTd>(3)</StyledTd>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                         <td>10/100</td>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                       </tr>
                       <tr>
                         <StyledTd>{"기타\n(정규 영수증 외 매출분)"}</StyledTd>
                         <StyledTd>(4)</StyledTd>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                         <td>10/100</td>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                       </tr>
                       <tr>
                         <StyledTd rowSpan={2}>영세</StyledTd>
                         <StyledTd>세금계산서 발급분</StyledTd>
                         <StyledTd>(5)</StyledTd>
-                        <td>117,912</td>
+                        <td style={{ textAlign: "end" }}>117,912</td>
                         <td>0/100</td>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                       </tr>
                       <tr>
                         <StyledTd>기타</StyledTd>
                         <StyledTd>(6)</StyledTd>
-                        <td>117,912</td>
+                        <td style={{ textAlign: "end" }}>117,912</td>
                         <td>0/100</td>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={2}>
@@ -944,27 +961,57 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           </span>
                         </StyledTd>
                         <StyledTd>(7)</StyledTd>
-                        <td>
-                          <Link to={"#"}>0</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("2");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                         <td></td>
-                        <td>
-                          <Link to={"#"}>0</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("2");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={2}>대손 세액 가감</StyledTd>
                         <StyledTd>(8)</StyledTd>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                         <td></td>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                       </tr>
                       <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={2}>합계</StyledTd>
                         <StyledTd>(9)</StyledTd>
-                        <td>117,912</td>
-                        <td>(가)</td>
-                        <td>11,792</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          117,912
+                        </td>
+                        <td style={{ fontWeight: 700 }}>(가)</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          11,792
+                        </td>
                       </tr>
                       {/*매입 세액 */}
                       <tr>
@@ -977,32 +1024,41 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                         <StyledTd rowSpan={3}>{"세금계산서\n수취분"}</StyledTd>
                         <StyledTd>일반매입</StyledTd>
                         <StyledTd>(10)</StyledTd>
-                        <td>52,151,000</td>
-                        <td>0</td>
-                        <td>52,151,000</td>
+                        <td style={{ textAlign: "end" }}>52,151,000</td>
+                        <td></td>
+                        <td style={{ textAlign: "end" }}>52,151,000</td>
                       </tr>
                       <tr>
                         <StyledTd>수출기업 수입분 납부 유예</StyledTd>
                         <StyledTd>(10-1)</StyledTd>
-                        <td></td>
-                        <td></td>
-                        <td>0</td>
+                        <td style={{ background: "#F4F4F4" }}></td>
+                        <td style={{ background: "#F4F4F4" }}></td>
+                        <td>
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd>고정자산 매입</StyledTd>
                         <StyledTd>(11)</StyledTd>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                         <td></td>
-                        <td>0</td>
+                        <td style={{ textAlign: "end" }}>0</td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={2}>{"예정 신고 누락분"}</StyledTd>
                         <StyledTd>(12)</StyledTd>
-                        <td>
+                        <td style={{ textAlign: "end" }}>
                           <Link to={"#"}>{"0"}</Link>
                         </td>
                         <td></td>
-                        <td>
+                        <td style={{ textAlign: "end" }}>
                           <Link to={"#"}>{"0"}</Link>
                         </td>
                       </tr>
@@ -1011,9 +1067,9 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           {"매입자 발행 세금 계산서"}
                         </StyledTd>
                         <StyledTd>(13)</StyledTd>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end" }}>{"0"}</td>
                         <td></td>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end" }}>{"0"}</td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={2}>
@@ -1028,12 +1084,38 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           </span>
                         </StyledTd>
                         <StyledTd>(14)</StyledTd>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("5");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                         <td></td>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("5");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                       </tr>
                       <tr>
@@ -1041,9 +1123,9 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           {"합계[{(10)-(10-1)}+(11)+(12)+(13)+(14)]"}
                         </StyledTd>
                         <StyledTd>(15)</StyledTd>
-                        <td>{"52,151,000"}</td>
+                        <td style={{ textAlign: "end" }}>{"52,151,000"}</td>
                         <td></td>
-                        <td>{"52,151,000"}</td>
+                        <td style={{ textAlign: "end" }}>{"52,151,000"}</td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={2}>
@@ -1058,27 +1140,59 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           </span>
                         </StyledTd>
                         <StyledTd>(16)</StyledTd>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("6");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                         <td></td>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("6");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                       </tr>
                       <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={2}>{"차감계[(15)-(16)]"}</StyledTd>
                         <StyledTd>(17)</StyledTd>
-                        <td>{"52,151,000"}</td>
-                        <td>{"(나)"}</td>
-                        <td>{"52,151,000"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"52,151,000"}
+                        </td>
+                        <td style={{ fontWeight: 700 }}>{"(나)"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"52,151,000"}
+                        </td>
                       </tr>
                       <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={5}>
                           {"납부(환급) 세액 [매출세액 (가) - 매입세액 (나)]"}
                         </StyledTd>
-                        <td>{"(다)"}</td>
-                        <td>{"-52,151,000"}</td>
+                        <td style={{ fontWeight: 700 }}>{"(다)"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"-52,151,000"}
+                        </td>
                       </tr>
                       {/*경감 공제 세액 */}
                       <tr>
@@ -1097,12 +1211,38 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           </span>
                         </StyledTd>
                         <StyledTd>(18)</StyledTd>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("7");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                         <td></td>
-                        <td>
-                          <Link to={"#"}>{"0"}</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("7");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                       </tr>
                       <tr>
@@ -1110,16 +1250,30 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           {"신용카드 매출 전표 등 발행 공제 등"}
                         </StyledTd>
                         <StyledTd>(19)</StyledTd>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end" }}>{"0"}</td>
                         <td></td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
-                      <tr>
+                      <tr style={{ background: "#F4F4F4" }}>
                         <StyledTd colSpan={2}>{"합계"}</StyledTd>
                         <StyledTd>(20)</StyledTd>
-                        <td>{"0"}</td>
-                        <td>{"(라)"}</td>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"0"}
+                        </td>
+                        <td style={{ fontWeight: 700 }}>{"(라)"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"0"}
+                        </td>
                       </tr>
                       {/*20번 이후 */}
                       <tr>
@@ -1127,52 +1281,102 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           {"소규모 개인 사업자 부가가치세 감면 세액"}
                         </StyledTd>
                         <StyledTd>(20-1)</StyledTd>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end" }}>{"0"}</td>
                         <td>{"(마)"}</td>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end" }}>{"0"}</td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>
                           {"예정 신고 미환급 세액"}
                         </StyledTd>
                         <StyledTd>(21)</StyledTd>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                         <td>{"(바)"}</td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>{"예정 고지 세액"}</StyledTd>
                         <StyledTd>(22)</StyledTd>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                         <td>{"(사)"}</td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>
                           {"사업 양수자의 대리 납부 기납부 세액"}
                         </StyledTd>
                         <StyledTd>(23)</StyledTd>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                         <td>{"(아)"}</td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>
                           {"매입자 납부 특례 기납부 세액"}
                         </StyledTd>
                         <StyledTd>(24)</StyledTd>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                         <td>{"(자)"}</td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>
                           {"신용카드 업자의 대리 납부 기납부 세액"}
                         </StyledTd>
                         <StyledTd>(25)</StyledTd>
-                        <td></td>
+                        <td style={{ background: "#F9F9F9" }}></td>
                         <td>{"(차)"}</td>
-                        <td>{"0"}</td>
+                        <td>
+                          {" "}
+                          <input
+                            style={{
+                              width: "108px",
+                              height: "32px",
+                              textAlign: "right",
+                              padding: "5px",
+                            }}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <StyledTd colSpan={3}>
@@ -1187,12 +1391,38 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           </span>
                         </StyledTd>
                         <StyledTd>(26)</StyledTd>
-                        <td>
-                          <Link to={"#"}>0</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("11");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                         <td>{"(카)"}</td>
-                        <td>
-                          <Link to={"#"}>0</Link>
+                        <td style={{ textAlign: "end" }}>
+                          <span
+                            onClick={() => {
+                              //history.push(`${match.url}/# `);
+                              setIsOpen(true);
+                              setPopUpType("11");
+                            }}
+                            style={{
+                              color: " #257cff",
+                              textDecorationLine: "underline",
+                              cursor: "pointer",
+                            }}
+                          >
+                            0
+                          </span>
                         </td>
                       </tr>
                       <tr style={{ height: "64px", background: "#F4F4F4" }}>
@@ -1201,17 +1431,21 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                             "차감 / 가감하여 납부할 세액(환급받을 세액)\n[(다)-(라)-(마)-(바)-(사)-(아)-(자)-(차)-(카)]"
                           }
                         </StyledTd>
-                        <td>{"(27)"}</td>
-                        <td>{"-5,203,308"}</td>
+                        <td style={{ fontWeight: 700 }}>{"(27)"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"-5,203,308"}
+                        </td>
                       </tr>
                       <tr style={{ height: "46px", background: "#F4F4F4" }}>
-                        <StyledTd colSpan={6}>
+                        <StyledTd colSpan={6} style={{ borderRight: "unset" }}>
                           {"총괄 납부 사업자가 납부할 세액"}
                         </StyledTd>
-                        <td>{"0"}</td>
+                        <td style={{ textAlign: "end", fontWeight: 700 }}>
+                          {"0"}
+                        </td>
                       </tr>
                     </tbody>
-                  </table>
+                  </VATTable>
                 </div>
                 <div
                   style={{
@@ -1289,19 +1523,19 @@ const VATReporting = ({ match }: RouteComponentProps) => {
                           }}
                         >
                           <tr>
-                            <th>전표 유형</th>
-                            <th>상세</th>
-                            <th>과세 유형</th>
-                            <th>건수</th>
-                            <th>공급가액</th>
-                            <th>부가세액</th>
+                            <th style={{ width: "85px" }}>전표 유형</th>
+                            <th style={{ width: "101px" }}>상세</th>
+                            <th style={{ width: "85px" }}>과세 유형</th>
+                            <th style={{ width: "69px" }}>건수</th>
+                            <th style={{ width: "85px" }}>공급가액</th>
+                            <th style={{ width: "85px" }}>부가세액</th>
                           </tr>
                         </thead>
                         <tbody
                           style={{
                             display: "block",
                             height: 229,
-                            overflow: "auto",
+                            overflowX: "hidden",
                           }}
                         >
                           {data.map((item) => (

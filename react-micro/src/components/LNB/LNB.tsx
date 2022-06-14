@@ -53,6 +53,7 @@ interface LNBProps {
 
 const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
   const { t, i18n } = useTranslation();
+
   const menuList = LNBArray.map((menu, index) => {
     if (menu.submenu == null) {
       return (
@@ -76,7 +77,8 @@ const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
                       />
                     }
                   >
-                    {t(menu.title)}
+                    {/*{t(menu.title)}*/}
+                    {menu.title}
                   </MenuItem>
                 );
               } else {
@@ -95,7 +97,8 @@ const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
                       />
                     }
                   >
-                    {t(menu.title)}
+                    {/* {t(menu.title)}*/}
+                    {menu.title}
                   </MenuItem>
                 );
               }
@@ -107,7 +110,7 @@ const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
       return (
         <SubMenu
           key={String(menu.path)}
-          title={t(String(menu.title))}
+          title={String(menu.title)}
           icon={
             <img
               src={
@@ -124,7 +127,17 @@ const OpenSideBar = ({ LNBArray }: { LNBArray: LNBArrayProps[] }) => {
                 to={String(submenus.path)}
                 activeClassName="menu_selected"
               >
-                <MenuItem key="2-1">{t(submenus.title)}</MenuItem>
+                <Route>
+                  {(props) => {
+                    //return <MenuItem key="2-1">{t(submenus.title)}</MenuItem>;
+                    if (
+                      props.location.pathname.split("/")[2] ===
+                      String(menu.path).split("/")[2]
+                    ) {
+                    }
+                    return <MenuItem key="2-1">{submenus.title}</MenuItem>;
+                  }}
+                </Route>
               </NavLink>
             );
           })}
