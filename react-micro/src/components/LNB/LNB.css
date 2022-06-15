@@ -51,7 +51,7 @@ li {
   left: 0;
   bottom: 0;
   background-color: #ffffff;
-  transition: 0.5s;
+  transition: width 0.5s;
   margin-top: 68px;
   font-family: "Noto Sans CJK KR";
 }

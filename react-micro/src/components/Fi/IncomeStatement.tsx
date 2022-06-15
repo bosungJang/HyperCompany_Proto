@@ -127,7 +127,7 @@ const IncomeStatement = () => {
         <>
           {items.map((item: any) => (
             <>
-              <tr>
+              <tr style={depth == 1 ? { background: "#E7F7F7" } : {}}>
                 <td style={{ paddingLeft: depth * 30 + 11 }}>{item.subject}</td>
                 <td style={{ textAlign: "center" }}>{item.currentAmount}</td>
                 <td
@@ -160,7 +160,7 @@ const IncomeStatement = () => {
       <>
         {data.map(({ subject, currentAmount, priorAmount, total, subMenu }) => (
           <>
-            <tr style={{ background: "rgba(10,147,155,0.1)" }}>
+            <tr style={{ background: "#B8E6E9" }}>
               <td style={{ paddingLeft: "11px" }}>{subject}</td>
               <td>{currentAmount}</td>
               <td

@@ -10,6 +10,7 @@ export const ComponentWrapper = styled.div`
   flex-wrap: nowrap;
   justify-content: flex-start;
   overflow-x: auto;
+  min-height: 972px;
 `;
 
 export const MultiLayout = styled.div<{

@@ -16,7 +16,7 @@ const TotalDataDiv = styled.div`
 
 const TableContainer = styled.div`
   width: 100%;
-  height: 600px;
+  min-height: 600px;
   overflow: auto;
   overflow-x: hidden;
   margin-top: 20px;
