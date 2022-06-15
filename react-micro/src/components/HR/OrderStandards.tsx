@@ -90,7 +90,7 @@ const numberComma = (value: number) => {
   return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const HRAppointmentStadards = () => {
+const OrderStadards = () => {
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
@@ -319,4 +319,4 @@ const HRAppointmentStadards = () => {
   );
 };
 
-export default HRAppointmentStadards;
+export default OrderStadards;

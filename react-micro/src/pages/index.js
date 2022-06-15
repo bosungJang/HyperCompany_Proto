@@ -44,12 +44,9 @@ export const HRHome = loadable(() => import("../components/HR/Home"), {
   fallback: Loading,
 });
 
-export const HRAppointment = loadable(
-  () => import("../components/HR/Appointment"),
-  {
-    fallback: Loading,
-  }
-);
+export const Order = loadable(() => import("../components/HR/Order"), {
+  fallback: Loading,
+});
 
 export const HRManagement = loadable(
   () => import("../components/HR/HRInfoManagement"),
@@ -83,20 +80,20 @@ export const HRInfoCreated = loadable(
     fallback: Loading,
   }
 );
-export const HRAppointmentCreate = loadable(
-  () => import("../components/HR/HRAppointmentCreate"),
+export const OrderCreate = loadable(
+  () => import("../components/HR/OrderCreate"),
   {
     fallback: Loading,
   }
 );
-export const HRAppointmentDetail = loadable(
-  () => import("../components/HR/HRAppointmentDetail"),
+export const OrderDetail = loadable(
+  () => import("../components/HR/OrderDetail"),
   {
     fallback: Loading,
   }
 );
-export const HRAppointmentStandards = loadable(
-  () => import("../components/HR/HRAppointmentStandards"),
+export const OrderStandards = loadable(
+  () => import("../components/HR/OrderStandards"),
   {
     fallback: Loading,
   }

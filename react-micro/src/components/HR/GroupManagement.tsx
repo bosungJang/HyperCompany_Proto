@@ -1,52 +1,24 @@
 import { RouteComponentProps, Prompt } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
-import "common/Table.css";
 import styled from "styled-components";
 import { TableActionBtn } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
-import HcTextField from "common/HcTextField";
 import {
   HcTitleTextField,
-  HcEditableTextField,
+  SubHeading,
   HcTextFieldLabel,
 } from "common/HcTextField";
 import HcButton from "common/HcButton";
-import HcTable from "common/HcTable";
 import { HcTreePopup } from "common/HcPopup";
 import HcBottomBar from "common/HcBottomBar";
+import { HcTable, HcTableContainer, NullTbody } from "common/HcTableComponent";
 const TreeContainer = styled.div`
   height: 832px;
   width: 312px;
   margin-top: 39px;
   float: left;
-`;
-
-const TableContainer = styled.div`
-  overflow-x: auto;
-  overflow-y: auto;
-  float: left;
-  &::-webkit-scrollbar-track {
-    background: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
-  }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-  }
 `;
 
 const CrateContainer = styled.div`
@@ -60,11 +32,6 @@ const CrateContainer = styled.div`
   padding: 28px 24px 28px 24px;
 `;
 
-// const StyledHr = styled.div`
-//   height: 1px;
-//   width: 284px;
-//   background-color: #e0e0e0;
-// `;
 const Memeber = styled.div`
   font-family: Noto Sans KR;
   font-weight: bold;
@@ -140,52 +107,6 @@ const items = [
     ],
   },
 ];
-interface TextInputProps {
-  init: string;
-}
-function TextInput({ init }: TextInputProps) {
-  //편집 가능한 텍스트필드
-  const ref = useRef(null); //text 객체에 접근
-  const [text, setText] = useState(init);
-  const [editable, setEditable] = useState(false);
-  const editOn = () => {
-    //text 상태일 때 클릭 이벤트
-    setEditable(true);
-  };
-  const handleChange = (e: any) => {
-    //input상태일 때 내용변화 감지해서 text로 변경
-    setText(e.target.value);
-  };
-  const handleKeyDown = (e: any) => {
-    //enter누르면 입력을 중지
-    if (e.key === "Enter") {
-      setEditable(!editable);
-    }
-  };
-  const handleClickOutside = (e: any) => {
-    if (editable == true && ref.current != e.target) setEditable(false);
-    console.log(ref.current + "e.target" + e.target);
-  }; //클릭한 객체가 현재 객체가 아니면 편집 종료
-  useEffect(() => {
-    window.addEventListener("click", handleClickOutside, true);
-  });
-  return (
-    <>
-      <div ref={ref}>
-        {editable ? (
-          <input
-            type="text"
-            value={text}
-            onChange={(e) => handleChange(e)}
-            onKeyDown={handleKeyDown}
-          />
-        ) : (
-          <div onClick={() => editOn()}>{text}</div>
-        )}
-      </div>
-    </>
-  );
-}
 
 const HRManagement = () => {
   let num = 100000;
@@ -212,21 +133,6 @@ const HRManagement = () => {
       setCheckedItem([]);
     }
   }
-
-  const columns = [
-    <div style={{ paddingTop: 7 }}>
-      <HcCheckBox
-        checked={checkedItem.length > 0 ? true : false}
-        onChange={(e) => checkAllHandler(e.target.checked)}
-      />
-    </div>,
-    "발령 번호",
-    "발령 내용",
-    "발령 인원",
-    "발령 일시",
-    "시행 일시",
-    "액션 버튼",
-  ];
 
   const data = Array(17)
     .fill(undefined)
@@ -349,45 +255,59 @@ const HRManagement = () => {
           </svg>
           <div style={{ marginLeft: 19, float: "left" }}>
             {/*table*/}
-            <TableContainer style={{ width: 989, height: 700 }}>
-              <table className="table table-hover">
+            <HcTableContainer style={{ width: 989, height: 700 }}>
+              <HcTable>
                 <thead>
                   <tr>
-                    {columns.map((column: any) => (
-                      <th key={column}>{column}</th>
-                    ))}
+                    <th style={{ width: "46px" }}>
+                      <div style={{ paddingTop: 7 }}>
+                        <HcCheckBox
+                          checked={checkedItem.length > 0 ? true : false}
+                          onChange={(e) => checkAllHandler(e.target.checked)}
+                        />
+                      </div>
+                    </th>
+                    <th style={{ width: "161px" }}>이름</th>
+                    <th style={{ width: "162px" }}>조직</th>
+                    <th style={{ width: "162px" }}>직책</th>
+                    <th style={{ width: "162px" }}>직위</th>
+                    <th style={{ width: "171px" }}>그룹명</th>
+                    <th style={{ width: "120px" }}>-</th>
                   </tr>
                 </thead>
 
-                <tbody>
-                  {data.map(({ id, content, hc, start, end, action }) => (
-                    <tr
-                      style={{
-                        textAlign: "center",
-                        backgroundColor: checkedItem.includes(id)
-                          ? "#DFECFF"
-                          : "",
-                      }}
-                    >
-                      <td>
-                        <HcCheckBox
-                          checked={checkedItem.includes(id)}
-                          onChange={(e) => {
-                            checkHandler(e.target.checked, id);
-                          }}
-                        />
-                      </td>
-                      <td>{id}</td>
-                      <td>{content}</td>
-                      <td>{hc}</td>
-                      <td>{start}</td>
-                      <td>{end}</td>
-                      <td>{action}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </TableContainer>
+                {data.length > 0 ? (
+                  <tbody>
+                    {data.map(({ id, action }) => (
+                      <tr
+                        style={{
+                          backgroundColor: checkedItem.includes(id)
+                            ? "#DFECFF"
+                            : "",
+                        }}
+                      >
+                        <td>
+                          <HcCheckBox
+                            checked={checkedItem.includes(id)}
+                            onChange={(e) => {
+                              checkHandler(e.target.checked, id);
+                            }}
+                          />
+                        </td>
+                        <td>홍길동</td>
+                        <td>리서치 1-4팀</td>
+                        <td>팀원</td>
+                        <td>연구원</td>
+                        <td>리서치 1실</td>
+                        <td>{action}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <NullTbody colspan={7} />
+                )}
+              </HcTable>
+            </HcTableContainer>
           </div>
           {/*table*/}
         </div>
@@ -397,22 +317,12 @@ const HRManagement = () => {
       <CrateContainer
         style={{ display: groupCreate == true ? "" : "none", float: "left" }}
       >
-        <HcEditableTextField
+        <HcTextFieldLabel
           titleName={""}
-          style={{
-            width: 284,
-            fontSize: "24px",
-            borderBottom: "1px solid #E0E0E0",
-            fontWeight: 500,
-            fontFamily: "Noto Sans KR",
-            padding: 12,
-
-            marginTop: -21,
-          }}
-          value={"새그룹"}
-          readonly
-        />
-
+          style={{ width: 284, marginBottom: 20 }}
+        >
+          새 그룹
+        </HcTextFieldLabel>
         <div style={{ display: "block", marginBottom: 40 }}>
           <TextField>시장 동향에 대해 조사하는 팀입니다.</TextField>
           <TextField style={{ marginLeft: 40 }}>홍길동</TextField>
@@ -518,22 +428,32 @@ const HRManagement = () => {
               stroke-width="0.4"
             />
           </svg>
-          <TableContainer style={{ width: 936, height: 500 }}>
-            <table className="table table-hover">
+          <HcTableContainer style={{ width: 936, height: 500 }}>
+            <HcTable>
               <thead>
                 <tr>
-                  {columns.map((column: any) => (
-                    <th key={column}>{column}</th>
-                  ))}
+                  <th style={{ width: "46px" }}>
+                    <div style={{ paddingTop: 7 }}>
+                      <HcCheckBox
+                        checked={checkedItem.length > 0 ? true : false}
+                        onChange={(e) => checkAllHandler(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                  <th style={{ width: "149px" }}>이름</th>
+                  <th style={{ width: "150px" }}>조직</th>
+                  <th style={{ width: "150px" }}>직책</th>
+                  <th style={{ width: "150px" }}>직위</th>
+                  <th style={{ width: "171px" }}>그룹명</th>
+                  <th style={{ width: "120px" }}>-</th>
                 </tr>
               </thead>
 
               {data.length > 0 ? (
                 <tbody>
-                  {data.map(({ id, content, hc, start, end, action }) => (
+                  {data.map(({ id, action }) => (
                     <tr
                       style={{
-                        textAlign: "center",
                         backgroundColor: checkedItem.includes(id)
                           ? "#DFECFF"
                           : "",
@@ -547,26 +467,20 @@ const HRManagement = () => {
                           }}
                         />
                       </td>
-                      <td>{id}</td>
-                      <td>{content}</td>
-                      <td>{hc}</td>
-                      <td>{start}</td>
-                      <td>{end}</td>
+                      <td>홍길동</td>
+                      <td>리서치 1-4팀</td>
+                      <td>팀원</td>
+                      <td>연구원</td>
+                      <td>리서치 1실</td>
                       <td>{action}</td>
                     </tr>
                   ))}
                 </tbody>
               ) : (
-                <tbody>
-                  <tr>
-                    <td style={{ textAlign: "center" }} colSpan={7}>
-                      데이터가 없습니다.
-                    </td>
-                  </tr>
-                </tbody>
+                <NullTbody colspan={7} />
               )}
-            </table>
-          </TableContainer>
+            </HcTable>
+          </HcTableContainer>
         </div>
         {/*table*/}
         <Prompt

@@ -8,6 +8,8 @@ import HcTextField, {
   Title,
   SubHeading,
   HcTextArea,
+  EditableSelect,
+  SelectBox,
 } from "common/HcTextField";
 import { useLocation } from "react-router";
 import img from "common/img/bgimg.png";
@@ -121,7 +123,6 @@ const HRInfoDetail = () => {
   const [contractFile, setContractFile] = useState(true);
   const [welfare, setWelfare] = useState(true);
   const [mediCheck, setMediCheck] = useState(true);
-
   /* info */
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
@@ -171,6 +172,24 @@ const HRInfoDetail = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
   const [date, setDate] = useState(new Date());
+  const type = ["정규직", "계약직", "파견직", "프리렌서"];
+  const position = ["매니저", "연구원", "UX연구원"];
+  const disability = ["해당", "비해당"];
+  const military = ["비해당", "군필", "미필", "면제"];
+  const marriage = ["기혼", "미혼"];
+  const nationality = ["대한민국"];
+  const responsibility = ["팀장"];
+  const gender = ["여성", "남성"];
+  const work = ["UX설계"];
+  const [typeState, setTypeState] = useState("정규직");
+  const [marriageState, setMarriageState] = useState("미혼");
+  const [nationalityState, setNationalityState] = useState("대한민국");
+  const [genderState, setGenderState] = useState("여성");
+  const [disabilityState, setDisabilityState] = useState("비해당");
+  const [militaryState, setMilitaryState] = useState("군필");
+  const [positionState, setPositionState] = useState("연구원");
+  const [responsibilityState, setResponsibility] = useState("팀장");
+  const [workState, setWorkState] = useState("");
   return (
     <>
       <ComponentWrapper
@@ -319,7 +338,7 @@ const HRInfoDetail = () => {
                 display: "block",
                 marginRight: 40,
                 width: 320,
-                marginTop: 8,
+                marginTop: edit === false ? 8 : 12,
               }}
             >
               {edit === false ? (
@@ -357,13 +376,14 @@ const HRInfoDetail = () => {
                 </>
               ) : (
                 <>
-                  {" "}
-                  <HcSelect
+                  <SelectBox
                     titleName="직책"
                     style={{ width: 320, marginBottom: 20 }}
-                  >
-                    <option>팀장</option>
-                  </HcSelect>
+                    required
+                    items={responsibility}
+                    setState={setResponsibility}
+                    state={responsibility}
+                  />
                   <HcTextField
                     titleName="회사 전화"
                     value={data.telePhone}
@@ -399,12 +419,13 @@ const HRInfoDetail = () => {
                 </>
               ) : (
                 <>
-                  <HcSelect
+                  <SelectBox
                     titleName="직위"
                     style={{ width: 320, marginBottom: 20 }}
-                  >
-                    <option>연구원</option>
-                  </HcSelect>
+                    items={position}
+                    state={positionState}
+                    setState={setPositionState}
+                  />
                   <HcTextField
                     titleName="휴대 전화"
                     value={"010-1234-5678"}
@@ -434,13 +455,15 @@ const HRInfoDetail = () => {
                 </>
               ) : (
                 <>
-                  {" "}
-                  <HcSelect
+                  <SelectBox
                     titleName="담당업무"
+                    name="duty"
+                    required
+                    items={work}
+                    state={workState}
+                    setState={setWorkState}
                     style={{ width: 320, marginBottom: 20 }}
-                  >
-                    <option>UX설계</option>
-                  </HcSelect>
+                  />
                   <HcTextField
                     titleName="이메일"
                     value={"Minsoo_Choi@tmax.co.kr"}
@@ -530,7 +553,7 @@ const HRInfoDetail = () => {
                   width={1320}
                   state={basic}
                   setState={setBasic}
-                  style={{ marginTop: 20 }}
+                  style={{ marginTop: 20, zIndex: 3, overflow: "visible" }}
                 >
                   <div style={{ display: "flex" }}>
                     {edit === false ? (
@@ -620,10 +643,12 @@ const HRInfoDetail = () => {
                             style={{ width: 360, marginBottom: 20 }}
                             value="서울특별시 강남구 삼성동"
                           />
-                          <HcTextField
+                          <SelectBox
                             titleName="결혼 여부"
                             style={{ width: 360 }}
-                            value="미혼"
+                            items={marriage}
+                            state={marriageState}
+                            setState={setMarriageState}
                           />
                         </div>
                         <div
@@ -633,42 +658,41 @@ const HRInfoDetail = () => {
                             width: 360,
                           }}
                         >
-                          <HcSelect
+                          <SelectBox
                             titleName="성별"
                             style={{ width: 360, marginBottom: 20 }}
-                          >
-                            <option>여성</option>
-                            <option>남성</option>
-                          </HcSelect>
+                            items={gender}
+                            state={genderState}
+                            setState={setGenderState}
+                          />
                           <HcTextField
                             titleName="상세 주소"
                             style={{ width: 360, marginBottom: 20 }}
                             value="101동501호"
                           />
-                          <HcSelect
+                          <SelectBox
                             titleName="장애 여부"
                             style={{ width: 360, marginBottom: 20 }}
-                          >
-                            <option>대상</option>
-                            <option>비대상</option>
-                          </HcSelect>
+                            items={disability}
+                            state={disabilityState}
+                            setState={setDisabilityState}
+                          />
                         </div>
                         <div style={{ display: "block" }}>
-                          <HcSelect
+                          <SelectBox
                             titleName="국적"
                             style={{ width: 360, marginBottom: 20 }}
-                          >
-                            <option>대한민국</option>
-                          </HcSelect>
-                          <HcSelect
+                            items={nationality}
+                            state={nationalityState}
+                            setState={setNationalityState}
+                          />
+                          <SelectBox
                             titleName="군필 여부"
                             style={{ width: 360 }}
-                          >
-                            <option>군필</option>
-                            <option>미필</option>
-                            <option>면제</option>
-                            <option>비대상</option>
-                          </HcSelect>
+                            items={military}
+                            state={militaryState}
+                            setState={setMilitaryState}
+                          />
                         </div>
                       </>
                     )}
@@ -892,18 +916,16 @@ const HRInfoDetail = () => {
                   width={1320}
                   state={contract}
                   setState={setContract}
-                  style={{ marginTop: 20 }}
+                  style={{ marginTop: 20, overflow: "visible", zIndex: 5 }}
                 >
                   <div style={{ display: "flex" }}>
-                    <HcSelect
+                    <SelectBox
                       titleName="계약 유형"
                       style={{ width: 360, marginRight: 80 }}
-                    >
-                      <option>정규직</option>
-                      <option>계약직</option>
-                      <option>파견직</option>
-                      <option>프리랜서</option>
-                    </HcSelect>
+                      state={typeState}
+                      setState={setTypeState}
+                      items={type}
+                    />
                     <div style={{ width: 400, marginRight: 30 }}>
                       <Title>근로 계약 기간</Title>
                       <HcDateRangePicker />

@@ -418,7 +418,11 @@ export function HcContentPopup(props?: any) {
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
         <ContentContainer
-          style={Object.assign(innerStyle.cnt, { overflow: "visible" })}
+          style={Object.assign(innerStyle.cnt, {
+            overflow: "visible",
+            fontFamily: "Noto Sans KR",
+            fontStyle: "normal",
+          })}
         >
           <Popup_Title2> {header}</Popup_Title2>
           <button

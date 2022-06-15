@@ -5,6 +5,8 @@ import {
   HcSelect,
   SubHeading,
   TextField,
+  EditableSelect,
+  SelectBox,
 } from "common/HcTextField";
 import styled from "styled-components";
 import img from "common/img/bgimg.png";
@@ -73,6 +75,14 @@ const HRInfoCreate = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
+  /* select field */
+  const [organization, setOrganization] = useState([
+    "사업부",
+    "PM본부",
+    "EC본부",
+  ]);
+  const [selectOrganization, setSelectOrganization] =
+    useState(""); /* select field */
   const [basicInfo, setBasicInfo] = useState(true);
   const [edu, setEdu] = useState(true);
   const [bgImg, setBgImg] = useState(img); //배경사진
@@ -225,7 +235,29 @@ const HRInfoCreate = () => {
     ))
   );
   const history = useHistory();
-
+  const position = ["매니저", "연구원", "UX연구원"];
+  const disability = ["해당", "비해당"];
+  const military = ["비해당", "군필", "미필", "면제"];
+  const marriage = ["기혼", "미혼"];
+  const nationality = ["대한민국"];
+  const responsibility = ["팀장"];
+  const gender = ["여성", "남성"];
+  const company = [
+    "티맥스엔터프라이즈",
+    "티맥스소프트",
+    "티맥스데이터",
+    "티맥스에이앤씨",
+  ];
+  const work = ["UX설계"];
+  const [marriageState, setMarriageState] = useState("");
+  const [companyState, setCompanyState] = useState("");
+  const [nationalityState, setNationalityState] = useState("");
+  const [genderState, setGenderState] = useState("");
+  const [workState, setWorkState] = useState("");
+  const [disabilityState, setDisabilityState] = useState("");
+  const [militaryState, setMilitaryState] = useState("");
+  const [positionState, setPositionState] = useState("");
+  const [responsibilityState, setResponsibility] = useState("");
   return (
     <>
       {" "}
@@ -385,22 +417,21 @@ const HRInfoCreate = () => {
                         placeholder="이름 입력"
                         required
                       />{" "}
-                      <HcTextField
+                      <SelectBox
                         titleName="법인회사"
-                        name="company"
                         style={{ width: 320, marginBottom: 20 }}
-                        onKeyDown={(e) => {
-                          onBasicInfoChange(e);
-                        }}
+                        state={companyState}
+                        setState={setCompanyState}
+                        items={company}
                         required
                       />
-                      <HcTextField
+                      <SelectBox
                         titleName="직책"
                         name="responsibility"
-                        onKeyDown={(e) => {
-                          onBasicInfoChange(e);
-                        }}
                         style={{ width: 320, marginBottom: 20 }}
+                        items={responsibility}
+                        state={responsibilityState}
+                        setState={setResponsibility}
                         required
                       />{" "}
                       <HcTextField
@@ -428,29 +459,22 @@ const HRInfoCreate = () => {
                         required
                         value={"2020001"}
                       />
-                      <HcSelect
+                      <EditableSelect
                         titleName="조직"
                         required
-                        name="organization"
-                        onChange={(e) => {
-                          onBasicInfoChange(e);
-                        }}
+                        placeholder="신규 조직 직접 입력하여 생성"
+                        state={selectOrganization}
+                        setState={setSelectOrganization}
+                        items={organization}
+                        setItems={setOrganization}
                         style={{ width: 320, marginBottom: 20 }}
-                      >
-                        <option value="" hidden>
-                          조직 선택
-                        </option>
-                        <option value="사업부">사업부</option>
-                        <option value="PM">PM</option>
-                        <option value="EC">EC</option>
-                        <option value="TF">TF</option>
-                      </HcSelect>{" "}
-                      <HcTextField
+                      />
+                      <SelectBox
                         titleName="직위"
                         name="position"
-                        onKeyDown={(e) => {
-                          onBasicInfoChange(e);
-                        }}
+                        items={position}
+                        state={positionState}
+                        setState={setPositionState}
                         style={{ width: 320, marginBottom: 20 }}
                         required
                       />
@@ -465,21 +489,22 @@ const HRInfoCreate = () => {
                       />
                     </div>
 
-                    <div style={{ display: "block", marginTop: 60 }}>
+                    <div style={{ display: "block", marginTop: 57 }}>
                       <HcDatePicker
                         style={{ width: 320, marginBottom: 20 }}
                         titleName="입사 일자"
                         required
                       />
 
-                      <HcSelect
+                      <SelectBox
                         titleName="담당업무"
                         name="duty"
                         required
+                        items={work}
+                        state={workState}
+                        setState={setWorkState}
                         style={{ width: 320, marginBottom: 20 }}
-                      >
-                        <option>담당 업무 선택</option>
-                      </HcSelect>
+                      />
 
                       <HcTextField
                         titleName="이메일"

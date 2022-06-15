@@ -136,7 +136,6 @@ const About = ({ location, match }: RouteComponentProps<MatchParams>) => {
         maiores deserunt odit asperiores perferendis animi alias totam, dolore
         laboriosam.
       </HcPopup>
-      <EditableSelect titleName="조직" required></EditableSelect>
     </ComponentWrapper>
   );
 };

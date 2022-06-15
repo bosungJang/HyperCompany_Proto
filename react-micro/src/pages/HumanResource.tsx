@@ -2,15 +2,15 @@ import React from "react";
 import { Route } from "react-router-dom";
 import {
   HRHome,
-  HRAppointment,
+  Order,
   HRManagement,
   HRGroupManage,
   HRInfoDetail,
   HRInfoCreate,
   HRInfoCreated,
-  HRAppointmentCreate,
-  HRAppointmentDetail,
-  HRAppointmentStandards,
+  OrderCreate,
+  OrderDetail,
+  OrderStandards,
   HROrganizationManagement,
   HRProfessionalManagement,
   HRProfessionalDetail,
@@ -96,12 +96,12 @@ const testArray = [
       { title: "역량 관리", path: "/hr/abilityManagement" },
       {
         title: "발령 관리",
-        path: "/hr/appointment",
+        path: "/hr/Order",
       },
 
       {
         title: "발령 기준 설정",
-        path: "/hr/hrAppointmentStandards",
+        path: "/hr/OrderStandards",
       },
     ],
   },
@@ -180,10 +180,7 @@ const HumanResourgcePage = (props: HRProps) => {
   return (
     <div>
       <Route exact path={props.match.url} component={HRHome} />
-      <Route
-        path={`${props.match.url}/appointment`}
-        component={HRAppointment}
-      />
+      <Route path={`${props.match.url}/Order`} component={Order} />
       <Route
         path={`${props.match.url}/abilityManagement`}
         component={AbilityManagement}
@@ -214,17 +211,11 @@ const HumanResourgcePage = (props: HRProps) => {
         path={`${props.match.url}/hrInfoCreated`}
         component={HRInfoCreated}
       />
+      <Route path={`${props.match.url}/OrderCreate`} component={OrderCreate} />
+      <Route path={`${props.match.url}/OrderDetail`} component={OrderDetail} />
       <Route
-        path={`${props.match.url}/hrAppointmentCreate`}
-        component={HRAppointmentCreate}
-      />
-      <Route
-        path={`${props.match.url}/hrAppointmentDetail`}
-        component={HRAppointmentDetail}
-      />
-      <Route
-        path={`${props.match.url}/hrAppointmentStandards`}
-        component={HRAppointmentStandards}
+        path={`${props.match.url}/OrderStandards`}
+        component={OrderStandards}
       />
       <Route
         path={`${props.match.url}/hrOrganizationManagement`}

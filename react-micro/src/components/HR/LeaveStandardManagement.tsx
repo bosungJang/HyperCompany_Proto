@@ -68,7 +68,7 @@ const data = Array(10)
     action: <TableActionBtn />,
   }));
 
-const HRAppointmentStadards = () => {
+const LeaveStadards = () => {
   const history = useHistory();
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   function checkHandler(checked: Boolean, id: Number) {
@@ -202,4 +202,4 @@ const HRAppointmentStadards = () => {
   );
 };
 
-export default HRAppointmentStadards;
+export default LeaveStadards;

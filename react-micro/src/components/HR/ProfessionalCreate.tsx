@@ -97,7 +97,7 @@ const HRCard = styled.div`
 
   color: #000000;
 `;
-const HRAppointmentCreate = () => {
+const JobCreate = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
@@ -506,4 +506,4 @@ const HRAppointmentCreate = () => {
   );
 };
 
-export default HRAppointmentCreate;
+export default JobCreate;

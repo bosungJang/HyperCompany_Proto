@@ -1,7 +1,5 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, Fragment } from "react";
 import styled, { keyframes } from "styled-components";
-
-import Select from "react-select";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import { ReactComponent as IconSearch } from "../resources/images/SearchIcon.svg";
 import { ReactComponent as BackIcon } from "../resources/images/TitleArrowIcon2.svg";
@@ -16,9 +14,9 @@ export const TextField = styled.input<{ disabled?: boolean }>`
   background: ${(props) => (props.disabled ? "#EDEDED" : "#ffffff")};
   border: 1px solid #cecece;
   box-sizing: border-box;
-  border-radius: 6px;
+  border-radius: 3px;
   width: 400px;
-  height: 40px;
+  height: 36px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -95,7 +93,7 @@ export const Title = styled.div<{ required?: boolean }>`
   text-transform: uppercase;
   color: #656565;
   //margin-left: 11px;
-  margin-bottom: 4px;
+  margin-bottom: 7px;
 
   ${(props) =>
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
@@ -153,7 +151,7 @@ interface TextAreaIProps {
   required?: boolean;
   onChange?: (e: any) => void;
   placeholder?: string;
-  row: number;
+  row?: number;
   titleName?: string;
 }
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
@@ -267,8 +265,7 @@ export const HcTextFieldLabel: React.FC<TextFieldIProps> = ({
 /*HcSelect */
 export const StyledSelect = styled.select`
   min-width: 100px;
-  height: 40px;
-
+  height: 36px;
   font-family: Noto Sans KR;
   color: #3c3c3c;
   background-color: white !important;
@@ -276,22 +273,32 @@ export const StyledSelect = styled.select`
   font-size: 16px;
   border: 1px solid #cecece;
   background: url(/images/Select_Arrow.png) no-repeat 95% 50%;
-  border-radius: 6px;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 
   option {
-    color: black;
-    background: white;
     display: flex;
     white-space: pre;
     min-height: 20px;
     padding: 0px 2px 1px;
-    border-radius: 6px;
+    border-radius: 3px;
+    height: 42px !important;
+  }
+  option:checked {
+    background: #eff5ff;
+  }
+  option:checked {
+    background: #eff5ff;
   }
   &::-ms-expand {
     display: none;
+  }
+  &:focus {
+    border: 1px solid #257cff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    outline: none;
   }
 `;
 
@@ -305,6 +312,7 @@ interface SelectIProps {
   name?: string;
 }
 export const HcSelect: React.FC<SelectIProps> = ({ ...props }) => {
+  const selectRef: any = React.useRef(null);
   return (
     <Wrapper>
       <Title
@@ -867,32 +875,114 @@ export const HcMainTitleField: React.FC<MainTitleFieldIProps> = ({
 }) => {
   return <MainTitleField>{titleName}</MainTitleField>;
 };
-const SelectContainer = styled.ul`
+const SelectContainer = styled.ul<{ isOpen: boolean }>`
   height: fit-content;
-  width: 360px;
+  width: 100%;
   min-height: 36px;
-  border: 1px solid #257cff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
   border-radius: 3px;
-  padding: 0;
-`;
-const Li = styled.li`
-  width: calc(100%-3px);
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
-  color: #3c3c3c;
-  height: 36px;
-  padding: 0px;
-  margin: 0px;
+  color: #000000;
+  background: #ffffff;
+  
+  ${(props) =>
+    props.isOpen
+      ? " border: 1px solid #257cff; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  padding: 4px; z-index: 3;"
+      : "border: 1px solid #CECECE; z-index: 1; padding:7px 35px 7px 10px;  &:hover{border: 1px solid #88B8FF;"}}
 `;
+const Li = styled.li<{ confirm?: boolean; edit?: boolean }>`
+  width: 100%;
+  height: 36px;
+  background: #ffffff;
+  padding: ${(props) =>
+    props.edit
+      ? "0"
+      : props.confirm
+      ? "7px 12px 7px 32px"
+      : "7px 12px 7px 8px"};
+  margin: 0px;
+  color: ${(props) => (props.confirm ? "#257CFF" : "#3c3c3c")};
+  ${(props) =>
+    props.confirm
+      ? "&:hover{text-decoration:underline;} position:relative;margin-top:36px;"
+      : props.edit
+      ? ""
+      : "&:hover{background: #EFF5FF;}"};
+`;
+interface styledSelectProps {
+  titleName?: string;
+  required?: boolean;
+  style?: React.CSSProperties;
+  state: any;
+  name?: string;
+  setState: any;
+  items: any[];
+  value?: any;
+  setItems?: any;
+  placeholder?: string;
+}
+export const SelectBox = (props: any) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <Wrapper style={props.style}>
+      <Title
+        required={props.required}
+        style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
+      >
+        {props.titleName}
+      </Title>
+      <div
+        style={{ position: "relative", overflow: "visible", height: "36px" }}
+      >
+        <SelectContainer isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+          {" "}
+          <svg
+            style={{ position: "absolute", right: 6, top: 6 }}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M12 16L6.80385 10L17.1962 10L12 16Z" fill="#5D5D62" />
+          </svg>
+          {isOpen ? (
+            <>
+              <Li
+                style={{ color: "#A7A7A7", padding: "5px 12px 7px 8px" }}
+                edit
+              >
+                {props.state ? props.state : props.titleName + "선택"}
+              </Li>
+              {props.items.map((item: any) => (
+                <Li
+                  onClick={() => {
+                    props.setState(item);
+                  }}
+                >
+                  {item}
+                </Li>
+              ))}
+            </>
+          ) : (
+            <>
+              {props.state === "" ? (
+                <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
+              ) : (
+                <>{props.state}</>
+              )}
+            </>
+          )}
+        </SelectContainer>
+      </div>
+    </Wrapper>
+  );
+};
 const AddOption = styled.input`
   width: 100%;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
   background: #f4f4f4;
   height: 36px;
   padding: 7px 30px 7px 10px;
@@ -909,49 +999,140 @@ const AddOption = styled.input`
     outline: none;
   }
 `;
-export const EditableSelect = (props?: any) => {
-  const [items, setItems] = React.useState(["사업부", "PM본부", "EC본부"]);
-  const inputRef = React.useRef<HTMLHeadingElement>(null);
-  function list() {}
+
+export const EditableSelect = (props: styledSelectProps) => {
+  const [items, setItems] = React.useState(["사업부", "PM본부"]); //option array
+  const inputRef: any = React.useRef(null);
+  const [option, setOption] = React.useState("");
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <Wrapper>
+    <Wrapper style={props.style}>
       <Title
         required={props.required}
         style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
       >
         {props.titleName}
       </Title>
-      <SelectContainer style={props.style}>
-        <Li style={{ position: "relative" }}>
-          <AddOption
-            // ref={inputRef}
-            placeholder="신규 조직 직접 입력하여 생성"
-            // onBlur={() => {
-            //   let prev = items;
-            //   prev.push("“TF팀” 추가 후 입력하기");
-            //   setItems(prev);
-            // }}
-            // onKeyPress={(e: any) => {
-            //   if (e.key === "Enter") alert(inputRef.current);
-            // }}
-          />
-          <svg
-            style={{ position: "absolute", right: 6, top: 6 }}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M12 16L6.80385 10L17.1962 10L12 16Z" fill="#5D5D62" />
-          </svg>
-        </Li>
-        {items.map((item) => (
-          <Li style={{ padding: "7px 12px 7px 12px" }}>{item}</Li>
-        ))}
-        {props.children}
-        {/* option */}
-      </SelectContainer>
+      <div
+        style={{ position: "relative", overflow: "visible", height: "36px" }}
+      >
+        <SelectContainer isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? (
+            <>
+              <Li
+                edit
+                onClick={(e: any) => e.stopPropagation()}
+                style={{ position: "absolute", top: 0, left: 0 }}
+              >
+                {" "}
+                <svg
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                    setOption("");
+                  }}
+                  style={{ position: "absolute", right: 6, top: 6 }}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 16L6.80385 10L17.1962 10L12 16Z"
+                    fill="#5D5D62"
+                  />
+                </svg>
+                <AddOption
+                  readOnly={false}
+                  ref={inputRef}
+                  placeholder={props.placeholder}
+                  onKeyPress={(e: any) => {
+                    if (e.key === "Enter") {
+                      inputRef.current.readOnly = true;
+                      setOption(inputRef.current.value);
+                    }
+                  }}
+                />
+              </Li>
+              {option !== "" ? (
+                <Li
+                  confirm
+                  onClick={(e: any) => {
+                    let prev = props.items;
+                    prev.push(option);
+                    props.setItems(prev);
+                    setOption("");
+                    setIsOpen(false);
+                    props.setState(option);
+                    inputRef.current.value = null;
+                    inputRef.current.readOnly = false;
+                    e.stopPropagation();
+                  }}
+                >
+                  <svg
+                    style={{ position: "absolute", left: 8, top: 8 }}
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect width="20" height="20" rx="2" fill="white" />
+                    <rect
+                      x="9.16797"
+                      y="4.16675"
+                      width="1.66667"
+                      height="11.6667"
+                      rx="0.833333"
+                      fill="#257CFF"
+                    />
+                    <rect
+                      x="15.832"
+                      y="9.16675"
+                      width="1.66667"
+                      height="11.6667"
+                      rx="0.833333"
+                      transform="rotate(90 15.832 9.16675)"
+                      fill="#257CFF"
+                    />
+                  </svg>
+                  “{option}” 추가 후 입력하기
+                </Li>
+              ) : (
+                ""
+              )}
+              {props.items.map((item) => (
+                <Li
+                  onClick={() => {
+                    props.setState(item);
+                    setOption("");
+                  }}
+                >
+                  {item}
+                </Li>
+              ))}
+            </>
+          ) : (
+            <>
+              <svg
+                style={{ position: "absolute", right: 6, top: 6 }}
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12 16L6.80385 10L17.1962 10L12 16Z" fill="#5D5D62" />
+              </svg>
+              {props.state === "" ? (
+                <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
+              ) : (
+                <>{props.state}</>
+              )}
+            </>
+          )}
+        </SelectContainer>
+      </div>
     </Wrapper>
   );
 };

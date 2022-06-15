@@ -164,7 +164,7 @@ const TableContainer = styled.div`
   }
 `;
 
-const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
+const Order = ({ match }: RouteComponentProps<MatchParams>) => {
   const [tab, setTab] = React.useState(false);
   let num = 100000;
   const getId = () => {
@@ -279,7 +279,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
           />
         </div>
         <div
-          className="appointment status"
+          className="Order status"
           style={{ display: tab == false ? "" : "none" }}
         >
           {" "}
@@ -291,7 +291,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
             }}
             onClick={() => {
               history.push({
-                pathname: "/hr/hrAppointmentCreate",
+                pathname: "/hr/OrderCreate",
               });
             }}
           >
@@ -307,7 +307,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
               const sendData: any = data.find((e) => e.id == checkedItem[0]);
               console.log(sendData);
               history.push({
-                pathname: "/hr/hrAppointmentDetail",
+                pathname: "/hr/OrderDetail",
                 state: {
                   id: sendData.id,
                   content: sendData.content,
@@ -424,7 +424,7 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
                       }}
                       onClick={() => {
                         history.push({
-                          pathname: "/hr/hrAppointmentDetail",
+                          pathname: "/hr/OrderDetail",
                           state: {
                             id: id,
                             content: content,
@@ -529,4 +529,4 @@ const Appointment = ({ match }: RouteComponentProps<MatchParams>) => {
   );
 };
 
-export default Appointment;
+export default Order;
