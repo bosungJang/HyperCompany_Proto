@@ -78,7 +78,7 @@ p {
 
 .container {
   margin-right: 40px;
-  min-height: 518px;
+  /*min-height: 518px;*/
 }
 
 .card:hover {

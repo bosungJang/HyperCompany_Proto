@@ -136,20 +136,21 @@ const Layout = () => {
             marginTop: 68,
           }}
         >
+          {/* 
           <LNB
             openSideBar={openSideBar}
             openNav={openNav}
             closeNav={closeNav}
             LNBArray={LNBArray}
           />
-
-          {/* 
+*/}
           <LNBTest
             openSideBar={openSideBar}
-            setopenSideBar={setopenSideBar}
+            openNav={openNav}
+            closeNav={closeNav}
             LNBArray={LNBArray}
           />
-            */}
+
           <div
             id="main"
             style={

@@ -219,7 +219,7 @@ const BankAccountManagement = React.forwardRef((props: MatchParams, ref) => {
                 </div>
 
                 <TableContainer
-                  style={{ height: "100%", marginBottom: "1200px" }}
+                  style={{ height: "100%" }}
                   ref={(el: any) => (props.forwardRef.current[2] = el)}
                 >
                   <table className="table table-hover">
