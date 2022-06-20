@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Layout from "pages/Layout";
-import Counter from "../store/counter/CounterStore";
+import Counter from "store/MobX/CounterStore";
 
 const CounterContext = createContext();
 

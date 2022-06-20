@@ -8,6 +8,7 @@ import { TableActionBtn } from "common/HcTableComponent";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
+import { useCounter } from "router/Root";
 
 import DataGrid, {
   Column,
@@ -87,6 +88,9 @@ const numberComma = (value: number) => {
 };
 
 const CarryOver = () => {
+  const myCounter = useCounter();
+  myCounter.myTitle = "초기이월입력";
+
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */

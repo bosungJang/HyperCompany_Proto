@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {
   Home,
@@ -19,6 +19,9 @@ import { ReactComponent as ExportIcon } from "resources/images/Export_Icon.svg";
 import { ReactComponent as ShareIcon } from "resources/images/Share_Icon.svg";
 import { ReactComponent as PrintIcon } from "resources/images/Print_Icon.svg";
 import InfoIconTooltip, { TooltipMessage } from "common/HcTooltip";
+import { useCounter } from "router/Root";
+import { autorun } from "mobx";
+import { observer } from "mobx-react";
 
 interface AppProps {
   setLNBMenu?: (menu: LNBArrayProps[]) => void;
@@ -63,8 +66,14 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const App = (prop: AppProps) => {
+const App = observer((prop: AppProps) => {
   const [iconState, setIconState] = React.useState(false);
+  const [topTitle, setTopTitle] = React.useState("");
+
+  const myCounter = useCounter();
+  autorun(() => {
+    console.log("title", myCounter.myTitle);
+  });
   return (
     <div
       style={{
@@ -102,7 +111,7 @@ const App = (prop: AppProps) => {
             display: "inline-block",
           }}
         >
-          지출결의서 관리
+          {myCounter.myTitle}
         </div>
         <div style={{ float: "right", display: "inline-block" }}>
           {iconState == true ? (
@@ -211,6 +220,7 @@ const App = (prop: AppProps) => {
           <Finance
             setLNBMenu={prop.setLNBMenu}
             forwardRef={prop.forwardRef}
+            setTopTitle={setTopTitle}
             {...props}
             ref={(el: any) => (prop.forwardRef.current[2] = el)}
           />
@@ -219,17 +229,25 @@ const App = (prop: AppProps) => {
       <Route
         path="/hr"
         component={(props: any) => (
-          <HumanResource setLNBMenu={prop.setLNBMenu} {...props} />
+          <HumanResource
+            setLNBMenu={prop.setLNBMenu}
+            setTopTitle={setTopTitle}
+            {...props}
+          />
         )}
       />
       <Route
         path="/crm"
         component={(props: any) => (
-          <CustomerService setLNBMenu={prop.setLNBMenu} {...props} />
+          <CustomerService
+            setLNBMenu={prop.setLNBMenu}
+            setTopTitle={setTopTitle}
+            {...props}
+          />
         )}
       />
     </div>
   );
-};
+});
 
 export default App;

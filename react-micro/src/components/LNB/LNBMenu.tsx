@@ -132,7 +132,15 @@ const Sidebar = (props: any) => {
                   "": <></>,
                 }[titleIcon]
               }
-              {props.openSideBar ? <span>재무 회계</span> : <></>}
+              {props.openSideBar ? (
+                {
+                  fi: <span>재무 회계</span>,
+                  hr: <span>인사</span>,
+                  "": <></>,
+                }[titleIcon]
+              ) : (
+                <></>
+              )}
             </TitleInside>
           </TitleIconWrap>
           <SidebarWrap>

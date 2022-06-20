@@ -19,6 +19,7 @@ import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import { HcTreePopupFi } from "common/HcPopup";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
+import { useCounter } from "router/Root";
 
 interface MatchParams {
   id: string;
@@ -69,6 +70,9 @@ const TreeTagAreaTitle = styled.label`
 `;
 
 const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
+  const myCounter = useCounter();
+  myCounter.myTitle = "계정과목관리";
+
   /*TagInput */
   const [tags, setTags] = React.useState([
     "가수금 현금 입금",

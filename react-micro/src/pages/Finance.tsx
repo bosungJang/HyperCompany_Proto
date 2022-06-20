@@ -41,6 +41,7 @@ interface FinanceProps {
   match: any;
   setLNBMenu: (menu: LNBArrayProps[]) => void;
   forwardRef?: any;
+  setTopTitle: (value: string) => void;
 }
 
 const testArray = [
@@ -231,6 +232,7 @@ const testArray = [
 const Finance = React.forwardRef((props: FinanceProps, ref) => {
   React.useEffect(() => {
     props.setLNBMenu(testArray);
+    props.setTopTitle("재무");
   }, []);
   return (
     <div style={{ width: "inherit" }}>

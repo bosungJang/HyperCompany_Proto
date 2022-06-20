@@ -22,6 +22,7 @@ import HcDndTestTree from "common/DndTree/HcDndTreeviewSortable";
 
 import ImageEditor from "common/ImageEditor/ImageEditor";
 import DndTempt from "common/EssDnd/DnDTempt";
+import { useCounter } from "router/Root";
 
 interface MatchParams {
   id: string;
@@ -66,18 +67,16 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
   const [file, setFile]: any = React.useState([]);
   const [treeData, setTreeData] = React.useState([]);
 
+  const myCounter = useCounter();
+
+  myCounter.myTitle = "재무 회계 홈";
+
   return (
     <div style={{ width: "inherit" }}>
       <ComponentWrapper>
         <HcTitleTextField titleName="경비 청구" isBackIcon={true} />
       </ComponentWrapper>
-      <ComponentWrapper>
-        <MultiLayout>
-          <p>{testData}</p>
-          <p>{testData}</p>
-          <p>{testData}</p>
-        </MultiLayout>
-      </ComponentWrapper>
+      <ComponentWrapper>{myCounter.title}</ComponentWrapper>
       <ComponentWrapper>
         <VariableMultiLayout>
           <p style={{ flexGrow: 1 }}>{testData}</p>
