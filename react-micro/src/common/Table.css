@@ -1,10 +1,10 @@
-table {
+table.table.table-hover {
   width: 1320px;
   margin: 0;
   padding: 0;
   border: 1px solid #d9d9d9;
 }
-td {
+table.table.table-hover td {
   border-bottom: 1px solid #e0e0e0;
   height: 46px;
   max-width: 188px;
@@ -16,27 +16,27 @@ td {
   line-height: 22px;
   color: #1c1c1c;
 }
-tr:nth-child(even) {
+table.table.table-hover tr:nth-child(even) {
   background-color: #f1f4f9;
 }
 
-tr:hover {
-  background-color: #eff5ff;
+table.table.table-hover tr:hover {
+  background-color: #adceff;
   transition: all 0.3s ease;
 }
-tr:active {
+table.table.table-hover tr:active {
   background-color: #cee2ff;
   transition: all 0.3s ease;
 }
-thead > tr:hover {
+table.table.table-hover thead > tr:hover {
   background-color: #e0e0e0;
   transition: all 0.3s ease;
 }
-thead > tr:active {
+table.table.table-hover thead > tr:active {
   background-color: #cecece;
   transition: all 0.3s ease;
 }
-thead > tr {
+table.table.table-hover thead > tr {
   height: 32px;
   background-color: #ededed;
   font-family: Noto Sans CJK KR;
@@ -47,11 +47,11 @@ thead > tr {
 
   color: #464646;
 }
-th:first-child {
+table.table.table-hover th:first-child {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-th:last-child {
+table.table.table-hover th:last-child {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }

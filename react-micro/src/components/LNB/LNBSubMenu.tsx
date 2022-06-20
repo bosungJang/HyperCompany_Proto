@@ -76,9 +76,11 @@ const SubMenu = ({ item, openSideBar }: any) => {
 
   React.useEffect(() => {
     if (
-      String(item.path).split("/")[2] == window.location.pathname.split("/")[2]
+      String(item.path).split("/")[2] === window.location.pathname.split("/")[2]
     ) {
       setSubnav(true);
+    } else {
+      setSubnav(false);
     }
   }, []);
 
