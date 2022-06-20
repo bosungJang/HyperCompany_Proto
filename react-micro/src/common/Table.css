@@ -16,6 +16,10 @@ td {
   line-height: 22px;
   color: #1c1c1c;
 }
+tr:nth-child(even) {
+  background-color: #f1f4f9;
+}
+
 tr:hover {
   background-color: #eff5ff;
   transition: all 0.3s ease;
