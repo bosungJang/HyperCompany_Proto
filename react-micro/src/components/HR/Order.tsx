@@ -291,7 +291,7 @@ const Order = ({ match }: RouteComponentProps<MatchParams>) => {
             }}
             onClick={() => {
               history.push({
-                pathname: "/hr/OrderCreate",
+                pathname: "/hr/pas/OrderCreate",
               });
             }}
           >
@@ -307,7 +307,7 @@ const Order = ({ match }: RouteComponentProps<MatchParams>) => {
               const sendData: any = data.find((e) => e.id == checkedItem[0]);
               console.log(sendData);
               history.push({
-                pathname: "/hr/OrderDetail",
+                pathname: "/hr/pas/OrderDetail",
                 state: {
                   id: sendData.id,
                   content: sendData.content,
@@ -424,7 +424,7 @@ const Order = ({ match }: RouteComponentProps<MatchParams>) => {
                       }}
                       onClick={() => {
                         history.push({
-                          pathname: "/hr/OrderDetail",
+                          pathname: "/hr/pas/OrderDetail",
                           state: {
                             id: id,
                             content: content,

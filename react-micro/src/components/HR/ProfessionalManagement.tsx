@@ -429,7 +429,7 @@ const ProfessionalManagement = ({
         <HcButton
           onClick={() => {
             history.push({
-              pathname: "/hr/hrProfessionalCreate",
+              pathname: "/hr/orm/ProfessionalCreate",
             });
           }}
           styles="secondary"
@@ -454,7 +454,7 @@ const ProfessionalManagement = ({
             const sendData: any = Dutydata.find((e) => e.id == checkedItem[0]);
             console.log(sendData);
             history.push({
-              pathname: "/hr/hrProfessionalDetail",
+              pathname: "/hr/orm/ProfessionalDetail",
               state: {
                 id: sendData.id,
                 name: sendData.name,
@@ -573,7 +573,7 @@ const ProfessionalManagement = ({
                       }}
                       onClick={() => {
                         history.push({
-                          pathname: "/hr/hrProfessionalDetail",
+                          pathname: "/hr/orm/ProfessionalDetail",
                           state: {
                             id: id,
                             comment: comment,
@@ -737,7 +737,7 @@ const ProfessionalManagement = ({
                 size="medium"
                 onClick={() => {
                   history.push({
-                    pathname: "/hr/hrProfessionalHistory",
+                    pathname: "/hr/orm/ProfessionalHistory",
                   });
                 }}
               >

@@ -272,7 +272,7 @@ const HRInfoCreate = () => {
           size="medium"
           onClick={() => {
             history.push({
-              pathname: "/hr/hrInfoCreated",
+              pathname: "/hr/pas/hrInfoCreated",
 
               state: {
                 name: basic["name"],
@@ -714,7 +714,7 @@ const HRInfoCreate = () => {
           <HcButton
             onClick={() => {
               history.push({
-                pathname: "/hr/hrInfoCreated",
+                pathname: "/hr/pas/hrInfoCreated",
 
                 state: {
                   name: basic["name"],

@@ -284,7 +284,7 @@ const OrganizationType = () => {
                                     tableData.filter((i) => i.id === x.id)
                                   );
                                   history.push({
-                                    pathname: "/hr/hrLeaveDetail",
+                                    pathname: "/hr/tam/LeaveDetail",
                                   });
                                 }}
                               >
@@ -446,7 +446,7 @@ const OrganizationType = () => {
                           display: checkedItem.length > 0 ? "" : "none",
                         }}
                         onClick={() => {
-                          history.push({ pathname: "/hr/PromoteLeave" });
+                          history.push({ pathname: "/hr/tam/PromoteLeave" });
                         }}
                       >
                         연차 사용 촉진

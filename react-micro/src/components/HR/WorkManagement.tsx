@@ -168,7 +168,7 @@ const WorkManagement = () => {
         <HcButton
           onClick={() => {
             history.push({
-              pathname: "/hr/hrWorkManageCreate",
+              pathname: "/hr/tam/WorkManageCreate",
             });
           }}
           styles="secondary"
@@ -186,7 +186,7 @@ const WorkManagement = () => {
             <Container
               onClick={() => {
                 history.push({
-                  pathname: "/hr/hrWorkManageDetail",
+                  pathname: "/hr/tam/WorkManageDetail",
                   state: {
                     type: type,
                     id: id,

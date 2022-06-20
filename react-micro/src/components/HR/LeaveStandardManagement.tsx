@@ -154,7 +154,7 @@ const LeaveStadards = () => {
                           }}
                           onClick={() => {
                             history.push({
-                              pathname: "/hr/hrLeaveStandardDetail",
+                              pathname: "/hr/tam/LeaveStandardDetail",
                             });
                           }}
                         >

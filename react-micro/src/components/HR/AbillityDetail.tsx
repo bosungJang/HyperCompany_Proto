@@ -1,15 +1,19 @@
-import { RouteComponentProps, useLocation } from "react-router-dom";
 import React, { useState } from "react";
-import "common/Table.css";
 import styled from "styled-components";
-import { TableSelect, TableActionBtn } from "common/HcTableComponent";
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+  NullTbody,
+} from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
-import HcTabs from "common/HcTabs";
+
 import { ComponentWrapper, MultiLayout } from "common/HcCommonLayout";
 import HcTextField, {
   HcTitleTextField,
   HcTextFieldLabel,
   SubHeading,
+  HcTextArea,
 } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
@@ -69,20 +73,6 @@ const AbilityDetail = () => {
   }
 
   const [checkedItem, setCheckedItem]: any = React.useState([]);
-  const columns = [
-    <div style={{ paddingTop: 9, width: 46, paddingLeft: 16 }}>
-      <HcCheckBox
-        checked={checkedItem.length > 0 ? true : false}
-        onChange={(e) => checkAllHandler(e.target.checked)}
-      />
-    </div>,
-    "평가등급",
-    "최소점수",
-    "최대점수",
-    "권장 비율",
-    "설명",
-    "-",
-  ];
 
   return (
     <div style={{ width: "inherit" }}>
@@ -91,7 +81,10 @@ const AbilityDetail = () => {
       >
         <div style={{ marginTop: 20 }}>
           {" "}
-          <HcTitleTextField titleName="역량 상세" isBackIcon />
+          <HcTitleTextField
+            titleName={edit ? "역량 수정" : "역량 상세"}
+            isBackIcon
+          />
           <HcButton
             styles="line"
             size="medium"
@@ -219,22 +212,22 @@ const AbilityDetail = () => {
                 }}
               />
 
-              <HcTextField
+              <HcTextArea
                 titleName="설명"
-                name="comment"
-                onKeyDown={(e: any) => {
+                name="name"
+                onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     alert("SUCCESS");
                   }
                 }}
-                style={{ width: "1320px", marginBottom: 20, height: 88 }}
-                value={data.comment}
                 onChange={(e) => {
                   setData((prevState: any) => ({
                     ...prevState,
                     comment: e.target.value,
                   }));
                 }}
+                value={data.comment}
+                style={{ width: "1320px", marginBottom: 20, height: 88 }}
               />
             </div>
             <div
@@ -299,41 +292,53 @@ const AbilityDetail = () => {
           >
             +생성
           </HcButton>
-          <table>
-            <thead>
-              <tr>
-                {columns.map((column) => (
-                  <th style={{ maxWidth: 346, textAlign: "left" }}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody style={{ maxWidth: 346 }}>
-              <tr>
-                <td
-                  style={{
-                    overflow: " scroll",
-                  }}
-                >
-                  <div style={{ paddingLeft: 16, marginTop: 9 }}>
-                    <HcCheckBox
-                      checked={checkedItem.includes(1)}
-                      onChange={(e) => {
-                        checkHandler(e.target.checked, 1);
-                      }}
-                    />
-                  </div>
-                </td>
-                <td>A</td>
-                <td>80</td>
-                <td>100</td>
-                <td>50%</td>
-                <td>
-                  분석력, IT활용, 의사소통, 문제해결능력, 대인관계능력, 정보수집
-                </td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
+          <HcTableContainer style={{ width: 1320, height: 262 }}>
+            <HcTable>
+              <thead>
+                <tr>
+                  <th style={{ width: 46 }}>
+                    <div>
+                      <HcCheckBox
+                        checked={checkedItem.length > 0 ? true : false}
+                        onChange={(e) => checkAllHandler(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                  <th style={{ width: 188 }}>평가등급</th>
+                  <th style={{ width: 188 }}>최소점수</th>
+                  <th style={{ width: 188 }}>최대점수</th>
+                  <th style={{ width: 188 }}>권장 비율</th>
+                  <th style={{ width: 402 }}>설명</th>
+                  <th style={{ width: 120 }}>-</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      <HcCheckBox
+                        checked={checkedItem.includes(1)}
+                        onChange={(e) => {
+                          checkHandler(e.target.checked, 1);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>A</td>
+                  <td>80</td>
+                  <td>100</td>
+                  <td>50%</td>
+                  <td>
+                    분석력, IT활용, 의사소통, 문제해결능력, 대인관계능력,
+                    정보수집
+                  </td>
+                  <td>
+                    <TableActionBtn />
+                  </td>
+                </tr>
+              </tbody>
+            </HcTable>
+          </HcTableContainer>
         </TableContainer>
         <TableContainer style={{ display: "block", paddingTop: 70 }}>
           <SubHeading titleName="자격증" />
@@ -344,44 +349,57 @@ const AbilityDetail = () => {
           >
             +생성
           </HcButton>
-          <table>
-            <thead>
-              <tr>
-                {columns.map((column) => (
-                  <th style={{ maxWidth: 346, textAlign: "left" }}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody style={{ maxWidth: 346 }}>
-              <tr>
-                <td
-                  style={{
-                    overflow: " scroll",
-                  }}
-                >
-                  <div style={{ paddingLeft: 16, marginTop: 9 }}>
-                    <HcCheckBox
-                      checked={checkedItem.includes(1)}
-                      onChange={(e) => {
-                        checkHandler(e.target.checked, 1);
-                      }}
-                    />
-                  </div>
-                </td>
-                <td>A</td>
-                <td>80</td>
-                <td>100</td>
-                <td>50%</td>
-                <td>
-                  분석력, IT활용, 의사소통, 문제해결능력, 대인관계능력, 정보수집
-                </td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
+          <HcTableContainer style={{ width: 1320, height: 262 }}>
+            <HcTable>
+              <thead>
+                <tr>
+                  <th style={{ width: 46 }}>
+                    <div>
+                      <HcCheckBox
+                        checked={checkedItem.length > 0 ? true : false}
+                        onChange={(e) => checkAllHandler(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                  <th style={{ width: 182 }}>자격증명</th>
+                  <th style={{ width: 182 }}>자격증 번호</th>
+                  <th style={{ width: 182 }}>등급</th>
+                  <th style={{ width: 182 }}>점수</th>
+                  <th style={{ width: 186 }}>인증기관</th>
+                  <th style={{ width: 120 }}>취득일자</th>
+                  <th style={{ width: 120 }}>만료일자</th>
+                  <th style={{ width: 120 }}>-</th>
+                </tr>
+              </thead>
+              <tbody style={{ maxWidth: 346 }}>
+                <tr>
+                  <td>
+                    <div>
+                      <HcCheckBox
+                        checked={checkedItem.includes(1)}
+                        onChange={(e) => {
+                          checkHandler(e.target.checked, 1);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>DAsp</td>
+                  <td>12345678900000</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>한국 데이터 산업협회</td>
+                  <td>2022.01.01</td>
+                  <td>2022.01.01</td>
+                  <td>
+                    <TableActionBtn />
+                  </td>
+                </tr>
+              </tbody>
+            </HcTable>
+          </HcTableContainer>
         </TableContainer>
       </ComponentWrapper>
-      <HcBottomBar open={barOpen} style={{ width: 1400 }}>
+      <HcBottomBar open={barOpen} style={{ width: 1400, zIndex: 10 }}>
         <div>
           {edit == false ? (
             <>

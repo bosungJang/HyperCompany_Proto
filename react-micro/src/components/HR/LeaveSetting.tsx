@@ -119,7 +119,7 @@ const LeaveSetting = () => {
             <HcButton
               onClick={() => {
                 history.push({
-                  pathname: "/hr/hrLeaveSettingCreate",
+                  pathname: "/hr/tam/LeaveSettingCreate",
                 });
               }}
               styles="secondary"
@@ -150,7 +150,7 @@ const LeaveSetting = () => {
                       <tr
                         onClick={() => {
                           history.push({
-                            pathname: "/hr/hrLeaveSettingDetail",
+                            pathname: "/hr/tam/LeaveSettingDetail",
                           });
                         }}
                         style={{

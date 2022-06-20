@@ -1,6 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import HcButton from "./HcButton";
-
+import { Prompt, useHistory } from "react-router-dom";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { Modal } from "antd";
 const PopupShow = keyframes`
 from {
   opacity: 0;
@@ -712,3 +714,49 @@ export function HcContentPopupFi(props: any) {
     </div>
   );
 }
+export const Confirm = (props: any) => {
+  const [modalVisible, updateModalVisible] = useState(true);
+
+  const history = useHistory();
+
+  const [showPrompt, setShowPrompt] = useState(true);
+  const [currentPath, setCurrentPath] = useState(history.location.pathname);
+
+  useEffect(() => {
+    if (props.when) {
+      history.block((prompt: any) => {
+        setCurrentPath(prompt.pathname);
+        setShowPrompt(true);
+        console.log(currentPath);
+      });
+    } else {
+      history.block(() => {});
+    }
+
+    return () => {
+      history.block(() => {});
+    };
+  }, [history, props.when]);
+
+  return (
+    <>
+      <Prompt when={props.when} message={props.shouldBlockNavigation} />
+      <HcContentPopup
+        header="미저장 안내"
+        style={{ left: 30 }}
+        width={600}
+        height={340}
+        open={props.when && showPrompt}
+        close={props.leave}
+        // primaryFunc={props.when}
+        primaryBtn="저장 후 나가기"
+        //  secondFunc={leave}//저장 안하고 나가기
+        secondBtn="나가기"
+      >
+        변경사항이 저장되지 않을 수 있습니다.
+        <br />
+        저장하지 않고 이 페이지를 나가시겠습니까?
+      </HcContentPopup>
+    </>
+  );
+};

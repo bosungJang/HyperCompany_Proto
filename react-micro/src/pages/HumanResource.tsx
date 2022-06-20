@@ -86,54 +86,54 @@ const testArray = [
   {
     icon: "HR/Personnel_Management_Icon",
     title: "인사 관리",
-    path: "/hr/management",
+    path: "/hr/pas/management",
     submenu: [
       {
         title: "인사 정보 관리",
-        path: "/hr/management",
+        path: "/hr/pas/management",
       },
-      { title: "사원 그룹 관리", path: "/hr/groupManagement" },
-      { title: "역량 관리", path: "/hr/abilityManagement" },
+      { title: "사원 그룹 관리", path: "/hr/pas/groupManagement" },
+      { title: "역량 관리", path: "/hr/pas/abilityManagement" },
       {
         title: "발령 관리",
-        path: "/hr/Order",
+        path: "/hr/pas/Order",
       },
 
       {
         title: "발령 기준 설정",
-        path: "/hr/OrderStandards",
+        path: "/hr/pas/OrderStandards",
       },
     ],
   },
   {
     icon: "HR/Organization_Management_Icon",
     title: "조직 관리",
-    path: "/hr/hrOrganizationManagement",
+    path: "/hr/orm/OrganizationManagement",
     submenu: [
-      { title: "조직 정보 관리", path: "/hr/hrOrganizationManagement" },
+      { title: "조직 정보 관리", path: "/hr/orm/OrganizationManagement" },
       {
         title: "직능 관리",
-        path: "/hr/hrProfessionalManagement",
+        path: "/hr/orm/ProfessionalManagement",
       },
       {
         title: "조직 유형 설정 관리",
-        path: "/hr/hrOrganizationType",
+        path: "/hr/orm/OrganizationType",
       },
     ],
   },
   {
     icon: "HR/Working_Hours_Management_Icon",
     title: "근태 관리",
-    path: "/hr/hrEmployeeStatus",
+    path: "/hr/tam/EmployeeStatus",
     submenu: [
-      { title: "근태 관리", path: "/hr/hrEmployeeStatus" },
-      { title: "근무 스케쥴 관리", path: "/hr/hrWorkSchedule" },
-      { title: "휴가 관리", path: "/hr/hrLeaveManagement" },
-      { title: "근무 유형 설정", path: "/hr/hrWorkManagement" },
-      { title: "근무 항목 설정", path: "/hr/hrWorkCategory" },
-      { title: "휴가 설정", path: "/hr/hrLeaveSetting" },
-      { title: "연월차 설정", path: "/hr/hrLeaveStandard" },
-      { title: "휴무일 설정", path: "/hr/hrHdManagement" },
+      { title: "근태 관리", path: "/hr/tam/EmployeeStatus" },
+      { title: "근무 스케쥴 관리", path: "/hr/tam/WorkSchedule" },
+      { title: "휴가 관리", path: "/hr/tam/LeaveManagement" },
+      { title: "근무 유형 설정", path: "/hr/tam/WorkManagement" },
+      { title: "근무 항목 설정", path: "/hr/tam/WorkCategory" },
+      { title: "휴가 설정", path: "/hr/tam/LeaveSetting" },
+      { title: "연월차 설정", path: "/hr/tam/LeaveStandard" },
+      { title: "휴무일 설정", path: "/hr/tam/HdManagement" },
     ],
   },
   {
@@ -180,125 +180,134 @@ const HumanResourgcePage = (props: HRProps) => {
   return (
     <div>
       <Route exact path={props.match.url} component={HRHome} />
-      <Route path={`${props.match.url}/Order`} component={Order} />
+      <Route path={`${props.match.url}/pas/Order`} component={Order} />
       <Route
-        path={`${props.match.url}/abilityManagement`}
+        path={`${props.match.url}/pas/abilityManagement`}
         component={AbilityManagement}
       />
       <Route
-        path={`${props.match.url}/abilityDetail`}
+        path={`${props.match.url}/pas/abilityDetail`}
         component={AbilityDetail}
       />
       <Route
-        path={`${props.match.url}/abilityCreate`}
+        path={`${props.match.url}/pas/abilityCreate`}
         component={AbilityCreate}
       />
-      <Route path={`${props.match.url}/management`} component={HRManagement} />
       <Route
-        path={`${props.match.url}/groupManagement`}
+        path={`${props.match.url}/pas/management`}
+        component={HRManagement}
+      />
+      <Route
+        path={`${props.match.url}/pas/groupManagement`}
         component={HRGroupManage}
       />
       <Route
-        path={`${props.match.url}/hrInfoDetail`}
+        path={`${props.match.url}/pas/hrInfoDetail`}
         component={HRInfoDetail}
       />
 
       <Route
-        path={`${props.match.url}/hrInfoCreate`}
+        path={`${props.match.url}/pas/hrInfoCreate`}
         component={HRInfoCreate}
       />
       <Route
-        path={`${props.match.url}/hrInfoCreated`}
+        path={`${props.match.url}/pas/hrInfoCreated`}
         component={HRInfoCreated}
       />
-      <Route path={`${props.match.url}/OrderCreate`} component={OrderCreate} />
-      <Route path={`${props.match.url}/OrderDetail`} component={OrderDetail} />
       <Route
-        path={`${props.match.url}/OrderStandards`}
+        path={`${props.match.url}/pas/OrderCreate`}
+        component={OrderCreate}
+      />
+      <Route
+        path={`${props.match.url}/pas/OrderDetail`}
+        component={OrderDetail}
+      />
+      <Route
+        path={`${props.match.url}/pas/OrderStandards`}
         component={OrderStandards}
       />
       <Route
-        path={`${props.match.url}/hrOrganizationManagement`}
+        path={`${props.match.url}/orm/OrganizationManagement`}
         component={HROrganizationManagement}
       />
       <Route
-        path={`${props.match.url}/hrOrganizationType`}
+        path={`${props.match.url}/orm/OrganizationType`}
         component={HROrganizationType}
       />
       <Route
-        path={`${props.match.url}/hrProfessionalManagement`}
+        path={`${props.match.url}/orm/ProfessionalManagement`}
         component={HRProfessionalManagement}
       />
       <Route
-        path={`${props.match.url}/hrProfessionalDetail`}
+        path={`${props.match.url}/orm/ProfessionalDetail`}
         component={HRProfessionalDetail}
       />
       <Route
-        path={`${props.match.url}/hrProfessionalCreate`}
+        path={`${props.match.url}/orm/ProfessionalCreate`}
         component={HRProfessionalCreate}
       />
       <Route
-        path={`${props.match.url}/hrProfessionalHistory`}
+        path={`${props.match.url}/orm/ProfessionalHistory`}
         component={HRProfessionalHistory}
       />
       <Route
-        path={`${props.match.url}/hrEmployeeStatus`}
+        path={`${props.match.url}/tam/EmployeeStatus`}
         component={EmployeeStatus}
       />
       <Route
-        path={`${props.match.url}/hrLeaveManagement`}
+        path={`${props.match.url}/tam/LeaveManagement`}
         component={LeaveManagement}
       />
       <Route
-        path={`${props.match.url}/hrLeaveDetail`}
+        path={`${props.match.url}/tam/LeaveDetail`}
         component={LeaveDetail}
       />
       <Route
-        path={`${props.match.url}/hrWorkCategory`}
+        path={`${props.match.url}/tam/WorkCategory`}
         component={WorkCategory}
       />
       <Route
-        path={`${props.match.url}/hrLeaveSetting`}
+        path={`${props.match.url}/tam/LeaveSetting`}
         component={LeaveSetting}
       />
       <Route
-        path={`${props.match.url}/hrLeaveSettingDetail`}
+        path={`${props.match.url}/tam/LeaveSettingDetail`}
         component={LeaveSettingDetail}
       />
       <Route
-        path={`${props.match.url}/hrLeaveSettingCreate`}
+        path={`${props.match.url}/tam/LeaveSettingCreate`}
         component={LeaveSettingCreate}
       />
       <Route
-        path={`${props.match.url}/hrWorkManagement`}
+        path={`${props.match.url}/tam/WorkManagement`}
         component={WorkManagement}
       />
       <Route
-        path={`${props.match.url}/hrWorkManageDetail`}
+        path={`${props.match.url}/tam/WorkManageDetail`}
         component={WorkManagementDetail}
       />
       <Route
-        path={`${props.match.url}/hrWorkManageCreate`}
+        path={`${props.match.url}/tam/WorkManageCreate`}
         component={WorkManagementCreate}
       />
       <Route
-        path={`${props.match.url}/PromoteLeave`}
+        path={`${props.match.url}/tam/PromoteLeave`}
         component={PromoteLeave}
       />
       <Route
-        path={`${props.match.url}/hrHdManagement`}
+        path={`${props.match.url}/tam/HdManagement`}
         component={HdManagement}
       />
       <Route
-        path={`${props.match.url}/hrLeaveStandard`}
+        path={`${props.match.url}/tam/LeaveStandard`}
         component={LeaveStandardManagement}
       />
       <Route
-        path={`${props.match.url}/hrLeaveStandardDetail`}
+        path={`${props.match.url}/tam/LeaveStandardDetail`}
         component={LeaveStandardDetail}
       />
       <Route
-        path={`${props.match.url}/hrWorkSchedule`}
+        path={`${props.match.url}/tam/WorkSchedule`}
         component={WorkSchedule}
       />
       <Route
