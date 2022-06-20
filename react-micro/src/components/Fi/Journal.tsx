@@ -135,7 +135,7 @@ const Journal = () => {
                     </svg>
                   </button>
                 </div>
-                <TableContainer>
+                <TableContainer className="table_container">
                   <table className="table table-hover">
                     <thead>
                       <tr>

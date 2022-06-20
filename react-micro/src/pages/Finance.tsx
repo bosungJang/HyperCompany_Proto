@@ -33,9 +33,9 @@ import {
   VATReportingManagementPage,
   CertificateRegistrationPage,
   VATReportingPage,
+  FixedAssetListPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
-import VATReporting from "components/Fi/VATReporting";
 
 interface FinanceProps {
   match: any;
@@ -227,6 +227,17 @@ const testArray = [
       },
     ],
   },
+  {
+    icon: "Finance/FixedAssets_Management",
+    title: "고정자산 관리",
+    path: "/fi/fixedAssetsManagement/fixedAssetsList",
+    submenu: [
+      {
+        title: "고정자산 목록",
+        path: "/fi/fixedAssetsManagement/fixedAssetsList",
+      },
+    ],
+  },
 ];
 
 const Finance = React.forwardRef((props: FinanceProps, ref) => {
@@ -365,7 +376,11 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       />
       <Route
         path={`${props.match.url}/taxManagement/VATReporting`}
-        component={VATReporting}
+        component={VATReportingPage}
+      />
+      <Route
+        path={`${props.match.url}/fixedAssetsManagement/fixedAssetsList`}
+        component={FixedAssetListPage}
       />
     </div>
   );

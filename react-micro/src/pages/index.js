@@ -671,6 +671,13 @@ export const VATReportingPage = loadable(
     fallback: Loading,
   }
 );
+
+export const FixedAssetListPage = loadable(
+  () => import("../components/Fi/FixedAssetList"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
