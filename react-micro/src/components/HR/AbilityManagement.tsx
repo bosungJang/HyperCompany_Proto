@@ -11,6 +11,7 @@ import {
 } from "common/HcTableComponent";
 import HcCheckBox from "common/HcCheckBox";
 import HcTree from "common/HcTree";
+import HcBottomBar from "common/HcBottomBar";
 import HcTextField, {
   HcSelect,
   HcSearchTextField,
@@ -22,10 +23,10 @@ import HcTextField, {
   HcSearchBtnInputField,
   TextField,
   HcTagNoInputObject,
+  HcTextArea,
 } from "common/HcTextField";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
 import { HcTreePopupFi } from "common/HcPopup";
-import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcTabsAdv } from "common/HcTabs";
 
@@ -61,7 +62,7 @@ const getId = () => {
   num = num + 1;
   return num;
 };
-const Dutydata = Array(17)
+const AbilityData = Array(17)
   .fill(undefined)
   .map(() => ({
     id: getId(),
@@ -88,36 +89,7 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const [checkedItem, setCheckedItem]: any = React.useState([]);
   const [groupCreate, setGroupCreate] = React.useState(false);
-  function checkHandler(checked: Boolean, id: Number) {
-    if (checked == true) {
-      setCheckedItem([...checkedItem, id]);
-    } else {
-      setCheckedItem(checkedItem.filter((i: number) => i != id));
-    }
-  }
 
-  function checkAllHandler(checked: Boolean) {
-    if (checked) {
-      const ids: Number[] = [];
-      Dutydata.forEach((i) => ids.push(i.id));
-      setCheckedItem(ids);
-    } else {
-      setCheckedItem([]);
-    }
-  }
-  const columns = [
-    <div style={{ paddingTop: 7 }}>
-      <HcCheckBox
-        checked={checkedItem.length > 0 ? true : false}
-        onChange={(e) => checkAllHandler(e.target.checked)}
-      />
-    </div>,
-    "역량명",
-    "역량 그룹",
-    "설명",
-    "수정 일시",
-    "-",
-  ];
   /*checkbox */
   /*Create */
   const [isCreate, setIsCreates] = React.useState(false);
@@ -129,7 +101,7 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
   /* Current Data*/
   const [currentData, setcurrentData] = React.useState({
-    id: 0,
+    id: "0",
     title: "",
   });
 
@@ -138,6 +110,7 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
+  const [edit, setEdit] = React.useState(false);
 
   /*Tree*/
   const [items, setItems] = React.useState([
@@ -376,13 +349,27 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
     );
   });
 
-  function DutyTable() {
+  function AbilityTable(props: any) {
+    function checkHandler(checked: Boolean, id: Number) {
+      if (checked == true) {
+        setCheckedItem([...checkedItem, id]);
+      } else {
+        setCheckedItem(checkedItem.filter((i: number) => i != id));
+      }
+    }
+
+    function checkAllHandler(checked: Boolean) {
+      if (checked) {
+        const ids: Number[] = [];
+        props.data.forEach((i: any) => ids.push(i.id));
+        setCheckedItem(ids);
+      } else {
+        setCheckedItem([]);
+      }
+    }
     return (
       <>
-        {" "}
-        {/*table*/}
         <div style={{ display: "flex" }}>
-          {" "}
           <HcButton
             onClick={() => {
               history.push({
@@ -392,7 +379,6 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             styles="secondary"
             style={{
               display: checkedItem.length >= 1 ? "none" : "",
-
               marginBottom: "12px",
             }}
             size="medium"
@@ -408,10 +394,9 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             }}
             size="medium"
             onClick={() => {
-              const sendData: any = Dutydata.find(
-                (e) => e.id == checkedItem[0]
+              const sendData: any = props.data.find(
+                (e: any) => e.id == checkedItem[0]
               );
-              console.log(sendData);
               history.push({
                 pathname: "/hr/orm/ProfessionalDetail",
                 state: {
@@ -452,18 +437,27 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             }}
             size="medium"
           >
-            사원이동
+            역량 그룹이동
           </HcButton>
           <TableSetting
-            style={{ marginLeft: checkedItem.length >= 1 ? 592 : 767 }}
+            style={{
+              marginLeft: props.all
+                ? checkedItem.length >= 1
+                  ? 563
+                  : 767
+                : checkedItem.length >= 1
+                ? 515
+                : 719,
+            }}
           />
         </div>
-        <HcTableContainer style={{ width: 984, height: 814 }}>
+        <HcTableContainer
+          style={{ width: "100%", height: props.all ? 984 : 261 }}
+        >
           <HcTable>
-            <thead style={{ width: 984 }}>
+            <thead>
               <tr>
                 <th style={{ width: 46 }}>
-                  {" "}
                   <div style={{ paddingTop: 7 }}>
                     <HcCheckBox
                       checked={checkedItem.length > 0 ? true : false}
@@ -471,17 +465,17 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                     />
                   </div>
                 </th>
-                <th style={{ width: 160 }}>역량명</th>
-                <th style={{ width: 160 }}>역량 그룹</th>
-                <th style={{ width: 378 }}>설명</th>
+                <th style={{ width: props.all ? 160 : 150 }}>역량명</th>
+                <th style={{ width: props.all ? 160 : 150 }}>역량 그룹</th>
+                <th style={{ width: props.all ? 378 : 350 }}>설명</th>
                 <th style={{ width: 120 }}>수정 일시</th>
                 <th style={{ width: 120 }}>-</th>
               </tr>
             </thead>
 
-            {Dutydata.length > 0 ? (
+            {props.data.length > 0 ? (
               <tbody>
-                {Dutydata.map(
+                {props.data.map(
                   ({
                     id,
                     name,
@@ -491,12 +485,10 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                     type,
                     comment,
                     action,
-                  }) => (
+                  }: any) => (
                     <tr
                       style={{
-                        backgroundColor: checkedItem.includes(id)
-                          ? "#DFECFF"
-                          : "",
+                        background: checkedItem.includes(id) ? "#EFF5FF" : "",
                       }}
                       onClick={() => {
                         history.push({
@@ -548,19 +540,32 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
         <div
           style={{
             width: 984,
-            height: 860,
+            height: 814,
             marginLeft: 24,
-            display: currentData.id == 0 ? "" : "none",
+            display: currentData.id == "0" ? "" : "none",
           }}
         >
-          <DutyTable />
+          <AbilityTable data={AbilityData} all />
         </div>
         <TreeContArea
           style={{
-            display: currentData.id == 0 ? "none" : "",
+            display: currentData.id == "0" ? "none" : "",
           }}
         >
-          <TreeContAreaTitle>{currentData.title}</TreeContAreaTitle>
+          {edit ? (
+            <TextField
+              value={currentData.title}
+              style={{
+                width: 400,
+                height: 60,
+                fontSize: "24px",
+                lineHeight: "35px",
+                fontWeight: 500,
+              }}
+            />
+          ) : (
+            <TreeContAreaTitle>{currentData.title}</TreeContAreaTitle>
+          )}
           <div
             className="tree_content_area_container"
             style={{
@@ -590,18 +595,30 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               >
                 {currentData.id}
               </HcTextFieldLabel>
-              <HcTextFieldLabel
-                titleName="설명"
-                name="name"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    alert("SUCCESS");
-                  }
-                }}
-                style={{ width: "936px", marginBottom: 20 }}
-              >
-                설명입니다
-              </HcTextFieldLabel>
+              {edit ? (
+                <HcTextArea
+                  style={{
+                    width: "936px",
+                    marginBottom: 20,
+                    height: "88px",
+                    whiteSpace: "pre-wrap",
+                  }}
+                  value={`전략 기획, 회계, 구매, 인사 총무로 구성되어 있습니다. 회사 비전을 설립하고 경영 환경을 분석합니다. \n 재무나 회계에 대한 업무를 분석하는 직무입니다.`}
+                />
+              ) : (
+                <HcTextFieldLabel
+                  titleName="설명"
+                  name="name"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      alert("SUCCESS");
+                    }
+                  }}
+                  style={{ width: "936px", marginBottom: 20 }}
+                >
+                  설명입니다
+                </HcTextFieldLabel>
+              )}
             </div>
             <div
               className="first_block"
@@ -628,7 +645,7 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             </div>
           </div>
           <div style={{ width: 936, height: 392, marginTop: 48 }}>
-            <DutyTable />
+            <AbilityTable data={AbilityData} />
           </div>
         </TreeContArea>
       </>
@@ -665,10 +682,11 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             <>
               <HcTree
                 items={items}
-                title="계정과목"
+                title="역량 그룹"
                 search={true}
                 style={{ minHeight: "832px" }}
                 isCreate={isCreate}
+                placeholder="직무 그룹 검색"
                 setIsCreates={setIsCreates}
                 currentData={currentData}
                 setcurrentData={setcurrentData}
@@ -688,6 +706,71 @@ const AbilityManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           </div>
         </div>
       </ComponentWrapper>
+      <HcBottomBar
+        open={barOpen && currentData.id !== "0"}
+        style={{ width: 1400 }}
+      >
+        <div>
+          {edit == false ? (
+            <>
+              {" "}
+              <HcButton
+                onClick={() => {
+                  setEdit(true);
+                }}
+                styles="primary"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                수정
+              </HcButton>
+              <HcButton
+                onClick={() => {}}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                삭제
+              </HcButton>
+              <HcButton
+                onClick={() => {
+                  setbarOpen(false);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                취소
+              </HcButton>
+            </>
+          ) : (
+            <>
+              {" "}
+              <HcButton
+                onClick={() => {
+                  setEdit(false);
+                }}
+                styles="primary"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                저장
+              </HcButton>
+              <HcButton
+                onClick={() => {
+                  setbarOpen(false);
+                  setEdit(false);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                취소
+              </HcButton>
+            </>
+          )}
+        </div>
+      </HcBottomBar>
     </>
   );
 };

@@ -56,7 +56,8 @@ const TextArea = styled.textarea<{ disabled?: boolean }>`
   height: 40px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   transition: all 150ms;
   autocomplete: off;
   resize: none;

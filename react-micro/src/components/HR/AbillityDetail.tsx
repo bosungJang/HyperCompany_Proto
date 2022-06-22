@@ -215,11 +215,6 @@ const AbilityDetail = () => {
               <HcTextArea
                 titleName="설명"
                 name="name"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    alert("SUCCESS");
-                  }
-                }}
                 onChange={(e) => {
                   setData((prevState: any) => ({
                     ...prevState,

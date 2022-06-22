@@ -64,7 +64,7 @@ const TableContainer = styled.div`
   }
 `;
 
-const StyledTable = styled.table`
+const StyledTable = styled.table<{ checked?: boolean }>`
   text-align: left;
   table-layout: fixed;
   border-collapse: collapse;
@@ -95,7 +95,10 @@ const StyledTable = styled.table`
     height: 32px;
   }
   tr > td {
-    background-color: #ffffff;
+    background-color: #fffff;
+  }
+  tr:nth-child(even) {
+    background-color: #f1f4f9;
   }
   tr:hover {
     background-color: #eff5ff;
@@ -189,12 +192,12 @@ const Btn = styled.div`
   justify-content: center;
   align-items: center;
   &:hover {
-    background: #EFF5FF;
+    background: #EDEDED;
   }
   display: flex;
   padding-right:5px
   &:active {
-    background: #adceff;
+    background: #CECECE;
   }
 `;
 export function TableSetting(props?: any) {
@@ -212,7 +215,7 @@ export function TableSetting(props?: any) {
             d="M21.1938 5.83301H6.80363C6.39694 5.83301 6.16038 6.29269 6.39676 6.62363L11.5722 13.8693C11.6328 13.9541 11.6654 14.0557 11.6654 14.1599V20.1073C11.6654 20.2967 11.7724 20.4698 11.9418 20.5545L15.6084 22.3879C15.9409 22.5541 16.332 22.3123 16.332 21.9407V14.1599C16.332 14.0557 16.3646 13.9541 16.4252 13.8693L21.6006 6.62363C21.837 6.29269 21.6005 5.83301 21.1938 5.83301Z"
             stroke="#5D5D62"
             stroke-width="1.5"
-          />
+          ></path>
         </svg>
         <svg
           width="26"
