@@ -16,11 +16,11 @@ to {
 const SideBarShow = keyframes`
 from {
   opacity: 0;
-  left:1846px;
+  margin-left:calc( 100% + 574px );
 }
 to {
   opacity: 1;
-  left:1346px;
+  margin-left:calc( 100% - 574px ); ;
 }
 `;
 const PopupContainer = styled.div`
@@ -35,17 +35,29 @@ const PopupContainer = styled.div`
   overflow: hidden;
 `;
 const SideBarContainer = styled.div`
-  height: 800px;
+  height: 100%;
   width: 574px;
   background: #ffffff;
-  border: 1px solid lightgray;
   padding: 30px 30px 20px 30px;
   position: relative;
-  left: 1346px;
-  top: 68px;
+  margin-left: calc(100% - 574px);
   animation: ${SideBarShow} 0.3s;
-
   overflow: hidden;
+  &::-webkit-scrollbar-track {
+    background: none;
+    position: absolute;
+    z-index: 1;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
 `;
 export const ContentContainer = styled.div`
   width: 730px;
@@ -269,10 +281,6 @@ export function HcPopup(props: any) {
     </div>
   );
 }
-type PopupProps = {
-  width: any;
-  height: any;
-};
 export function ContentPopup(props: any) {
   const { open, close, header } = props;
   return (
@@ -343,43 +351,45 @@ export function ContentPopup(props: any) {
     </div>
   );
 }
-export function SideBar(props: any) {
-  const { open, close, header } = props;
+export function SideBar(props?: any) {
+  const { open, close, header, addFunc, style } = props;
 
   return (
     <div style={open ? styles.openModal : styles.modal}>
       {open ? (
         <SideBarContainer>
-          <div
-            style={{
-              fontSize: "20px",
-              color: "#303030",
-              fontWeight: "bold",
-            }}
+          <Popup_Title2 style={{ fontSize: "20px" }}> {header}</Popup_Title2>
+
+          <Popup_Content
+            style={Object.assign({ top: 78, right: 30, left: 30 }, style)}
           >
             {" "}
-            {header}
-          </div>
-
-          <div style={{ marginTop: 39 }}> {props.children}</div>
-          <Popup_Buttons>
+            {props.children}
+          </Popup_Content>
+          <div
+            style={{
+              position: "absolute",
+              right: 20,
+              bottom: 20,
+              display: "flex",
+            }}
+          >
             <HcButton
-              onClick={close}
-              styles="secondary"
-              style={{ marginRight: "12px" }}
               size="medium"
+              styles="secondary"
+              onClick={addFunc ? addFunc : close}
             >
-              저장
+              추가
             </HcButton>
             <HcButton
-              onClick={close}
-              styles="line"
               size="medium"
-              style={{ border: "0.82197px solid #A7A7A7" }}
+              styles="line"
+              style={{ marginLeft: 5 }}
+              onClick={close}
             >
               취소
             </HcButton>
-          </Popup_Buttons>
+          </div>
         </SideBarContainer>
       ) : null}
     </div>

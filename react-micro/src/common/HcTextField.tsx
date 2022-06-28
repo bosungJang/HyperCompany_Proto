@@ -888,7 +888,7 @@ const SelectContainer = styled.ul<{ isOpen: boolean }>`
   font-size: 14px;
   color: #000000;
   background: #ffffff;
-  
+  margin:0;
   ${(props) =>
     props.isOpen
       ? " border: 1px solid #257cff; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  padding: 4px; z-index: 3;"

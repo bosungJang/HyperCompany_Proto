@@ -19,85 +19,120 @@ const Styled_Slide = styled(Slider)`
   .slick-slider sc-cCcXHH kSJlQb slick-initialized {
     width: 1250px;
   }
+  .slick-dots {
+    margin-bottom: -5px;
+    display: flex;
+    button::before {
+      color: none;
+      opacity: 0;
+    }
+    li {
+      width: 8px;
+      height: 8px;
+      background: #d9d9d9;
+      color: #d9d9d9;
+      border-radius: 16px;
+      &:hover {
+        background: #838181;
+      }
+      button {
+        opacity: 0;
+        padding-top: 0px;
+      }
+      button::before {
+        opacity: 0;
+        padding-top: 0px;
+      }
+    }
+    .slick-active {
+      width: 24px;
+      height: 8px;
 
-  .slick-dots li.slick-active button:before,
-  .slick-dots li.slick-active button:after {
-    color: none;
+      margin-left: 5px;
+      color: #257cff;
+      border-radius: 16px;
+      background: #257cff;
+      &:hover {
+        background: #257cff;
+      }
+      button {
+        display: none;
+      }
+    }
   }
-  .slick-active {
-    background-color: #257cff;
-    width: 24px;
-    height: 8px;
-    border-radius: 17px;
-  }
-`;
-const Info = styled(Title)`
-  color: #838181;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
 `;
 const Profile = styled.img`
-  width: 75px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
   position: absolute;
   top: 21px;
   left: 21px;
   border-radius: 50%;
   border: 2px solid #257cff;
 `;
-const Chip = styled.div`
+const Name = styled(Title)`
+  color: #2d2d31;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+`;
+const Info = styled(Title)`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #5d5d62;
+  position: absolute;
+  top: 53px;
+  left: 113px;
+`;
+const Position = styled(Title)`
+  color: #5d5d62;
+  font-size: 13px;
+  display: flex;
+  position: absolute;
+  top: 108px;
+  left: 22px;
+  font-weight: 500;
+`;
+const Chip = styled.div<{ type?: string }>`
   margin-bottom: 8px;
   justify-content: center;
   align-items: center;
   padding: 3px 12px 3px;
-  line-height: 17px;
+  line-height: 15px;
   float: left;
   height: 26px;
   margin-right: 6px;
-  background: #dfecff;
   font-family: Noto Sans KR;
   font-size: 13px;
-  border: 1px solid #5799fb;
   box-sizing: border-box;
   border-radius: 24px;
+  ${(props) =>
+    props.type === "1"
+      ? "color:#5D5D62; border: 1px solid #838181;"
+      : "color : white;"}
+
+  background: ${(props) =>
+    props.type === "1" ? "white" : props.type === "2" ? "#FDA95C" : "#5AC4CB"};
 `;
-const Dot = styled.li<{ selected?: any }>`
-  background: ${(props) => (props.selected ? "#257CFF" : "#D9D9D9")};
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 6px;
-  font-size: 7px;
+const CandidateUl = styled.ul`
+  margin: 14px 0px 0px 0px;
+  padding: 0;
+  height: 431px;
+  overflow: hidden;
+  li {
+    position: relative;
+    padding-top: 13px;
+    width: 310px;
+    height: 135px;
+    background: #f9f9f9;
+    border-radius: 4px;
+  }
+  li:not(:last-of-type) {
+    margin-bottom: 12px;
+  }
 `;
 const HcSlider = (props: any) => {
-  function Dots() {
-    const list = [];
-    for (let i = 1; i <= props.data.length / 3; i++) {
-      list.push(
-        <Dot
-          onClick={() => {
-            setState({ ...state, now: i });
-          }}
-        >
-          {i * 3 - 1}
-        </Dot>
-      );
-    }
-    return (
-      <ul
-        style={{
-          marginLeft: "auto",
-          padding: 0,
-          display: "flex",
-          marginTop: "24px",
-        }}
-      >
-        <li>{state.now}</li>
-        {list}
-      </ul>
-    );
-  }
   function PrevArrow({ onClick }: ArrowProps) {
     return (
       <div
@@ -169,7 +204,7 @@ const HcSlider = (props: any) => {
     border: 1px solid #cecece;
     border-radius: 4px;
     width: 350px;
-    padding: 21.64px;
+    padding: 16px 20px 16px 20px;
     margin: 3px 30px 3px 30px;
     position: relative;
   `;
@@ -182,7 +217,7 @@ const HcSlider = (props: any) => {
     slidesToScroll: 3,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    style: { innerHeight: props.size === "medium" ? "240px" : "630px" },
+    style: { innerHeight: props.size === "medium" ? "220px" : "607px" },
 
     afterChange: (current: number) => setState({ ...state, now: current }),
   };
@@ -208,32 +243,113 @@ const HcSlider = (props: any) => {
       <Styled_Slide {...settings}>
         {props.data.map((x: any) => (
           <div>
-            <Card
-              style={{ height: props.size === "medium" ? "202px" : "607px" }}
-            >
-              <Profile src="" />
-              {x.name} {x.organization} {x.position}
-              {x.responsibility} {x.id}
-              <div style={{ marginTop: 15, whiteSpace: "pre" }}>
-                {x.ability.map((item: any) => (
-                  <Chip
-                    style={
-                      x.ability.indexOf(item) % 3 == 0
-                        ? styles["1st"]
-                        : x.ability.indexOf(item) % 3 == 1
-                        ? styles["2nd"]
-                        : styles["3rd"]
-                    }
+            {props.size === "medium" ? (
+              <Card style={{ height: "220px" }}>
+                <Profile src="" />
+                <Name
+                  style={{ position: "absolute", top: "20px", left: "113px" }}
+                >
+                  {x.name}
+                </Name>
+                <Info>AB 본부 / Marketin실 기술지원 1팀</Info>
+                <div style={{ marginTop: "94px" }}>
+                  <Position>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.7071 18.2922C12.3166 18.6827 11.6834 18.6827 11.2929 18.2922C10.9024 17.9017 10.9024 17.2685 11.2929 16.878L15.1716 12.9993H6C5.44772 12.9993 5 12.5516 5 11.9993C5 11.447 5.44772 10.9993 6 10.9993H15.3135L11.2928 6.97859C10.9023 6.58807 10.9023 5.9549 11.2928 5.56438C11.6833 5.17385 12.3165 5.17385 12.707 5.56438L18.3509 11.2083L18.364 11.2211C18.7545 11.6116 18.7545 12.2448 18.364 12.6353L18.3638 12.6354L12.7071 18.2922Z"
+                        fill="#5D5D62"
+                      />
+                    </svg>
+                    {x.organization} /{x.position} / {x.responsibility}
+                  </Position>
+                  <div style={{ marginTop: 125, whiteSpace: "pre" }}>
+                    {x.ability.map((item: any) => (
+                      <Chip type={String((x.ability.indexOf(item) % 3) + 1)}>
+                        {item}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            ) : (
+              <Card style={{ height: "617px", display: "block" }}>
+                <div>
+                  <Position style={{ position: "static" }}>
+                    {x.organization} /{x.position} / {x.responsibility}
+                  </Position>
+                  <div
+                    style={{
+                      margin: "15px 0px 12px 0px",
+                      whiteSpace: "pre",
+                      height: 68,
+                    }}
                   >
-                    {item}
-                  </Chip>
-                ))}
-              </div>
-            </Card>
+                    {x.ability.map((item: any) => (
+                      <Chip type={String((x.ability.indexOf(item) % 3) + 1)}>
+                        {item}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+                <Title
+                  style={{
+                    color: "#818181",
+                    fontSize: "12px",
+                  }}
+                >
+                  후보자
+                </Title>
+                <CandidateUl>
+                  <li>
+                    <Profile
+                      src=""
+                      style={{ width: 50, height: 50, top: 14, left: 14 }}
+                    />
+
+                    <Name
+                      style={{
+                        margin: "0px 0px 0px 80px",
+                        color: "#5D5D62",
+                        fontSize: "14px",
+                      }}
+                    >
+                      이지원
+                    </Name>
+                    <Title
+                      style={{
+                        margin: "2px 0px 16px 81px",
+                        color: "#838181",
+                        fontSize: "10px",
+                      }}
+                    >
+                      PM 본부 / Product 1실 / Product 1팀 / 매니저
+                    </Title>
+                    <div style={{ marginLeft: 80 }}>
+                      {" "}
+                      {x.ability.slice(0, 3).map((item: any) => (
+                        <Chip
+                          type={"1"}
+                          style={{ height: 22, fontSize: "10px" }}
+                        >
+                          {item} 60%
+                        </Chip>
+                      ))}
+                    </div>
+                  </li>
+                </CandidateUl>
+              </Card>
+            )}
           </div>
         ))}
       </Styled_Slide>
-      {Dots()}
     </>
   );
 };

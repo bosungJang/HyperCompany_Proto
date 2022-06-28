@@ -125,9 +125,9 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
         xmlns="http://www.w3.org/2000/svg"
         style={{
           position: "absolute",
-          zIndex: 3,
+          zIndex: 2,
           top: 34,
-          right: 36,
+          right: 10,
         }}
       >
         <path

@@ -1,109 +1,107 @@
 import React, { useState } from "react";
-import { ComponentWrapper } from "common/HcCommonLayout";
-import {
+import { ComponentWrapper, Container } from "common/HcCommonLayout";
+import HcTextField, {
   HcTitleTextField,
   HcSelect,
-  HcEditableTextField,
   SubHeading,
+  TextField,
+  HcTextFieldLabel,
+  SelectBox,
+  Title,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
 import { useLocation } from "react-router";
-import "common/Table.css";
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+  NullTbody,
+  TableSetting,
+} from "common/HcTableComponent";
 import HcToggleBtn from "common/HcToggleBtn";
 import HcButton from "common/HcButton";
-const Container = styled.div`
-  background: #ffffff;
-  width: 1320px;
-  border: 1px solid #cecece;
-  border-radius: 6px;
-  padding: 20px 24px 30px 24px;
-`;
-const TableContainer = styled.div`
-  width: 1239px;
-  height: 290px;
-  overflow: scroll;
-`;
-const columns = [
-  "사원 번호",
-  "이름",
-  "조직",
-  "직책",
-  "직위",
-  "발령전 정보",
-  "발령 후 정보",
-  "-",
-];
+import HcCheckBox from "common/HcCheckBox";
+import { HcDatePicker } from "common/HcDatePicker";
+import InfoIconTooltip from "common/HcTooltip";
+import { SideBar } from "common/HcPopup";
 
-const styles: any = {
-  modal: {
-    display: "none",
-    position: "fixed",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: 99,
-  },
-
-  openModal: {
-    display: "flex",
-    position: "fixed",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: 99,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
-  },
-};
-const SideBar = styled.div`
-  height: 1010px;
-  width: 574px;
-  position: absolute !important;
-  bottom: 0px;
-  background-color: white;
-  transition: 0.5s;
-  padding: 20px 30px 20px 24px;
-`;
 const HRCard = styled.div`
   height: 54px;
-  width: 514px;
-  // background: #f5f9ff;
+  width: 512px;
   border: 1px solid #ededed;
   box-sizing: border-box;
   border-radius: 4px;
+  position: relative;
   font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-  margin-top: 10px;
-
+  padding: 13px 20px 15px 56px;
   text-transform: uppercase;
-
   color: #000000;
+  margin-bottom: 10px;
+`;
+const HRContainer = styled.div`
+  display: block;
+  width: 514px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 16px;
+  &::-webkit-scrollbar-track {
+    background: none;
+    position: absolute;
+    z-index: 1;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
+
+  background: /* Shadow covers */ linear-gradient(
+      white 30%,
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+    /* Shadows */
+      radial-gradient(
+        farthest-side at 50% 0,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+        farthest-side at 50% 100%,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      )
+      0 100%;
+  background-repeat: no-repeat;
 `;
 const HRAppointDetail = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
 
-  const [modalOpen, setModalOpen] = React.useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const [notice, setNotice] = useState(true);
+  const [info, setInfo] = useState(true);
+  const [target, setTarget] = useState(true);
+  const [orderType, setrOrderType] = useState("인사 발령");
+  const [group, setGroup] = useState("");
+  const [organization, setOrganization] = useState("");
   const location = useLocation();
   let num = 2020000;
   const getId = () => {
     num = num + 1;
     return num;
   };
-  const testData = Array(15)
+  const data = Array(15)
     .fill(undefined)
     .map(() => ({
       name: "홍길동",
@@ -125,6 +123,14 @@ const HRAppointDetail = () => {
   }: any) {
     return (
       <tr>
+        <td onClick={(event) => event.stopPropagation()}>
+          <HcCheckBox
+            checked={checkedItem.includes(id)}
+            onChange={(e) => {
+              checkHandler(e.target.checked, id);
+            }}
+          />
+        </td>
         <td>{id}</td>
         <td>{name}</td>
         <td>{organization}</td>
@@ -132,10 +138,13 @@ const HRAppointDetail = () => {
         <td>{position}</td>
         <td>{before}</td>
         <td>{after}</td>
+        <td>
+          <TableActionBtn />
+        </td>
       </tr>
     );
   }
-  const [tableData, setTableData] = useState(testData);
+  const [tableData, setTableData] = useState(data);
   const [rows, setRows]: any = useState(
     tableData.map((row) => (
       <Row
@@ -149,7 +158,23 @@ const HRAppointDetail = () => {
       />
     ))
   );
-
+  const [checkedItem, setCheckedItem]: any = React.useState([]);
+  function checkHandler(checked: Boolean, id: Number) {
+    if (checked == true) {
+      setCheckedItem([...checkedItem, id]);
+    } else {
+      setCheckedItem(checkedItem.filter((i: number) => i != id));
+    }
+  }
+  function checkAllHandler(checked: Boolean) {
+    if (checked) {
+      const ids: Number[] = [];
+      data.forEach((i) => ids.push(i.id));
+      setCheckedItem(ids);
+    } else {
+      setCheckedItem([]);
+    }
+  }
   const onCreate = () => {
     const prev = tableData;
     prev.push({
@@ -178,24 +203,38 @@ const HRAppointDetail = () => {
     console.log();
   };
   /*ToggleBtn */
-  const [isToggled, setIsToggled] = React.useState(false);
+  const [isToggled, setIsToggled] = useState(false); //전사공지
+  const [signToggle, setSignToggle] = useState(true); //결재
   /*ToggleBtn */
   /*side bar */
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   /*side bar*/
-  const HRList = testData.map((data) => (
+
+  const HRList = data.map(({ name, organization, position, id }) => (
     <HRCard>
-      {data.name}({data.organization}/{data.position})
+      <img
+        src=""
+        style={{
+          marginRight: 12,
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          position: "absolute",
+          left: 12,
+          top: 11,
+        }}
+      />
+      {name}({organization}/{position}){" "}
+      <HcCheckBox
+        checked={checkedItem.includes(id)}
+        onChange={(e) => {
+          checkHandler(e.target.checked, id);
+        }}
+      />
     </HRCard>
   ));
   const [state, setState] = useState(location.state);
-  const handleChange = (e: any) => {
-    // console.log(setState({ ...state, [e.target.name]: e.target.value }));
-
-    console.log(e.target);
-    console.log(state);
-    // setState({ ...state, [e.target.name]: e.target.value });
-  };
+  const [edit, setEdit] = useState(false);
   const styles = {
     edit: {
       border: "1px solid #E0E0E0",
@@ -218,200 +257,287 @@ const HRAppointDetail = () => {
     } as React.CSSProperties,
   };
   return (
-    <ComponentWrapper
-      style={{
-        padding: 40,
-        display: "block",
-      }}
-    >
-      <HcTitleTextField
-        titleName={state.edit == true ? "발령 수정" : "발령 상세"}
-        isBackIcon={true}
-      />
-      <Container style={{ marginTop: 39, height: 258 }}>
-        <SubHeading titleName="발령 정보" />
-        <div style={{ marginTop: 28 }}>
-          <HcEditableTextField
-            titleName="발령번호"
-            value={state.id}
-            readonly={true}
-            style={styles.detail}
-          />
-
-          <HcEditableTextField
-            titleName="발령내용"
-            value={state.content}
-            onChange={state.edit == true ? setState : () => {}}
-            name="content"
-            readonly={state.edit === false ? true : false}
-            style={state.edit == true ? styles.edit : styles.detail}
-            wraperStyle={{ marginRight: 80, marginLeft: 80 }}
-          />
-          <HcEditableTextField
-            titleName="발령 종류"
-            value="부서배치"
-            name="kind"
-            onChange={state.edit == true ? setState : () => {}}
-            style={state.edit == true ? styles.edit : styles.detail}
-            readonly={state.edit === false ? true : false}
-          />
-          <HcEditableTextField
-            titleName="발령자"
-            value="홍길동"
-            style={styles.detail}
-            readonly={true}
-          />
-          <HcEditableTextField
-            titleName="발령일시"
-            value={state.start}
-            name="start"
-            onChange={state.edit == true ? setState : () => {}}
-            style={state.edit == true ? styles.edit : styles.detail}
-            wraperStyle={{ marginRight: 80, marginLeft: 80 }}
-            readonly={state.edit === false ? true : false}
-          />
-          <HcEditableTextField
-            titleName="시행일시"
-            value={state.end}
-            name="end"
-            onChange={state.edit == true ? setState : () => {}}
-            style={state.edit == true ? styles.edit : styles.detail}
-            readonly={state.edit === false ? true : false}
-          />
-        </div>
-      </Container>
-      <Container style={{ marginTop: 24, height: 404 }}>
-        <SubHeading titleName="발령 대상" />
-        <HcButton
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-          styles="secondary"
-          style={{
-            marginLeft: "16px",
-            marginTop: "18px",
-            marginBottom: "12px",
-          }}
-          size="medium"
+    <>
+      <ComponentWrapper
+        style={{
+          padding: 40,
+          display: "block",
+        }}
+      >
+        <HcTitleTextField
+          titleName={state.edit == true ? "발령 수정" : "발령 상세"}
+          isBackIcon={true}
+        />
+        <Container
+          width={1320}
+          maxHeight={259}
+          state={info}
+          setState={setInfo}
+          title={"발령정보"}
+          style={{ overflow: "visible", zIndex: 2, paddingTop: "20px" }}
         >
-          +생성
-        </HcButton>
-        <TableContainer>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                {columns.map((column: any) => (
-                  <th key={column}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody
-              style={{
-                overflow: " scroll",
-              }}
+          <div style={{ display: "flex" }}>
+            <div
+              style={{ marginRight: "80px", display: "block", width: "360px" }}
             >
-              {rows}
-            </tbody>
-          </table>
-        </TableContainer>
-        <SideBar
-          style={{
-            right: isOpen == true ? 0 : "-600px",
-          }}
-        >
-          <SubHeading titleName="대상자 추가 " />
-          <div style={{ float: "left" }}>
-            {" "}
-            <HcSelect titleName="" name="kinds" style={{ width: 190 }}>
               {" "}
-              <option value="" hidden>
-                조직 선택
-              </option>
-              <option value={" hc"}>HC</option>
-              <option value={"hc"}>AB</option>
-            </HcSelect>{" "}
-            <HcSelect titleName="" name="kinds" style={{ width: 272 }}>
-              {" "}
-              <option value="" hidden>
-                사원 그룹 선택
-              </option>
-              <option value={"연구원"}>연구원</option>
-              <option value={"매니저"}>매니저</option>
-            </HcSelect>
+              <HcTextFieldLabel
+                titleName="발령 번호"
+                style={{ width: "360px", marginBottom: "12px" }}
+              >
+                0000001
+              </HcTextFieldLabel>
+              <HcTextFieldLabel titleName="발령자" style={{ width: "360px" }}>
+                홍길동
+              </HcTextFieldLabel>
+            </div>
+            <div
+              style={{ marginRight: "80px", display: "block", width: "360px" }}
+            >
+              {edit ? (
+                <>
+                  <HcTextField
+                    value="TmaxEnterprise 인사 발령"
+                    titleName="발령 내용"
+                    required
+                    style={{ width: "360px", marginBottom: "25px" }}
+                  />
+                  <HcDatePicker
+                    titleName="발령 일시"
+                    required
+                    style={{ width: "360px" }}
+                  />
+                </>
+              ) : (
+                <>
+                  <HcTextFieldLabel
+                    style={{ width: "360px", marginBottom: "25px" }}
+                    titleName="발령 내용"
+                    required
+                  >
+                    TmaxEnterprise 인사 발령
+                  </HcTextFieldLabel>{" "}
+                  <HcTextFieldLabel
+                    titleName="발령 일시"
+                    required
+                    style={{ width: "360px" }}
+                  >
+                    2020.01.01
+                  </HcTextFieldLabel>
+                </>
+              )}
+            </div>
+
+            <div style={{ display: "block", width: "360px" }}>
+              <SelectBox
+                titleName="발령 종류"
+                name="kinds"
+                required
+                placeholder="발령 종류 선택"
+                items={["입사", "승진", "인사발령"]}
+                state={orderType}
+                setState={setrOrderType}
+                style={{ width: "360px", marginBottom: "25px", zIndex: 2 }}
+              />
+
+              <HcDatePicker
+                titleName="시행 일시"
+                required
+                style={{ width: "360px" }}
+              />
+            </div>
           </div>
+        </Container>
+        <Container
+          width={1320}
+          maxHeight={404}
+          state={target}
+          setState={setTarget}
+          title={"발령 대상"}
+        >
           <div
             style={{
-              marginTop: 130,
-              width: 514,
-              height: 772,
-              overflow: "scroll",
-            }}
-          >
-            {HRList}
-          </div>
-          <HcButton
-            onClick={() => {
-              onCreate();
-            }}
-            styles="secondary"
-            style={{
-              marginLeft: "16px",
-              right: 10,
-              marginTop: "18px",
               marginBottom: "12px",
+              display: "flex",
             }}
-            size="medium"
           >
-            추가
-          </HcButton>
-          <HcButton
-            onClick={() => {
-              setIsOpen(false);
-            }}
-            styles="line"
-            size="medium"
-          >
-            취소
-          </HcButton>
-        </SideBar>
-      </Container>
-      <Container style={{ marginTop: 26, height: 142 }}>
-        <SubHeading titleName="기타 설정" />
-        <div>
-          <HcToggleBtn
-            id="test-switch"
-            toggled={isToggled}
-            onChange={(e) => {
-              setIsToggled(e.target.checked);
-            }}
-          />
+            <HcButton
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+              styles="secondary"
+              style={{ marginRight: 1020 }}
+              size="medium"
+            >
+              +생성
+            </HcButton>{" "}
+            <TableSetting />
+          </div>
+          <HcTableContainer style={{ height: 290, width: 1240 }}>
+            <HcTable>
+              <thead>
+                <tr>
+                  <th style={{ width: "46px" }}>
+                    <HcCheckBox
+                      checked={checkedItem.length > 0 ? true : false}
+                      onChange={(e) => checkAllHandler(e.target.checked)}
+                    />
+                  </th>
+                  <th style={{ width: "153px" }}>사원번호</th>
+                  <th style={{ width: "153px" }}>이름</th>
+                  <th style={{ width: "153px" }}>조직</th>
+                  <th style={{ width: "153px" }}>직책</th>
+                  <th style={{ width: "153px" }}>직위</th>
+                  <th style={{ width: "155px" }}>발령전 정보</th>
+                  <th style={{ width: "155px" }}>발령 후 정보</th>
+                  <th style={{ width: "120px" }}>-</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.length === 0 ? <NullTbody colspan={9} /> : rows}
+              </tbody>
+            </HcTable>
+          </HcTableContainer>
+        </Container>
+        <Container
+          width={1320}
+          maxHeight={142}
+          state={notice}
+          setState={setNotice}
+          title={"기타설정"}
+        >
+          <div style={{ display: "flex", height: 23 }}>
+            <Title style={{ fontWeight: 500 }}>전사공지</Title>
+            <span
+              style={{
+                marginRight: 51,
+                position: "relative",
+                color: "#5D5D62",
+              }}
+            >
+              <InfoIconTooltip message="발령완료 시점에 자동으로 전사 공지에 발령 내용이 등록됩니다." />
+            </span>
+            <HcToggleBtn
+              id="notice-switch"
+              toggled={isToggled}
+              onChange={() => {
+                setIsToggled(!isToggled);
+              }}
+            />
 
-          {isToggled == true ? "On" : "Off"}
-        </div>
-      </Container>
-      <HcBottomBar open={barOpen} style={{ width: 1620, right: 320 }}>
+            <Title style={{ marginLeft: 6, fontWeight: 500 }}>
+              {isToggled == true ? "On" : "Off"}
+            </Title>
+
+            <Title style={{ fontWeight: 500, margin: "0px 61px 0px 150px" }}>
+              결재
+            </Title>
+
+            <HcToggleBtn
+              id="sign-switch"
+              toggled={signToggle}
+              onChange={() => {
+                setSignToggle(!signToggle);
+              }}
+            />
+
+            <Title style={{ marginLeft: 6, fontWeight: 500 }}>
+              {signToggle == true ? "On" : "Off"}
+            </Title>
+          </div>
+        </Container>
+      </ComponentWrapper>{" "}
+      <HcBottomBar open={barOpen} style={{ width: 1400 }}>
         <div>
-          <HcButton
-            onClick={() => {}}
-            styles="primary"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
-            생성
-          </HcButton>
-          <HcButton
-            onClick={() => {
-              setbarOpen(false);
-            }}
-            styles="line"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
-            취소
-          </HcButton>
+          {edit ? (
+            <></>
+          ) : (
+            <>
+              {" "}
+              <HcButton
+                onClick={() => {}}
+                styles="primary"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                저장
+              </HcButton>
+              <HcButton
+                onClick={() => {
+                  setbarOpen(false);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                취소
+              </HcButton>
+            </>
+          )}
         </div>
       </HcBottomBar>
-    </ComponentWrapper>
+      <SideBar
+        header={"대상자 추가"}
+        open={isOpen}
+        close={() => {
+          setIsOpen(false);
+        }}
+        addFunc={onCreate}
+        style={{ display: "block" }}
+      >
+        <div style={{ float: "left", height: 36 }}>
+          <SelectBox
+            state={organization}
+            setState={setOrganization}
+            items={["사업부", "PM본부", "연구본부"]}
+            style={{ width: 190 }}
+          />
+          <SelectBox
+            state={group}
+            setState={setGroup}
+            items={["사업부", "PM본부", "연구본부"]}
+            style={{ width: 278, marginLeft: 8 }}
+          />
+          <svg
+            style={{ position: "absolute", top: 5, right: 0 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="30" height="30" rx="3" fill="white" />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M17.2869 8.18777C19.5384 10.8591 19.198 14.8499 16.5266 17.1013C13.8552 19.3528 9.86451 19.0124 7.61305 16.341C5.36159 13.6697 5.70199 9.67893 8.37336 7.42747C11.0447 5.17601 15.0355 5.51641 17.2869 8.18777ZM18.4159 17.8618C21.2216 14.8787 21.4079 10.2004 18.7046 6.9929C15.7933 3.53855 10.6328 3.09838 7.17848 6.00975C3.72413 8.92112 3.28396 14.0816 6.19533 17.5359C8.8074 20.6351 13.2299 21.3081 16.6063 19.3111L21.2035 24.7656C21.6159 25.2549 22.347 25.3173 22.8364 24.9049C23.3257 24.4924 23.3881 23.7614 22.9756 23.272L18.4159 17.8618Z"
+              fill="#5D5D62"
+            />
+          </svg>
+        </div>
+        <div style={{ display: "flex", marginTop: 56, width: 514 }}>
+          <Title style={{ display: "flex", width: 59 }}>
+            총
+            <div
+              style={{
+                color: "#000000",
+                fontSize: "16px",
+                fontWeight: 600,
+                marginLeft: 3,
+              }}
+            >
+              {data.length}
+            </div>
+            명
+          </Title>
+          <div>전체 선택</div>
+        </div>
+        <HRContainer style={{ height: 500 }}>
+          {/* {checkedItem} */}
+          {HRList}
+        </HRContainer>
+      </SideBar>
+    </>
   );
 };
 

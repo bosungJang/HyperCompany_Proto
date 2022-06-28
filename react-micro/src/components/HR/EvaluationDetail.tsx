@@ -488,7 +488,12 @@ export default function EvaluationDetail() {
                   <td>팀장</td>
                   <td>연구원</td>
                   <td>진행중</td>
-                  <td onClick={openModal}>
+                  <td
+                    onClick={(e: any) => {
+                      openModal();
+                      e.stopPropagation();
+                    }}
+                  >
                     <a
                       style={{ textDecoration: "underLine", color: "#257CFF" }}
                     >

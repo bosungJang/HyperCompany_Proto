@@ -97,21 +97,22 @@ const StyledTable = styled.table<{ checked?: boolean }>`
   tr > td {
     background-color: #fffff;
   }
-  tr:nth-child(even) {
-    background-color: #f1f4f9;
-  }
+  // tr:nth-child(even) {
+  //   background-color: #eeeeee;
+  // }
   tr:hover {
-    background-color: #eff5ff;
+    background-color: rgb(173, 206, 255, 0.5);
+
     transition: all 0.3s ease;
     td {
-      background-color: #eff5ff;
+      background-color: rgb(173, 206, 255, 0.5);
     }
   }
   tr:active {
-    background-color: #cee2ff;
+    background-color: #adceff;
     transition: all 0.3s ease;
     td {
-      background-color: #cee2ff;
+      background-color: #adceff;
     }
   }
   thead > tr:hover {

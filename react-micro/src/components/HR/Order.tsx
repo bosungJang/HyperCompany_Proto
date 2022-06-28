@@ -328,7 +328,7 @@ const Order = ({ match }: RouteComponentProps<MatchParams>) => {
               <HcSlider size="medium" data={Candidate} />
             </div>
           </ContentContainer>
-          <ContentContainer style={{ height: 788, marginTop: 23 }}>
+          <ContentContainer style={{ height: 798, marginTop: 23 }}>
             <SubHeading titleName="적합 부서 추천" />
             <SubContent>
               구성원의 역량을 기반으로 적합한 부서를 추천합니다.
