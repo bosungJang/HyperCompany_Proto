@@ -150,6 +150,12 @@ const PopupTitle = styled.div`
 const VATTable = styled.table`
   width: 100%;
   border: 1px solid #d9d9d9;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  tbody tr {
+    border: 1px solid #d9d9d9;
+  }
 
   tbody td {
     padding: 0px 12px;
