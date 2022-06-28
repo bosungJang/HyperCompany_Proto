@@ -14,6 +14,7 @@ import { useCounter } from "router/Root";
 import { HcContentPopupAdv } from "common/HcPopup";
 import { ReactComponent as WarningIcon } from "resources/images/Warning_Icon.svg";
 import "common/Table.css";
+import { HcSelect } from "common/HcTextField";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -38,13 +39,6 @@ const TableContainer = styled.div`
   &::-webkit-scrollbar-thumb {
     background: #cecece;
     border-radius: 10px;
-  }
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #f4f4f4;
-    color: #5d5d62;
-    text-align: unset;
   }
 `;
 
@@ -121,7 +115,7 @@ const columns = [
   "삼각방법",
 ];
 
-const data = [
+const OrgData = [
   {
     accountCode: "20002",
     accountName: "건물",
@@ -213,6 +207,7 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
 
   const [popUpType, setPopUpType] = React.useState(0);
   const [openPopUps, setOpenPopUps] = React.useState(false);
+  const [data, setData] = React.useState(OrgData);
 
   const OpenPopUp = () => {
     return (
@@ -285,10 +280,7 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
               }}
             >
               <HcButton
-                onClick={() => {
-                  setPopUpType(0);
-                  setOpenPopUps(true);
-                }}
+                onClick={() => {}}
                 styles="primary"
                 style={{ marginRight: "12px", height: "40px", width: "80px" }}
                 size="medium"
@@ -322,11 +314,13 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
             />
             <div style={{ float: "right" }}>
               <HcButton
-                onClick={() => {}}
+                onClick={() => {
+                  setPopUpType(0);
+                  setOpenPopUps(true);
+                }}
                 styles="line"
                 style={{ marginRight: "10px" }}
                 size="medium"
-                disabled
               >
                 전기 이월 정보 불러오기
               </HcButton>
@@ -360,7 +354,19 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
               >
                 <div>
                   <HcButton
-                    onClick={() => {}}
+                    onClick={() => {
+                      setData([
+                        ...data,
+                        {
+                          accountCode: "",
+                          accountName: "",
+                          assetsCode: "",
+                          assetsName: "",
+                          date: "",
+                          way: "",
+                        },
+                      ]);
+                    }}
                     styles="secondary"
                     style={{ marginRight: "10px" }}
                     size="medium"
@@ -409,23 +415,58 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                             height: "46px",
                           }}
                         >
+                          {item.accountCode != "" ? (
+                            <>
+                              <td style={{ width: "106px", fontSize: "14px" }}>
+                                {item.accountCode}
+                              </td>
+                              <td style={{ width: "106px", fontSize: "14px" }}>
+                                {item.accountName}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td style={{ fontSize: "14px" }} colSpan={2}>
+                                <div>계정과목 조회*</div>
+                              </td>
+                            </>
+                          )}
                           <td style={{ width: "106px", fontSize: "14px" }}>
-                            {item.accountCode}
-                          </td>
-                          <td style={{ width: "106px", fontSize: "14px" }}>
-                            {item.accountName}
-                          </td>
-                          <td style={{ width: "106px", fontSize: "14px" }}>
-                            {item.assetsCode}
+                            {item.assetsCode != ""
+                              ? item.assetsCode
+                              : "0000001"}
                           </td>
                           <td style={{ width: "124px", fontSize: "14px" }}>
-                            {item.assetsName}
+                            {item.assetsName != "" ? (
+                              item.assetsName
+                            ) : (
+                              <div>자산명 입력*</div>
+                            )}
                           </td>
                           <td style={{ width: "106px", fontSize: "14px" }}>
-                            {item.date}
+                            {item.date != "" ? item.date : <div>취득일</div>}
                           </td>
                           <td style={{ width: "100px", fontSize: "14px" }}>
-                            {item.way}
+                            {item.way != "" ? (
+                              item.way
+                            ) : (
+                              <HcSelect
+                                onChange={(e) => {}}
+                                titleName=""
+                                name={""}
+                                style={{
+                                  width: "100%",
+                                  paddingLeft: "unset",
+                                  minWidth: "unset",
+                                  border: "unset",
+                                }}
+                              >
+                                <option value="1">상각법</option>
+                                <option value="2">BMW</option>
+                                <option value="3">Citroen</option>
+                                <option value="4">Ford</option>
+                              </HcSelect>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -627,9 +668,20 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                               <td
                                 style={{
                                   textAlign: "initial",
+                                  width: 162,
                                 }}
                               >
-                                정률법
+                                <HcSelect
+                                  onChange={(e) => {}}
+                                  titleName=""
+                                  name={""}
+                                  style={{ width: "100%" }}
+                                >
+                                  <option value="1">정률법</option>
+                                  <option value="2">BMW</option>
+                                  <option value="3">Citroen</option>
+                                  <option value="4">Ford</option>
+                                </HcSelect>
                               </td>
                               <StyledTd style={{ width: 162 }}>
                                 22.특별상각비
@@ -708,9 +760,18 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                               <td
                                 style={{
                                   textAlign: "initial",
+                                  width: 162,
                                 }}
                               >
-                                적용 안함
+                                <HcSelect
+                                  onChange={(e) => {}}
+                                  titleName=""
+                                  name={""}
+                                  style={{ width: "100%" }}
+                                >
+                                  <option value="1">적용 안함</option>
+                                  <option value="2">BMW</option>
+                                </HcSelect>
                               </td>
                             </tr>
                             <tr>
@@ -753,7 +814,15 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                                   textAlign: "initial",
                                 }}
                               >
-                                부
+                                <HcSelect
+                                  onChange={(e) => {}}
+                                  titleName=""
+                                  name={""}
+                                  style={{ width: "100%" }}
+                                >
+                                  <option value="1">부</option>
+                                  <option value="2">BMW</option>
+                                </HcSelect>
                               </td>
                             </tr>
                           </tbody>
@@ -794,9 +863,18 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                               <td
                                 style={{
                                   textAlign: "initial",
+                                  width: 162,
                                 }}
                               >
-                                800번대
+                                <HcSelect
+                                  onChange={(e) => {}}
+                                  titleName=""
+                                  name={""}
+                                  style={{ width: "100%", border: "unset" }}
+                                >
+                                  <option value="1">800번대</option>
+                                  <option value="2">BMW</option>
+                                </HcSelect>
                               </td>
                               <StyledTd style={{ width: 162 }}>
                                 5.당기의제상각액
@@ -933,7 +1011,7 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
             >
               <HcButton
                 onClick={() => {
-                  setPopUpType(0);
+                  setPopUpType(1);
                   setOpenPopUps(true);
                 }}
                 styles="primary"

@@ -269,7 +269,7 @@ export const StyledSelect = styled.select`
   height: 36px;
   font-family: Noto Sans KR;
   color: #3c3c3c;
-  background-color: white !important;
+  background-color: inherit;
   padding-left: 11px;
   font-size: 16px;
   border: 1px solid #cecece;
@@ -315,7 +315,7 @@ interface SelectIProps {
 export const HcSelect: React.FC<SelectIProps> = ({ ...props }) => {
   const selectRef: any = React.useRef(null);
   return (
-    <Wrapper>
+    <Wrapper style={{ width: "100%" }}>
       <Title
         required={props.required}
         style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
