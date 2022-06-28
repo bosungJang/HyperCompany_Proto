@@ -22,13 +22,14 @@ table.table.table-hover tr:nth-child(even) {
 }
 
 table.table.table-hover tr:hover {
-  background-color: #f9f9f9;
+  background-color: #adceff;
   transition: all 0.3s ease;
 }
 table.table.table-hover tr:active {
-  background-color: #eff5ff;
+  background-color: #bbd4fa;
   transition: all 0.3s ease;
 }
+/*
 table.table.table-hover thead > tr:hover {
   background-color: #e0e0e0;
   transition: all 0.3s ease;
@@ -37,6 +38,7 @@ table.table.table-hover thead > tr:active {
   background-color: #cecece;
   transition: all 0.3s ease;
 }
+*/
 table.table.table-hover thead > tr {
   height: 32px;
   background-color: #f4f4f4;
