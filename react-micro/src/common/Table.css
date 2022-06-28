@@ -3,13 +3,15 @@ table.table.table-hover {
   margin: 0;
   padding: 0;
   border: 1px solid #d9d9d9;
+  border-collapse: collapse;
 }
 table.table.table-hover td {
   border-bottom: 1px solid #e0e0e0;
   height: 46px;
+  padding: 0px 12px;
   max-width: 188px;
 
-  font-family: Noto Sans CJK KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
@@ -38,14 +40,21 @@ table.table.table-hover thead > tr:active {
 }
 table.table.table-hover thead > tr {
   height: 32px;
-  background-color: #ededed;
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 22px;
+  background-color: #f4f4f4;
+  font-size: 13px;
 
-  color: #464646;
+  color: #5d5d62;
+}
+table.table.table-hover thead > tr > th {
+  position: sticky;
+  top: 0;
+  background-color: #f4f4f4;
+  color: #5d5d62;
+  text-align: unset;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  padding: 0px 12px;
 }
 table.table.table-hover th:first-child {
   border-top-left-radius: 5px;
