@@ -99,7 +99,7 @@ const ToastItem = ({ message, clear, cancelAction }) => {
         setIsShow(false);
         clearTimeout(timer.current);
         clear();
-      }, 100000);
+      }, 5000);
     }
   }, [isShow, clear]);
 
