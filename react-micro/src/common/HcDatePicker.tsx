@@ -14,9 +14,13 @@ const StyledInput = styled.input`
   width: 387px;
   border: 1px solid #cecece;
   padding-left: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 4.75C8 4.33579 8.33579 4 8.75 4C9.16421 4 9.5 4.33579 9.5 4.75V6H15V4.75C15 4.33579 15.3358 4 15.75 4C16.1642 4 16.5 4.33579 16.5 4.75V6H18C19.1046 6 20 6.89543 20 8V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V8C4 6.89543 4.89543 6 6 6H8V4.75ZM6 7.5H18C18.2761 7.5 18.5 7.72386 18.5 8V9.5H5.5V8C5.5 7.72386 5.72386 7.5 6 7.5ZM5.5 11V18C5.5 18.2761 5.72386 18.5 6 18.5H18C18.2761 18.5 18.5 18.2761 18.5 18V11H5.5Z' fill='%235D5D62'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: 99% 50%;
 `;
 const DatePickerContainer = styled.div`
   position: relative;
+  width: fit-content;
 `;
 interface DatePickerIProps {
   disabled?: boolean;
@@ -117,7 +121,7 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
           else setStartDate(date);
         }}
       />
-      <svg
+      {/* <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -126,8 +130,8 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
         style={{
           position: "absolute",
           zIndex: 2,
-          top: 34,
-          right: 10,
+          top: props.titleName ? 34 : 6,
+          right: 6,
         }}
       >
         <path
@@ -136,7 +140,7 @@ export const HcDatePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
           d="M8 4.75C8 4.33579 8.33579 4 8.75 4C9.16421 4 9.5 4.33579 9.5 4.75V6H15V4.75C15 4.33579 15.3358 4 15.75 4C16.1642 4 16.5 4.33579 16.5 4.75V6H18C19.1046 6 20 6.89543 20 8V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V8C4 6.89543 4.89543 6 6 6H8V4.75ZM6 7.5H18C18.2761 7.5 18.5 7.72386 18.5 8V9.5H5.5V8C5.5 7.72386 5.72386 7.5 6 7.5ZM5.5 11V18C5.5 18.2761 5.72386 18.5 6 18.5H18C18.2761 18.5 18.5 18.2761 18.5 18V11H5.5Z"
           fill="#5D5D62"
         />
-      </svg>
+      </svg> */}
     </DatePickerContainer>
   );
 };
@@ -146,6 +150,9 @@ const CustomInput = styled.input`
   width: 160px;
   border: 1px solid #cecece;
   padding-left: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 4.75C8 4.33579 8.33579 4 8.75 4C9.16421 4 9.5 4.33579 9.5 4.75V6H15V4.75C15 4.33579 15.3358 4 15.75 4C16.1642 4 16.5 4.33579 16.5 4.75V6H18C19.1046 6 20 6.89543 20 8V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V8C4 6.89543 4.89543 6 6 6H8V4.75ZM6 7.5H18C18.2761 7.5 18.5 7.72386 18.5 8V9.5H5.5V8C5.5 7.72386 5.72386 7.5 6 7.5ZM5.5 11V18C5.5 18.2761 5.72386 18.5 6 18.5H18C18.2761 18.5 18.5 18.2761 18.5 18V11H5.5Z' fill='%235D5D62'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: 99% 50%;
 `;
 export const CustomDatepicker = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -383,6 +390,8 @@ export const DatePickerOption = (props?: any) => {
             ? "M월"
             : option === "day"
             ? "d일"
+            : option === "yearMonth"
+            ? "yyyy년 MM월"
             : "yyyy년 MM월 dd일"
         }
         onChange={(date: Date) => setDate(date)}

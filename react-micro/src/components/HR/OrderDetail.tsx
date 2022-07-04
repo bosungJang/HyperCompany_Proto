@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import HcTextField, {
   HcTitleTextField,
-  HcSelect,
-  SubHeading,
-  TextField,
   HcTextFieldLabel,
   SelectBox,
   Title,
+  HcTagNoInput,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
@@ -26,10 +24,13 @@ import { HcDatePicker } from "common/HcDatePicker";
 import InfoIconTooltip from "common/HcTooltip";
 import { SideBar } from "common/HcPopup";
 
-const HRCard = styled.div`
+const HRCard = styled.div<{ checked: boolean }>`
   height: 54px;
-  width: 512px;
-  border: 1px solid #ededed;
+  width: 510px;
+  ${(props) =>
+    props.checked === false
+      ? "border :1px solid #CECECE;"
+      : "border:1px solid #5799FB; background: #F5F9FF;"};
   box-sizing: border-box;
   border-radius: 4px;
   position: relative;
@@ -42,12 +43,16 @@ const HRCard = styled.div`
   text-transform: uppercase;
   color: #000000;
   margin-bottom: 10px;
+  display: flex;
+  &:hover {
+    border: 1px solid #5799fb;
+  }
 `;
 const HRContainer = styled.div`
   display: block;
-  width: 514px;
+  width: fit-content;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: visible;
   margin-top: 16px;
   &::-webkit-scrollbar-track {
     background: none;
@@ -84,7 +89,7 @@ const HRContainer = styled.div`
       0 100%;
   background-repeat: no-repeat;
 `;
-const HRAppointDetail = () => {
+const OrderDetail = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
@@ -200,7 +205,7 @@ const HRAppointDetail = () => {
         />
       ))
     );
-    console.log();
+    setIsOpen(false);
   };
   /*ToggleBtn */
   const [isToggled, setIsToggled] = useState(false); //전사공지
@@ -209,9 +214,14 @@ const HRAppointDetail = () => {
   /*side bar */
   const [isOpen, setIsOpen] = useState(false);
   /*side bar*/
-
+  /*TagInput */
+  const [tags, setTags]: any[] = useState([]);
+  useEffect(() => {
+    if (tags.length === 0) setCheckedItem([]);
+  }, [tags]);
+  /*TagInput */
   const HRList = data.map(({ name, organization, position, id }) => (
-    <HRCard>
+    <HRCard checked={checkedItem.includes(id)}>
       <img
         src=""
         style={{
@@ -225,12 +235,16 @@ const HRAppointDetail = () => {
         }}
       />
       {name}({organization}/{position}){" "}
-      <HcCheckBox
-        checked={checkedItem.includes(id)}
-        onChange={(e) => {
-          checkHandler(e.target.checked, id);
-        }}
-      />
+      <div style={{ marginLeft: 247, paddingTop: 3 }}>
+        {" "}
+        <HcCheckBox
+          checked={checkedItem.includes(id)}
+          onChange={(e) => {
+            checkHandler(e.target.checked, id);
+            setTags([...tags, name]);
+          }}
+        />
+      </div>
     </HRCard>
   ));
   const [state, setState] = useState(location.state);
@@ -449,8 +463,40 @@ const HRAppointDetail = () => {
       </ComponentWrapper>{" "}
       <HcBottomBar open={barOpen} style={{ width: 1400 }}>
         <div>
-          {edit ? (
-            <></>
+          {edit === false ? (
+            <>
+              {" "}
+              <HcButton
+                onClick={() => {
+                  setEdit(true);
+                }}
+                styles="primary"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                수정
+              </HcButton>
+              <HcButton
+                onClick={() => {
+                  setbarOpen(false);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                삭제
+              </HcButton>
+              <HcButton
+                onClick={() => {
+                  setbarOpen(false);
+                }}
+                styles="line"
+                style={{ marginRight: "5px" }}
+                size="big"
+              >
+                취소
+              </HcButton>
+            </>
           ) : (
             <>
               {" "}
@@ -515,24 +561,49 @@ const HRAppointDetail = () => {
             />
           </svg>
         </div>
-        <div style={{ display: "flex", marginTop: 56, width: 514 }}>
-          <Title style={{ display: "flex", width: 59 }}>
-            총
-            <div
-              style={{
-                color: "#000000",
-                fontSize: "16px",
-                fontWeight: 600,
-                marginLeft: 3,
-              }}
-            >
-              {data.length}
-            </div>
-            명
-          </Title>
-          <div>전체 선택</div>
+        <HcTagNoInput
+          tags={tags}
+          setTags={setTags}
+          delete
+          deleteAll
+          style={{
+            backgroundColor: "#F4F4F4",
+            height: 76,
+            marginTop: 16,
+            display: tags.length === 0 ? "none" : "",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            marginTop: 20,
+            width: 514,
+            color: "#4D4D4D",
+            fontSize: "14px",
+            height: 30,
+          }}
+        >
+          총
+          <div
+            style={{
+              color: "#000000",
+              fontSize: "16px",
+              fontWeight: 600,
+              marginLeft: 3,
+            }}
+          >
+            {data.length}
+          </div>
+          명<div style={{ marginLeft: 351, marginRight: 10 }}>전체 선택</div>{" "}
+          <div style={{ paddingTop: 3 }}>
+            {" "}
+            <HcCheckBox
+              checked={checkedItem.length > 0 ? true : false}
+              onChange={(e) => checkAllHandler(e.target.checked)}
+            />
+          </div>
         </div>
-        <HRContainer style={{ height: 500 }}>
+        <HRContainer style={{ height: tags.length === 0 ? 572 : 480 }}>
           {/* {checkedItem} */}
           {HRList}
         </HRContainer>
@@ -541,4 +612,4 @@ const HRAppointDetail = () => {
   );
 };
 
-export default HRAppointDetail;
+export default OrderDetail;

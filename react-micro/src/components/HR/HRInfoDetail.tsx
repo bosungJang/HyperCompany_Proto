@@ -18,6 +18,7 @@ import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcTabsAdv } from "common/HcTabs";
 import HcRadioGroup, { HcRadioButton } from "common/HcRadioButton";
+import HcFileUploader from "common/HcFileUploader";
 import {
   HcDatePicker,
   HcDateRangePicker,
@@ -123,6 +124,8 @@ const HRInfoDetail = () => {
   const [contractFile, setContractFile] = useState(true);
   const [welfare, setWelfare] = useState(true);
   const [mediCheck, setMediCheck] = useState(true);
+  const [file, setFile]: any = useState([]);
+  const [document, setDocument] = useState(true);
   /* info */
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
@@ -177,11 +180,13 @@ const HRInfoDetail = () => {
   const disability = ["해당", "비해당"];
   const military = ["비해당", "군필", "미필", "면제"];
   const marriage = ["기혼", "미혼"];
+  const TaxReduction = ["대상", "비대상"];
   const nationality = ["대한민국"];
   const responsibility = ["팀장"];
   const gender = ["여성", "남성"];
   const work = ["UX설계"];
   const [typeState, setTypeState] = useState("정규직");
+  const [taxReductionState, setTaxReductionState] = useState("대상");
   const [marriageState, setMarriageState] = useState("미혼");
   const [nationalityState, setNationalityState] = useState("대한민국");
   const [genderState, setGenderState] = useState("여성");
@@ -190,6 +195,7 @@ const HRInfoDetail = () => {
   const [positionState, setPositionState] = useState("연구원");
   const [responsibilityState, setResponsibility] = useState("팀장");
   const [workState, setWorkState] = useState("");
+
   return (
     <>
       <ComponentWrapper
@@ -197,7 +203,8 @@ const HRInfoDetail = () => {
           padding: 40,
           display: "block",
           position: "relative",
-          height: Tabs === "1" ? 4320 : 3080,
+          // height: Tabs === "1" ? 4678 : 3080,
+          height: "fit-content",
         }}
       >
         <div
@@ -213,18 +220,6 @@ const HRInfoDetail = () => {
             size="medium"
             style={{
               marginLeft: 575,
-            }}
-            onClick={() => {
-              openModal();
-            }}
-          >
-            휴직/퇴직
-          </HcButton>
-          <HcButton
-            styles="line"
-            size="medium"
-            style={{
-              marginLeft: 10,
             }}
           >
             일괄 등록
@@ -533,8 +528,8 @@ const HRInfoDetail = () => {
             { to: "4", name: "휴가정보" },
             { to: "5", name: "발령정보" },
             { to: "6", name: "성과 및 평가" },
-            { to: "7", name: "사내교육" },
-            { to: "8", name: "사내활동" },
+            { to: "7", name: "교육" },
+            { to: "8", name: "활동" },
             { to: "9", name: "증명서 발급" },
             { to: "10", name: "복리후생" },
           ]}
@@ -549,7 +544,7 @@ const HRInfoDetail = () => {
                 <Container
                   title="기본 정보"
                   defaultHeight={68}
-                  maxHeight={343}
+                  maxHeight={448}
                   width={1320}
                   state={basic}
                   setState={setBasic}
@@ -579,9 +574,15 @@ const HRInfoDetail = () => {
                           </HcTextFieldLabel>
                           <HcTextFieldLabel
                             titleName="결혼 여부"
-                            style={{ width: 360 }}
+                            style={{ width: 360, marginBottom: 20 }}
                           >
-                            미혼
+                            {marriageState}
+                          </HcTextFieldLabel>
+                          <HcTextFieldLabel
+                            titleName="중소기업 소득세 감면 여부"
+                            style={{ width: 360, marginBottom: 20 }}
+                          >
+                            {taxReductionState}
                           </HcTextFieldLabel>
                         </div>
                         <div
@@ -595,7 +596,7 @@ const HRInfoDetail = () => {
                             titleName="성별"
                             style={{ width: 360, marginBottom: 20 }}
                           >
-                            1980.01.01
+                            {genderState}
                           </HcTextFieldLabel>
                           <HcTextFieldLabel
                             titleName="상세 주소"
@@ -607,7 +608,7 @@ const HRInfoDetail = () => {
                             titleName="장애 여부"
                             style={{ width: 360 }}
                           >
-                            비대상
+                            {disabilityState}
                           </HcTextFieldLabel>
                         </div>
                         <div style={{ display: "block", width: 360 }}>
@@ -615,13 +616,13 @@ const HRInfoDetail = () => {
                             titleName="국적"
                             style={{ width: 360, marginBottom: 105 }}
                           >
-                            대한민국
+                            {nationalityState}
                           </HcTextFieldLabel>
                           <HcTextFieldLabel
                             titleName="군필 여부"
                             style={{ width: 360 }}
                           >
-                            군필
+                            {militaryState}
                           </HcTextFieldLabel>
                         </div>
                       </>
@@ -645,10 +646,17 @@ const HRInfoDetail = () => {
                           />
                           <SelectBox
                             titleName="결혼 여부"
-                            style={{ width: 360 }}
+                            style={{ width: 360, marginBottom: 20 }}
                             items={marriage}
                             state={marriageState}
                             setState={setMarriageState}
+                          />
+                          <SelectBox
+                            titleName="중소기업 소득세 감면 여부"
+                            style={{ width: 360, marginBottom: 20 }}
+                            items={TaxReduction}
+                            state={taxReductionState}
+                            setState={setTaxReductionState}
                           />
                         </div>
                         <div
@@ -688,7 +696,7 @@ const HRInfoDetail = () => {
                           />
                           <SelectBox
                             titleName="군필 여부"
-                            style={{ width: 360 }}
+                            style={{ width: 360, marginTop: 105 }}
                             items={military}
                             state={militaryState}
                             setState={setMilitaryState}
@@ -905,6 +913,19 @@ const HRInfoDetail = () => {
                     </HcTable>
                   </HcTableContainer>
                 </Container>
+                <Container
+                  title="증빙 서류"
+                  defaultHeight={68}
+                  maxHeight={497}
+                  width={1320}
+                  state={document}
+                  setState={setDocument}
+                  style={{ marginTop: 24 }}
+                >
+                  <div style={{ left: 24, position: "absolute", width: 1272 }}>
+                    <HcFileUploader file={file} setFile={setFile} />
+                  </div>
+                </Container>
               </>
             ),
             "2": (
@@ -940,23 +961,25 @@ const HRInfoDetail = () => {
                 <Container
                   title="계약서"
                   defaultHeight={68}
-                  maxHeight={173}
+                  maxHeight={316}
                   width={1320}
                   state={contractFile}
                   setState={setContractFile}
-                  style={{ marginTop: 24 }}
+                  style={{ marginTop: 24, marginBottom: 120 }}
                 >
-                  <HcTableContainer>
-                    <HcTable>
-                      <thead>
-                        <tr>
-                          <th style={{ width: 46 }}></th>
-                          <th style={{ width: 613 }}>계약서명</th>
-                          <th style={{ width: 582 }}>-</th>
-                        </tr>
-                      </thead>
-                    </HcTable>
-                  </HcTableContainer>
+                  <div
+                    style={{
+                      left: 24,
+                      position: "absolute",
+                      width: 1272,
+                    }}
+                  >
+                    <HcFileUploader
+                      file={file}
+                      setFile={setFile}
+                      style={{ height: 172, minHeight: 172 }}
+                    />
+                  </div>
                 </Container>
               </>
             ),
@@ -974,17 +997,39 @@ const HRInfoDetail = () => {
                 }}
               >
                 <SubHeading titleName="2022년 1월" />
-                <Info
+                <div
                   style={{
-                    color: "#838181",
-                    fontWeight: 500,
+                    display: "flex",
                     position: "absolute",
-                    top: 29,
-                    left: 138,
+                    top: 68,
+                    left: 33,
                   }}
                 >
-                  급여 지급일 2022년 1월 25일
-                </Info>
+                  <div style={{ display: "block", marginRight: 32 }}>
+                    <Info
+                      style={{
+                        color: "#838181",
+                        fontWeight: 500,
+                        marginBottom: 2,
+                      }}
+                    >
+                      급여 지급일
+                    </Info>
+                    <Info>2022년 1월 25일</Info>
+                  </div>
+                  <div style={{ display: "block", marginRight: 32 }}>
+                    <Info
+                      style={{
+                        color: "#838181",
+                        fontWeight: 500,
+                        marginBottom: 2,
+                      }}
+                    >
+                      급여 계좌
+                    </Info>
+                    <Info>신한은행 887-112-123456</Info>
+                  </div>
+                </div>
                 <HcButton
                   style={{ position: "absolute", top: 30, left: 1173 }}
                   styles={"line"}
@@ -1155,11 +1200,13 @@ const HRInfoDetail = () => {
                 >
                   <div style={{ display: "flex", marginBottom: 28 }}>
                     <SubHeading
-                      titleName={`${String(date.getFullYear())}년`}
-                      style={{ marginRight: 1070 }}
+                      titleName={`${String(date.getFullYear())}년 ${String(
+                        date.getMonth()
+                      )}월`}
+                      style={{ marginRight: 1030 }}
                     />
                     <DatePickerOption
-                      option="year"
+                      option="yearMonth"
                       date={date}
                       setDate={setDate}
                     />
@@ -1176,7 +1223,7 @@ const HRInfoDetail = () => {
                         titleName="총연차"
                         style={{ width: 360, marginBottom: 20 }}
                       >
-                        13일
+                        13일(3년 근속)
                       </HcTextFieldLabel>
                       <HcTextFieldLabel
                         titleName="총월차"
@@ -1219,14 +1266,18 @@ const HRInfoDetail = () => {
                     <HcTable>
                       <thead>
                         <tr>
-                          <th style={{ width: "633px" }}>휴가 종류</th>
-                          <th style={{ width: "607px" }}>휴가 기간</th>
+                          <th style={{ width: "310px" }}>휴가 종류</th>
+                          <th style={{ width: "310px" }}>신청 일시</th>
+                          <th style={{ width: "310px" }}>휴가 종류</th>
+                          <th style={{ width: "310px" }}>결재 상태</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>연차</td>
+                          <td>2021.01.01</td>
                           <td>2021.01.01 ~ 2021.01.02</td>
+                          <td>승인</td>
                         </tr>
                       </tbody>
                     </HcTable>
@@ -1562,13 +1613,12 @@ const HRInfoDetail = () => {
                   <HcTable>
                     <thead>
                       <tr>
-                        <th style={{ width: 46 }}></th>
-                        <th style={{ width: 220 }}>증명서 종류</th>
-                        <th style={{ width: 176 }}>발급매수</th>
-                        <th style={{ width: 249 }}>신청사유</th>
-                        <th style={{ width: 203 }}>발급 상태</th>
-                        <th style={{ width: 226 }}>발급 신청일</th>
-                        <th style={{ width: 120 }}>-</th>
+                        <th style={{ width: 205 }}>발급 번호</th>
+                        <th style={{ width: 205 }}>증명서 종류</th>
+                        <th style={{ width: 205 }}>발급매수</th>
+                        <th style={{ width: 215 }}>신청사유</th>
+                        <th style={{ width: 205 }}>발급 상태</th>
+                        <th style={{ width: 205 }}>발급 신청일</th>
                       </tr>
                     </thead>
                   </HcTable>
@@ -1702,7 +1752,7 @@ const HRInfoDetail = () => {
           </div>
         )}
       </HcBottomBar>
-
+      {/*
       <HcContentPopup
         header={"휴직 / 퇴직"}
         primaryBtn="적용"
@@ -1831,7 +1881,7 @@ const HRInfoDetail = () => {
             ? "휴직을 취소하시겠습니까?"
             : "퇴직을 취소하시겠습니까?"}
         </Title>
-      </HcContentPopup>
+      </HcContentPopup>*/}
     </>
   );
 };

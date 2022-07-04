@@ -92,6 +92,12 @@ export const OrderDetail = loadable(
     fallback: Loading,
   }
 );
+export const OrderCreated = loadable(
+  () => import("../components/HR/OrderCreated"),
+  {
+    fallback: Loading,
+  }
+);
 export const OrderStandards = loadable(
   () => import("../components/HR/OrderStandards"),
   {

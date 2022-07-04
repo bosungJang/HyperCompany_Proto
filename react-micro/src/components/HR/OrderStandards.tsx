@@ -1,72 +1,27 @@
-import React from "react";
-import { Link, Route } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
 import HcTextField, { HcTitleTextField } from "common/HcTextField";
-import { TableActionBtn } from "common/HcTableComponent";
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+  NullTbody,
+  TableSetting,
+} from "common/HcTableComponent";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
 import HcCheckBox from "common/HcCheckBox";
-import { EditText, EditTextarea } from "react-edit-text";
-import "common/bulkActionTest.scss";
-import DataGrid, {
-  Column,
-  Editing,
-  Paging,
-  Lookup,
-} from "devextreme-react/data-grid";
-import CheckBox from "devextreme-react/check-box";
-import SelectBox from "devextreme-react/select-box";
-import { employees, states } from "common/data.js";
-import "common/bulkActionTest.scss";
+import { EditText } from "react-edit-text";
 
-const startEditActions = ["click", "dblClick"];
-const TableContainer = styled.div`
+const EditInput = styled.input`
+  box-sizing: border-box;
+  background: #ffffff;
   width: 100%;
-  height: 722px;
-  overflow-x: auto;
-  overflow-y: auto;
-  float: left;
-  &::-webkit-scrollbar-track {
-    background: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: none;
-    position: absolute;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
-  }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-    text-align: left;
-    height: 32px;
-  }
-  tbody td {
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 21px;
-    text-align: left;
-    height: 46px !important;
-  }
+  height: 100%;
+  border: 1px solid #257cff;
 `;
-
-const DataGridContainer = styled.div`
-  min-height: 630px;
-  overflow: auto;
-`;
-
 let num = 1000000;
 const getId = () => {
   num = num + 1;
@@ -83,15 +38,24 @@ const data = Array(10)
     action: <TableActionBtn />,
   }));
 
-const numberComma = (value: number) => {
-  if (value === 0) {
-    return "";
-  }
-  return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-};
-
 const OrderStadards = () => {
-  const [checkedItem, setCheckedItem]: any = React.useState([]);
+  const typeInputRef = useRef<any>(null);
+  const [isTypeEdit, setIsTypeEdit] = useState(true);
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent): void {
+      if (
+        typeInputRef.current &&
+        !typeInputRef.current.contains(e.target as Node)
+      ) {
+        setIsTypeEdit(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [typeInputRef]);
+  const [checkedItem, setCheckedItem]: any = useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
       setCheckedItem([...checkedItem, id]);
@@ -108,19 +72,7 @@ const OrderStadards = () => {
       setCheckedItem([]);
     }
   }
-  const columns = [
-    <div style={{ marginTop: 7, marginLeft: 16 }}>
-      {" "}
-      <HcCheckBox
-        checked={checkedItem.length > 0 ? true : false}
-        onChange={(e) => checkAllHandler(e.target.checked)}
-      />
-    </div>,
-    "발령 종류 코드",
-    "발령 종류명",
-    "설명",
-    "-",
-  ];
+
   /*BottomBar */
   const [barOpen, setbarOpen] = React.useState(true);
   /*BottomBar */
@@ -152,13 +104,15 @@ const OrderStadards = () => {
         }}
         onClick={() => {}}
       >
-        <td style={{ width: 46, padding: "7px 16px 9px 16px", height: 46 }}>
-          <HcCheckBox
-            checked={checkedItem.includes(id)}
-            onChange={(e) => {
-              checkHandler(e.target.checked, id);
-            }}
-          />
+        <td>
+          <div style={{ paddingTop: 4 }}>
+            <HcCheckBox
+              checked={checkedItem.includes(id)}
+              onChange={(e) => {
+                checkHandler(e.target.checked, id);
+              }}
+            />
+          </div>
         </td>
         <td style={{ width: 332, minWidth: 332, height: 46 }}>{id}</td>
         <td style={{ width: 332, minWidth: 332 }}>{kind}</td>
@@ -207,61 +161,68 @@ const OrderStadards = () => {
         <ComponentWrapper>
           <div style={{ display: "block", width: 1320 }}>
             <HcTitleTextField titleName="발령 기준 설정" isBackIcon={false} />
-            <HcButton
-              onClick={onCreate}
-              styles="secondary"
+            <div
               style={{
+                display: "flex",
                 marginTop: "39px",
                 marginBottom: "20px",
               }}
-              size="medium"
             >
-              +생성
-            </HcButton>
+              <HcButton
+                onClick={onCreate}
+                styles="secondary"
+                style={{
+                  marginRight: 1100,
+                }}
+                size="medium"
+              >
+                +생성
+              </HcButton>
+              <TableSetting />
+            </div>
             <div style={{ display: "flex" }}>
-              <TableContainer>
-                <table
-                  className="table table-hover"
-                  style={{ width: "unset", tableLayout: "fixed" }}
-                >
+              <HcTableContainer style={{ width: 1320 }}>
+                <HcTable>
                   <thead>
                     <tr>
-                      {columns.map((column: any) => (
-                        <th key={column}>{column}</th>
-                      ))}
+                      <th style={{ width: 46 }}>
+                        <div style={{ paddingTop: 4 }}>
+                          <HcCheckBox
+                            checked={checkedItem.length > 0 ? true : false}
+                            onChange={(e) => checkAllHandler(e.target.checked)}
+                          />
+                        </div>
+                      </th>
+                      <th style={{ width: 322 }}>발명 종류 코드</th>
+                      <th style={{ width: 322 }}>발령 종류명</th>
+                      <th style={{ width: 510 }}>설명</th>
+                      <th style={{ width: 120 }}>-</th>
                     </tr>
                   </thead>
                   {/* <tbody>{rows}</tbody> */}
                   <tbody>
                     {tableData.map((x) => (
-                      <tr
-                        style={{
-                          textAlign: "center",
-                        }}
-                        onClick={() => {}}
-                      >
-                        <td style={{ width: 46, padding: "7px 16px 9px 16px" }}>
-                          <HcCheckBox
-                            checked={checkedItem.includes(x.id)}
-                            onChange={(e) => {
-                              checkHandler(e.target.checked, x.id);
-                            }}
-                          />
+                      <tr onClick={() => {}}>
+                        <td>
+                          <div style={{ paddingTop: 4 }}>
+                            <HcCheckBox
+                              checked={checkedItem.includes(x.id)}
+                              onChange={(e) => {
+                                checkHandler(e.target.checked, x.id);
+                              }}
+                            />
+                          </div>
                         </td>
-                        <td style={{ width: 332, minWidth: 332 }}>
-                          {" "}
-                          <EditText defaultValue={String(x.id)} />
-                        </td>
-                        <td style={{ width: 332, minWidth: 332 }}>
-                          {" "}
-                          <EditText defaultValue={x.kind} />
+                        <td>{x.id}</td>
+                        <td
+                          style={{ maxWidth: 322 }}
+                          onClick={() => setIsTypeEdit(!isTypeEdit)}
+                        >
+                          {isTypeEdit ? <EditInput /> : x.kind}
                         </td>
                         <td
                           style={{
                             width: 510,
-                            maxWidth: "unset",
-                            minWidth: 510,
-                            overflow: "hidden",
                           }}
                         >
                           <EditText
@@ -276,14 +237,12 @@ const OrderStadards = () => {
                             // }}
                           />
                         </td>
-                        <td style={{ width: 120, minWidth: 120 }}>
-                          {x.action}
-                        </td>
+                        <td>{x.action}</td>
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </TableContainer>
+                </HcTable>
+              </HcTableContainer>
             </div>
           </div>
           <HcPopup open={modalOpen} close={closeModal} header="저장">

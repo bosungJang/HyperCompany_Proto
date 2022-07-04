@@ -10,6 +10,7 @@ import {
   HRInfoCreated,
   OrderCreate,
   OrderDetail,
+  OrderCreated,
   OrderStandards,
   HROrganizationManagement,
   HRProfessionalManagement,
@@ -85,7 +86,7 @@ const testArray = [
   { icon: "Home_Icon", title: "인사 홈", path: "/hr" },
   {
     icon: "HR/Personnel_Management_Icon",
-    title: "인사 관리",
+    title: "인사 기본 관리",
     path: "/hr/pas/management",
     submenu: [
       {
@@ -221,6 +222,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/pas/OrderDetail`}
         component={OrderDetail}
+      />
+      <Route
+        path={`${props.match.url}/pas/OrderCreated`}
+        component={OrderCreated}
       />
       <Route
         path={`${props.match.url}/pas/OrderStandards`}

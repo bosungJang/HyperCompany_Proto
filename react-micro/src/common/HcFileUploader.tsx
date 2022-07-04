@@ -47,6 +47,7 @@ const UploadFileWrapper = styled.div`
 interface FileUploaderProps {
   file: [];
   setFile: (value: any) => void;
+  style?: React.CSSProperties;
 }
 const HcFileUploader = (props: FileUploaderProps) => {
   //const [files, setFiles]: any = React.useState(props.file);
@@ -78,7 +79,7 @@ const HcFileUploader = (props: FileUploaderProps) => {
           onChange={onFileAdded}
         />
         {props.file.length != 0 ? (
-          <UploadFileWrapper>
+          <UploadFileWrapper style={props.style}>
             {props.file.map((f: any, i: number) => (
               <>
                 <ApprovalContent>
@@ -137,15 +138,18 @@ const HcFileUploader = (props: FileUploaderProps) => {
         ) : (
           <div style={{ marginTop: "16px", width: "100%" }}>
             <div
-              style={{
-                width: "100%",
-                height: "340px",
-                background: "#F9F9F9",
-                borderRadius: "2px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={Object.assign(
+                {
+                  width: "100%",
+                  height: "340px",
+                  background: "#F9F9F9",
+                  borderRadius: "2px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
+                props.style
+              )}
             >
               <div>
                 <NoFileIcon />

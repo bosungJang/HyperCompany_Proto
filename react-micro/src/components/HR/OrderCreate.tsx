@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import HcCheckBox from "common/HcCheckBox";
 import HcTextField, {
@@ -9,14 +9,15 @@ import HcTextField, {
   SubHeading,
   Title,
   SelectBox,
+  HcTagNoInput,
 } from "common/HcTextField";
 import styled from "styled-components";
 import HcBottomBar from "common/HcBottomBar";
-import { useLocation } from "react-router";
+import { useLocation, useHistory } from "react-router";
 import InfoIconTooltip from "common/HcTooltip";
 import HcToggleBtn from "common/HcToggleBtn";
 import HcButton from "common/HcButton";
-
+import { SideBar } from "common/HcPopup";
 import {
   TableActionBtn,
   HcTable,
@@ -24,6 +25,7 @@ import {
   NullTbody,
   TableSetting,
 } from "common/HcTableComponent";
+
 import { HcDatePicker } from "common/HcDatePicker";
 const columns = [
   "사원 번호",
@@ -58,41 +60,82 @@ const styles: any = {
     backgroundColor: "rgba(0, 0, 0, 0.2)",
   },
 };
-const SideBar = styled.div`
-  height: 1010px;
-  width: 574px;
-  position: absolute !important;
-  bottom: 0px;
-  background-color: white;
-  transition: 0.5s;
-  padding: 30px 30px 20px 30px;
-  z-index: 500;
-`;
-const HRCard = styled.div`
+
+const HRCard = styled.div<{ checked: boolean }>`
   height: 54px;
-  width: 514px;
-  // background: #f5f9ff;
-  border: 1px solid #ededed;
+  width: 510px;
+  ${(props) =>
+    props.checked === false
+      ? "border :1px solid #CECECE;"
+      : "border:1px solid #5799FB; background: #F5F9FF;"};
   box-sizing: border-box;
   border-radius: 4px;
+  position: relative;
   font-family: Noto Sans KR;
   font-style: bold;
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-  margin-top: 10px;
-
+  padding: 13px 20px 15px 56px;
   text-transform: uppercase;
-
   color: #000000;
+  margin-bottom: 10px;
+  display: flex;
+  &:hover {
+    border: 1px solid #5799fb;
+  }
+`;
+const HRContainer = styled.div`
+  display: block;
+  width: fit-content;
+  overflow-y: scroll;
+  overflow-x: visible;
+  margin-top: 16px;
+  &::-webkit-scrollbar-track {
+    background: none;
+    position: absolute;
+    z-index: 1;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
+
+  background: /* Shadow covers */ linear-gradient(
+      white 30%,
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+    /* Shadows */
+      radial-gradient(
+        farthest-side at 50% 0,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+        farthest-side at 50% 100%,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      )
+      0 100%;
+  background-repeat: no-repeat;
 `;
 const OrderCreate = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
+
   const [notice, setNotice] = useState(true);
   const [info, setInfo] = useState(true);
   const [target, setTarget] = useState(true);
+  const [group, setGroup] = useState("");
+  const [organization, setOrganization] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [orderType, setrOrderType] = useState("");
   const openModal = () => {
@@ -107,7 +150,7 @@ const OrderCreate = () => {
     num = num + 1;
     return num;
   };
-  const testData = Array(15)
+  const data = Array(15)
     .fill(undefined)
     .map(() => ({
       name: "홍길동",
@@ -161,7 +204,7 @@ const OrderCreate = () => {
       </tr>
     );
   }
-  const [tableData, setTableData] = useState(testData);
+  const [tableData, setTableData] = useState(data);
   const [rows, setRows]: any = useState(
     tableData.map((row) => (
       <Row
@@ -212,20 +255,43 @@ const OrderCreate = () => {
     console.log();
   };
   /*ToggleBtn */
-  const [isToggled, setIsToggled] = React.useState(false);
+  const [isToggled, setIsToggled] = useState(false);
   /*ToggleBtn */
+  /*TagInput */
+  const [tags, setTags]: any[] = useState([]);
+  useEffect(() => {
+    if (tags.length === 0) setCheckedItem([]);
+  }, [tags]);
+  /*TagInput */
   /*side bar */
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   /*side bar*/
-  const HRList = addData.map((data) => (
-    <HRCard>
-      <HcCheckBox
-        checked={checkedItem.includes(data.id)}
-        onChange={(e) => {
-          checkHandler(e.target.checked, data.id);
+  const history = useHistory();
+  const HRList = data.map(({ name, organization, position, id }) => (
+    <HRCard checked={checkedItem.includes(id)}>
+      <img
+        src=""
+        style={{
+          marginRight: 12,
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          position: "absolute",
+          left: 12,
+          top: 11,
         }}
       />
-      {data.name}({data.organization}/{data.position})
+      {name}({organization}/{position}){" "}
+      <div style={{ marginLeft: 247, paddingTop: 3 }}>
+        {" "}
+        <HcCheckBox
+          checked={checkedItem.includes(id)}
+          onChange={(e) => {
+            checkHandler(e.target.checked, id);
+            setTags([...tags, name]);
+          }}
+        />
+      </div>
     </HRCard>
   ));
   return (
@@ -444,7 +510,11 @@ const OrderCreate = () => {
       <HcBottomBar open={barOpen} style={{ width: 1400 }}>
         <div>
           <HcButton
-            onClick={() => {}}
+            onClick={() => {
+              history.push({
+                pathname: "/hr/pas/OrderCreated",
+              });
+            }}
             styles="primary"
             style={{ marginRight: "5px" }}
             size="big"
@@ -463,6 +533,92 @@ const OrderCreate = () => {
           </HcButton>
         </div>
       </HcBottomBar>
+      <SideBar
+        header={"대상자 추가"}
+        open={isOpen}
+        close={() => {
+          setIsOpen(false);
+        }}
+        addFunc={onCreate}
+        style={{ display: "block" }}
+      >
+        <div style={{ float: "left", height: 36 }}>
+          <SelectBox
+            state={organization}
+            setState={setOrganization}
+            items={["사업부", "PM본부", "연구본부"]}
+            style={{ width: 190 }}
+          />
+          <SelectBox
+            state={group}
+            setState={setGroup}
+            items={["사업부", "PM본부", "연구본부"]}
+            style={{ width: 278, marginLeft: 8 }}
+          />
+          <svg
+            style={{ position: "absolute", top: 5, right: 0 }}
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="30" height="30" rx="3" fill="white" />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M17.2869 8.18777C19.5384 10.8591 19.198 14.8499 16.5266 17.1013C13.8552 19.3528 9.86451 19.0124 7.61305 16.341C5.36159 13.6697 5.70199 9.67893 8.37336 7.42747C11.0447 5.17601 15.0355 5.51641 17.2869 8.18777ZM18.4159 17.8618C21.2216 14.8787 21.4079 10.2004 18.7046 6.9929C15.7933 3.53855 10.6328 3.09838 7.17848 6.00975C3.72413 8.92112 3.28396 14.0816 6.19533 17.5359C8.8074 20.6351 13.2299 21.3081 16.6063 19.3111L21.2035 24.7656C21.6159 25.2549 22.347 25.3173 22.8364 24.9049C23.3257 24.4924 23.3881 23.7614 22.9756 23.272L18.4159 17.8618Z"
+              fill="#5D5D62"
+            />
+          </svg>
+        </div>
+        <HcTagNoInput
+          tags={tags}
+          setTags={setTags}
+          delete
+          deleteAll
+          style={{
+            backgroundColor: "#F4F4F4",
+            height: 76,
+            marginTop: 16,
+            display: tags.length === 0 ? "none" : "",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            marginTop: 20,
+            width: 514,
+            color: "#4D4D4D",
+            fontSize: "14px",
+            height: 30,
+          }}
+        >
+          총
+          <div
+            style={{
+              color: "#000000",
+              fontSize: "16px",
+              fontWeight: 600,
+              marginLeft: 3,
+            }}
+          >
+            {data.length}
+          </div>
+          명<div style={{ marginLeft: 351, marginRight: 10 }}>전체 선택</div>{" "}
+          <div style={{ paddingTop: 3 }}>
+            {" "}
+            <HcCheckBox
+              checked={checkedItem.length > 0 ? true : false}
+              onChange={(e) => checkAllHandler(e.target.checked)}
+            />
+          </div>
+        </div>
+        <HRContainer style={{ height: tags.length === 0 ? 572 : 480 }}>
+          {/* {checkedItem} */}
+          {HRList}
+        </HRContainer>
+      </SideBar>
     </>
   );
 };

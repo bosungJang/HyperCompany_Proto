@@ -72,7 +72,7 @@ const StyledTable = styled.table<{ checked?: boolean }>`
     cursor: pointer;
     border-bottom: 1px solid #e0e0e0;
     height: 46px;
-    padding: 12px;
+    padding: 10px 12px 10px 12px;
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;

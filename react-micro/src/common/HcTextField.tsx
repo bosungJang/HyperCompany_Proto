@@ -643,6 +643,7 @@ interface TagNoInputIProps {
   setTags: (value: string[]) => void;
   style?: CSSProperties;
   delete?: boolean;
+  deleteAll?: boolean;
 }
 
 export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
@@ -703,9 +704,9 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
                 right: 0,
                 marginRight: 8,
                 marginBottom: 8,
+                display: props.deleteAll ? "" : "none",
               }}
             >
-              {/* 
               <HcButton
                 onClick={() => {
                   props.setTags([]);
@@ -716,7 +717,6 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
               >
                 전체 취소
               </HcButton>
-              */}
             </div>
           </NoInputFieldWrapper>
         </div>

@@ -42,9 +42,10 @@ const SideBarContainer = styled.div`
   position: relative;
   margin-left: calc(100% - 574px);
   animation: ${SideBarShow} 0.3s;
-  overflow: hidden;
+  // overflow: hidden;
   &::-webkit-scrollbar-track {
     background: none;
+    background-color: none;
     position: absolute;
     z-index: 1;
   }
@@ -52,6 +53,7 @@ const SideBarContainer = styled.div`
     width: 6px;
     height: 6px;
     background-color: none;
+    background: none
     position: absolute;
   }
   &::-webkit-scrollbar-thumb {
