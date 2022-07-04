@@ -22,6 +22,9 @@ import InfoIconTooltip, { TooltipMessage } from "common/HcTooltip";
 import { useCounter } from "router/Root";
 import { autorun } from "mobx";
 import { observer } from "mobx-react";
+import { HcContentPopupAdv } from "common/HcPopup";
+import HcButton from "common/HcButton";
+import * as XLSX from "xlsx";
 
 interface AppProps {
   setLNBMenu?: (menu: LNBArrayProps[]) => void;
@@ -66,14 +69,188 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const SubInfoTitle = styled.div`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #5d5d62;
+`;
+
+const SubInfoCont = styled.div`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 9px;
+
+  span {
+    color: #f06666;
+  }
+`;
+
+const UploadButton = styled.label`
+  //width: 72px;
+  height: 36px;
+  border: 1px solid #a7a7a7;
+  border-radius: 2.5px;
+  font-family: "Noto Sans KR";
+  font-weight: 500;
+  font-size: 13px;
+  display: inline-block;
+  text-align: center;
+  padding: 7px 18px;
+  cursor: pointer;
+`;
+
+const FileNameWrapper = styled.div`
+  display: inline-block;
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  width: 400px;
+  height: 36px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000000;
+  margin-right: 10px;
+  padding: 7px 10px;
+  vertical-align: bottom;
+`;
+
 const App = observer((prop: AppProps) => {
   const [iconState, setIconState] = React.useState(false);
   const [topTitle, setTopTitle] = React.useState("");
+  const [openPop, setOpenPop] = React.useState(false);
 
   const myCounter = useCounter();
   autorun(() => {
     console.log("title", myCounter.myTitle);
   });
+
+  const RegiPopup = () => {
+    const [file, setFile]: any = React.useState([]);
+    const [fileName, setFileName] = React.useState("");
+
+    const onFileAdded = (evt: any) => {
+      console.log("start", evt.target.files[0]);
+      const promise = new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(evt.target.files[0]);
+
+        fileReader.onload = (e: any) => {
+          const bufferArray = e.target.result;
+
+          const wb = XLSX.read(bufferArray, { type: "buffer" });
+
+          const wsname = wb.SheetNames[0];
+
+          const ws = wb.Sheets[wsname];
+
+          const data = XLSX.utils.sheet_to_json(ws);
+
+          console.log(data);
+
+          resolve(data);
+        };
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+
+      promise.then((d) => {
+        setFile(d);
+        setFileName(evt.target.files[0].name);
+      });
+    };
+
+    return (
+      <HcContentPopupAdv
+        open={openPop}
+        width={"600px"}
+        height={"450px"}
+        header={"일괄 등록"}
+        style={{
+          width: "100%",
+          position: "unset",
+          top: "unset",
+          right: "unset",
+          marginTop: "24px",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+        }}
+        close={() => {
+          setOpenPop(false);
+        }}
+      >
+        <div style={{ marginLeft: "-10px" }}>
+          <div>
+            <SubInfoTitle>
+              1. 엑셀 양식을 다운로드하여 작성해주세요.
+            </SubInfoTitle>
+            <SubInfoCont>
+              <span>*</span>필수 입력 값을 모두 작성해주세요.
+            </SubInfoCont>
+            <HcButton
+              onClick={() => {}}
+              styles="line"
+              style={{ height: "29.09px", marginTop: "15px" }}
+              size="medium"
+            >
+              엑셀 양식 다운로드
+            </HcButton>
+          </div>
+          <div style={{ marginTop: "53px" }}>
+            <SubInfoTitle>2. 엑셀 파일을 업로드해주세요.</SubInfoTitle>
+            <SubInfoCont>
+              <span>*</span>제공된 엑셀의 서식을 변경하거나 다른 엑셀 양식
+              파일을 업로드하시면 인식 불가능합니다.
+            </SubInfoCont>
+            <div style={{ marginTop: "15px" }}>
+              <FileNameWrapper>{fileName}</FileNameWrapper>
+              <UploadButton htmlFor="ex_filename">{"파일 선택"}</UploadButton>
+              <input
+                type="file"
+                id="ex_filename"
+                className="upload-hidden"
+                style={{ display: "none" }}
+                onChange={onFileAdded}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            float: "right",
+            position: "absolute",
+            bottom: "30px",
+            right: "30px",
+          }}
+        >
+          <HcButton
+            onClick={() => {}}
+            styles="primary"
+            style={{ marginRight: "12px", height: "40px" }}
+            size="medium"
+            disabled={fileName === "" ? true : false}
+          >
+            일괄 등록
+          </HcButton>
+          <HcButton
+            onClick={() => {}}
+            styles="line"
+            style={{ height: "40px" }}
+            size="medium"
+          >
+            취소
+          </HcButton>
+        </div>
+      </HcContentPopupAdv>
+    );
+  };
+
   return (
     <div
       style={{
@@ -145,7 +322,11 @@ const App = observer((prop: AppProps) => {
                 <ExportIcon />
                 <div>내보내기</div>
               </ButtonWrapper>
-              <ButtonWrapper>
+              <ButtonWrapper
+                onClick={() => {
+                  setOpenPop(true);
+                }}
+              >
                 <CollectiveIcon />
                 <div>일괄등록</div>
               </ButtonWrapper>
@@ -246,6 +427,7 @@ const App = observer((prop: AppProps) => {
           />
         )}
       />
+      <RegiPopup />
     </div>
   );
 });

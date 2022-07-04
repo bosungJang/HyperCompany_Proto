@@ -325,9 +325,7 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                 전기 이월 정보 불러오기
               </HcButton>
               <HcButton
-                onClick={() => {
-                  setOpenPop(true);
-                }}
+                onClick={() => {}}
                 styles="line"
                 style={{ marginRight: "10px" }}
                 size="medium"
@@ -335,7 +333,9 @@ const FixedAssetsList = ({ match }: RouteComponentProps) => {
                 일괄 등록
               </HcButton>
               <HcButton
-                onClick={() => {}}
+                onClick={() => {
+                  setOpenPop(true);
+                }}
                 styles="line"
                 style={{}}
                 size="medium"
