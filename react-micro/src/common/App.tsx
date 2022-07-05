@@ -25,6 +25,7 @@ import { observer } from "mobx-react";
 import { HcContentPopupAdv } from "common/HcPopup";
 import HcButton from "common/HcButton";
 import * as XLSX from "xlsx";
+import { ToastContext } from "common/Toast";
 
 interface AppProps {
   setLNBMenu?: (menu: LNBArrayProps[]) => void;
@@ -123,6 +124,7 @@ const App = observer((prop: AppProps) => {
   const [iconState, setIconState] = React.useState(false);
   const [topTitle, setTopTitle] = React.useState("");
   const [openPop, setOpenPop] = React.useState(false);
+  const { message, cancelAction } = React.useContext(ToastContext);
 
   const myCounter = useCounter();
   autorun(() => {
@@ -194,7 +196,9 @@ const App = observer((prop: AppProps) => {
               <span>*</span>필수 입력 값을 모두 작성해주세요.
             </SubInfoCont>
             <HcButton
-              onClick={() => {}}
+              onClick={() => {
+                window.location.href = "/images/testFile.xlsx";
+              }}
               styles="line"
               style={{ height: "29.09px", marginTop: "15px" }}
               size="medium"
@@ -230,7 +234,10 @@ const App = observer((prop: AppProps) => {
           }}
         >
           <HcButton
-            onClick={() => {}}
+            onClick={() => {
+              message("일괄 등록을 완료하였습니다.", "test");
+              setOpenPop(false);
+            }}
             styles="primary"
             style={{ marginRight: "12px", height: "40px" }}
             size="medium"
@@ -239,7 +246,9 @@ const App = observer((prop: AppProps) => {
             일괄 등록
           </HcButton>
           <HcButton
-            onClick={() => {}}
+            onClick={() => {
+              setOpenPop(false);
+            }}
             styles="line"
             style={{ height: "40px" }}
             size="medium"
