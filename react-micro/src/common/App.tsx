@@ -150,9 +150,18 @@ const App = observer((prop: AppProps) => {
 
           const ws = wb.Sheets[wsname];
 
+          const columnA = [];
+
+          for (let z in ws) {
+            if (z.toString()[1] === "1" && z.toString()[2] === undefined) {
+              columnA.push(ws[z].v);
+            }
+          }
+
           const data = XLSX.utils.sheet_to_json(ws);
 
           console.log(data);
+          console.log(columnA);
 
           resolve(data);
         };
