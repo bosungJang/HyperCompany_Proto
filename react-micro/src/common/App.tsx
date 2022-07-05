@@ -196,7 +196,9 @@ const App = observer((prop: AppProps) => {
               <span>*</span>필수 입력 값을 모두 작성해주세요.
             </SubInfoCont>
             <HcButton
-              onClick={() => {}}
+              onClick={() => {
+                window.location.href = "/images/testFile.xlsx";
+              }}
               styles="line"
               style={{ height: "29.09px", marginTop: "15px" }}
               size="medium"
