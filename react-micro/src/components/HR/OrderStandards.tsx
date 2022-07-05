@@ -21,7 +21,26 @@ const EditInput = styled.input`
   width: 100%;
   height: 100%;
   border: 1px solid #257cff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  &:hover {
+    // background: #eff5ff;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:placeholder {
+    color: #a7a7a7;
+  }
+  ::selection {
+    background: #cee2ff;
+  }
 `;
+
 let num = 1000000;
 const getId = () => {
   num = num + 1;
@@ -39,22 +58,11 @@ const data = Array(10)
   }));
 
 const OrderStadards = () => {
+  const [test, setTest] = useState("test");
+  const [focusedType, setFocusedType] = useState("");
+  const [focusedComment, setFocusedComment] = useState("");
   const typeInputRef = useRef<any>(null);
   const [isTypeEdit, setIsTypeEdit] = useState(true);
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent): void {
-      if (
-        typeInputRef.current &&
-        !typeInputRef.current.contains(e.target as Node)
-      ) {
-        setIsTypeEdit(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [typeInputRef]);
   const [checkedItem, setCheckedItem]: any = useState([]);
   function checkHandler(checked: Boolean, id: Number) {
     if (checked == true) {
@@ -136,10 +144,10 @@ const OrderStadards = () => {
   }
   const onCreate = () => {
     const prev = tableData;
-    prev.push({
+    prev.unshift({
       id: getId(),
       kind: " ",
-      comment: "발령 이전과 비교해서 근무지가 변동되었을때 사용",
+      comment: "",
       action: <TableActionBtn />,
     });
     setTableData(prev);
@@ -155,6 +163,84 @@ const OrderStadards = () => {
     );
   };
 
+  const handleTypeChange = (index: any, e: any) => {
+    let prev = [...tableData];
+    prev[index].kind = e.target.value;
+    setTableData(prev);
+  };
+  const handleCommentChange = (index: any, e: any) => {
+    let prev = [...tableData];
+    prev[index].comment = e.target.value;
+    setTableData(prev);
+  };
+  const renderRows = () => {
+    return tableData.map(({ id, kind, comment, action }, index) => (
+      <tr style={{ backgroundColor: "none" }}>
+        <td>
+          <div style={{ paddingTop: 4 }}>
+            <HcCheckBox
+              checked={checkedItem.includes(id)}
+              onChange={(e) => {
+                checkHandler(e.target.checked, id);
+                onCreate();
+              }}
+            />
+          </div>
+        </td>
+        <td>{id}</td>
+        <td
+          style={{ maxWidth: 322, position: "relative" }}
+          onClick={() => {
+            if (!isTypeEdit) setIsTypeEdit(true);
+          }}
+        >
+          <EditInput
+            placeholder="정보를 입력하세요"
+            value={kind}
+            onChange={(e) => {
+              handleTypeChange(index, e);
+            }}
+            style={{
+              border:
+                focusedType === String(index) ? "1px solid #257CFF" : "none",
+            }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                // e.target.blur();
+              }
+            }}
+            onFocus={() => setFocusedType(String(index))}
+            onBlur={() => {
+              setFocusedType("");
+            }}
+          />
+        </td>
+        <td
+          style={{
+            width: 510,
+            position: "relative",
+          }}
+        >
+          <EditInput
+            placeholder="정보를 입력하세요"
+            value={comment}
+            onChange={(e) => {
+              handleCommentChange(index, e);
+            }}
+            style={{
+              border:
+                focusedComment === String(index) ? "1px solid #257CFF" : "none",
+            }}
+            onFocus={() => setFocusedComment(String(index))}
+            onBlur={() => {
+              setFocusedComment("");
+            }}
+          />
+        </td>
+        <td>{action}</td>
+      </tr>
+    ));
+  };
   return (
     <>
       <div style={{ width: "inherit" }}>
@@ -178,6 +264,7 @@ const OrderStadards = () => {
               >
                 +생성
               </HcButton>
+
               <TableSetting />
             </div>
             <div style={{ display: "flex" }}>
@@ -200,47 +287,7 @@ const OrderStadards = () => {
                     </tr>
                   </thead>
                   {/* <tbody>{rows}</tbody> */}
-                  <tbody>
-                    {tableData.map((x) => (
-                      <tr onClick={() => {}}>
-                        <td>
-                          <div style={{ paddingTop: 4 }}>
-                            <HcCheckBox
-                              checked={checkedItem.includes(x.id)}
-                              onChange={(e) => {
-                                checkHandler(e.target.checked, x.id);
-                              }}
-                            />
-                          </div>
-                        </td>
-                        <td>{x.id}</td>
-                        <td
-                          style={{ maxWidth: 322 }}
-                          onClick={() => setIsTypeEdit(!isTypeEdit)}
-                        >
-                          {isTypeEdit ? <EditInput /> : x.kind}
-                        </td>
-                        <td
-                          style={{
-                            width: 510,
-                          }}
-                        >
-                          <EditText
-                            defaultValue={x.comment}
-                            // onChange={() => {
-                            //   setTableData({
-                            //     ...tableData,
-                            //     ...x,
-                            //     [x.comment]: "hi",
-                            //   });
-
-                            // }}
-                          />
-                        </td>
-                        <td>{x.action}</td>
-                      </tr>
-                    ))}
-                  </tbody>
+                  <tbody>{renderRows()}</tbody>
                 </HcTable>
               </HcTableContainer>
             </div>
