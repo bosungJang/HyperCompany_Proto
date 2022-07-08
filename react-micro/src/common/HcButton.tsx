@@ -1,5 +1,7 @@
 import React, { Children } from "react";
 import styled, { CSSProperties } from "styled-components";
+import { ReactComponent as CardViewIcon } from "resources/images/Icon/Card_View_Icon.svg";
+import { ReactComponent as ListViewIcon } from "resources/images/Icon/List_View_Icon.svg";
 
 const LineButton = styled.button<{ size: string }>`
   border: 1px solid #a7a7a7;
@@ -317,3 +319,34 @@ export const HcDropDownButton = (props: HcDropDownButtonProps) => {
 };
 
 export default HcButton;
+
+const VieModeBtnWrapper = styled.div`
+  width: 32px;
+  height: 28px;
+  background: #257cff;
+  border-radius: 3px;
+  text-align: center;
+  padding 2px;
+  cursor: pointer;
+
+  &:hover {
+    background: #88b8ff;
+  }
+
+  &:active {
+    background: #0047b1;
+  }
+`;
+
+interface HcViewModeBtnProps {
+  state: boolean;
+  setState: () => void;
+}
+
+export const HcViewModeButton = (props: HcViewModeBtnProps) => {
+  return (
+    <VieModeBtnWrapper onClick={props.setState}>
+      {props.state ? <ListViewIcon /> : <CardViewIcon />}
+    </VieModeBtnWrapper>
+  );
+};

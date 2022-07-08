@@ -10,6 +10,7 @@ import {
   Finance,
   HumanResource,
   CustomerService,
+  Sales
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 import { referenceEnhancer } from "mobx/dist/internal";
@@ -442,6 +443,18 @@ const App = observer((prop: AppProps) => {
             setLNBMenu={prop.setLNBMenu}
             setTopTitle={setTopTitle}
             {...props}
+          />
+        )}
+      />
+      <Route
+        path="/sales"
+        component={(props: any) => (
+          <Sales
+            setLNBMenu={prop.setLNBMenu}
+            forwardRef={prop.forwardRef}
+            setTopTitle={setTopTitle}
+            {...props}
+            ref={(el: any) => (prop.forwardRef.current[2] = el)}
           />
         )}
       />
