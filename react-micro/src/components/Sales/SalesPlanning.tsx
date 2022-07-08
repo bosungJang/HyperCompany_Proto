@@ -2,13 +2,22 @@ import React from "react";
 import { ComponentWrapper } from "common/HcCommonLayout";
 import styled from "styled-components";
 import "common/Table.css";
-import { HcTitleTextField } from "common/HcTextField";
+import HcTextField, {
+  HcTitleTextField,
+  Wrapper,
+  Title,
+  HcSearchTextField,
+  TextField,
+  HcSelect,
+} from "common/HcTextField";
 import HcButton, { HcViewModeButton } from "common/HcButton";
 import { Link, RouteComponentProps, Route, useHistory } from "react-router-dom";
 import { ReactComponent as DropDownIcon } from "resources/images/dropDown_icon.svg";
 import { useCounter } from "router/Root";
 import HcCheckBox from "common/HcCheckBox";
 import { ReactComponent as ListArrowIcon } from "resources/images/List_Arrow_Icon.svg";
+import { VariableMultiLayout } from "common/HcCommonLayout";
+import { ReactComponent as ArrowIcon } from "resources/images/RevenueDetailArrow_Icon.svg";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -85,6 +94,7 @@ const HcDropDownMenu = styled("ul")`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   margin-top: -12px;
   margin-left: -177px;
+  z-index: 1;
 `;
 
 const HcDropDownItem = styled("li")`
@@ -155,6 +165,7 @@ const ListWrapper = styled.div`
   height: 353px;
   margin-bottom: 24px;
   padding: 20px 24px;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0px;
@@ -226,6 +237,85 @@ const ListModeStepTitle = styled.div<{ color: string }>`
   line-height: initial;
 `;
 
+const PercetageLabel = styled.label`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #5d5d62;
+`;
+
+const PercentageNum = styled.div`
+  display: inline-block;
+  margin-left: 20px;
+  position: relative;
+
+  label {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    color: #000000;
+    position: relative;
+    z-index: 1;
+  }
+
+  div {
+    width: 100%;
+    height: 12px;
+    background: #ffe49d;
+    position: absolute;
+    bottom: 0px;
+  }
+`;
+
+const ListViewTag = styled.div`
+background: #F4F4F4;
+border-radius: 2px;
+width: fit-content;
+display: inline-block;
+height: 32px;
+padding 4px 6px;
+margin-right: 8px;
+
+&:last-child {
+  margin-right: 0px;
+}
+
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+color: #838181;
+`;
+
+const StyledWrapper = styled.div<{ expand: boolean }>`
+  transition: all 0.5s ease;
+  overflow: hidden;
+  border: 1px solid #cecece;
+  border-radius: 6px;
+  padding: 20px 24px;
+  position: relative;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  ${(props) =>
+    props.expand === false
+      ? `max-height: 68px; 
+       svg{
+    transform: rotate(90deg);
+    transition: all 0.5s ease;
+  }`
+      : `max-height: 359px;  
+      svg{
+    transform: rotate(270deg);
+    transition: all 0.5s ease;
+  }`}
+`;
+
 const data = [
   {
     name: "네이버페이 영업용 PC 구매",
@@ -265,9 +355,15 @@ const data = [
   },
 ];
 
-const SalesPlanning = () => {
+interface MatchParams {
+  id: string;
+}
+
+const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
   const myCounter = useCounter();
   myCounter.myTitle = "영업 기회";
+
+  const history = useHistory();
 
   const [viewState, setViewState] = React.useState(false);
 
@@ -282,6 +378,7 @@ const SalesPlanning = () => {
         <DropDownIconWrapper
           onClick={() => setMenuOpen(!menuOpen)}
           menuOpen={menuOpen}
+          style={props.style}
         >
           <DropDownIcon />
           {menuOpen === true ? (
@@ -298,218 +395,435 @@ const SalesPlanning = () => {
     );
   };
 
-  return (
-    <div style={{ width: "inherit" }}>
-      <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
-        <div style={{ display: "block", width: "inherit" }}>
-          <div style={{ marginTop: "16px" }}>
-            <HcTitleTextField
-              titleName="영업기회(7, 총 34,000,000)"
-              isBackIcon={false}
-              style={{ display: "inline-block" }}
-            />
-            <div
-              style={{
-                display: "inline-block",
-                float: "right",
-                marginBottom: "20px",
-              }}
-            >
-              <HcViewModeButton state={viewState} setState={changeViewState} />
-            </div>
+  const GeneralState = () => {
+    return (
+      <div style={{ marginTop: "16px" }}>
+        <HcTitleTextField
+          titleName="영업기회(7, 총 34,000,000)"
+          isBackIcon={false}
+          style={{ display: "inline-block" }}
+        />
+        <div
+          style={{
+            display: "inline-block",
+            float: "right",
+            marginBottom: "20px",
+          }}
+        >
+          <HcViewModeButton state={viewState} setState={changeViewState} />
+        </div>
 
-            <div
-              className="table_area"
-              style={{ marginTop: "37px", width: "inherit" }}
+        <div
+          className="table_area"
+          style={{ marginTop: "37px", width: "inherit" }}
+        >
+          <div
+            style={{
+              marginBottom: "20px",
+              width: "inherit",
+            }}
+          >
+            <HcButton
+              onClick={() => {
+                history.push(`${match.url}/add`);
+              }}
+              styles="secondary"
+              size="medium"
             >
-              <div
-                style={{
-                  marginBottom: "20px",
-                  width: "inherit",
-                }}
-              >
-                <HcButton onClick={() => {}} styles="secondary" size="medium">
-                  + 생성
-                </HcButton>
-                <div style={{ display: "inline-block", float: "right" }}></div>
-              </div>
-              {viewState ? (
-                <div style={{ width: "100%" }}>
-                  {data.map((item) => (
-                    <ListWrapper>
-                      <ListTitle>{"[진행중] " + item.name}</ListTitle>
-                      <div
-                        style={{
-                          margin: "28px 6px 31px 6px",
-                          borderBottom: "1px solid #D9D9D9",
-                          width: "100%",
-                          height: "106px",
-                          display: "flex",
-                          alignItems: "center",
-                          paddingLeft: "30px",
-                        }}
+              + 생성
+            </HcButton>
+            <div style={{ display: "inline-block", float: "right" }}></div>
+          </div>
+          {viewState ? (
+            <div style={{ width: "100%" }}>
+              {data.map((item) => (
+                <ListWrapper>
+                  <ListTitle>{"[진행중] " + item.name}</ListTitle>
+                  <div
+                    style={{
+                      margin: "28px 6px 31px 6px",
+                      borderBottom: "1px solid #D9D9D9",
+                      width: "100%",
+                      height: "106px",
+                      display: "flex",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                    }}
+                  >
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 1 ? 1 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 1 ? "#2D2D31" : "#CECECE"}
                       >
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 1 ? 1 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 1 ? "#2D2D31" : "#CECECE"}
-                          >
-                            기회 인지
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
-                        <StyledArrow
-                          color={item.step < 2 ? "#CECECE" : "#A1DDE1"}
-                        />
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 2 ? 2 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 2 ? "#2D2D31" : "#CECECE"}
-                          >
-                            제품 소개
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
-                        <StyledArrow
-                          color={item.step < 3 ? "#CECECE" : "#5AC4CB"}
-                        />
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 3 ? 3 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 3 ? "#2D2D31" : "#CECECE"}
-                          >
-                            견적
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
-                        <StyledArrow
-                          color={item.step < 4 ? "#CECECE" : "#5799FB"}
-                        />
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 4 ? 4 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 4 ? "#2D2D31" : "#CECECE"}
-                          >
-                            재견적
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
-                        <StyledArrow
-                          color={item.step < 5 ? "#CECECE" : "#257CFF"}
-                        />
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 5 ? 5 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 5 ? "#2D2D31" : "#CECECE"}
-                          >
-                            협상
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
-                        <StyledArrow
-                          color={item.step < 6 ? "#CECECE" : "#8080B2"}
-                        />
-                        <ListModeStepWrapper>
-                          <ListModeStepBox step={item.step >= 6 ? 6 : 0} />
-                          <ListModeStepTitle
-                            color={item.step >= 6 ? "#2D2D31" : "#CECECE"}
-                          >
-                            계약
-                          </ListModeStepTitle>
-                        </ListModeStepWrapper>
+                        기회 인지
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+                    <StyledArrow
+                      color={item.step < 2 ? "#CECECE" : "#A1DDE1"}
+                    />
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 2 ? 2 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 2 ? "#2D2D31" : "#CECECE"}
+                      >
+                        제품 소개
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+                    <StyledArrow
+                      color={item.step < 3 ? "#CECECE" : "#5AC4CB"}
+                    />
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 3 ? 3 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 3 ? "#2D2D31" : "#CECECE"}
+                      >
+                        견적
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+                    <StyledArrow
+                      color={item.step < 4 ? "#CECECE" : "#5799FB"}
+                    />
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 4 ? 4 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 4 ? "#2D2D31" : "#CECECE"}
+                      >
+                        재견적
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+                    <StyledArrow
+                      color={item.step < 5 ? "#CECECE" : "#257CFF"}
+                    />
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 5 ? 5 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 5 ? "#2D2D31" : "#CECECE"}
+                      >
+                        협상
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+                    <StyledArrow
+                      color={item.step < 6 ? "#CECECE" : "#8080B2"}
+                    />
+                    <ListModeStepWrapper>
+                      <ListModeStepBox step={item.step >= 6 ? 6 : 0} />
+                      <ListModeStepTitle
+                        color={item.step >= 6 ? "#2D2D31" : "#CECECE"}
+                      >
+                        계약
+                      </ListModeStepTitle>
+                    </ListModeStepWrapper>
+
+                    <div style={{ marginLeft: "54px" }}>
+                      <PercetageLabel>성공 확률</PercetageLabel>
+                      <PercentageNum>
+                        <label>{item.progress}%</label> <div></div>
+                      </PercentageNum>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <ListViewTag>{item.customer}</ListViewTag>
+                      <ListViewTag>{item.contact}</ListViewTag>
+                    </div>
+                    <div style={{ marginTop: 8 }}>
+                      <ListViewTag>{item.salesExpected}</ListViewTag>
+                      <ListViewTag>
+                        {item.dateStart} ~ {item.dateEnd}
+                      </ListViewTag>
+                      <ListViewTag>{item.manager}</ListViewTag>
+                    </div>
+                    <div style={{ marginTop: 8 }}>
+                      <ListViewTag>{item.product}</ListViewTag>
+                    </div>
+                  </div>
+                  <DropDown
+                    menu={[
+                      { title: "영업활동 생성" },
+                      { title: "견적 생성" },
+                      { title: "계약 생성" },
+                      { title: "매출 생성" },
+                      { title: "복제" },
+                      { title: "수정" },
+                      { title: "삭제" },
+                    ]}
+                    style={{ top: 22, right: 20, position: "absolute" }}
+                  />
+                </ListWrapper>
+              ))}
+            </div>
+          ) : (
+            <TableContainer>
+              <table className="table table-hover">
+                <thead
+                  style={{
+                    display: "table",
+                    width: "100%",
+                    tableLayout: "fixed",
+                  }}
+                >
+                  <tr>
+                    <th style={{ width: "46px", textAlign: "center" }}>
+                      <div style={{ paddingTop: 7 }}>
+                        <HcCheckBox checked={false} onChange={(e) => {}} />
                       </div>
-                    </ListWrapper>
-                  ))}
-                </div>
-              ) : (
-                <TableContainer>
-                  <table className="table table-hover">
-                    <thead
+                    </th>
+                    <th style={{ width: "200px" }}>{"이름"}</th>
+                    <th style={{ width: "100px" }}>{"단계"}</th>
+                    <th style={{ width: "120px" }}>{"진행률"}</th>
+                    <th style={{ width: "120px" }}>{"기업고객"}</th>
+                    <th style={{ width: "120px" }}>{"기업컨택포인트"}</th>
+                    <th style={{ width: "120px" }}>{"예상매출"}</th>
+                    <th style={{ width: "200px" }}>{"진행기간"}</th>
+                    <th style={{ width: "174px" }}>{"상품"}</th>
+                    <th style={{ width: "120px" }}>{"담당자"}</th>
+                  </tr>
+                </thead>
+                <tbody
+                  style={{
+                    display: "block",
+                    height: 598,
+                    overflow: "auto",
+                  }}
+                >
+                  {data.map((item) => (
+                    <tr
                       style={{
                         display: "table",
                         width: "100%",
                         tableLayout: "fixed",
                       }}
                     >
-                      <tr>
-                        <th style={{ width: "46px", textAlign: "center" }}>
-                          <div style={{ paddingTop: 7 }}>
-                            <HcCheckBox checked={false} onChange={(e) => {}} />
-                          </div>
-                        </th>
-                        <th style={{ width: "200px" }}>{"이름"}</th>
-                        <th style={{ width: "100px" }}>{"단계"}</th>
-                        <th style={{ width: "120px" }}>{"진행률"}</th>
-                        <th style={{ width: "120px" }}>{"기업고객"}</th>
-                        <th style={{ width: "120px" }}>{"기업컨택포인트"}</th>
-                        <th style={{ width: "120px" }}>{"예상매출"}</th>
-                        <th style={{ width: "200px" }}>{"진행기간"}</th>
-                        <th style={{ width: "174px" }}>{"상품"}</th>
-                        <th style={{ width: "120px" }}>{"담당자"}</th>
-                      </tr>
-                    </thead>
-                    <tbody
-                      style={{
-                        display: "block",
-                        height: 598,
-                        overflow: "auto",
-                      }}
-                    >
-                      {data.map((item) => (
-                        <tr
-                          style={{
-                            display: "table",
-                            width: "100%",
-                            tableLayout: "fixed",
-                          }}
-                        >
-                          <td style={{ width: 46, textAlign: "center" }}>
-                            <HcCheckBox checked={false} onChange={(e) => {}} />
-                          </td>
-                          <td style={{ width: 200 }}>{item.name}</td>
-                          <td style={{ width: 100 }}>
-                            <StepWrapper>
-                              <StepColorBox step={item.step} />
-                              <StepTitle>
-                                {
-                                  {
-                                    1: "기회 인지",
-                                    2: "상품 소개",
-                                    3: "견적",
-                                    4: "재견적",
-                                    5: "협상",
-                                    6: "계약",
-                                  }[item.step]
-                                }
-                              </StepTitle>
-                            </StepWrapper>
-                          </td>
-                          <td style={{ width: 120 }}>{item.progress}%</td>
-                          <td style={{ width: 120 }}>{item.customer}</td>
-                          <td style={{ width: 120 }}>{item.contact}</td>
-                          <td style={{ width: 120 }}>{item.salesExpected}</td>
-                          <td style={{ width: 200 }}>
-                            {item.dateStart} ~ {item.dateEnd}
-                          </td>
-                          <td style={{ width: 174 }}>{item.product}</td>
-                          <td style={{ width: 120 }}>
-                            {item.manager}
+                      <td style={{ width: 46, textAlign: "center" }}>
+                        <HcCheckBox checked={false} onChange={(e) => {}} />
+                      </td>
+                      <td style={{ width: 200 }}>{item.name}</td>
+                      <td style={{ width: 100 }}>
+                        <StepWrapper>
+                          <StepColorBox step={item.step} />
+                          <StepTitle>
+                            {
+                              {
+                                1: "기회 인지",
+                                2: "상품 소개",
+                                3: "견적",
+                                4: "재견적",
+                                5: "협상",
+                                6: "계약",
+                              }[item.step]
+                            }
+                          </StepTitle>
+                        </StepWrapper>
+                      </td>
+                      <td style={{ width: 120 }}>{item.progress}%</td>
+                      <td style={{ width: 120 }}>{item.customer}</td>
+                      <td style={{ width: 120 }}>{item.contact}</td>
+                      <td style={{ width: 120 }}>{item.salesExpected}</td>
+                      <td style={{ width: 200 }}>
+                        {item.dateStart} ~ {item.dateEnd}
+                      </td>
+                      <td style={{ width: 174 }}>{item.product}</td>
+                      <td style={{ width: 120 }}>
+                        {item.manager}
 
-                            <DropDown
-                              menu={[
-                                { title: "영업활동 생성" },
-                                { title: "견적 생성" },
-                                { title: "계약 생성" },
-                                { title: "매출 생성" },
-                                { title: "복제" },
-                                { title: "수정" },
-                                { title: "삭제" },
-                              ]}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </TableContainer>
-              )}
-            </div>
+                        <DropDown
+                          menu={[
+                            { title: "영업활동 생성" },
+                            { title: "견적 생성" },
+                            { title: "계약 생성" },
+                            { title: "매출 생성" },
+                            { title: "복제" },
+                            { title: "수정" },
+                            { title: "삭제" },
+                          ]}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </TableContainer>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const CreateState = () => {
+    const [inputVal, setInputVal] = React.useState("");
+
+    const DropDownList = (props: any) => {
+      const [rowExpand, setRowExpand] = React.useState(false);
+      return (
+        <StyledWrapper expand={rowExpand}>
+          <ListTitle>{props.title}</ListTitle>
+          <ArrowIcon
+            onClick={() => {
+              setRowExpand(!rowExpand);
+            }}
+            style={{
+              cursor: "pointer",
+              position: "absolute",
+              top: 20,
+              right: 22,
+            }}
+          />
+          <div
+            style={{
+              paddingLeft: "16px",
+              paddingRight: "16px",
+              marginTop: "28px",
+            }}
+          >
+            {props.children}
           </div>
+        </StyledWrapper>
+      );
+    };
+
+    return (
+      <div style={{ marginTop: "16px" }}>
+        <HcTitleTextField
+          titleName="영업기회 생성"
+          isBackIcon={true}
+          style={{ display: "inline-block" }}
+        />
+        <div style={{ marginTop: "37px", width: "inherit" }}>
+          <ListWrapper style={{ height: "229px" }}>
+            <DropDown
+              menu={[
+                { title: "영업활동 생성" },
+                { title: "견적 생성" },
+                { title: "계약 생성" },
+                { title: "매출 생성" },
+                { title: "복제" },
+                { title: "수정" },
+                { title: "삭제" },
+              ]}
+              style={{ top: 22, right: 20, position: "absolute" }}
+            />
+            <ListTitle>기본 정보</ListTitle>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <VariableMultiLayout>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "60px",
+                  }}
+                >
+                  <TextField
+                    placeholder="영업 기회 이름 입력"
+                    style={{ marginBottom: "20px", width: "360px" }}
+                  />
+                  <HcSearchTextField
+                    titleName="기업고객"
+                    name="name"
+                    value={inputVal}
+                    placeholder="고객 조회"
+                    onChange={(e) => {
+                      const lengthOfInputValue = inputVal.split("").length;
+
+                      if (lengthOfInputValue !== 10)
+                        setInputVal(e.currentTarget.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Enter" &&
+                        inputVal.trim() !== "" /*&& props.tags.length < 4 */
+                      ) {
+                        setInputVal("");
+                      }
+                    }}
+                    required
+                    style={{ width: "360px" }}
+                  />
+                </p>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "end",
+                    marginRight: "60px",
+                  }}
+                >
+                  <HcSearchTextField
+                    titleName="기업컨택포인트"
+                    name="name"
+                    value={inputVal}
+                    placeholder="고객 조회"
+                    onChange={(e) => {
+                      const lengthOfInputValue = inputVal.split("").length;
+
+                      if (lengthOfInputValue !== 10)
+                        setInputVal(e.currentTarget.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Enter" &&
+                        inputVal.trim() !== "" /*&& props.tags.length < 4 */
+                      ) {
+                        setInputVal("");
+                      }
+                    }}
+                    required
+                    style={{ width: "360px" }}
+                  />
+                </p>
+                <p style={{ flexGrow: 1, display: "flex", alignItems: "end" }}>
+                  <HcSelect
+                    onChange={(e) => {}}
+                    titleName="진행상태"
+                    name={""}
+                    style={{ width: "360px" }}
+                  >
+                    <option value="" hidden>
+                      진행 상태 선택
+                    </option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                  </HcSelect>
+                </p>
+              </VariableMultiLayout>
+            </div>
+          </ListWrapper>
+          <DropDownList title="예상 정보">
+            <div>test</div>
+          </DropDownList>
+          <DropDownList title="상세 정보">
+            <div>test</div>
+          </DropDownList>
+          <DropDownList title="상품 정보(0)">
+            <div>test</div>
+          </DropDownList>
+          <DropDownList title="연관 기업 컨택포인트(0)">
+            <div>test</div>
+          </DropDownList>
+          <DropDownList title="지원인력(0)">
+            <div>test</div>
+          </DropDownList>
+          <DropDownList title="첨부 파일">
+            <div>test</div>
+          </DropDownList>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ width: "inherit" }}>
+      <ComponentWrapper style={{ width: "inheirt", display: "block" }}>
+        <div style={{ display: "block", width: "inherit" }}>
+          <Route exact path={match.url} component={GeneralState} />
+          <Route path={`${match.url}/add`} component={CreateState} />
         </div>
       </ComponentWrapper>
     </div>
