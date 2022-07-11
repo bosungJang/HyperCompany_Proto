@@ -9,6 +9,8 @@ import HcTextField, {
   HcSearchTextField,
   TextField,
   HcSelect,
+  HcTextFieldLabel,
+  StyledSelect,
 } from "common/HcTextField";
 import HcButton, { HcViewModeButton } from "common/HcButton";
 import { Link, RouteComponentProps, Route, useHistory } from "react-router-dom";
@@ -18,6 +20,11 @@ import HcCheckBox from "common/HcCheckBox";
 import { ReactComponent as ListArrowIcon } from "resources/images/List_Arrow_Icon.svg";
 import { VariableMultiLayout } from "common/HcCommonLayout";
 import { ReactComponent as ArrowIcon } from "resources/images/RevenueDetailArrow_Icon.svg";
+import HcFileUploader from "common/HcFileUploader";
+import { ReactComponent as NoDataIcon } from "resources/images/No_Table_Data_Icon.svg";
+import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
+import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
+import { HcDateRangePicker } from "common/HcDatePicker";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -305,15 +312,43 @@ const StyledWrapper = styled.div<{ expand: boolean }>`
   ${(props) =>
     props.expand === false
       ? `max-height: 68px; 
+      .arrow_wrapper {
        svg{
     transform: rotate(90deg);
     transition: all 0.5s ease;
+  }
   }`
-      : `max-height: 359px;  
+      : `max-height: 900px;  
+      .arrow_wrapper {
       svg{
     transform: rotate(270deg);
     transition: all 0.5s ease;
+      }
   }`}
+`;
+
+const ApprovalWrapper = styled.div`
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px 10px;
+`;
+
+const ApprovalContent = styled.div`
+  background: #f9f9f9;
+  border-radius: 4px;
+  //padding: 13px;
+  height: 50px;
+  margin-bottom: 6px;
+  &: last-child {
+    margin-bottom: 0;
+  }
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 15px;
+  font-family: Noto Sans KR;
+  color: #5d5d62;
 `;
 
 const data = [
@@ -352,6 +387,28 @@ const data = [
     dateEnd: "2022.04.01",
     product: "2019 아이맥 27인치",
     manager: "홍길동",
+  },
+];
+
+const approvalLineData = [
+  { state: "기안", name: "홍길동", position: "연구원", department: "AB2-4팀" },
+  {
+    state: "결재",
+    name: "곱단이",
+    position: "연구원(팀장)",
+    department: "AB2-4팀",
+  },
+  {
+    state: "합의(승인부서)",
+    name: "차돌바위",
+    position: "매니저",
+    department: "인사팀",
+  },
+  {
+    state: "결재(승인부서)",
+    name: "호피",
+    position: "매니저",
+    department: "인사팀",
   },
 ];
 
@@ -651,32 +708,33 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const CreateState = () => {
     const [inputVal, setInputVal] = React.useState("");
+    const [file, setFile]: any = React.useState([]);
+    const [productList, setProductList] = React.useState([]);
+    const [enterpriseList, setEnterpriseList] = React.useState([]);
+    const [supporterList, setSupporterList] = React.useState([]);
+
+    const [approvalLineDatas, setApprovalLineDatas]: any =
+      React.useState(approvalLineData);
 
     const DropDownList = (props: any) => {
-      const [rowExpand, setRowExpand] = React.useState(false);
+      const [rowExpand, setRowExpand] = React.useState(true);
       return (
         <StyledWrapper expand={rowExpand}>
           <ListTitle>{props.title}</ListTitle>
-          <ArrowIcon
-            onClick={() => {
-              setRowExpand(!rowExpand);
-            }}
-            style={{
-              cursor: "pointer",
-              position: "absolute",
-              top: 20,
-              right: 22,
-            }}
-          />
-          <div
-            style={{
-              paddingLeft: "16px",
-              paddingRight: "16px",
-              marginTop: "28px",
-            }}
-          >
-            {props.children}
+          <div className="arrow_wrapper">
+            <ArrowIcon
+              onClick={() => {
+                setRowExpand(!rowExpand);
+              }}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                top: 20,
+                right: 22,
+              }}
+            />
           </div>
+          {props.children}
         </StyledWrapper>
       );
     };
@@ -796,23 +854,608 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
             </div>
           </ListWrapper>
           <DropDownList title="예상 정보">
-            <div>test</div>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <VariableMultiLayout>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "60px",
+                  }}
+                >
+                  <HcTextFieldLabel
+                    titleName="예상 매출"
+                    name="name"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        alert("SUCCESS");
+                      }
+                    }}
+                    style={{ width: "360px" }}
+                  ></HcTextFieldLabel>
+                </p>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "60px",
+                    display: "flex",
+                    alignItems: "end",
+                  }}
+                >
+                  <HcTextField
+                    titleName="예상 이익률"
+                    name="name"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        alert("SUCCESS");
+                      }
+                    }}
+                    placeholder="%"
+                    style={{ width: "360px" }}
+                  />
+                </p>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                  }}
+                >
+                  <HcTextFieldLabel
+                    titleName="예상 이익 금액"
+                    name="name"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        alert("SUCCESS");
+                      }
+                    }}
+                    style={{ width: "360px" }}
+                  ></HcTextFieldLabel>
+                </p>
+              </VariableMultiLayout>
+            </div>
           </DropDownList>
           <DropDownList title="상세 정보">
-            <div>test</div>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <VariableMultiLayout>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "80px",
+                    display: "flex",
+                    alignItems: "end",
+                    flexDirection: "column",
+                  }}
+                >
+                  <HcSelect
+                    onChange={(e) => {}}
+                    titleName="매출구분"
+                    name={""}
+                    style={{ width: "360px", marginBottom: "20px" }}
+                    required
+                  >
+                    <option value="" hidden>
+                      매출구분 선택
+                    </option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                  </HcSelect>
+                  <HcTextField
+                    titleName="성공확률"
+                    name="name"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        alert("SUCCESS");
+                      }
+                    }}
+                    placeholder="%"
+                    style={{ width: "360px" }}
+                    disabled
+                  />
+                </p>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "80px",
+                    display: "flex",
+                    alignItems: "end",
+                    flexDirection: "column",
+                  }}
+                >
+                  <HcSelect
+                    onChange={(e) => {}}
+                    titleName="영업 단계"
+                    name={""}
+                    style={{ width: "360px", marginBottom: "20px" }}
+                    required
+                  >
+                    <option value="" hidden>
+                      영업 단계 선택
+                    </option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                  </HcSelect>
+                  <div>
+                    <Title>진행 기간</Title>
+                    <HcDateRangePicker />
+                  </div>
+                </p>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    display: "flex",
+                    alignItems: "end",
+                    flexDirection: "column",
+                  }}
+                >
+                  <HcSelect
+                    onChange={(e) => {}}
+                    titleName="진행 단계"
+                    name={""}
+                    style={{ width: "360px", marginBottom: "20px" }}
+                    required
+                  >
+                    <option value="" hidden>
+                      진행 단계 선택
+                    </option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                  </HcSelect>
+                  <HcSearchTextField
+                    titleName="담당자 입력"
+                    name="name"
+                    value={inputVal}
+                    placeholder="담당자 조회"
+                    onChange={(e) => {
+                      const lengthOfInputValue = inputVal.split("").length;
+
+                      if (lengthOfInputValue !== 10)
+                        setInputVal(e.currentTarget.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Enter" &&
+                        inputVal.trim() !== "" /*&& props.tags.length < 4 */
+                      ) {
+                        setInputVal("");
+                      }
+                    }}
+                    style={{ width: "360px" }}
+                  />
+                </p>
+              </VariableMultiLayout>
+              <VariableMultiLayout>
+                <p
+                  style={{
+                    flexGrow: 1,
+                    marginBlockStart: 0,
+                    marginRight: "80px",
+                    display: "flex",
+                    alignItems: "end",
+                  }}
+                >
+                  <HcSelect
+                    onChange={(e) => {}}
+                    titleName="인지경로"
+                    name={""}
+                    style={{ width: "360px" }}
+                    required
+                  >
+                    <option value="" hidden>
+                      인지경로 선택
+                    </option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                  </HcSelect>
+                </p>
+                <p
+                  style={{
+                    flexGrow: 2,
+                    marginBlockStart: 0,
+                    display: "flex",
+                    alignItems: "end",
+                  }}
+                >
+                  <HcTextField
+                    titleName="비고"
+                    name="name"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        alert("SUCCESS");
+                      }
+                    }}
+                    placeholder="비고 입력"
+                    style={{ width: "802px" }}
+                  />
+                </p>
+              </VariableMultiLayout>
+            </div>
           </DropDownList>
           <DropDownList title="상품 정보(0)">
-            <div>test</div>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <HcButton onClick={() => {}} styles="secondary" size="medium">
+                + 추가
+              </HcButton>
+              <TableContainer style={{ minHeight: "292px", marginTop: "12px" }}>
+                <table className="table table-hover">
+                  <thead
+                    style={{
+                      display: "table",
+                      width: "100%",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <tr>
+                      <th style={{ width: "46px", textAlign: "center" }}>
+                        <div style={{ paddingTop: 7 }}>
+                          <HcCheckBox checked={false} onChange={(e) => {}} />
+                        </div>
+                      </th>
+                      <th style={{ width: "234px" }}>{"이름"}</th>
+                      <th style={{ width: "140px" }}>{"단가"}</th>
+                      <th style={{ width: "140px" }}>{"수량"}</th>
+                      <th style={{ width: "140px" }}>{"단위"}</th>
+                      <th style={{ width: "140px" }}>{"판매단가"}</th>
+                      <th style={{ width: "140px" }}>{"할인"}</th>
+                      <th style={{ width: "140px" }}>{"제안금액합계"}</th>
+                      <th style={{ width: "120px" }}>{"-"}</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      minHeight: 260,
+                      overflow: "auto",
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                      }}
+                    >
+                      {productList.length == 0 ? (
+                        <td colSpan={9} style={{ padding: "unset" }}>
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "377px",
+                              background: "#FFFFFF",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div>
+                              <NoDataIcon />
+                              <div
+                                style={{
+                                  fontSize: 14,
+                                  color: "#A7A7A7",
+                                  fontWeight: 500,
+                                }}
+                              >
+                                데이터가 없습니다.
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        <></>
+                      )}
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
           </DropDownList>
           <DropDownList title="연관 기업 컨택포인트(0)">
-            <div>test</div>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <HcButton onClick={() => {}} styles="secondary" size="medium">
+                + 추가
+              </HcButton>
+              <TableContainer style={{ minHeight: "292px", marginTop: "12px" }}>
+                <table className="table table-hover">
+                  <thead
+                    style={{
+                      display: "table",
+                      width: "100%",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <tr>
+                      <th style={{ width: "46px", textAlign: "center" }}>
+                        <div style={{ paddingTop: 7 }}>
+                          <HcCheckBox checked={false} onChange={(e) => {}} />
+                        </div>
+                      </th>
+                      <th style={{ width: "140px" }}>{"이름"}</th>
+                      <th style={{ width: "184px" }}>{"기업"}</th>
+                      <th style={{ width: "140px" }}>{"소속부서"}</th>
+                      <th style={{ width: "140px" }}>{"직위"}</th>
+                      <th style={{ width: "160px" }}>{"회사전화 번호"}</th>
+                      <th style={{ width: "310px" }}>{"회사 이일"}</th>
+                      <th style={{ width: "120px" }}>{"-"}</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      minHeight: 260,
+                      overflow: "auto",
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                      }}
+                    >
+                      {enterpriseList.length == 0 ? (
+                        <td colSpan={9} style={{ padding: "unset" }}>
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "377px",
+                              background: "#FFFFFF",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div>
+                              <NoDataIcon />
+                              <div
+                                style={{
+                                  fontSize: 14,
+                                  color: "#A7A7A7",
+                                  fontWeight: 500,
+                                }}
+                              >
+                                데이터가 없습니다.
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        <></>
+                      )}
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
           </DropDownList>
           <DropDownList title="지원인력(0)">
-            <div>test</div>
+            <div
+              style={{
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                marginTop: "28px",
+              }}
+            >
+              <HcButton onClick={() => {}} styles="secondary" size="medium">
+                + 추가
+              </HcButton>
+              <TableContainer style={{ minHeight: "292px", marginTop: "12px" }}>
+                <table className="table table-hover">
+                  <thead
+                    style={{
+                      display: "table",
+                      width: "100%",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <tr>
+                      <th style={{ width: "46px", textAlign: "center" }}>
+                        <div style={{ paddingTop: 7 }}>
+                          <HcCheckBox checked={false} onChange={(e) => {}} />
+                        </div>
+                      </th>
+                      <th style={{ width: "140px" }}>{"이름"}</th>
+                      <th style={{ width: "184px" }}>{"소속부서"}</th>
+                      <th style={{ width: "140px" }}>{"직위"}</th>
+                      <th style={{ width: "140px" }}>{"역할구분"}</th>
+                      <th style={{ width: "160px" }}>{"회사전화 번호"}</th>
+                      <th style={{ width: "310px" }}>{"회사 이일"}</th>
+                      <th style={{ width: "120px" }}>{"-"}</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      minHeight: 260,
+                      overflow: "auto",
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                      }}
+                    >
+                      {supporterList.length == 0 ? (
+                        <td colSpan={9} style={{ padding: "unset" }}>
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "377px",
+                              background: "#FFFFFF",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div>
+                              <NoDataIcon />
+                              <div
+                                style={{
+                                  fontSize: 14,
+                                  color: "#A7A7A7",
+                                  fontWeight: 500,
+                                }}
+                              >
+                                데이터가 없습니다.
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        <></>
+                      )}
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
           </DropDownList>
           <DropDownList title="첨부 파일">
-            <div>test</div>
+            <div
+              style={{
+                marginTop: "18px",
+              }}
+            >
+              <HcFileUploader file={file} setFile={setFile} style={{}} />
+            </div>
           </DropDownList>
+
+          <ListWrapper style={{ height: "480px", marginTop: "137px" }}>
+            <ListTitle>결재선</ListTitle>
+            <div style={{ marginTop: "10px", marginBottom: "14px" }}>
+              <div style={{ marginTop: "10px", marginBottom: "14px" }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    color: "#5D5D62",
+                  }}
+                >
+                  결재선 지정
+                </div>
+              </div>
+              <ApprovalWrapper>
+                {approvalLineDatas.map((item: any, key: number) => (
+                  <>
+                    <ApprovalContent>
+                      <div
+                        style={{
+                          display: "inline-table",
+                          width: "50px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <ListIcon style={{ verticalAlign: "middle" }} />
+                      </div>
+                      <div style={{ display: "inline-block", width: "280px" }}>
+                        {item.state}
+                      </div>
+                      <div style={{ display: "inline-table", width: "344px" }}>
+                        <img
+                          src="https://cdnweb01.wikitree.co.kr/webdata/editor/202110/06/img_20211006130837_bdb87ae2.webp"
+                          style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: "50%",
+                            marginRight: "8px",
+                            verticalAlign: "middle",
+                          }}
+                          alt={item.name}
+                        />
+                        {item.name}
+                      </div>
+                      <div style={{ display: "inline-block", width: "319px" }}>
+                        {item.position}
+                      </div>
+                      <div style={{ display: "inline-block", width: "208px" }}>
+                        {item.department}
+                      </div>
+                      <div
+                        style={{
+                          display: "inline-table",
+                          width: "50px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          let temp = JSON.parse(
+                            JSON.stringify(approvalLineDatas)
+                          );
+                          temp.splice(key, 1);
+                          setApprovalLineDatas(temp);
+                        }}
+                      >
+                        <CloseIcon style={{ verticalAlign: "middle" }} />
+                      </div>
+                    </ApprovalContent>
+                  </>
+                ))}
+              </ApprovalWrapper>
+              <div style={{ marginTop: "40px" }}>
+                <div
+                  style={{
+                    fontFamily: "Noto Sans KR",
+                    fontSize: "15px",
+                    color: "#5D5D62",
+                  }}
+                >
+                  결재 알림
+                </div>
+                <StyledSelect
+                  style={{ width: "400px", fontWeight: 500, marginTop: "16px" }}
+                  value={""}
+                  onChange={(e) => {}}
+                >
+                  <option value="" hidden>
+                    결재 요청(승인부서제외) + 완결 통보(기안, 통보자)
+                  </option>
+                  <option value={1}>
+                    결재 요청(승인부서제외) + 완결 통보(기안, 통보자)
+                  </option>
+                </StyledSelect>
+              </div>
+            </div>
+          </ListWrapper>
         </div>
       </div>
     );
