@@ -3,7 +3,6 @@ import { ComponentWrapper, Container } from "common/HcCommonLayout";
 import {
   HcTitleTextField,
   HcSelect,
-  SubHeading,
   TextField,
   EditableSelect,
   SelectBox,
@@ -13,9 +12,7 @@ import img from "common/img/bgimg.png";
 import HcTextField from "common/HcTextField";
 import { HcDatePicker } from "common/HcDatePicker";
 import HcButton from "common/HcButton";
-import { EditText, EditTextarea } from "react-edit-text";
 import { useHistory } from "react-router-dom";
-import "common/Table.css";
 import HcBottomBar from "common/HcBottomBar";
 import { HcTabsAdv } from "common/HcTabs";
 import { HcTable, HcTableContainer } from "common/HcTableComponent";
@@ -35,39 +32,6 @@ const PfUploadButton = styled.div`
   left: 168px;
   position: absolute;
 `;
-const MoreInfoContent = styled.div`
-  background: #ffffff;
-  border: 1px solid #cecece;
-  border-radius: 6px;
-  width: 1320px;
-  margin-top: 20px;
-  padding: 20px 40px 30px 40px;
-`;
-
-const TableContainer = styled.div`
-  height: 172px;
-  width: 1241px;
-  margin-top: 12px;
-`;
-const styles: any = {
-  cellstyle: {
-    width: 185,
-    height: 46,
-    borderBottom: "1px solid #E0E0E0",
-  },
-};
-const columns = [
-  "학교 구분",
-  "학교명",
-  "전공",
-  "학위",
-  "입학년월",
-  "졸업년월",
-  "소재지",
-  "주/야",
-  "졸업 구분",
-];
-
 const HRInfoCreate = () => {
   /*Tabs */
   const [Tabs, setTabs] = React.useState("1");

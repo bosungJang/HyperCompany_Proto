@@ -1,7 +1,13 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
-import { CRMHome, CustomerPage, LeadPage } from "pages";
+import {
+  CRMHome,
+  CustomerPage,
+  LeadPage,
+  CustomerCreate,
+  CustomerDetail,
+} from "pages";
 
 interface CustomerProps {
   match: any;
@@ -38,6 +44,14 @@ const CustomerCare = (props: CustomerProps) => {
       <Route
         path={`${props.match.url}/customerPage`}
         component={CustomerPage}
+      />
+      <Route
+        path={`${props.match.url}/customerCreate`}
+        component={CustomerCreate}
+      />
+      <Route
+        path={`${props.match.url}/customerDetail`}
+        component={CustomerDetail}
       />
       <Route path={`${props.match.url}/lead`} component={LeadPage} />
       <Route

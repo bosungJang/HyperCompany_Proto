@@ -13,7 +13,6 @@ import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
 import HcCheckBox from "common/HcCheckBox";
-import { EditText } from "react-edit-text";
 
 const EditInput = styled.input`
   box-sizing: border-box;

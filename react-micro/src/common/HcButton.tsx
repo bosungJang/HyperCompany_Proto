@@ -242,11 +242,12 @@ const HcDropDownMenu = styled("ul")`
   padding: 0px;
   margin: 0px;
   position: absolute;
+  top: 32px;
   //display: none;
   width: 188px;
   background: #ffffff;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  margin-top: 7px;
+  // margin-top: 7px;
   margin-left: -20px;
 `;
 
@@ -282,6 +283,7 @@ const HcDropDownWrapper = styled("div")<{ open: boolean }>`
   line-height: 16px;
   padding: 9px 20px;
   display: inline-block;
+  position: relative;
   ${HcDropDownMenu} {
     display: ${(props) => (props.open == true ? "block" : "none")};
   }
@@ -290,6 +292,7 @@ const HcDropDownWrapper = styled("div")<{ open: boolean }>`
 interface HcDropDownButtonProps {
   title: string;
   dropDownMenu: any;
+  style?: React.CSSProperties;
 }
 
 export const HcDropDownButton = (props: HcDropDownButtonProps) => {
@@ -304,6 +307,7 @@ export const HcDropDownButton = (props: HcDropDownButtonProps) => {
         }}
         open={open}
         ref={el}
+        style={props.style}
       >
         {props.title}
         <HcDropDownMenu>

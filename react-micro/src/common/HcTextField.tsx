@@ -41,6 +41,7 @@ export const TextField = styled.input<{ disabled?: boolean }>`
   ::placeholder,
   ::-webkit-input-placeholder {
     color: #b5b5b5;
+    ${(props) => (props.required ? "content: *;" : "")}
   }
   :-ms-input-placeholder {
     color: #b5b5b5;
@@ -100,16 +101,6 @@ export const Title = styled.div<{ required?: boolean }>`
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
 `;
 
-const StyledDiv = styled.div`
-  height: 30px;
-  width: 100px;
-  font-family: Noto Sans KR;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
-  color: #303030;
-`;
 export const Wrapper = styled.div`
   display: inline-table;
 `;
@@ -125,9 +116,8 @@ const LabelTextField = styled.div`
   font-style: normal;
   font-weight: 500;
 `;
-
 interface TextFieldIProps {
-  titleName: string;
+  titleName?: string;
   disabled?: boolean;
   style?: CSSProperties;
   value?: string | number;
@@ -155,15 +145,65 @@ interface TextAreaIProps {
   row?: number;
   titleName?: string;
 }
+const InputGroup = styled.div<{
+  placeholder?: string;
+  required?: boolean;
+  titleName?: string;
+}>`
+  position: relative;
+  input {
+    position: relative;
+  }
+  label {
+    position: absolute;
+    left: 10px;
+    top: 7px;
+    color: #a7a7a7;
+    font-weight: 400;
+    font-size: inherit;
+  }
+  label::after {
+    content: "*";
+    color: #ff4f4f;
+  }
+  input[required]:valid + label {
+    display: none;
+  }
+`;
 const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
   return (
-    <Wrapper>
-      <Title required={props.required} style={{ marginLeft: "5px" }}>
+    <Wrapper style={{ position: "relative" }}>
+      <Title
+        required={props.required}
+        style={{ marginLeft: "5px", display: titleName ? "" : "none" }}
+      >
         {titleName}
       </Title>
-      <TextField {...props} autoComplete="off">
-        {props.children}
-      </TextField>
+      <InputGroup
+        required={props.required}
+        titleName={titleName}
+        placeholder={props.placeholder}
+      >
+        <TextField
+          {...props}
+          placeholder={
+            !titleName && props.required && props.placeholder
+              ? ""
+              : props.placeholder
+          }
+          autoComplete="off"
+        >
+          {props.children}
+        </TextField>
+        <label
+          style={{
+            display:
+              !titleName && props.required && props.placeholder ? "" : "none",
+          }}
+        >
+          {props.placeholder}
+        </label>
+      </InputGroup>
     </Wrapper>
   );
 };
@@ -183,13 +223,6 @@ export const HcTextArea: React.FC<TextAreaIProps> = ({ ...props }) => {
     </Wrapper>
   );
 };
-interface HeaddingIProps {
-  titleName: string;
-
-  style?: CSSProperties;
-
-  required?: boolean;
-}
 export const SubHeading: React.FC<TextFieldIProps> = ({
   titleName,
   ...props
@@ -352,7 +385,7 @@ export const HcSelects: React.FC<SelectsIProps> = ({ titleName, ...props }) => {
 const SearchIcon = styled.div`
   position: absolute;
   margin-left: 9px;
-  margin-top: 10px;
+  margin-top: 6px;
   z-index: 1;
   color: #4f5b66;
   svg {
@@ -964,7 +997,7 @@ export const SelectBox = (props: any) => {
                     props.setState(item);
                   }}
                 >
-                  {item}
+                  <div>{item}</div>
                 </Li>
               ))}
             </>
@@ -1112,6 +1145,116 @@ export const EditableSelect = (props: styledSelectProps) => {
                   {item}
                 </Li>
               ))}
+            </>
+          ) : (
+            <>
+              <svg
+                style={{ position: "absolute", right: 6, top: 6 }}
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12 16L6.80385 10L17.1962 10L12 16Z" fill="#5D5D62" />
+              </svg>
+              {props.state === "" ? (
+                <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
+              ) : (
+                <>{props.state}</>
+              )}
+            </>
+          )}
+        </SelectContainer>
+      </div>
+    </Wrapper>
+  );
+};
+
+export const SearchSelect = (props: styledSelectProps) => {
+  const inputRef: any = React.useRef(null);
+  const [option, setOption] = React.useState("");
+  const [isOpen, setIsOpen] = React.useState(false);
+  const array = ["꽃분이", "홍길동", "김민수"];
+  return (
+    <Wrapper style={props.style}>
+      <Title
+        required={props.required}
+        style={{ display: props.titleName ? "" : "none", marginLeft: "5px" }}
+      >
+        {props.titleName}
+      </Title>
+      <div
+        style={{ position: "relative", overflow: "visible", height: "36px" }}
+      >
+        <SelectContainer isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? (
+            <>
+              <Li
+                edit
+                onClick={(e: any) => e.stopPropagation()}
+                style={{ position: "absolute", top: 0, left: 0 }}
+              >
+                {" "}
+                <svg
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                    setOption("");
+                  }}
+                  style={{ position: "absolute", right: 6, top: 6 }}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 16L6.80385 10L17.1962 10L12 16Z"
+                    fill="#5D5D62"
+                  />
+                </svg>
+                <AddOption
+                  readOnly={false}
+                  ref={inputRef}
+                  placeholder={"검색"}
+                  onChange={() => {
+                    setOption(inputRef.current.value);
+                  }}
+                />
+              </Li>
+              <Li>현재 :{option}</Li>
+              {option !== ""
+                ? props.items
+                    .filter(function (item) {
+                      const str = String(item);
+                      return str.includes(option) === true;
+                    })
+                    .map((item) => (
+                      <>
+                        {" "}
+                        <Li
+                          onClick={() => {
+                            props.setState(item);
+                            setOption("");
+                          }}
+                        >
+                          {item}
+                        </Li>
+                      </>
+                    ))
+                : props.items.map((item) => (
+                    <>
+                      {" "}
+                      <Li
+                        onClick={() => {
+                          props.setState(item);
+                          setOption("");
+                        }}
+                      >
+                        {item}
+                      </Li>
+                    </>
+                  ))}
             </>
           ) : (
             <>

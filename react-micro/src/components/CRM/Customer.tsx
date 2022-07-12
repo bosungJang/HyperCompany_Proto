@@ -10,65 +10,31 @@ import HcDropDownTable, {
 import HcCheckBox from "common/HcCheckBox";
 import { ReactComponent as ArrowIcon } from "resources/images/RevenueDetailArrow_Icon.svg";
 import { ReactComponent as DropDownIcon } from "resources/images/dropDown_icon.svg";
-
-const ContentTitle = styled.div`
-  font-family: Noto Sans KR;
-  font-weight: 500;
-  font-size: 20px;
-  color: #303030;
-`;
-
-const TableContainer = styled.div`
-  width: 100%;
-  min-height: 674px;
-  overflow: auto;
-  overflow-x: hidden;
-
-  &::-webkit-scrollbar-track {
-    background: none;
-
-    position: absolute;
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: #f5f5f5;
-    display: none;
-    &:hover {
-      display: inline;
-    }
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
-  }
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-  }
-`;
-
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+  NullTbody,
+  TableSetting,
+} from "common/HcTableComponent";
+import { useHistory } from "react-router-dom";
 const StyledRow = styled.li<{ rowExpand: boolean }>`
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
   overflow: hidden;
-  border-left: 1px solid #d9d9d9;
-  border-right: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
-
+  padding: 0;
   ${(props) =>
     props.rowExpand === false
-      ? ` border-left: 1px solid #d9d9d9;
-    border-right: 1px solid #d9d9d9;
+      ? `
     border-bottom: 1px solid #d9d9d9; max-height: 46px;
-    svg{
+    .arrow {
       transform: rotate(90deg);
       transition: all 0.5s ease;
     }
     `
       : `border: 1px solid #ADCEFF;
       background: rgba(239, 245, 255, 0.5); max-height: 359px;
-      svg{
+      .arrow {
         transform: rotate(270deg);
         transition: all 0.5s ease;
       }
@@ -77,35 +43,97 @@ const StyledRow = styled.li<{ rowExpand: boolean }>`
 
 const StyledRowDiv = styled.div`
   display: inline-block;
-  padding: 12px;
+  padding: 12px 12px 10px 12px;
   font-weight: 400;
+  line-height: 21px;
+  height: 46px;
   font-size: 14px;
   font-family: Noto Sans KR;
 `;
-
+const Grade = styled.div<{ grade: string }>`
+  width: fit-content;
+  height: fit-content;
+  padding: 4px;
+  margin-top: -3px;
+  border-radius: 2px;
+  font-weight: 700;
+  ${(props) =>
+    props.grade === "VIP"
+      ? "color: #FF7D7D; background: #FFE9E9;"
+      : props.grade === "Gold"
+      ? "background: #FFF1CE; color: #FFBB0B;"
+      : props.grade === "Silver"
+      ? "color: #838181; background: #D9D9D9;"
+      : props.grade === "Bronze"
+      ? "background: #FFF3E8; color: #FDA95C;"
+      : "background: #DFECFF; color: #5799FB; "}
+`;
 const CustomerPage = () => {
   const [Tabs, setTabs] = React.useState("1");
-
-  const [data, setData] = React.useState([{}, {}]);
-
-  const ExpandableRow = () => {
+  const history = useHistory();
+  const [data, setData] = React.useState<dataType[]>([
+    {
+      name: "홍길동",
+      phone: "010-1234-5678",
+      email: "kildong_hong@tamx.co.kr",
+      type: "enterprise",
+      credit: "eB",
+      grade: "VIP",
+      lead: 1,
+      manager: "꽃분이",
+      create: "2020.01.01",
+    },
+    {
+      name: "홍길동",
+      phone: "010-9876-5432",
+      email: "kildong_hong@tamx.co.kr",
+      type: "personal",
+      grade: "Gold",
+      lead: 0,
+      manager: "꽃분이",
+      create: "2021.06.01",
+    },
+    {
+      name: "꽃분이",
+      phone: "010-9876-5432",
+      email: "kildong_hong@tamx.co.kr",
+      type: "personal",
+      grade: "Silver",
+      lead: 0,
+      manager: "홍길동",
+      create: "2021.06.01",
+    },
+  ]);
+  interface dataType {
+    name: string;
+    phone: string;
+    email: string;
+    grade: string;
+    type: string;
+    lead: number;
+    manager: string;
+    create: string;
+    credit?: string;
+  }
+  const ExpandableRow = ({ props }: { props: dataType }): JSX.Element => {
     const [rowExpand, setRowExpand] = React.useState(false);
-
+    const { name, phone, email, grade, type, lead, manager, create } = props;
     return (
       <>
-        <StyledRow rowExpand={rowExpand}>
-          <div>
+        <StyledRow
+          rowExpand={rowExpand}
+          onClick={history.push({
+            pathname: "/crm/customerDetail",
+            state: type,
+          })}
+        >
+          <div style={{ display: "flex" }}>
             <StyledRowDiv
               style={{
                 width: 46,
               }}
             >
-              <div
-                style={{
-                  paddingTop: 7,
-                  textAlign: "center",
-                }}
-              >
+              <div style={{}}>
                 <HcCheckBox checked={false} onChange={() => {}} />
               </div>
             </StyledRowDiv>
@@ -115,56 +143,62 @@ const CustomerPage = () => {
                 fontSize: "0.875rem",
               }}
             >
-              홍길동
+              {name}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "130px",
               }}
             >
-              010-1234-5678
+              {phone}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "302px",
               }}
             >
-              Kildong_hong@tmax.co.kr
+              {email}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "140px",
               }}
             >
-              개인
+              {type}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "128px",
               }}
             >
-              VIP
+              <Grade grade={grade}>{grade}</Grade>
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "128px",
               }}
             >
-              1
+              {lead > 0 ? (
+                <a href="" style={{ color: "#257CFF" }}>
+                  {lead}
+                </a>
+              ) : (
+                lead
+              )}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "128px",
               }}
             >
-              꽃분이
+              {manager}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
                 width: "128px",
               }}
             >
-              2020.01.01
+              {create}
             </StyledRowDiv>
             <StyledRowDiv
               style={{
@@ -172,6 +206,7 @@ const CustomerPage = () => {
               }}
             >
               <ArrowIcon
+                className="arrow"
                 onClick={() => {
                   setRowExpand(!rowExpand);
                 }}
@@ -182,9 +217,38 @@ const CustomerPage = () => {
           <div style={{ padding: "20px 40px 30px 40px" }}>
             <div style={{ display: "inline-block", width: "100%" }}>
               <div>
-                <div style={{ display: "inline-block" }}>이메일 전송</div>
+                <div
+                  style={{
+                    display: "flex",
+                    height: "22px",
+                    width: "100%",
+                  }}
+                >
+                  이메일 전송{" "}
+                  <div
+                    style={{
+                      margin: "1px 0px 0px 6px",
+                    }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M18.2779 6.5H5.88852L11.6617 10.9148C12.1326 11.2749 12.7917 11.2547 13.2397 10.8665L18.2779 6.5ZM4.5 7.32651V17C4.5 17.2761 4.72386 17.5 5 17.5H19C19.2761 17.5 19.5 17.2761 19.5 17V7.4258L14.2221 12C13.2365 12.8542 11.7865 12.8986 10.7505 12.1063L4.5 7.32651ZM3 7C3 5.89543 3.89543 5 5 5H19C20.1046 5 21 5.89543 21 7V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V7Z"
+                        fill="#5D5D62"
+                      />
+                    </svg>
+                  </div>
+                  <DropDownIcon style={{ float: "right" }} />
+                </div>
+
                 <div style={{ display: "inline-block" }}>미팅 약속</div>
-                <DropDownIcon style={{ float: "right" }} />
               </div>
             </div>
           </div>
@@ -219,41 +283,50 @@ const CustomerPage = () => {
                   "1": (
                     <>
                       <div>
-                        <HcDropDownButton
-                          title="+ 생성"
-                          dropDownMenu={[
-                            {
-                              title: "개인 고객 생성",
-                              onClick: () => {
-                                alert("개인 고객 생성");
+                        <div>
+                          <HcDropDownButton
+                            title="+ 생성"
+                            style={{ zIndex: 5 }}
+                            dropDownMenu={[
+                              {
+                                title: "개인 고객 생성",
+                                onClick: () => {
+                                  history.push({
+                                    pathname: "/crm/customerCreate",
+                                    state: "personal",
+                                  });
+                                },
                               },
-                            },
-                            {
-                              title: "기업 고객 생성",
-                              onClick: () => {
-                                alert("기업 고객 생성");
+                              {
+                                title: "기업 고객 생성",
+                                onClick: () => {
+                                  history.push({
+                                    pathname: "/crm/customerCreate",
+                                    state: "enterprise",
+                                  });
+                                },
                               },
-                            },
-                            {
-                              title: "기업 컨택 포인트 생성",
-                              onClick: () => {
-                                alert("기업 컨택 포인트 생성");
+                              {
+                                title: "기업 컨택 포인트 생성",
+                                onClick: () => {
+                                  history.push({
+                                    pathname: "/crm/customerCreate",
+                                    state: "contact",
+                                  });
+                                },
                               },
-                            },
-                            {
-                              title: "일괄 등록",
-                              onClick: () => {
-                                alert("일괄 등록");
+                              {
+                                title: "일괄 등록",
+                                onClick: () => {
+                                  alert("일괄 등록");
+                                },
                               },
-                            },
-                          ]}
-                        />
+                            ]}
+                          />
+                        </div>
                         <div style={{ marginTop: "20px" }}>
-                          <TableContainer style={{ minHeight: "unset" }}>
-                            <table
-                              className="table table-hover"
-                              style={{ borderSpacing: "0px" }}
-                            >
+                          <HcTableContainer style={{ minHeight: "unset" }}>
+                            <HcTable>
                               <thead
                                 style={{
                                   display: "table",
@@ -265,13 +338,11 @@ const CustomerPage = () => {
                                   <th
                                     style={{
                                       width: "46px",
-                                      textAlign: "start",
                                     }}
                                   >
                                     <div
                                       style={{
-                                        paddingTop: 7,
-                                        textAlign: "center",
+                                        paddingTop: 4,
                                       }}
                                     >
                                       <HcCheckBox
@@ -284,7 +355,6 @@ const CustomerPage = () => {
                                   <th
                                     style={{
                                       width: "130px",
-                                      textAlign: "start",
                                     }}
                                   >
                                     {"이름"}
@@ -292,7 +362,6 @@ const CustomerPage = () => {
                                   <th
                                     style={{
                                       width: "130px",
-                                      textAlign: "start",
                                     }}
                                   >
                                     {"전화 번호"}
@@ -305,7 +374,6 @@ const CustomerPage = () => {
                                   <th
                                     style={{
                                       width: "128px",
-                                      textAlign: "start",
                                     }}
                                   >
                                     {"관련 리드"}
@@ -325,16 +393,16 @@ const CustomerPage = () => {
                                 <ul
                                   style={{
                                     paddingInlineStart: "0px",
-                                    marginBottom: "0px",
+                                    margin: 0,
                                   }}
                                 >
-                                  {data.map(() => (
-                                    <ExpandableRow />
+                                  {data.map((item: dataType) => (
+                                    <ExpandableRow props={item} />
                                   ))}
                                 </ul>
                               </tbody>
-                            </table>
-                          </TableContainer>
+                            </HcTable>
+                          </HcTableContainer>
                         </div>
                       </div>
                     </>
