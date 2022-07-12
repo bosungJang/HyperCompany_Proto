@@ -51,15 +51,9 @@
     "babel-preset-mobx": "^2.0.0",
     "babel-preset-react-app": "^10.0.0",
     "bfj": "^7.0.2",
-<<<<<<< HEAD
     "browserslist": "^4.21.1",
     "camelcase": "^6.1.0",
     "caniuse-lite": "^1.0.30001359",
-=======
-    "browserslist": "^4.20.4",
-    "camelcase": "^6.1.0",
-    "caniuse-lite": "^1.0.30001358",
->>>>>>> 8d205361ecc531ebd91cbd5701ce79980008490a
     "canvas-to-image": "^2.2.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "css-loader": "4.3.0",
@@ -249,7 +243,6 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ],
-<<<<<<< HEAD
     "resetMocks": true,
     "browserslist": [
       "last 1 version",
@@ -261,9 +254,6 @@
     "dependencies": {
       "autoprefixer": "^6.5.4"
     }
-=======
-    "resetMocks": true
->>>>>>> 8d205361ecc531ebd91cbd5701ce79980008490a
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
