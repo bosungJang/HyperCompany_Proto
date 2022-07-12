@@ -695,7 +695,12 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
                         {item.dateStart} ~ {item.dateEnd}
                       </td>
                       <td style={{ width: 174 }}>{item.product}</td>
-                      <td style={{ width: 120 }}>
+                      <td
+                        style={{ width: 120 }}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
                         {item.manager}
 
                         <DropDown
