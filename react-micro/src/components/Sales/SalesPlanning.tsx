@@ -353,6 +353,7 @@ const ApprovalContent = styled.div`
 
 const data = [
   {
+    id: "1abc",
     name: "네이버페이 영업용 PC 구매",
     step: 1,
     progress: 10,
@@ -365,6 +366,7 @@ const data = [
     manager: "홍길동",
   },
   {
+    id: "1abcd",
     name: "에듀홈 영업용 PC 구매",
     step: 2,
     progress: 30,
@@ -377,6 +379,7 @@ const data = [
     manager: "홍길동",
   },
   {
+    id: "2abc",
     name: "에듀홈 영업용 PC 구매",
     step: 6,
     progress: 50,
@@ -650,8 +653,20 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
                         width: "100%",
                         tableLayout: "fixed",
                       }}
+                      onClick={() => {
+                        history.push({
+                          pathname: `${match.url}/detail?id=${item.id}`,
+                          state: { id: item.id },
+                        });
+                        alert(item);
+                      }}
                     >
-                      <td style={{ width: 46, textAlign: "center" }}>
+                      <td
+                        style={{ width: 46, textAlign: "center" }}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
                         <HcCheckBox checked={false} onChange={(e) => {}} />
                       </td>
                       <td style={{ width: 200 }}>{item.name}</td>
