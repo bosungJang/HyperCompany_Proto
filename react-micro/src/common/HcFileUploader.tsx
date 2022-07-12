@@ -40,7 +40,7 @@ const UploadFileWrapper = styled.div`
   border: 1px solid #cecece;
   border-radius: 6px;
   padding: 10px 10px;
-  min-height: 340px;
+  min-height: 172px;
   margin-top: 16px;
 `;
 
@@ -141,7 +141,7 @@ const HcFileUploader = (props: FileUploaderProps) => {
               style={Object.assign(
                 {
                   width: "100%",
-                  height: "340px",
+                  minHeight: "172px",
                   background: "#F9F9F9",
                   borderRadius: "2px",
                   display: "flex",
@@ -152,7 +152,9 @@ const HcFileUploader = (props: FileUploaderProps) => {
               )}
             >
               <div>
+                {/* 
                 <NoFileIcon />
+                */}
                 <div
                   style={{ fontSize: 14, color: "#A7A7A7", fontWeight: 500 }}
                 >

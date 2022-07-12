@@ -1,5 +1,5 @@
 table.table.table-hover {
-  width: 1320px;
+  width: 100%;
   margin: 0;
   padding: 0;
   border-collapse: collapse;
@@ -8,7 +8,7 @@ table.table.table-hover td {
   border-bottom: 1px solid #d9d9d9;
   height: 46px;
   padding: 0px 12px;
-  max-width: 188px;
+  /*max-width: 188px;*/
 
   font-family: "Noto Sans KR";
   font-style: normal;

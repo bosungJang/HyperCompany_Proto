@@ -88,6 +88,7 @@ const testArray = [
       { title: "item2-2", path: "/table" },
       { title: "item2-3", path: "/fi" },
       { title: "item2-4", path: "/crm" },
+      { title: "item2-5", path: "/sales" },
     ],
   },
   {

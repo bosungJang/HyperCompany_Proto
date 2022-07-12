@@ -11,6 +11,8 @@ import "./LNB.css";
 //icon
 import { ReactComponent as FinanceIcon } from "../../resources/images/Icon/Title/Finance_Title_Icon.svg";
 import { ReactComponent as HRIcon } from "../../resources/images/Icon/Title/HR_Title_Icon.svg";
+import { ReactComponent as SalesIcon } from "../../resources/images/Icon/Title/Sales_Title_Icon.svg";
+import { ReactComponent as CRMIcon } from "../../resources/images/Icon/Title/CRM_Title_Icon.svg";
 
 const Nav = styled.div`
   background: #15171c;
@@ -113,6 +115,12 @@ const Sidebar = (props: any) => {
       case "hr":
         setTitleIcon("hr");
         break;
+      case "crm":
+        setTitleIcon("crm");
+        break;
+      case "sales":
+        setTitleIcon("sales");
+        break;
       default:
         setTitleIcon("");
         break;
@@ -129,6 +137,8 @@ const Sidebar = (props: any) => {
                 {
                   fi: <FinanceIcon style={{ marginTop: "10px" }} />,
                   hr: <HRIcon style={{ marginTop: "10px" }} />,
+                  crm: <CRMIcon style={{ marginTop: "10px" }} />,
+                  sales: <SalesIcon style={{ marginTop: "10px" }} />,
                   "": <></>,
                 }[titleIcon]
               }
@@ -136,6 +146,8 @@ const Sidebar = (props: any) => {
                 {
                   fi: <span>재무 회계</span>,
                   hr: <span>인사</span>,
+                  crm: <span>고객 관리</span>,
+                  sales: <span>영업</span>,
                   "": <></>,
                 }[titleIcon]
               ) : (

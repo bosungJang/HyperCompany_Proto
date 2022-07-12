@@ -10,6 +10,7 @@ import {
   Finance,
   HumanResource,
   CustomerService,
+  Sales
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 import { referenceEnhancer } from "mobx/dist/internal";
@@ -150,9 +151,18 @@ const App = observer((prop: AppProps) => {
 
           const ws = wb.Sheets[wsname];
 
+          const columnA = [];
+
+          for (let z in ws) {
+            if (z.toString()[1] === "1" && z.toString()[2] === undefined) {
+              columnA.push(ws[z].v);
+            }
+          }
+
           const data = XLSX.utils.sheet_to_json(ws);
 
           console.log(data);
+          console.log(columnA);
 
           resolve(data);
         };
@@ -433,6 +443,18 @@ const App = observer((prop: AppProps) => {
             setLNBMenu={prop.setLNBMenu}
             setTopTitle={setTopTitle}
             {...props}
+          />
+        )}
+      />
+      <Route
+        path="/sales"
+        component={(props: any) => (
+          <Sales
+            setLNBMenu={prop.setLNBMenu}
+            forwardRef={prop.forwardRef}
+            setTopTitle={setTopTitle}
+            {...props}
+            ref={(el: any) => (prop.forwardRef.current[2] = el)}
           />
         )}
       />

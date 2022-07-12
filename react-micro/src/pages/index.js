@@ -713,3 +713,20 @@ export const LeadPage = loadable(() => import("../components/CRM/Lead"), {
   fallback: Loading,
 });
 /*CRM END*/
+
+/*Sales Start*/
+export const Sales = loadable(() => import("./Sales"), {
+  fallback: Loading,
+});
+
+export const SalesHome = loadable(() => import("../components/Sales/Home"), {
+  fallback: Loading,
+});
+
+export const SalesPlanningPage = loadable(
+  () => import("../components/Sales/SalesPlanning"),
+  {
+    fallback: Loading,
+  }
+);
+/*Sales END*/
