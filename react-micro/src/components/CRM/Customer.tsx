@@ -122,10 +122,12 @@ const CustomerPage = () => {
       <>
         <StyledRow
           rowExpand={rowExpand}
-          onClick={history.push({
-            pathname: "/crm/customerDetail",
-            state: type,
-          })}
+          onClick={() => {
+            history.push({
+              pathname: "/crm/customerDetail",
+              state: type,
+            });
+          }}
         >
           <div style={{ display: "flex" }}>
             <StyledRowDiv
@@ -203,6 +205,10 @@ const CustomerPage = () => {
             <StyledRowDiv
               style={{
                 width: "57px",
+              }}
+              onClick={(e: any) => {
+                e.preventDefault();
+                e.stopPropagation();
               }}
             >
               <ArrowIcon
