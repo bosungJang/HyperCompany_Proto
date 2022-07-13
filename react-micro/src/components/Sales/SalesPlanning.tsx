@@ -25,6 +25,7 @@ import { ReactComponent as NoDataIcon } from "resources/images/No_Table_Data_Ico
 import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
 import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
 import { HcDateRangePicker } from "common/HcDatePicker";
+import { getData } from "api";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -353,6 +354,7 @@ const ApprovalContent = styled.div`
 
 const data = [
   {
+    id: "1abc",
     name: "네이버페이 영업용 PC 구매",
     step: 1,
     progress: 10,
@@ -365,6 +367,7 @@ const data = [
     manager: "홍길동",
   },
   {
+    id: "1abcd",
     name: "에듀홈 영업용 PC 구매",
     step: 2,
     progress: 30,
@@ -377,6 +380,7 @@ const data = [
     manager: "홍길동",
   },
   {
+    id: "2abc",
     name: "에듀홈 영업용 PC 구매",
     step: 6,
     progress: 50,
@@ -427,6 +431,14 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
   const changeViewState = () => {
     setViewState(!viewState);
   };
+
+  React.useEffect(() => {
+    const mount = async () => {
+      const data = await getData();
+      console.log(data);
+    };
+    mount();
+  }, []);
 
   const DropDown = (props: any) => {
     const [menuOpen, setMenuOpen] = React.useState(false);
@@ -650,8 +662,20 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
                         width: "100%",
                         tableLayout: "fixed",
                       }}
+                      onClick={() => {
+                        history.push({
+                          pathname: `${match.url}/detail?id=${item.id}`,
+                          state: { id: item.id },
+                        });
+                        alert(item);
+                      }}
                     >
-                      <td style={{ width: 46, textAlign: "center" }}>
+                      <td
+                        style={{ width: 46, textAlign: "center" }}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
                         <HcCheckBox checked={false} onChange={(e) => {}} />
                       </td>
                       <td style={{ width: 200 }}>{item.name}</td>
@@ -680,7 +704,12 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
                         {item.dateStart} ~ {item.dateEnd}
                       </td>
                       <td style={{ width: 174 }}>{item.product}</td>
-                      <td style={{ width: 120 }}>
+                      <td
+                        style={{ width: 120 }}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
                         {item.manager}
 
                         <DropDown
