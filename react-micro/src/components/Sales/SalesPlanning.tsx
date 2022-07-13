@@ -25,6 +25,7 @@ import { ReactComponent as NoDataIcon } from "resources/images/No_Table_Data_Ico
 import { ReactComponent as CloseIcon } from "resources/images/Close_Icon_White.svg";
 import { ReactComponent as ListIcon } from "resources/images/List_Icon.svg";
 import { HcDateRangePicker } from "common/HcDatePicker";
+import { getData } from "api";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -430,6 +431,14 @@ const SalesPlanning = ({ match }: RouteComponentProps<MatchParams>) => {
   const changeViewState = () => {
     setViewState(!viewState);
   };
+
+  React.useEffect(() => {
+    const mount = async () => {
+      const data = await getData();
+      console.log(data);
+    };
+    mount();
+  }, []);
 
   const DropDown = (props: any) => {
     const [menuOpen, setMenuOpen] = React.useState(false);
