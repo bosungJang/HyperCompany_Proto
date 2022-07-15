@@ -8,7 +8,9 @@ process.env.dev
 
 export const getData = async () => {
   try {
-    const result = await axios.get("https://reqres.in/api/unknown/2");
+    const result = await axios.get(
+      "http://192.168.8.20:8080/sampleproject/api/v1/account"
+    );
     return result.data;
   } catch (err) {
     return err;
@@ -26,15 +28,15 @@ const getTEST = async () => {
 };
 */
 
-export const postData = (params) => {
-  axios
-    .post("https://localgost:3000/test/user", { params: params })
-    .then((Response) => {
-      return Response;
-    })
-    .catch((Error) => {
-      return Error;
+export const postData = async (params) => {
+  try {
+    const result = await axios.post("https://localgost:3000/test/user", {
+      params: params,
     });
+    return result.data;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const deleteData = () => {

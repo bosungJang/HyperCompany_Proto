@@ -52,8 +52,9 @@ const ArrowWrapper = styled.div<{ open?: boolean }>`
   //background: ${(props) => (props.open ? "#CEE2FF" : "#ededed")};
   background: #ededed;
   border-radius: 4px;
-  display: inline-block;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 10px;
   text-align: center;
   //float: left;
