@@ -859,7 +859,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             </Wrapper>
           </div>
         </div>
-        <div style={{ marginTop: 32, height: "182px" }}>
+        <div style={{ marginTop: 32, minHeight: "182px" }}>
           <div
             style={{
               width: "466px",
@@ -871,7 +871,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           >
             <ContAreaTitle>관리 항목</ContAreaTitle>
             <div style={{ display: "flex", justifyContent: "end" }}>
-              <FilterButton />
+              <FilterButton style={{ marginRight: "6px" }} />
               <SettingButton />
             </div>
             <TableContainer>
@@ -893,6 +893,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                   style={{
                     display: "block",
                     overflow: "overlay",
+                    maxHeight: 229,
                   }}
                 >
                   <tr
@@ -931,7 +932,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
           >
             <ContAreaTitle>연동항목</ContAreaTitle>
             <div style={{ display: "flex", justifyContent: "end" }}>
-              <FilterButton />
+              <FilterButton style={{ marginRight: "6px" }} />
               <SettingButton />
             </div>
             <TableContainer>
@@ -953,6 +954,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                   style={{
                     display: "block",
                     overflow: "overlay",
+                    maxHeight: 229,
                   }}
                 >
                   <tr

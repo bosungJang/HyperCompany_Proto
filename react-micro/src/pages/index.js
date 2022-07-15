@@ -684,6 +684,13 @@ export const FixedAssetListPage = loadable(
     fallback: Loading,
   }
 );
+
+export const FinancialStatementSettingPage = loadable(
+  () => import("../components/Fi/FinancialStatementSetting"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
