@@ -34,6 +34,7 @@ import {
   CertificateRegistrationPage,
   VATReportingPage,
   FixedAssetListPage,
+  FinancialStatementSettingPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -54,6 +55,10 @@ const testArray = [
       {
         title: "계정과목관리",
         path: "/fi/basicInfoManagement/accountManagement",
+      },
+      {
+        title: "재무제표 양식 설정",
+        path: "/fi/basicInfoManagement/FinancialStatementSetting",
       },
       { title: "초기이월입력", path: "/fi/basicInfoManagement/carryOver" },
     ],
@@ -381,6 +386,10 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/fixedAssetsManagement/fixedAssetsList`}
         component={FixedAssetListPage}
+      />
+      <Route
+        path={`${props.match.url}/basicInfoManagement/FinancialStatementSetting`}
+        component={FinancialStatementSettingPage}
       />
     </div>
   );
