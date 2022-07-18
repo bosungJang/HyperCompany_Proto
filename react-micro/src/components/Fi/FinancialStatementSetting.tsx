@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { RouteComponentProps } from "react-router-dom";
-import { ComponentWrapper } from "common/HcCommonLayout";
-import { HcTitleTextField } from "common/HcTextField";
+import { Link, RouteComponentProps, Route, useHistory } from "react-router-dom";
+import { ComponentWrapper, VariableMultiLayout } from "common/HcCommonLayout";
+import { HcTitleTextField, Wrapper, Title } from "common/HcTextField";
 import { ReactComponent as AddIcon } from "resources/images/Add_Icon_Blue.svg";
 import { ReactComponent as DropDownIcon } from "resources/images/dropDown_icon.svg";
+import FinancailStatementSettingDetail from "./FinancialStatementSettingDetail";
 
 const DropDownIconWrapper = styled.div<{ menuOpen?: boolean }>`
   float: right;
@@ -79,7 +80,7 @@ const ContentTitle = styled.div`
   margin-bottom: 18px;
 `;
 
-const Wrapper = styled.div`
+const Wrappers = styled.div`
   margin-bottom: 40px;
   &:last-child {
     margin-bottom: 0px;
@@ -207,6 +208,8 @@ const data = [
 ];
 
 const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
+  const history = useHistory();
+
   const Content = (props: any) => {
     const DropDown = (props: any) => {
       const [menuOpen, setMenuOpen] = React.useState(false);
@@ -220,8 +223,15 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
             <DropDownIcon />
             {menuOpen === true ? (
               <HcDropDownMenu>
-                {props.menu.map((item: any) => (
-                  <HcDropDownItem>{item.title}</HcDropDownItem>
+                {props.menu.map((item: any, index: any) => (
+                  <HcDropDownItem
+                    key={index}
+                    onClick={() => {
+                      item.onClick();
+                    }}
+                  >
+                    {item.title}
+                  </HcDropDownItem>
                 ))}
               </HcDropDownMenu>
             ) : (
@@ -232,11 +242,11 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
       );
     };
     return (
-      <Wrapper>
+      <Wrappers>
         <ContentTitle>{props.item.title}</ContentTitle>
         <div style={{ display: "flex" }}>
-          {props.item.data.map((items: any) => (
-            <CardWrapper>
+          {props.item.data.map((items: any, index: any) => (
+            <CardWrapper key={index}>
               <CardTitle>{items.title}</CardTitle>
               <CardCont>{items.id}</CardCont>
               <CardBottom>
@@ -244,7 +254,16 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
               </CardBottom>
               {items.represent ? <RepresentTag>기본</RepresentTag> : <></>}
               <DropDown
-                menu={[{ title: "복사하여 생성" }]}
+                menu={[
+                  { title: "복사하여 생성" },
+                  {
+                    title: "수정",
+                    onClick: () => {
+                      history.push(`${match.url}/detail?id=${items.id}`);
+                    },
+                  },
+                  { title: "삭제" },
+                ]}
                 style={{ top: 16, right: 12, position: "absolute" }}
               />
             </CardWrapper>
@@ -262,24 +281,34 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
             <CardCont>새 양식 생성</CardCont>
           </CardWrapper>
         </div>
-      </Wrapper>
+      </Wrappers>
+    );
+  };
+
+  const GeneralState = () => {
+    return (
+      <div style={{ display: "block", width: "100%", marginTop: "16px" }}>
+        <HcTitleTextField
+          titleName="재무제표 양식 설정"
+          isBackIcon={false}
+          style={{ display: "inline-block" }}
+        />
+        <div style={{ marginTop: "57px" }}>
+          {data.map((item, index) => (
+            <Content key={index} item={item}></Content>
+          ))}
+        </div>
+      </div>
     );
   };
   return (
     <div style={{ width: "100%" }}>
       <ComponentWrapper style={{ width: "100%", display: "block" }}>
-        <div style={{ display: "block", width: "100%", marginTop: "16px" }}>
-          <HcTitleTextField
-            titleName="재무제표 양식 설정"
-            isBackIcon={false}
-            style={{ display: "inline-block" }}
-          />
-          <div style={{ marginTop: "57px" }}>
-            {data.map((item) => (
-              <Content item={item}></Content>
-            ))}
-          </div>
-        </div>
+        <Route exact path={match.url} component={GeneralState} />
+        <Route
+          path={`${match.url}/detail`}
+          component={FinancailStatementSettingDetail}
+        />
       </ComponentWrapper>
     </div>
   );
