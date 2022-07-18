@@ -75,25 +75,6 @@ const HRContainer = styled.div`
     background: #cecece;
     border-radius: 10px;
   }
-
-  background: /* Shadow covers */ linear-gradient(
-      white 30%,
-      rgba(255, 255, 255, 0)
-    ),
-    linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-    /* Shadows */
-      radial-gradient(
-        farthest-side at 50% 0,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      ),
-    radial-gradient(
-        farthest-side at 50% 100%,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      )
-      0 100%;
-  background-repeat: no-repeat;
 `;
 const CustomerCreate = () => {
   const location = useLocation();
@@ -698,8 +679,6 @@ const CustomerCreate = () => {
                             title="구매 정보"
                             maxHeight={404}
                             width={1320}
-                            state={purchase}
-                            setState={setPurchase}
                           >
                             <HcButton
                               size="medium"
@@ -735,8 +714,6 @@ const CustomerCreate = () => {
                             title="고객 지원 정보"
                             maxHeight={404}
                             width={1320}
-                            state={customerSupport}
-                            setState={setCustomerSupport}
                           >
                             {" "}
                             <HcButton
@@ -773,8 +750,6 @@ const CustomerCreate = () => {
                             title="첨부 파일 정보"
                             maxHeight={404}
                             width={1320}
-                            state={fileInfo}
-                            setState={setFileInfo}
                           >
                             {" "}
                             <HcButton
@@ -815,8 +790,6 @@ const CustomerCreate = () => {
                             title="기업 정보"
                             maxHeight={482}
                             width={1320}
-                            state={purchase}
-                            setState={setPurchase}
                           >
                             <HcTabsAdv
                               items={[
@@ -914,8 +887,6 @@ const CustomerCreate = () => {
                             title="계약 정보"
                             maxHeight={343}
                             width={1320}
-                            state={addContract}
-                            setState={setAddContract}
                           >
                             {" "}
                             <div style={{ display: "flex" }}>
@@ -1010,15 +981,11 @@ const CustomerCreate = () => {
                             title="고객 지원 정보"
                             maxHeight={404}
                             width={1320}
-                            state={customerSupport}
-                            setState={setCustomerSupport}
                           ></Container>
                           <Container
                             title="첨부 파일 정보"
                             maxHeight={404}
                             width={1320}
-                            state={fileInfo}
-                            setState={setFileInfo}
                           ></Container>
                         </>
                       ),
@@ -1029,8 +996,6 @@ const CustomerCreate = () => {
                             title="컨택트포인트 정보"
                             maxHeight={343}
                             width={1320}
-                            state={addContactPoint}
-                            setState={setAddContactPoint}
                             style={{ overflow: "visible" }}
                           >
                             <div style={{ display: "flex" }}>
@@ -1106,15 +1071,11 @@ const CustomerCreate = () => {
                             title="계약추가"
                             maxHeight={404}
                             width={1320}
-                            state={addContract}
-                            setState={setAddContract}
                           ></Container>
                           <Container
                             title="계약 정보"
                             maxHeight={343}
                             width={1320}
-                            state={contractInfo}
-                            setState={setContractInfo}
                             style={{ overflow: "visible", marginBottom: 141 }}
                           >
                             <div style={{ display: "flex" }}>

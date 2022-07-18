@@ -33,9 +33,6 @@ const KPIs = Array(100)
   .map(() => "경영성과 적시 보고");
 
 export default function GoalAndPerformanceCreate() {
-  const [info, openInfo] = useState(true);
-  const [subject, openSubject] = useState(false);
-  const [progress, openProgress] = useState(true);
   const [percentage, setPercentage] = useState(0);
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
@@ -61,14 +58,7 @@ export default function GoalAndPerformanceCreate() {
         style={{ display: "block", overflow: "visible", minHeight: 1598 }}
       >
         <HcTitleTextField titleName="목표 생성" isBackIcon />
-        <Container
-          title="목표 정보"
-          width={1320}
-          maxHeight={428}
-          state={info}
-          setState={openInfo}
-          defaultHeight={68}
-        >
+        <Container title="목표 정보" width={1320} maxHeight={428}>
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: 80, display: "block", width: 360 }}>
               <HcTextField
@@ -180,19 +170,9 @@ export default function GoalAndPerformanceCreate() {
           }
           width={1320}
           maxHeight={428}
-          state={subject}
-          setState={openSubject}
-          defaultHeight={68}
           style={{ overflow: "visible" }}
         ></Container>
-        <Container
-          title="진행 현황"
-          width={1320}
-          maxHeight={428}
-          state={progress}
-          setState={openProgress}
-          defaultHeight={68}
-        >
+        <Container title="진행 현황" width={1320} maxHeight={428}>
           <div style={{ display: "flex", marginTop: -10 }}>
             <ProgressBar
               percentage={percentage}

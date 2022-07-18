@@ -474,9 +474,6 @@ export function Table(props?: { empthy?: boolean }) {
 }
 
 export default function EarnedIncome() {
-  const [earnedIncome, setEarnedIncome] = useState(true);
-  const [confirm, setConfirm] = useState(true);
-  const [unConfirm, setUnConfirm] = useState(true);
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
@@ -500,8 +497,6 @@ export default function EarnedIncome() {
         />
         <Container
           title="이상 근로 소득"
-          state={earnedIncome}
-          setState={setEarnedIncome}
           maxHeight={140}
           defaultHeight={68}
           width={1320}
@@ -525,8 +520,6 @@ export default function EarnedIncome() {
         </Container>
         <Container
           title="이상 근로 소득"
-          state={earnedIncome}
-          setState={setEarnedIncome}
           maxHeight={698}
           defaultHeight={68}
           width={1320}
@@ -535,8 +528,6 @@ export default function EarnedIncome() {
         </Container>
         <Container
           title="미확정 근로 소득"
-          state={unConfirm}
-          setState={setUnConfirm}
           maxHeight={698}
           defaultHeight={68}
           width={1320}
@@ -545,8 +536,6 @@ export default function EarnedIncome() {
         </Container>
         <Container
           title="확정 근로 소득"
-          state={confirm}
-          setState={setConfirm}
           maxHeight={698}
           defaultHeight={68}
           width={1320}

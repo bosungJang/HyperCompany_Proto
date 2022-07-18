@@ -279,12 +279,12 @@ const HcDropDownWrapper = styled("div")<{ open: boolean }>`
   text-transform: uppercase;
   color: #ffffff;
   border: unset;
-  min-width: 66px;
+  min-width: 91px;
   height: 32px;
-  font-size: 14px;
-  line-height: 16px;
-  padding: 9px 20px;
-  display: inline-block;
+  font-size: 13px;
+  line-height: 19px;
+  padding: 7px 18px;
+  display: flex;
   position: relative;
   ${HcDropDownMenu} {
     display: ${(props) => (props.open == true ? "block" : "none")};
@@ -312,6 +312,22 @@ export const HcDropDownButton = (props: HcDropDownButtonProps) => {
         style={props.style}
       >
         {props.title}
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ position: "absolute", top: 7, right: 7 }}
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M4.75588 7.74406C4.43044 8.06949 4.43044 8.59713 4.75588 8.92257L9.46983 13.6365L9.46993 13.6366C9.79536 13.9621 10.323 13.9621 10.6484 13.6366C10.652 13.633 10.6556 13.6294 10.6591 13.6257L15.3624 8.92247C15.6878 8.59704 15.6878 8.0694 15.3624 7.74396C15.037 7.41853 14.5093 7.41853 14.1839 7.74396L10.0591 11.8688L5.93439 7.74406C5.60896 7.41862 5.08132 7.41862 4.75588 7.74406Z"
+            fill="white"
+          />
+        </svg>
+
         <HcDropDownMenu>
           {props.dropDownMenu.map((item: any) => (
             <HcDropDownItem onClick={item.onClick}>{item.title}</HcDropDownItem>

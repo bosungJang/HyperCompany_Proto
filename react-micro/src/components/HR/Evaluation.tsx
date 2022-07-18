@@ -124,9 +124,6 @@ const Position = styled(Name)`
   line-height: 60px;
 `;
 export default function Evaluation() {
-  const [ability, setAbility] = useState(true);
-  const [performance, setPerformance] = useState(true);
-  const [etc, setEtc] = useState(true);
   /*Create */
   const [isCreate, setIsCreates] = useState(false);
   /*Create */
@@ -205,8 +202,6 @@ export default function Evaluation() {
               title="역량 평가"
               maxHeight={360}
               width={984}
-              state={ability}
-              setState={setAbility}
             >
               <HcTableContainer
                 style={{
@@ -249,8 +244,6 @@ export default function Evaluation() {
               title="성과 평가"
               maxHeight={360}
               width={984}
-              state={performance}
-              setState={setPerformance}
             >
               <HcTableContainer
                 style={{
@@ -291,8 +284,6 @@ export default function Evaluation() {
               title="기타 평가"
               maxHeight={1026}
               width={984}
-              state={etc}
-              setState={setEtc}
             >
               <ItemField>
                 <SubHeading titleName="기타 평가 항목1" />

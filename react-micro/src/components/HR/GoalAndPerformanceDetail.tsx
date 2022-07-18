@@ -166,10 +166,6 @@ const FeedBackField = () => {
 };
 
 export default function GoalAndPerformanceDetail() {
-  const [info, openInfo] = useState(true);
-  const [subject, openSubject] = useState(false);
-  const [feedback, openFeedback] = useState(true);
-  const [progress, openProgress] = useState(true);
   const [edit, setEdit] = useState(false);
   const [percentage, setPercentage] = useState(50);
   /*BottomBar */
@@ -186,9 +182,6 @@ export default function GoalAndPerformanceDetail() {
           title="목표 정보"
           width={1320}
           maxHeight={428}
-          state={info}
-          setState={openInfo}
-          defaultHeight={68}
         >
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: 80, display: "block", width: 360 }}>
@@ -376,18 +369,12 @@ export default function GoalAndPerformanceDetail() {
           }
           width={1320}
           maxHeight={428}
-          state={subject}
-          setState={openSubject}
-          defaultHeight={68}
           style={{ overflow: "visible" }}
         ></Container>
         <Container
           title="진행 현황"
           width={1320}
           maxHeight={428}
-          state={progress}
-          setState={openProgress}
-          defaultHeight={68}
         >
           {edit === false ? (
             <div style={{ display: "flex" }}>
@@ -464,9 +451,6 @@ export default function GoalAndPerformanceDetail() {
           title="피드백"
           width={1320}
           maxHeight={763}
-          state={feedback}
-          setState={openFeedback}
-          defaultHeight={68}
           style={{ overflow: "visible" }}
         >
           <div style={{ position: "relative", marginBottom: 20 }}>

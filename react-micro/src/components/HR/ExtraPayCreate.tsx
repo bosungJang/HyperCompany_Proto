@@ -16,7 +16,7 @@ import InfoIconTooltip, { TooltipMessage } from "common/HcTooltip";
 import { HcContentPopup } from "common/HcPopup";
 const Title = styled.div`
   font-family: Noto Sans KR;
- 
+
   font-size: 13px;
   position: relative;
   line-height: 19px;
@@ -54,7 +54,6 @@ const StyledLi = styled.li`
 `;
 export default function ExtraPayCreate() {
   const [objClick, setObjClick] = React.useState(false);
-  const [toolClick, setToolClick] = React.useState(true);
   const Container = (props: any) => {
     const Arrow = styled.svg`
       transition: all 0.2s ease;
@@ -433,14 +432,7 @@ export default function ExtraPayCreate() {
           setTags={setCalc}
           style={{ width: 650, maxHeight: 178, overflowY: "scroll" }}
         />
-        <Container
-          defaultHeight={68}
-          maxHeight={336}
-          width={650}
-          title={"계산 도구"}
-          state={toolClick}
-          setState={setToolClick}
-        >
+        <Container maxHeight={336} width={650} title={"계산 도구"}>
           <div style={{ display: "flex", marginTop: 28 }}>
             <div style={{ display: "block", width: 88, marginLeft: 32 }}>
               {" "}
@@ -799,13 +791,7 @@ export default function ExtraPayCreate() {
             </div>
           </div>
         </Container>
-        <Container
-          title="계산 항목"
-          defaultHeight={68}
-          maxHeight={283}
-          state={objClick}
-          setState={setObjClick}
-        >
+        <Container title="계산 항목" maxHeight={283}>
           <div
             style={{
               height: 214,

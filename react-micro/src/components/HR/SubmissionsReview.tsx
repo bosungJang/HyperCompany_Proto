@@ -49,8 +49,6 @@ const category: string[] = [
   "장기요양보험료",
 ];
 export default function SubmissionsReview() {
-  const [etc, setEtc] = useState(true);
-  const [payStub, setPayStub] = useState(true);
   const [selected, setSelected] = useState(2);
   const [file, setFile]: any = useState([]);
   const now: any = HrData.find((data) => data.id === selected);
@@ -92,24 +90,14 @@ export default function SubmissionsReview() {
             <Name>{now.name}</Name>
             <Container
               title="국세청 자료 외 제출 자료"
-              state={etc}
-              setState={setEtc}
               maxHeight={497}
-              defaultHeight={68}
               width={988}
             >
               <div style={{ left: 24, position: "absolute", width: 940 }}>
                 <HcFileUploader file={file} setFile={setFile} />
               </div>
             </Container>
-            <Container
-              title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
-              maxHeight={1053}
-              defaultHeight={68}
-              width={988}
-            >
+            <Container title="급여 명세" maxHeight={1053} width={988}>
               <HcTextFieldLabel
                 titleName="납입금액 계"
                 style={{ width: 287, marginBottom: 20 }}
@@ -196,90 +184,57 @@ export default function SubmissionsReview() {
             </Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
             <Container
               title="급여 명세"
-              state={payStub}
-              setState={setPayStub}
               maxHeight={400}
-              defaultHeight={68}
               width={988}
             ></Container>
           </div>

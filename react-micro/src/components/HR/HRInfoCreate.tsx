@@ -47,8 +47,7 @@ const HRInfoCreate = () => {
   ]);
   const [selectOrganization, setSelectOrganization] =
     useState(""); /* select field */
-  const [basicInfo, setBasicInfo] = useState(true);
-  const [edu, setEdu] = useState(true);
+
   const [bgImg, setBgImg] = useState(img); //배경사진
   const [PfImg, setPfImg] = useState(img); //프로필 사진
   const fileInput = React.useRef(null);
@@ -485,13 +484,7 @@ const HRInfoCreate = () => {
               ),
               "2": (
                 <>
-                  <Container
-                    title="기본 정보"
-                    state={basicInfo}
-                    setState={setBasicInfo}
-                    maxHeight={343}
-                    width={1320}
-                  >
+                  <Container title="기본 정보" maxHeight={343} width={1320}>
                     <svg
                       width="14"
                       height="16"
@@ -606,13 +599,7 @@ const HRInfoCreate = () => {
                       </div>
                     </div>
                   </Container>
-                  <Container
-                    title="학력"
-                    state={edu}
-                    setState={setEdu}
-                    maxHeight={343}
-                    width={1320}
-                  >
+                  <Container title="학력" maxHeight={343} width={1320}>
                     <svg
                       width="14"
                       height="16"

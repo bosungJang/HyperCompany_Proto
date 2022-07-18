@@ -41,7 +41,7 @@ const SideBarContainer = styled.div`
   padding: 30px 30px 20px 30px;
   position: relative;
   margin-left: calc(100% - 574px);
-  animation: ${SideBarShow} 0.3s;
+  animation: ${SideBarShow} 0.5s;
   // overflow: hidden;
   &::-webkit-scrollbar-track {
     background: none;
@@ -353,6 +353,66 @@ export function ContentPopup(props: any) {
     </div>
   );
 }
+export const SideBarItem = styled.div<{ checked: boolean; img?: boolean }>`
+  height: 54px;
+  width: 510px;
+  ${(props) =>
+    props.checked === false
+      ? "border :1px solid #CECECE;"
+      : "border:1px solid #5799FB; background: #F5F9FF;"};
+  box-sizing: border-box;
+  border-radius: 4px;
+  position: relative;
+  font-family: Noto Sans KR;
+  font-style: bold;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+
+  ${(props) =>
+    props.img
+      ? " padding: 13px 20px 15px 56px;"
+      : " padding: 13px 20px 15px 15px;"}
+  text-transform: uppercase;
+  color: #000000;
+  margin-bottom: 10px;
+  display: flex;
+  &:hover {
+    border: 1px solid #5799fb;
+  }
+
+  img {
+    margin-right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: absolute;
+    left: 12px;
+    top: 11px;
+  }
+`;
+export const SideBarInnerContainer = styled.div`
+  display: block;
+  width: fit-content;
+  overflow-y: scroll;
+  overflow-x: visible;
+  margin-top: 12px;
+  &::-webkit-scrollbar-track {
+    background: none;
+    position: absolute;
+    z-index: 1;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+    position: absolute;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+  }
+`;
 export function SideBar(props?: any) {
   const { open, close, header, addFunc, style } = props;
 
@@ -365,7 +425,6 @@ export function SideBar(props?: any) {
           <Popup_Content
             style={Object.assign({ top: 78, right: 30, left: 30 }, style)}
           >
-            {" "}
             {props.children}
           </Popup_Content>
           <div

@@ -97,7 +97,7 @@ const CustomerPage = () => {
       name: "꽃분이",
       phone: "010-9876-5432",
       email: "kildong_hong@tamx.co.kr",
-      type: "personal",
+      type: "contact",
       grade: "Silver",
       lead: 0,
       manager: "홍길동",

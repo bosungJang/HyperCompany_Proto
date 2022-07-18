@@ -377,9 +377,6 @@ export default function EvaluationDetail() {
   };
   /* pop up */
   const [tag, setTag] = useState(["티맥스 엔터프라이즈"]);
-  const [openInfo, setInfo] = useState(true);
-  const [openSteps, setSteps] = useState(true);
-  const [openState, setState] = useState(true);
   /*stpes*/
 
   /* stpes */
@@ -390,11 +387,8 @@ export default function EvaluationDetail() {
 
         <Container
           title="평가 계획 정보"
-          defaultHeight={68}
           maxHeight={343}
           width={1320}
-          state={openInfo}
-          setState={setInfo}
           style={{ marginTop: 39 }}
         >
           <div style={{ display: "flex" }}>
@@ -450,14 +444,7 @@ export default function EvaluationDetail() {
           </div>
         </Container>
 
-        <Container
-          title="평가 진행 상황"
-          defaultHeight={68}
-          maxHeight={793}
-          width={1320}
-          state={openState}
-          setState={setState}
-        >
+        <Container title="평가 진행 상황" maxHeight={793} width={1320}>
           <HcSteps style={{ marginBottom: 64 }} steps={steps} />
           <HcTableContainer style={{ width: "1240px", height: "491" }}>
             <HcTable>
@@ -507,11 +494,8 @@ export default function EvaluationDetail() {
         </Container>
         <Container
           title="평가 단계"
-          defaultHeight={68}
           maxHeight={1349}
           width={1320}
-          state={openSteps}
-          setState={setSteps}
           style={{ position: "relative" }}
         >
           <div style={{ marginTop: -10, marginBottom: 5 }}>

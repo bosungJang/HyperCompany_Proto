@@ -63,12 +63,12 @@ export const Container = (props?: any) => {
     overflow: hidden;
     z-index: 1;
     .arrow {
-      right: 24px;
+      right: 20px;
       position: absolute;
       ${(props) =>
         props.state
-          ? `top: 22px; transition: all 0.5s ease; ;`
-          : `top: 30px;   transform: rotate(-180deg); transition: all 0.5s ease; `}
+          ? `top: 15px; transition: all 0.5s ease; ;`
+          : `top: 22px;   transform: rotate(-180deg); transition: all 0.5s ease; `}
     }
   `;
 

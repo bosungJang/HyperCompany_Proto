@@ -5,6 +5,7 @@ import HcTextField, {
   SelectBox,
   HcSearchTextField,
   SearchSelect,
+  HcTextFieldLabel,
 } from "common/HcTextField";
 import styled from "styled-components";
 import img from "common/img/bgimg.png";
@@ -165,16 +166,7 @@ const CustomerDetail = () => {
       </div>
     </HRCard>
   ));
-  const [purchase, setPurchase] = useState(true);
-  const [customerSupport, setCustomerSupport] = useState(true);
-  const [addContactPoint, setAddContactPoint] = useState(true);
-  const [addContract, setAddContract] = useState(true);
-  const [fileInfo, setFileInfo] = useState(true);
-  const [contractInfo, setContractInfo] = useState(true);
-  const [manager, setManager] = useState("");
-  const [priority, setPriority] = useState("");
-  const [type, setType] = useState("");
-  const [step, setStep] = useState("");
+  const [edit, setEdit] = useState(false);
   const onCreate = () => {
     const prev = data;
     prev.push({
@@ -332,7 +324,7 @@ const CustomerDetail = () => {
                 border: "5px solid #ffffff",
               }}
             />
-            <PfUploadButton>
+            <PfUploadButton style={{ display: edit ? "" : "none" }}>
               <label htmlFor="input-Pffile" style={{ cursor: "pointer" }}>
                 <svg
                   width="24"
@@ -368,336 +360,652 @@ const CustomerDetail = () => {
                 ref={PfInput}
               />
             </PfUploadButton>
-            <div
-              className="textfields"
-              style={{
-                marginTop: 4,
-                marginLeft: 200,
-                display: "flex",
-              }}
-            >
-              {
-                {
-                  personal: (
-                    <>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                        }}
-                      >
-                        <HcTextField
-                          name="name"
-                          onKeyDown={(e) => {}}
-                          style={{
-                            width: 320,
-                            fontSize: 20,
-                            marginBottom: 20,
-                            height: 40,
-                          }}
-                          placeholder="이름 입력"
-                          required
-                        />{" "}
-                        <HcTextField
-                          titleName="휴대전화 번호"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <SelectBox
-                          titleName="고객 등급"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                          required
-                        />{" "}
-                        <HcSearchTextField
-                          titleName="주소"
-                          name="telePhone"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                          marginTop: 60,
-                        }}
-                      >
-                        <HcTextField
-                          titleName="이메일"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <HcTextField
-                          titleName="추가 전화 번호"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <HcTextField
-                          titleName="상세 주소"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                      <div style={{ display: "block", marginTop: 60 }}>
-                        <HcSearchTextField
-                          style={{ width: 320, marginBottom: 20 }}
-                          titleName="고객 담당자"
-                          placeholder="고객 담당자 조회"
-                          onClick={() => {
-                            setIsOpen(true);
-                            console.log(isOpen);
-                          }}
-                        />
 
-                        <HcTextField
-                          titleName="추가 이메일"
-                          name="email"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                    </>
-                  ),
-                  enterprise: (
-                    <>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                        }}
-                      >
-                        <HcTextField
-                          name="name"
-                          onKeyDown={(e) => {}}
-                          style={{
-                            width: 320,
-                            fontSize: 20,
-                            marginBottom: 20,
-                            height: 40,
-                          }}
-                          placeholder="이름 입력"
-                          required
-                        />{" "}
-                        <HcTextField
-                          titleName="기업전화 번호"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <SelectBox
-                          titleName="고객 등급"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                        />
-                        <SelectBox
-                          titleName="업종"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                        />
-                        <HcTextField
-                          titleName="직원 수"
-                          name="telePhone"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <HcTextField
-                          titleName="기업 주소"
-                          name="telePhone"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                          marginTop: 60,
-                        }}
-                      >
-                        <HcTextField
-                          titleName="홈페이지"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <SelectBox
-                          titleName="신용평가 등급"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                        />
-                        <SelectBox
-                          titleName="업태"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                        />
-                        <div
-                          style={{
-                            width: 320,
-                            marginBottom: 20,
-                            position: "relative",
-                          }}
-                        >
-                          <HcTextField
-                            titleName="기업 규모"
-                            onKeyDown={(e) => {}}
-                            style={{ width: 320, paddingRight: 28 }}
-                          />
-                          <label
+            {
+              {
+                personal: (
+                  <>
+                    <div
+                      className="textfields"
+                      style={{
+                        marginTop: 4,
+                        marginLeft: 200,
+                        display: "flex",
+                      }}
+                    >
+                      {edit ? (
+                        <>
+                          <div
                             style={{
-                              color: "#A7A7A7",
-                              position: "absolute",
-                              top: 37,
-                              right: 10,
+                              marginRight: 40,
+                              width: 320,
+                              display: "block",
                             }}
                           >
-                            원
-                          </label>
-                        </div>
-                        <HcTextField
-                          titleName="상세 주소"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
+                            <HcTextField
+                              name="name"
+                              onKeyDown={(e) => {}}
+                              style={{
+                                width: 320,
+                                fontSize: 20,
+                                marginBottom: 20,
+                                height: 40,
+                              }}
+                              placeholder="이름 입력"
+                              required
+                            />{" "}
+                            <HcTextField
+                              titleName="휴대전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <SelectBox
+                              titleName="고객 등급"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                              required
+                            />{" "}
+                            <HcSearchTextField
+                              titleName="주소"
+                              name="telePhone"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 60,
+                            }}
+                          >
+                            <HcTextField
+                              titleName="이메일"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <HcTextField
+                              titleName="추가 전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <HcTextField
+                              titleName="상세 주소"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                          <div style={{ display: "block", marginTop: 60 }}>
+                            <HcSearchTextField
+                              style={{ width: 320, marginBottom: 20 }}
+                              titleName="고객 담당자"
+                              placeholder="고객 담당자 조회"
+                              onClick={() => {
+                                setIsOpen(true);
+                                console.log(isOpen);
+                              }}
+                            />
 
-                      <div style={{ display: "block", marginTop: 60 }}>
-                        <HcSearchTextField
-                          style={{ width: 320, marginBottom: 105 }}
-                          titleName="고객 담당자"
-                          placeholder="고객 담당자 조회"
-                        />
+                            <HcTextField
+                              titleName="추가 이메일"
+                              name="email"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            style={{
+                              marginRight: 40,
+                              width: 320,
+                              display: "block",
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              style={{
+                                width: 320,
+                                fontSize: 24,
+                                marginBottom: 20,
+                                height: 55,
+                                lineHeight: "36px",
+                                paddingBottom: 10,
+                              }}
+                            >
+                              홍길동
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="휴대전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              010-1234-5678
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="고객 등급"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              VIP
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="주소"
+                              style={{ width: 320 }}
+                            >
+                              경기도 성남시 분당구
+                            </HcTextFieldLabel>
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 105,
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              titleName="이메일"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              kildong_hong@gmail.com
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="추가 전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              010-1234-5678
+                            </HcTextFieldLabel>{" "}
+                            <HcTextFieldLabel
+                              titleName="상세 주소"
+                              style={{ width: 320 }}
+                            >
+                              금곡로 정자일로 45 티맥스타워
+                            </HcTextFieldLabel>
+                          </div>
+                          <div style={{ display: "block", marginTop: 105 }}>
+                            <HcTextFieldLabel
+                              titleName="고객 담당자"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              꽃분이
+                            </HcTextFieldLabel>{" "}
+                            <HcTextFieldLabel
+                              titleName="추가 이메일"
+                              style={{ width: 320 }}
+                            >
+                              kildong_hong@gamil.com
+                            </HcTextFieldLabel>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </>
+                ),
+                enterprise: (
+                  <>
+                    <div
+                      className="textfields"
+                      style={{
+                        marginTop: 4,
+                        marginLeft: 200,
+                        display: "flex",
+                      }}
+                    >
+                      {edit ? (
+                        <>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                            }}
+                          >
+                            <HcTextField
+                              name="name"
+                              onKeyDown={(e) => {}}
+                              style={{
+                                width: 320,
+                                fontSize: 20,
+                                marginBottom: 20,
+                                height: 40,
+                              }}
+                              placeholder="이름 입력"
+                              required
+                            />{" "}
+                            <HcTextField
+                              titleName="기업전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <SelectBox
+                              titleName="고객 등급"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                            />
+                            <SelectBox
+                              titleName="업종"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                            />
+                            <HcTextField
+                              titleName="직원 수"
+                              name="telePhone"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <HcTextField
+                              titleName="기업 주소"
+                              name="telePhone"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 60,
+                            }}
+                          >
+                            <HcTextField
+                              titleName="홈페이지"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <SelectBox
+                              titleName="신용평가 등급"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                            />
+                            <SelectBox
+                              titleName="업태"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                            />
+                            <div
+                              style={{
+                                width: 320,
+                                marginBottom: 20,
+                                position: "relative",
+                              }}
+                            >
+                              <HcTextField
+                                titleName="기업 규모"
+                                onKeyDown={(e) => {}}
+                                style={{ width: 320, paddingRight: 28 }}
+                              />
+                              <label
+                                style={{
+                                  color: "#A7A7A7",
+                                  position: "absolute",
+                                  top: 37,
+                                  right: 10,
+                                }}
+                              >
+                                원
+                              </label>
+                            </div>
+                            <HcTextField
+                              titleName="상세 주소"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
 
-                        <HcTextField
-                          titleName="사업자등록번호"
-                          name="email"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <HcTextField
-                          titleName="설명"
-                          name="comment"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                    </>
-                  ),
-                  contact: (
-                    <>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                        }}
-                      >
-                        <HcTextField
-                          name="name"
-                          onKeyDown={(e) => {}}
-                          style={{
-                            width: 320,
-                            fontSize: 20,
-                            marginBottom: 20,
-                            height: 40,
-                          }}
-                          placeholder="이름 입력"
-                          required
-                        />{" "}
-                        <HcTextField
-                          titleName="휴대전화 번호"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <SelectBox
-                          titleName="직책"
-                          name="responsibility"
-                          style={{ width: 320, marginBottom: 20 }}
-                          items={gradeItem}
-                          state={gradeState}
-                          setState={setGradeState}
-                        />{" "}
-                        <HcTextField
-                          titleName="사내전화 번호"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          display: "block",
-                          marginRight: 40,
-                          width: 320,
-                          marginTop: 60,
-                        }}
-                      >
-                        <HcTextField
-                          titleName="이메일"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                        <HcTextField
-                          titleName="직위"
-                          style={{ width: 320, marginBottom: 20 }}
-                        />
-                      </div>
-                      <div style={{ display: "block", marginTop: 60 }}>
-                        <HcSearchTextField
-                          style={{ width: 320, marginBottom: 20 }}
-                          titleName="고객 담당자"
-                          placeholder="고객 담당자 조회"
-                        />
+                          <div style={{ display: "block", marginTop: 60 }}>
+                            <HcSearchTextField
+                              style={{ width: 320, marginBottom: 105 }}
+                              titleName="고객 담당자"
+                              placeholder="고객 담당자 조회"
+                            />
 
-                        <HcTextField
-                          titleName="소속부서"
-                          name="email"
-                          onKeyDown={(e) => {}}
-                          style={{ width: 320 }}
-                        />
-                      </div>
-                    </>
-                  ),
-                }[state]
-              }
-            </div>
+                            <HcTextField
+                              titleName="사업자등록번호"
+                              name="email"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <HcTextField
+                              titleName="설명"
+                              name="comment"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              style={{
+                                width: 320,
+                                fontSize: 24,
+                                marginBottom: 20,
+                                height: 55,
+                                lineHeight: "36px",
+                                paddingBottom: 10,
+                              }}
+                            >
+                              SK텔레콤
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="기업전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              02-1234-5678
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="고객 등급"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              VIP
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="업종"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              정보 통신 기기
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="직원 수"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              40,503
+                            </HcTextFieldLabel>
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 102,
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              titleName="기업 홈페이지"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              www..SKtelecom.co.kr
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="기업 주소"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              서울특별시 중구
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="업태"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              IT소프트웨어
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="기업규모"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              100,000,000,000,000
+                            </HcTextFieldLabel>
+                          </div>
+
+                          <div style={{ display: "block", marginTop: 102 }}>
+                            <HcTextFieldLabel
+                              titleName="고객 담당자"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              꽃분이
+                            </HcTextFieldLabel>
+
+                            <HcTextFieldLabel
+                              titleName="상세주소"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              을지로 65 SK텔레콤 빌딩
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="사업자등록번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              01-112-4567
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="설명"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              대한민국의 이동통신 서비스 업체다.
+                            </HcTextFieldLabel>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </>
+                ),
+                contact: (
+                  <>
+                    <div
+                      className="textfields"
+                      style={{
+                        marginTop: 4,
+                        marginLeft: 200,
+                        display: "flex",
+                      }}
+                    >
+                      {edit ? (
+                        <>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                            }}
+                          >
+                            <HcTextField
+                              name="name"
+                              onKeyDown={(e) => {}}
+                              style={{
+                                width: 320,
+                                fontSize: 20,
+                                marginBottom: 20,
+                                height: 40,
+                              }}
+                              placeholder="이름 입력"
+                              required
+                            />{" "}
+                            <HcTextField
+                              titleName="휴대전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <SelectBox
+                              titleName="직책"
+                              name="responsibility"
+                              style={{ width: 320, marginBottom: 20 }}
+                              items={gradeItem}
+                              state={gradeState}
+                              setState={setGradeState}
+                            />{" "}
+                            <HcTextField
+                              titleName="사내전화 번호"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 60,
+                            }}
+                          >
+                            <HcTextField
+                              titleName="이메일"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                            <HcTextField
+                              titleName="직위"
+                              style={{ width: 320, marginBottom: 20 }}
+                            />
+                          </div>
+                          <div style={{ display: "block", marginTop: 60 }}>
+                            <HcSearchTextField
+                              style={{ width: 320, marginBottom: 20 }}
+                              titleName="고객 담당자"
+                              placeholder="고객 담당자 조회"
+                            />
+
+                            <HcTextField
+                              titleName="소속부서"
+                              name="email"
+                              onKeyDown={(e) => {}}
+                              style={{ width: 320 }}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            style={{
+                              marginRight: 40,
+                              width: 320,
+                              display: "block",
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              style={{
+                                width: 320,
+                                fontSize: 24,
+                                marginBottom: 20,
+                                height: 55,
+                                lineHeight: "36px",
+                                paddingBottom: 10,
+                              }}
+                            >
+                              은세호
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="휴대전화 번호"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              010-1234-5678
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="직책"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              영업 사원
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="사내전화 번호"
+                              style={{ width: 320 }}
+                            >
+                              02-1234-5678
+                            </HcTextFieldLabel>
+                          </div>
+                          <div
+                            style={{
+                              display: "block",
+                              marginRight: 40,
+                              width: 320,
+                              marginTop: 105,
+                            }}
+                          >
+                            <HcTextFieldLabel
+                              titleName="이메일"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              kildong_hong@gmail.com
+                            </HcTextFieldLabel>
+                            <HcTextFieldLabel
+                              titleName="직위"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              사원
+                            </HcTextFieldLabel>
+                          </div>
+                          <div style={{ display: "block", marginTop: 105 }}>
+                            <HcTextFieldLabel
+                              titleName="고객 담당자"
+                              style={{ width: 320, marginBottom: 20 }}
+                            >
+                              꽃분이
+                            </HcTextFieldLabel>{" "}
+                            <HcTextFieldLabel
+                              titleName="소속 부서"
+                              style={{ width: 320 }}
+                            >
+                              영업 3팀
+                            </HcTextFieldLabel>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </>
+                ),
+              }[state]
+            }
           </BasicContainer>
         </div>
       </ComponentWrapper>{" "}
       <HcBottomBar open={barOpen} style={{ width: 1400, zIndex: 55 }}>
-        <div>
-          <HcButton
-            onClick={() => {
-              history.push({
-                pathname: "/hr/pas/hrInfoCreated",
-              });
-            }}
-            styles="primary"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
-            생성
-          </HcButton>
-          <HcButton
-            onClick={() => {
-              setbarOpen(false);
-            }}
-            styles="line"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
-            취소
-          </HcButton>
-        </div>
+        {edit ? (
+          <div>
+            <HcButton
+              onClick={() => {
+                setEdit(false);
+              }}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              저장
+            </HcButton>
+            <HcButton
+              onClick={() => {}}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              삭제
+            </HcButton>
+          </div>
+        ) : (
+          <div>
+            <HcButton
+              onClick={() => {
+                setEdit(true);
+              }}
+              styles="primary"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              수정
+            </HcButton>
+            <HcButton
+              onClick={() => {}}
+              styles="line"
+              style={{ marginRight: "5px" }}
+              size="big"
+            >
+              취소
+            </HcButton>
+          </div>
+        )}
       </HcBottomBar>
       <SideBar
         header={"고객 담당자 조회"}

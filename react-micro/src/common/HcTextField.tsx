@@ -414,7 +414,7 @@ export const HcSearchTextField: React.FC<SearchInputIProps> = ({
   ...props
 }) => {
   return (
-    <Wrapper style={{ width: "100%" }}>
+    <Wrapper style={Object.assign({ width: "100%" }, props.style)}>
       {titleName != null ? (
         <Title required={props.required}>{titleName}</Title>
       ) : null}

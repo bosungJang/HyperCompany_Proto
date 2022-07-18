@@ -712,6 +712,12 @@ export const CustomerDetail = loadable(
 export const LeadPage = loadable(() => import("../components/CRM/Lead"), {
   fallback: Loading,
 });
+export const LeadCreate = loadable(
+  () => import("../components/CRM/LeadCreate"),
+  {
+    fallback: Loading,
+  }
+);
 /*CRM END*/
 
 /*Sales Start*/

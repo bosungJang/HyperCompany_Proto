@@ -131,9 +131,6 @@ const OrderCreate = () => {
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
 
-  const [notice, setNotice] = useState(true);
-  const [info, setInfo] = useState(true);
-  const [target, setTarget] = useState(true);
   const [group, setGroup] = useState("");
   const [organization, setOrganization] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -307,8 +304,6 @@ const OrderCreate = () => {
         <Container
           width={1320}
           maxHeight={259}
-          state={info}
-          setState={setInfo}
           title={"발령정보"}
           style={{ overflow: "visible", zIndex: 2, paddingTop: "20px" }}
         >
@@ -364,13 +359,7 @@ const OrderCreate = () => {
             </div>
           </div>
         </Container>
-        <Container
-          width={1320}
-          maxHeight={404}
-          state={target}
-          setState={setTarget}
-          title={"발령 대상"}
-        >
+        <Container width={1320} maxHeight={404} title={"발령 대상"}>
           <div
             style={{
               marginBottom: "12px",
@@ -475,13 +464,7 @@ const OrderCreate = () => {
             </HcButton>
           </SideBar>
         </Container>
-        <Container
-          width={1320}
-          maxHeight={142}
-          state={notice}
-          setState={setNotice}
-          title={"기타설정"}
-        >
+        <Container width={1320} maxHeight={142} title={"기타설정"}>
           <div style={{ display: "flex", height: 23 }}>
             <Title style={{ fontWeight: 500 }}>전사공지</Title>
             <span

@@ -107,20 +107,8 @@ const HRInfoDetail = () => {
   const PfInput = React.useRef(null);
   const [edit, setEdit] = useState(false);
   /* info */
-  const [basic, setBasic] = useState(true);
-  const [edu, setEdu] = useState(true);
-  const [career, setCareer] = useState(true);
-  const [study, setStudy] = useState(true);
-  const [language, setLanguage] = useState(true);
-  const [certificate, setCertificate] = useState(true);
-  const [activity, setActivity] = useState(true);
-  const [family, setFamily] = useState(true);
-  const [contract, setContract] = useState(true);
-  const [contractFile, setContractFile] = useState(true);
-  const [welfare, setWelfare] = useState(true);
-  const [mediCheck, setMediCheck] = useState(true);
   const [file, setFile]: any = useState([]);
-  const [document, setDocument] = useState(true);
+
   /* info */
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
@@ -538,11 +526,8 @@ const HRInfoDetail = () => {
               <>
                 <Container
                   title="기본 정보"
-                  defaultHeight={68}
                   maxHeight={448}
                   width={1320}
-                  state={basic}
-                  setState={setBasic}
                   style={{ marginTop: 20, zIndex: 3, overflow: "visible" }}
                 >
                   <div style={{ display: "flex" }}>
@@ -703,11 +688,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="학력"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={study}
-                  setState={setStudy}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -735,11 +717,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="경력"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={career}
-                  setState={setCareer}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -765,11 +744,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="교육"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={edu}
-                  setState={setEdu}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -793,11 +769,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="어학"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={language}
-                  setState={setLanguage}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -822,11 +795,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="자격증"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={certificate}
-                  setState={setCertificate}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -852,11 +822,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="가족"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={family}
-                  setState={setFamily}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -882,11 +849,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="활동"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={activity}
-                  setState={setActivity}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -910,11 +874,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="증빙 서류"
-                  defaultHeight={68}
                   maxHeight={497}
                   width={1320}
-                  state={document}
-                  setState={setDocument}
                   style={{ marginTop: 24 }}
                 >
                   <div style={{ left: 24, position: "absolute", width: 1272 }}>
@@ -927,11 +888,8 @@ const HRInfoDetail = () => {
               <>
                 <Container
                   title="계약 정보"
-                  defaultHeight={68}
                   maxHeight={173}
                   width={1320}
-                  state={contract}
-                  setState={setContract}
                   style={{ marginTop: 20, overflow: "visible", zIndex: 5 }}
                 >
                   <div style={{ display: "flex" }}>
@@ -955,11 +913,8 @@ const HRInfoDetail = () => {
                 </Container>
                 <Container
                   title="계약서"
-                  defaultHeight={68}
                   maxHeight={316}
                   width={1320}
-                  state={contractFile}
-                  setState={setContractFile}
                   style={{ marginTop: 24, marginBottom: 120 }}
                 >
                   <div
@@ -1319,11 +1274,8 @@ const HRInfoDetail = () => {
                 {" "}
                 <Container
                   title="평가 내역"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={certificate}
-                  setState={setCertificate}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -1349,11 +1301,8 @@ const HRInfoDetail = () => {
                 </Container>{" "}
                 <Container
                   title="보상 내역"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={certificate}
-                  setState={setCertificate}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -1379,11 +1328,8 @@ const HRInfoDetail = () => {
                 </Container>{" "}
                 <Container
                   title="징계 내역"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={certificate}
-                  setState={setCertificate}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -1625,11 +1571,8 @@ const HRInfoDetail = () => {
                 {" "}
                 <Container
                   title="복리후생 내역"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={welfare}
-                  setState={setWelfare}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">
@@ -1655,11 +1598,8 @@ const HRInfoDetail = () => {
                 </Container>{" "}
                 <Container
                   title="건강검진 내역"
-                  defaultHeight={68}
                   maxHeight={404}
                   width={1320}
-                  state={mediCheck}
-                  setState={setMediCheck}
                   style={{ marginTop: 24 }}
                 >
                   <HcButton size="medium" styles="secondary">

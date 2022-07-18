@@ -69,9 +69,6 @@ export default function EvaluationPlanCreate() {
   /* pop up */
 
   const [tag, setTag]: any = useState([]);
-  const [openInfo, setInfo] = useState(true);
-  const [openSteps, setSteps] = useState(true);
-  const [openSetting, setSetting] = useState(true);
   const [selected, setSelected]: any = useState([]);
   const nextId = useRef(1);
 
@@ -235,11 +232,8 @@ export default function EvaluationPlanCreate() {
         <HcTitleTextField titleName="평가 계획 생성" isBackIcon />
         <Container
           title="평가 계획 정보"
-          defaultHeight={68}
           maxHeight={350}
           width={1320}
-          state={openInfo}
-          setState={setInfo}
           style={{ marginTop: 39, overflow: "visible", zIndex: 2 }}
         >
           <div style={{ display: "flex" }}>
@@ -297,8 +291,6 @@ export default function EvaluationPlanCreate() {
           title="평가 단계"
           maxHeight={370}
           width={1320}
-          state={openSteps}
-          setState={setSteps}
           style={{
             zIndex: 1,
           }}
@@ -373,8 +365,6 @@ export default function EvaluationPlanCreate() {
           title="기타 설정"
           maxHeight={142}
           width={1320}
-          state={openSetting}
-          setState={setSetting}
         >
           <div style={{ display: "flex" }}>
             <Title

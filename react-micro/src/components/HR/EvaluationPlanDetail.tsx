@@ -259,9 +259,6 @@ export default function EvaluationPlanDetail() {
   /*ToggleBtn */
 
   const [tag, setTag] = useState(["티맥스 엔터프라이즈"]);
-  const [openInfo, setInfo] = useState(true);
-  const [openSteps, setSteps] = useState(true);
-  const [openSetting, setSetting] = useState(true);
   const [edit, setEdit] = useState(false);
   return (
     <>
@@ -279,11 +276,8 @@ export default function EvaluationPlanDetail() {
         />
         <Container
           title="평가 계획 정보"
-          defaultHeight={68}
           maxHeight={350}
           width={1320}
-          state={openInfo}
-          setState={setInfo}
           style={{ marginTop: 39, overflow: "visible", zIndex: 2 }}
         >
           <div style={{ display: "flex" }}>
@@ -406,8 +400,6 @@ export default function EvaluationPlanDetail() {
           title="평가 단계"
           maxHeight={370}
           width={1320}
-          state={openSteps}
-          setState={setSteps}
           style={{
             zIndex: 1,
             maxHeight: "unset",
@@ -428,13 +420,7 @@ export default function EvaluationPlanDetail() {
             </HcButton>
           </div>
         </Container>
-        <Container
-          title="기타 설정"
-          maxHeight={142}
-          width={1320}
-          state={openSetting}
-          setState={setSetting}
-        >
+        <Container title="기타 설정" maxHeight={142} width={1320}>
           <div style={{ display: "flex" }}>
             {" "}
             <Title
