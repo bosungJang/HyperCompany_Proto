@@ -8,6 +8,7 @@ import {
   CustomerCreate,
   CustomerDetail,
   LeadCreate,
+  LeadDetail,
 } from "pages";
 
 interface CustomerProps {
@@ -60,6 +61,7 @@ const CustomerCare = (props: CustomerProps) => {
       />
       <Route path={`${props.match.url}/lead`} component={LeadPage} />
       <Route path={`${props.match.url}/leadCreate`} component={LeadCreate} />
+      <Route path={`${props.match.url}/leadDetail`} component={LeadDetail} />
     </div>
   );
 };

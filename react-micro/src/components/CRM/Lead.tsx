@@ -179,8 +179,20 @@ const Lead = () => {
                               </thead>
                               <tbody>
                                 {data.map((item: dataType) => (
-                                  <tr>
-                                    <td style={{ position: "relative" }}>
+                                  <tr
+                                    onClick={() => {
+                                      history.push({
+                                        pathname: "/crm/leadDetail",
+                                        state: { type: item.type },
+                                      });
+                                    }}
+                                  >
+                                    <td
+                                      style={{ position: "relative" }}
+                                      onClick={(e: any) => {
+                                        e.stopPropagation();
+                                      }}
+                                    >
                                       <div style={{}}>
                                         <HcCheckBox
                                           checked={false}

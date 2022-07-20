@@ -19,7 +19,7 @@ const TreeContainer = styled.div`
   float: left;
 `;
 
-const items = [
+const TreeData = [
   {
     id: "1",
     title: "parent 1",
@@ -148,7 +148,7 @@ const HRManagement = () => {
         </div>
         <TreeContainer>
           <HcTree
-            items={items}
+            items={TreeData}
             title="조직도"
             search={true}
             isCreate={isCreate}

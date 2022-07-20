@@ -10,13 +10,14 @@ import { createRef, useRef, useState } from "react";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { SideBar, SideBarInnerContainer, SideBarItem } from "common/HcPopup";
+import { number } from "yargs";
 let num = 1;
 const data = Array(10)
   .fill(undefined)
   .map(() => ({
     id: num++,
     name: "삼성전자",
-    grade: "VIP",
+    rating: "VIP",
   }));
 
 export default function LeadCreate() {
@@ -33,7 +34,7 @@ export default function LeadCreate() {
   const [tags, setTags]: any = useState([]);
   const [checkedItem, setCheckedItem]: any = useState([]);
 
-  const Item = ({ name, grade, id }: any) => {
+  const Item = ({ name, id, rating }: any) => {
     function checkHandler(checked: Boolean, id: Number) {
       if (checked == true) {
         setCheckedItem([...checkedItem, id]);
@@ -46,10 +47,10 @@ export default function LeadCreate() {
     const [checked, setChecked] = useState(false);
     const ref: any = createRef();
     return (
-      <SideBarItem checked={ref.current.checked}>
-        {name}({grade}
+      <SideBarItem checked={checked}>
+        {name}({rating}
         {id}
-        {String(checked)})
+        {String(ref.current.checked)})
         <input
           type="radio"
           id="radio"
@@ -62,7 +63,14 @@ export default function LeadCreate() {
             right: 14,
           }}
           onClick={() => {
-            ref.current.checked = !checked;
+            // if (ref.current.checked === true) {
+            //   ref.current.checked = false;
+            //   setChecked(false);
+            // } else {
+            //   ref.current.checked = true;
+            //   setChecked(true);
+            // }
+            ref.current.checked = !ref.current.checked;
           }}
         />
       </SideBarItem>
@@ -256,8 +264,8 @@ export default function LeadCreate() {
         <SideBarInnerContainer
           style={{ height: tags.length === 0 ? 572 : 480 }}
         >
-          {data.map(({ name, grade, id }) => (
-            <Item name={name} grade={grade} id={id} />
+          {data.map(({ name, rating, id }) => (
+            <Item name={name} rating={rating} id={id} />
           ))}
         </SideBarInnerContainer>
       </SideBar>

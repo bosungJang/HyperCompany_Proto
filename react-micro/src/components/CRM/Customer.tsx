@@ -50,7 +50,7 @@ const StyledRowDiv = styled.div`
   font-size: 14px;
   font-family: Noto Sans KR;
 `;
-const Grade = styled.div<{ grade: string }>`
+export const Rating = styled.div<{ rating: string }>`
   width: fit-content;
   height: fit-content;
   padding: 4px;
@@ -58,13 +58,13 @@ const Grade = styled.div<{ grade: string }>`
   border-radius: 2px;
   font-weight: 700;
   ${(props) =>
-    props.grade === "VIP"
+    props.rating === "VIP"
       ? "color: #FF7D7D; background: #FFE9E9;"
-      : props.grade === "Gold"
+      : props.rating == "Gold"
       ? "background: #FFF1CE; color: #FFBB0B;"
-      : props.grade === "Silver"
+      : props.rating === "Silver"
       ? "color: #838181; background: #D9D9D9;"
-      : props.grade === "Bronze"
+      : props.rating === "Bronze"
       ? "background: #FFF3E8; color: #FDA95C;"
       : "background: #DFECFF; color: #5799FB; "}
 `;
@@ -78,7 +78,7 @@ const CustomerPage = () => {
       email: "kildong_hong@tamx.co.kr",
       type: "enterprise",
       credit: "eB",
-      grade: "VIP",
+      rating: "VIP",
       lead: 1,
       manager: "꽃분이",
       create: "2020.01.01",
@@ -88,7 +88,7 @@ const CustomerPage = () => {
       phone: "010-9876-5432",
       email: "kildong_hong@tamx.co.kr",
       type: "personal",
-      grade: "Gold",
+      rating: "Gold",
       lead: 0,
       manager: "꽃분이",
       create: "2021.06.01",
@@ -98,7 +98,7 @@ const CustomerPage = () => {
       phone: "010-9876-5432",
       email: "kildong_hong@tamx.co.kr",
       type: "contact",
-      grade: "Silver",
+      rating: "Silver",
       lead: 0,
       manager: "홍길동",
       create: "2021.06.01",
@@ -108,7 +108,7 @@ const CustomerPage = () => {
     name: string;
     phone: string;
     email: string;
-    grade: string;
+    rating: string;
     type: string;
     lead: number;
     manager: string;
@@ -117,7 +117,7 @@ const CustomerPage = () => {
   }
   const ExpandableRow = ({ props }: { props: dataType }): JSX.Element => {
     const [rowExpand, setRowExpand] = React.useState(false);
-    const { name, phone, email, grade, type, lead, manager, create } = props;
+    const { name, phone, email, rating, type, lead, manager, create } = props;
     return (
       <>
         <StyledRow
@@ -173,7 +173,7 @@ const CustomerPage = () => {
                 width: "128px",
               }}
             >
-              <Grade grade={grade}>{grade}</Grade>
+              <Rating rating={rating}>{rating}</Rating>
             </StyledRowDiv>
             <StyledRowDiv
               style={{
@@ -289,10 +289,10 @@ const CustomerPage = () => {
                   "1": (
                     <>
                       <div>
-                        <div>
+                        <div style={{ display: "flex" }}>
                           <HcDropDownButton
                             title="+ 생성"
-                            style={{ zIndex: 5 }}
+                            style={{ zIndex: 5, width: 91, marginRight: 1080 }}
                             dropDownMenu={[
                               {
                                 title: "개인 고객 생성",
@@ -329,6 +329,7 @@ const CustomerPage = () => {
                               },
                             ]}
                           />
+                          <TableSetting />
                         </div>
                         <div style={{ marginTop: "20px" }}>
                           <HcTableContainer style={{ minHeight: "unset" }}>

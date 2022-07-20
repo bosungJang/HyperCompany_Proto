@@ -18,6 +18,7 @@ import { useLocation } from "react-router";
 import { SideBar } from "common/HcPopup";
 import HcCheckBox from "common/HcCheckBox";
 import { HcDatePicker } from "common/HcDatePicker";
+import { Rating } from "./Customer";
 const BasicContainer = styled.div`
   width: 1250px;
   height: 300px;
@@ -106,22 +107,20 @@ const CustomerCreate = () => {
   /*BottomBar */
   const [barOpen, setbarOpen] = useState(true);
   /*BottomBar */
-  const [data, setData] = useState([
-    // 추가정보-학력데이터
+  const data = [
     {
-      학교구분: "대학교",
-      학교명: "서울대학교",
-      전공: "경영학",
-      학위: "학사",
-      입학년월: "2008/01/01",
-      졸업년월: "2008/01/01",
-      소재지: "서울",
-      주야: "주간",
-      졸업구분: "졸업",
+      name: "홍길동",
+      phone: "010-1234-5678",
+      email: "kildong_hong@tamx.co.kr",
+      type: "enterprise",
+      credit: "eB",
+      rating: "VIP",
+      lead: 1,
+      manager: "꽃분이",
+      create: "2020.01.01",
     },
-  ]);
+  ];
   const [PfImg, setPfImg] = useState(img); //프로필 사진
-
   const PfInput = React.useRef(null);
   const HRList = data.map(() => (
     <HRCard checked={false}>
@@ -149,47 +148,10 @@ const CustomerCreate = () => {
       </div>
     </HRCard>
   ));
-  const [purchase, setPurchase] = useState(true);
-  const [customerSupport, setCustomerSupport] = useState(true);
-  const [addContactPoint, setAddContactPoint] = useState(true);
-  const [addContract, setAddContract] = useState(true);
-  const [fileInfo, setFileInfo] = useState(true);
-  const [contractInfo, setContractInfo] = useState(true);
   const [manager, setManager] = useState("");
   const [priority, setPriority] = useState("");
   const [type, setType] = useState("");
   const [step, setStep] = useState("");
-  const onCreate = () => {
-    const prev = data;
-    prev.push({
-      학교구분: " ",
-      학교명: "서울대학교",
-      전공: "경영학",
-      학위: "학사",
-      입학년월: "2008/01/01",
-      졸업년월: "2008/01/01",
-      소재지: "서울",
-      주야: "주간",
-      졸업구분: "졸업",
-    });
-    setData(prev);
-    setRows(
-      prev.map((row) => (
-        <Row
-          학교구분={row.학교구분}
-          학교명={row.학교명}
-          전공={row.전공}
-          학위={row.학위}
-          입학년월={row.입학년월}
-          졸업년월={row.졸업년월}
-          주야={row.주야}
-          소재지={row.소재지}
-          졸업구분={row.졸업구분}
-        />
-      ))
-    );
-    console.log();
-  };
 
   const onPfChange = (e: any) => {
     if (e.target.files[0]) {
@@ -209,78 +171,16 @@ const CustomerCreate = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  function Row({
-    학교구분,
-    학교명,
-    전공,
-    학위,
-    입학년월,
-    졸업년월,
-    소재지,
-    주야,
-    졸업구분,
-  }: any) {
-    return (
-      <tr>
-        <td></td>
-        <td>{학교구분}</td>
-        <td>{학교명}</td>
-        <td>{전공}</td>
-        <td>{학위}</td>
-        <td>{입학년월}</td>
-        <td>{졸업년월}</td>
-        <td>{소재지}</td>
-        <td>{주야}</td>
-        <td>{졸업구분}</td>
-        <td></td>
-      </tr>
-    );
-  }
-
-  const [rows, setRows] = useState(
-    data.map((row) => (
-      <Row
-        학교구분={row.학교구분}
-        학교명={row.학교명}
-        전공={row.전공}
-        학위={row.학위}
-        입학년월={row.입학년월}
-        졸업년월={row.졸업년월}
-        주야={row.주야}
-        소재지={row.소재지}
-      />
-    ))
-  );
   const history = useHistory();
 
-  const Grade = styled.div<{ grade: string }>`
-    width: fit-content;
-    height: 25px;
-    padding: 4px;
-    margin-top: -3px;
-    font-size: 13px;
-    border-radius: 2px;
-    font-weight: 700;
-    ${(props) =>
-      props.grade === "VIP"
-        ? "color: #FF7D7D; background: #FFE9E9;"
-        : props.grade === "Gold"
-        ? "background: #FFF1CE; color: #FFBB0B;"
-        : props.grade === "Silver"
-        ? "color: #838181; background: #D9D9D9;"
-        : props.grade === "Bronze"
-        ? "background: #FFF3E8; color: #FDA95C;"
-        : "background: #DFECFF; color: #5799FB; "}
-  `;
-
-  const gradeItem = [
-    <Grade grade="VIP">VIP</Grade>,
-    <Grade grade="Gold">Gold</Grade>,
-    <Grade grade="Silver">Silver</Grade>,
-    <Grade grade="Bronze">Bronze</Grade>,
-    <Grade grade="Family">Family</Grade>,
+  const ratingItem = [
+    <Rating rating="VIP">VIP</Rating>,
+    <Rating rating="Gold">Gold</Rating>,
+    <Rating rating="Silver">Silver</Rating>,
+    <Rating rating="Bronze">Bronze</Rating>,
+    <Rating rating="Family">Family</Rating>,
   ];
-  const [gradeState, setGradeState] = useState("");
+  const [ratingState, setRatingState] = useState("");
   return (
     <>
       {" "}
@@ -403,9 +303,9 @@ const CustomerCreate = () => {
                                 titleName="고객 등급"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                                 required
                               />{" "}
                               <HcSearchTextField
@@ -486,17 +386,17 @@ const CustomerCreate = () => {
                                 titleName="고객 등급"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                               />
                               <SelectBox
                                 titleName="업종"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                               />
                               <HcTextField
                                 titleName="직원 수"
@@ -527,17 +427,17 @@ const CustomerCreate = () => {
                                 titleName="신용평가 등급"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                               />
                               <SelectBox
                                 titleName="업태"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                               />
                               <div
                                 style={{
@@ -620,9 +520,9 @@ const CustomerCreate = () => {
                                 titleName="직책"
                                 name="responsibility"
                                 style={{ width: 320, marginBottom: 20 }}
-                                items={gradeItem}
-                                state={gradeState}
-                                setState={setGradeState}
+                                items={ratingItem}
+                                state={ratingState}
+                                setState={setRatingState}
                               />{" "}
                               <HcTextField
                                 titleName="사내전화 번호"
@@ -821,9 +721,9 @@ const CustomerCreate = () => {
                                       <SelectBox
                                         titleName="업종 선택"
                                         style={{ width: 360, marginBottom: 20 }}
-                                        items={gradeItem}
-                                        state={gradeState}
-                                        setState={setGradeState}
+                                        items={ratingItem}
+                                        state={ratingState}
+                                        setState={setRatingState}
                                       />
                                       <HcTextField
                                         titleName="기업 주소"
@@ -832,9 +732,9 @@ const CustomerCreate = () => {
                                       <SelectBox
                                         titleName="고객 등급"
                                         style={{ width: 360 }}
-                                        items={gradeItem}
-                                        state={gradeState}
-                                        setState={setGradeState}
+                                        items={ratingItem}
+                                        state={ratingState}
+                                        setState={setRatingState}
                                         placeholder="로열티 등급 선택"
                                       />
                                     </div>
@@ -1015,9 +915,9 @@ const CustomerCreate = () => {
                                   titleName="직책"
                                   name="responsibility"
                                   style={{ width: 360, marginBottom: 20 }}
-                                  items={gradeItem}
-                                  state={gradeState}
-                                  setState={setGradeState}
+                                  items={ratingItem}
+                                  state={ratingState}
+                                  setState={setRatingState}
                                   required
                                 />
                                 <HcSearchTextField
@@ -1208,7 +1108,6 @@ const CustomerCreate = () => {
         close={() => {
           setIsOpen(false);
         }}
-        addFunc={onCreate}
         style={{ display: "block" }}
       >
         <div style={{ float: "left", height: 36 }}>
