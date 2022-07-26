@@ -211,7 +211,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   ]);
   /*Tree*/
 
-  const [test, setTest] = React.useState({
+  const [createData, setCreateData] = React.useState({
     accountCode: "110003",
     debitCreditSetup: 1,
     accountName: "제예금",
@@ -1040,8 +1040,11 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
               onClick={() => {
                 //openModal();
 
-                setTest(childRef.current.importData());
-                items.push({ id: test.accountCode, title: test.accountName });
+                setCreateData(childRef.current.importData());
+                items.push({
+                  id: createData.accountCode,
+                  title: createData.accountName,
+                });
                 setIsCreates(false);
               }}
               styles="primary"

@@ -96,7 +96,9 @@ const CardWrapper = styled.div`
   margin-right: 24px;
   padding: 14px 16px;
   position: relative;
-  &:last-child {
+  flex-shrink: 0;
+  margin-bottom: 24px;
+  &:nth-child(4n) {
     margin-right: 0px;
   }
   &:hover {
@@ -209,6 +211,11 @@ const data = [
 
 const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
   const history = useHistory();
+  const [financialData, setFinancialData] = React.useState(data);
+
+  React.useEffect(() => {
+    console.log("component did mount with useEffect!");
+  }, [financialData]);
 
   const Content = (props: any) => {
     const DropDown = (props: any) => {
@@ -244,7 +251,7 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
     return (
       <Wrappers>
         <ContentTitle>{props.item.title}</ContentTitle>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
           {props.item.data.map((items: any, index: any) => (
             <CardWrapper key={index}>
               <CardTitle>{items.title}</CardTitle>
@@ -259,7 +266,11 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
                   {
                     title: "수정",
                     onClick: () => {
-                      history.push(`${match.url}/detail?id=${items.id}`);
+                      //history.push(`${match.url}/detail?id=${items.id}`);
+                      history.push({
+                        pathname: match.url + "/detail",
+                        search: "id=" + items.id,
+                      });
                     },
                   },
                   { title: "삭제" },
@@ -275,6 +286,19 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
               justifyContent: "center",
               flexDirection: "column",
               cursor: "pointer",
+            }}
+            onClick={() => {
+              let createData = financialData.slice();
+
+              createData[props.index].data.push({
+                title: "재무상태표_제출용",
+                id: "B0003",
+                represent: false,
+                startDate: "2022.07.01",
+                endDate: "2022.12.31",
+              });
+
+              setFinancialData(createData);
             }}
           >
             <AddIcon />
@@ -294,8 +318,8 @@ const FinancailStatementSetting = ({ match }: RouteComponentProps) => {
           style={{ display: "inline-block" }}
         />
         <div style={{ marginTop: "57px" }}>
-          {data.map((item, index) => (
-            <Content key={index} item={item}></Content>
+          {financialData.map((item, index) => (
+            <Content key={index} item={item} index={index}></Content>
           ))}
         </div>
       </div>

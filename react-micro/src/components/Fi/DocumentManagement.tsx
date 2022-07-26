@@ -122,6 +122,8 @@ const DocumentManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const [tags, setTags] = React.useState(["외상매입금"]);
 
+  const [slipData, setSlipData] = React.useState(data);
+
   const GeneralState = () => {
     return (
       <>
@@ -199,7 +201,7 @@ const DocumentManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
+                  {slipData
                     .slice(rowsPerPage * (page - 1), page * rowsPerPage)
                     .map(({ id, content, hc, start, end, action }) => (
                       <tr
