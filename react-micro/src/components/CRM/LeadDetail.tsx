@@ -44,10 +44,10 @@ export default function LeadCreate() {
       }
     }
 
-    const [checked, setChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const ref: any = createRef();
     return (
-      <SideBarItem checked={checked}>
+      <SideBarItem checked={true}>
         {name}({rating}
         {id}
         {String(ref.current.checked)})

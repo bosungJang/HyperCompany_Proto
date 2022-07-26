@@ -56,17 +56,6 @@ const Container = styled.div`
   display: block;
   padding: 28px 24px 28px 24px;
 `;
-const Memeber = styled.div`
-  font-family: Noto Sans KR;
-  font-weight: bold;
-  font-size: 20px;
-  height: 30px;
-  width: 100px;
-  height: 30px;
-  color: #303030;
-  margin-bottom: 20px;
-`;
-
 const OrganizationManagement = () => {
   const [edit, setEdit] = useState(false);
   let num = 100000;

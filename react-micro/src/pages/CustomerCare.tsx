@@ -9,6 +9,7 @@ import {
   CustomerDetail,
   LeadCreate,
   LeadDetail,
+  CustomerClass,
 } from "pages";
 
 interface CustomerProps {
@@ -19,17 +20,17 @@ interface CustomerProps {
 const LNBArray = [
   { icon: "Home_Icon", title: "고객", path: "/crm" },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "CRM/Customer_Icon",
     title: "고객",
     path: "/crm/customerPage",
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "CRM/Lead_Icon",
     title: "리드",
     path: "/crm/lead",
   },
   {
-    icon: "HR/Personnel_Management_Icon",
+    icon: "CRM/Class_Icon",
     title: "고객 등급 관리",
     path: "/crm/customerClassManagement",
   },
@@ -57,7 +58,7 @@ const CustomerCare = (props: CustomerProps) => {
       />
       <Route
         path={`${props.match.url}/customerClassManagement`}
-        component={CustomerPage}
+        component={CustomerClass}
       />
       <Route path={`${props.match.url}/lead`} component={LeadPage} />
       <Route path={`${props.match.url}/leadCreate`} component={LeadCreate} />

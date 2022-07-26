@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   padding: 10px 10px;
   display: inline-block;
 `;
-
 const TitleWrapper = styled.div`
   width: 100%;
   height: 36px;
@@ -27,7 +26,15 @@ const TitleWrapper = styled.div`
   }
   overflow: hidden;
 `;
-
+const LabelWrapper = styled.div`
+  height: 40px;
+  margin-bottom: 6px;
+  border-radius: 3px;
+  font-weight: bold;
+  line-height: 19px;
+  border-bottom: 1px solid #d9d9d9;
+  padding-left: 10px;
+`;
 const arrowRotate = () => keyframes`
   from{
     transform: rotate(0deg)
@@ -82,7 +89,7 @@ const ItemLabel = styled.div`
   font-weight: normal;
   font-size: 14px;
   cursor: pointer;
-  color: #838383;
+  color: #5d5d62;
   display: inline-block;
   max-width: 164px;
 
@@ -90,6 +97,19 @@ const ItemLabel = styled.div`
     color: #000000;
     font-weight: bold;
   }
+`;
+const ClassLabel = styled.div`
+  padding: 3px 6px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 19px;
+  display: inline-block;
+  width: fit-content;
+  height: 25px;
+  background: #ffe9e9;
+  border-radius: 2px;
 `;
 
 const HcTree = (props: any) => {
@@ -285,7 +305,6 @@ const HcTree = (props: any) => {
   }
   */
   function Item({ items }: any) {
-    //console.log(items);
     function depthProduct(item: any, depth: number) {
       return (
         <div
@@ -296,14 +315,25 @@ const HcTree = (props: any) => {
           {item.items.map((item: any) => {
             return (
               <div>
-                <div
-                  style={{
-                    minHeight: "37px",
-                    lineHeight: "37px",
-                    borderBottom: "1px solid #E0E0E0",
-                    paddingLeft: depth * 30,
-                  }}
+                <LabelWrapper
                   className="label_wrapper"
+                  style={
+                    item.id &&
+                    props.currentData &&
+                    props.currentData.id !== null
+                      ? {
+                          paddingLeft: depth * 30,
+                          paddingTop: item.items ? "6px" : "9px",
+                          background:
+                            String(item.id) === String(props.currentData.id)
+                              ? "#EFF5FF"
+                              : "#ffff",
+                        }
+                      : {
+                          paddingLeft: depth * 30,
+                          paddingTop: item.items ? "6px" : "9px",
+                        }
+                  }
                 >
                   <div
                     className="expander"
@@ -311,7 +341,6 @@ const HcTree = (props: any) => {
                       lineHeight: "initial",
                       display: "inline-block",
                       float: "left",
-                      marginTop: "7px",
                     }}
                   >
                     {item.items ? (
@@ -326,7 +355,7 @@ const HcTree = (props: any) => {
                     )}
                   </div>
                   {labelSlot(item)}
-                </div>
+                </LabelWrapper>
                 {item.items != null ? depthProduct(item, depth + 1) : null}
               </div>
             );
@@ -337,12 +366,22 @@ const HcTree = (props: any) => {
 
     return items.map((item: any) => (
       <div key={item.id}>
-        <div
-          style={{
-            minHeight: "37px",
-            lineHeight: "37px",
-            borderBottom: "1px solid #E0E0E0",
-          }}
+        <LabelWrapper
+          style={
+            item.id && props.currentData && props.currentData.id !== null
+              ? {
+                  background:
+                    String(item.id) === String(props.currentData.id)
+                      ? "#EFF5FF"
+                      : "#ffff",
+                  paddingTop: item.items ? "6px" : "9px",
+                  lineHeight: item.items ? "20px" : "19px",
+                }
+              : {
+                  paddingTop: item.items ? "6px" : "9px",
+                  lineHeight: item.items ? "20px" : "19px",
+                }
+          }
           className="label_wrapper"
         >
           <div
@@ -351,7 +390,6 @@ const HcTree = (props: any) => {
               lineHeight: "initial",
               display: "inline-block",
               float: "left",
-              marginTop: "7px",
             }}
           >
             {item.items ? (
@@ -365,14 +403,29 @@ const HcTree = (props: any) => {
             )}
           </div>
           {labelSlot(item)}
-        </div>
+        </LabelWrapper>
         {item.items != null ? depthProduct(item, 1) : null}
       </div>
     ));
   }
 };
-
-export const HRTree = (props: any) => {
+const Ul = styled.ul`
+  height: 628px;
+  margin-bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+    opacity: 0;
+  }
+  &::-webkit-scrollbar-track {
+    display: none;
+    opacity: 0;
+  }
+`;
+export const HRTree = (props?: any) => {
   const [inputVal, setInputVal] = React.useState("");
   function searchTree(element: any, searchKeyword: string): any {
     console.log("work?", element, searchKeyword);
@@ -421,16 +474,6 @@ export const HRTree = (props: any) => {
       color: #2d2d31;
       margin-top: 7px;
     `;
-    const CoverBar = styled.div`
-      width: 10px;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      -webkit-transition: all 0.5s;
-      opacity: 1;
-      background: #f9f9f9;
-    `;
     const Img = styled.img`
       position: absolute;
       width: 50px;
@@ -439,24 +482,8 @@ export const HRTree = (props: any) => {
       height: 50px;
       border-radius: 50%;
       border: 2px solid #257cff;
-      background: url(smiling-asian-man-sitting-desk-front-laptop-office-looking-camera-face.jpg);
     `;
-    const Ul = styled.ul`
-      height: 632px;
-      margin-bottom: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 0;
-      position: relative;
-      &::-webkit-scrollbar {
-        display: none;
-        opacity: 0;
-      }
-      &::-webkit-scrollbar-track {
-        display: none;
-        opacity: 0;
-      }
-    `;
+
     return (
       <Ul>
         {items.map((item) => (
@@ -467,7 +494,7 @@ export const HRTree = (props: any) => {
             }}
           >
             <Img
-              src="https://upload.dogzer.es/img_global/4-7-perro-chihuahua/_light-233175-chloe.jpg"
+              src={item.img}
               style={{
                 border:
                   props.state === item.id
@@ -483,7 +510,7 @@ export const HRTree = (props: any) => {
     );
   }
   return (
-    <Wrapper style={{ height: "832px" }}>
+    <Wrapper style={{ height: "832px", overflow: "hidden" }}>
       <TitleWrapper style={{ margin: "6px 0px 0px 10px" }}>
         <span>{props.title}</span>
         {props.isCreate != null ? (
@@ -508,7 +535,7 @@ export const HRTree = (props: any) => {
       <HcSearchTextField
         name="name"
         value={inputVal}
-        placeholder={"사원 검색"}
+        placeholder={props.placeholder}
         style={{ width: "276px", height: "36px", marginLeft: "6px" }}
         onChange={(e) => {
           const lengthOfInputValue = inputVal.split("").length;
@@ -525,6 +552,75 @@ export const HRTree = (props: any) => {
 
       {props.children ? props.children : ""}
       {HrItems(props.items)}
+    </Wrapper>
+  );
+};
+
+export const ContentTree = (props: any) => {
+  const [items, setItems] = useState(props.items);
+  const [inputVal, setInputVal] = useState("");
+
+  return (
+    <Wrapper style={{ ...props.style }}>
+      <TitleWrapper>
+        <span>{props.title}</span>
+        {props.isCreate != null ? (
+          <div
+            style={{ float: "right", marginTop: "2px", cursor: "pointer" }}
+            onClick={() => props.setIsCreates(true)}
+          >
+            <AddIcon />
+          </div>
+        ) : null}
+      </TitleWrapper>
+      {props.search ? (
+        <div style={{ marginBottom: "10px", marginLeft: "10px" }}>
+          <HcSearchTextField
+            name="name"
+            value={inputVal}
+            placeholder={props.placeholder ? props.placeholder : ""}
+            style={{ width: "276px", height: "36px" }}
+            onChange={(e) => {
+              const lengthOfInputValue = inputVal.split("").length;
+
+              if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && inputVal.trim() !== "") {
+              }
+            }}
+          />
+        </div>
+      ) : null}
+
+      <Ul style={{ padding: "0px 6px 0px 6px" }}>
+        {items.map((item: any) => (
+          <li
+            style={{
+              marginBottom: 6,
+              borderBottom: "1px solid #D9D9D9",
+              padding: "7px 0px 7px 30px",
+            }}
+            onClick={() => props.setcurrentData(item)}
+          >
+            <div
+              style={Object.assign(
+                {
+                  height: 25,
+                  width: "fit-content",
+                  padding: "3px 6px",
+                  borderRadius: "2px",
+                  fontSize: 13,
+                  fontWeight: 700,
+                },
+                item.color
+              )}
+            >
+              {item.title}
+            </div>
+          </li>
+        ))}
+      </Ul>
     </Wrapper>
   );
 };

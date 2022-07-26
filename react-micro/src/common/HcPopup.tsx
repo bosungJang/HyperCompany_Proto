@@ -393,24 +393,25 @@ export const SideBarItem = styled.div<{ checked: boolean; img?: boolean }>`
 `;
 export const SideBarInnerContainer = styled.div`
   display: block;
-  width: fit-content;
+  width: 516px;
   overflow-y: scroll;
   overflow-x: visible;
   margin-top: 12px;
   &::-webkit-scrollbar-track {
     background: none;
     position: absolute;
-    z-index: 1;
+    width: 16px;
   }
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
-    background-color: none;
-    position: absolute;
+    background: none;
   }
   &::-webkit-scrollbar-thumb {
     background: #cecece;
     border-radius: 10px;
+    position: absolute;
+    right: 15px;
   }
 `;
 export function SideBar(props?: any) {

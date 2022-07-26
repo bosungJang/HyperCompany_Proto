@@ -19,14 +19,54 @@ const Name = styled(Title)`
   font-weight: 500;
 `;
 const HrData = [
-  { id: 1, name: "최지수", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 2, name: "박지원", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 3, name: "김민수", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 4, name: "이화령", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 5, name: "박은별", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 6, name: "홍길동", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 7, name: "고민주", position: "PM 본부 / Product실 / Product 매니저" },
-  { id: 8, name: "박은별", position: "PM 본부 / Product실 / Product 매니저" },
+  {
+    id: 1,
+    name: "최지수",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 2,
+    name: "박지원",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 3,
+    name: "김민수",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 4,
+    name: "이화령",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 5,
+    name: "박은별",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 6,
+    name: "홍길동",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 7,
+    name: "고민주",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
+  {
+    id: 8,
+    name: "박은별",
+    position: "PM 본부 / Product실 / Product 매니저",
+    img: "",
+  },
 ];
 const category: string[] = [
   "사업자명",

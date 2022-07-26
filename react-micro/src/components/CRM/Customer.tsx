@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
-import HcTabs, { HcTabsAdv } from "common/HcTabs";
+import { HcTitleTextField } from "common/HcTextField";
+import { HcTabsAdv } from "common/HcTabs";
 import { HcDropDownButton } from "common/HcButton";
 import HcDropDownTable, {
   HcDropDownTableAnother,

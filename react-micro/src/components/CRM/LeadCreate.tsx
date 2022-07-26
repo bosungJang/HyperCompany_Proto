@@ -6,20 +6,28 @@ import HcTextField, {
   HcTagNoInput,
 } from "common/HcTextField";
 import { useLocation } from "react-router";
-import { createRef, useRef, useState } from "react";
+import React, { useState } from "react";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { SideBar, SideBarInnerContainer, SideBarItem } from "common/HcPopup";
-import { number } from "yargs";
 let num = 1;
-const data = Array(10)
-  .fill(undefined)
-  .map(() => ({
+const data = [
+  {
     id: num++,
     name: "삼성전자",
     rating: "VIP",
-  }));
-
+  },
+  {
+    id: num++,
+    name: "삼성전자",
+    rating: "VIP",
+  },
+];
+interface SidebarItems {
+  id: number;
+  name: string;
+  rating: string;
+}
 export default function LeadCreate() {
   const location = useLocation();
   const type = location.state;
@@ -29,51 +37,55 @@ export default function LeadCreate() {
   const [barOpen, setBarOpen] = useState(true);
   const [contactPoint, setContactPoint] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [customerType, setCustomerType] = useState("");
-  const [customerList, setCustomerList] = useState("");
+  const [customerType, setCustomerType] = useState(""); //side bar select
+  const [customerList, setCustomerList] = useState(""); //side bar select
+  const [customer, setCustoemr] = useState(""); //고객 필드
   const [tags, setTags]: any = useState([]);
-  const [checkedItem, setCheckedItem]: any = useState([]);
+  const [checkedItem, setCheckedItem]: any = useState();
 
-  const Item = ({ name, id, rating }: any) => {
-    function checkHandler(checked: Boolean, id: Number) {
-      if (checked == true) {
-        setCheckedItem([...checkedItem, id]);
-        setTags([...tags, id]);
-      } else {
-        setCheckedItem(checkedItem.filter((i: number) => i != id));
-      }
-    }
-
-    const [checked, setChecked] = useState(false);
-    const ref: any = createRef();
+  const Item = ({ props }: { props: SidebarItems }): JSX.Element => {
     return (
-      <SideBarItem checked={checked}>
-        {name}({rating}
-        {id}
-        {String(ref.current.checked)})
-        <input
-          type="radio"
-          id="radio"
-          ref={ref}
-          style={{
-            width: 16,
-            height: 16,
-            position: "absolute",
-            top: 14,
-            right: 14,
-          }}
-          onClick={() => {
-            // if (ref.current.checked === true) {
-            //   ref.current.checked = false;
-            //   setChecked(false);
-            // } else {
-            //   ref.current.checked = true;
-            //   setChecked(true);
-            // }
-            ref.current.checked = !ref.current.checked;
-          }}
-        />
-      </SideBarItem>
+      <>
+        <SideBarItem
+          checked={checkedItem === props.id}
+          img={type === "personal" ? true : false}
+        >
+          {" "}
+          {type === "personal" ? (
+            <img
+              src=""
+              style={{ width: 32, height: 32, borderRadius: "50%" }}
+            />
+          ) : (
+            ""
+          )}
+          {/* 사진정보 있을 시 주소 추가 */}
+          {props.name}({props.rating})
+          <input
+            type="radio"
+            checked={checkedItem === props.id}
+            style={{
+              width: 16,
+              height: 16,
+              position: "absolute",
+              top: 14,
+              right: 14,
+            }}
+            onClick={(e: any) => {
+              if (e.target.checked === true) {
+                setCheckedItem(0);
+              }
+            }}
+            onChange={(e: any) => {
+              if (e.target.checked === false) {
+                setCheckedItem(0);
+              } else if (e.target.checked === true) {
+                setCheckedItem(props.id);
+              }
+            }}
+          />
+        </SideBarItem>
+      </>
     );
   };
   return (
@@ -136,6 +148,7 @@ export default function LeadCreate() {
               placeholder="개인 고객 조회"
               required
               titleName="고객"
+              value={customer}
               onClick={() => setSideBarOpen(true)}
             />
             {type === "personal" ? (
@@ -194,6 +207,14 @@ export default function LeadCreate() {
         close={() => {
           setSideBarOpen(false);
         }}
+        addFunc={() => {
+          setCustoemr(
+            checkedItem === 0
+              ? ""
+              : data[data.findIndex((i) => i.id === checkedItem)].name
+          );
+          setSideBarOpen(false);
+        }}
         style={{ display: "block" }}
       >
         <div
@@ -229,16 +250,6 @@ export default function LeadCreate() {
             />
           </svg>
         </div>
-        <HcTagNoInput
-          tags={tags}
-          setTags={setTags}
-          delete
-          style={{
-            height: 76,
-            marginTop: 16,
-            display: tags.length === 0 ? "none" : "",
-          }}
-        />
         <div
           style={{
             display: "flex",
@@ -264,8 +275,9 @@ export default function LeadCreate() {
         <SideBarInnerContainer
           style={{ height: tags.length === 0 ? 572 : 480 }}
         >
-          {data.map(({ name, rating, id }) => (
-            <Item name={name} rating={rating} id={id} />
+          {" "}
+          {data.map((props) => (
+            <Item props={props} />
           ))}
         </SideBarInnerContainer>
       </SideBar>
