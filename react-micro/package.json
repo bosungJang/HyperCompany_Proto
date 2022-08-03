@@ -127,6 +127,7 @@
     "react-select": "^5.2.1",
     "react-sidebar": "^3.0.2",
     "react-slick": "^0.28.1",
+    "react-sortable-hoc": "^2.0.0",
     "react-sortable-tree-theme-full-node-drag": "^1.1.0",
     "react-spring": "^9.3.2",
     "react-sticky-table": "^5.1.11",

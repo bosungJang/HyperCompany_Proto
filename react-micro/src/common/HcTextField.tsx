@@ -95,7 +95,7 @@ export const Title = styled.div<{ required?: boolean }>`
   text-transform: uppercase;
   color: #656565;
   //margin-left: 11px;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 
   ${(props) =>
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}

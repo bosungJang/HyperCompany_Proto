@@ -23,6 +23,7 @@ import HcDndTestTree from "common/DndTree/HcDndTreeviewSortable";
 import ImageEditor from "common/ImageEditor/ImageEditor";
 import DndTempt from "common/EssDnd/DnDTempt";
 import { useCounter } from "router/Root";
+import HcDraggableTable from "common/HcDraggableTable";
 
 interface MatchParams {
   id: string;
@@ -208,6 +209,9 @@ const FiHome = ({ match }: RouteComponentProps<MatchParams>) => {
       </ComponentWrapper>
       <ComponentWrapper>
         <DndTempt />
+      </ComponentWrapper>
+      <ComponentWrapper>
+        <HcDraggableTable />
       </ComponentWrapper>
     </div>
   );
