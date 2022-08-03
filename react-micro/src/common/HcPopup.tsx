@@ -390,6 +390,11 @@ export const SideBarItem = styled.div<{ checked: boolean; img?: boolean }>`
     left: 12px;
     top: 11px;
   }
+  .checkbox {
+    position: absolute;
+    top: 16px;
+    right: 14px;
+  }
 `;
 export const SideBarInnerContainer = styled.div`
   display: block;

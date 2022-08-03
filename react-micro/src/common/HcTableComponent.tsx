@@ -266,7 +266,7 @@ export function TableSetting(props?: any) {
 export function NullTbody(props: any) {
   const toNum: number = +props.colspan;
   return (
-    <tr>
+    <tr style={{ border: "none" }}>
       <td
         colSpan={toNum}
         style={Object.assign(

@@ -5,7 +5,7 @@ import { ReactComponent as DotIcon } from "../resources/images/depth_dot_normal.
 import { HcSearchTextField, HcSelect } from "common/HcTextField";
 import { ReactComponent as AddIcon } from "resources/images/Icon_Add.svg";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 312px;
   min-height: 566px;
   background: #ffffff;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   padding: 10px 10px;
   display: inline-block;
 `;
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
   width: 100%;
   height: 36px;
   vertical-align: middle;
@@ -98,19 +98,25 @@ const ItemLabel = styled.div`
     font-weight: bold;
   }
 `;
-const ClassLabel = styled.div`
-  padding: 3px 6px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 19px;
-  display: inline-block;
-  width: fit-content;
-  height: 25px;
-  background: #ffe9e9;
-  border-radius: 2px;
-`;
+
+export const TreeIcon = (props?: any) => {
+  const { open, items, style } = props;
+
+  return (
+    <>
+      {" "}
+      {items ? (
+        <ArrowWrapper open={open} style={style}>
+          <ArrrowIcon />
+        </ArrowWrapper>
+      ) : (
+        <ArrowWrapper style={style}>
+          <DotIcon />
+        </ArrowWrapper>
+      )}
+    </>
+  );
+};
 
 const HcTree = (props: any) => {
   const [items, setItems] = useState(props.items);
@@ -409,7 +415,7 @@ const HcTree = (props: any) => {
     ));
   }
 };
-const Ul = styled.ul`
+export const Ul = styled.ul`
   height: 628px;
   margin-bottom: 0;
   overflow-y: auto;
@@ -555,73 +561,81 @@ export const HRTree = (props?: any) => {
     </Wrapper>
   );
 };
+const Settings = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  padding: 5.5px 10.5px;
 
-export const ContentTree = (props: any) => {
-  const [items, setItems] = useState(props.items);
-  const [inputVal, setInputVal] = useState("");
-
+  &:hover {
+    background-color: #cecece;
+  }
+  &:active {
+    background-color: #cecece;
+  }
+`;
+const Menucontainer = styled.div`
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  top: 8px;
+  right: 3px;
+  &:hover > .tooltip,
+  &:focus > .tooltip {
+    display: block;
+    position: absolute;
+  }
+  overflow: visible;
+`;
+const Content = styled.div<{ active: boolean }>`
+  // ${(props) => (props.active ? "display: block;" : "display:none;")}
+  display: none;
+  position: absolute;
+  z-index: 200;
+  width: fit-content;
+  height: fit-content;
+  left: 18px;
+  top: 25px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  &:hover {
+    display: block;
+    .threeDotBtn {
+      background-color: #cecece;
+    }
+  }
+`;
+export const TreeDotBtn = ({ children }: any) => {
+  const [active, setActive] = useState(false);
   return (
-    <Wrapper style={{ ...props.style }}>
-      <TitleWrapper>
-        <span>{props.title}</span>
-        {props.isCreate != null ? (
-          <div
-            style={{ float: "right", marginTop: "2px", cursor: "pointer" }}
-            onClick={() => props.setIsCreates(true)}
-          >
-            <AddIcon />
-          </div>
-        ) : null}
-      </TitleWrapper>
-      {props.search ? (
-        <div style={{ marginBottom: "10px", marginLeft: "10px" }}>
-          <HcSearchTextField
-            name="name"
-            value={inputVal}
-            placeholder={props.placeholder ? props.placeholder : ""}
-            style={{ width: "276px", height: "36px" }}
-            onChange={(e) => {
-              const lengthOfInputValue = inputVal.split("").length;
-
-              if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && inputVal.trim() !== "") {
-              }
-            }}
+    <Menucontainer
+      onClick={(e: any) => {
+        e.stopPropagation();
+        setActive(!active);
+      }}
+    >
+      <Settings className="threeDotBtn">
+        <svg
+          width="4"
+          height="14"
+          viewBox="0 0 4 14"
+          fill="none"
+          style={{ marginBottom: 4 }}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM3.5 7C3.5 7.82843 2.82843 8.5 2 8.5C1.17157 8.5 0.5 7.82843 0.5 7C0.5 6.17157 1.17157 5.5 2 5.5C2.82843 5.5 3.5 6.17157 3.5 7ZM2 13.5C2.82843 13.5 3.5 12.8284 3.5 12C3.5 11.1716 2.82843 10.5 2 10.5C1.17157 10.5 0.5 11.1716 0.5 12C0.5 12.8284 1.17157 13.5 2 13.5Z"
+            fill="#5D5D62"
           />
-        </div>
-      ) : null}
-
-      <Ul style={{ padding: "0px 6px 0px 6px" }}>
-        {items.map((item: any) => (
-          <li
-            style={{
-              marginBottom: 6,
-              borderBottom: "1px solid #D9D9D9",
-              padding: "7px 0px 7px 30px",
-            }}
-            onClick={() => props.setcurrentData(item)}
-          >
-            <div
-              style={Object.assign(
-                {
-                  height: 25,
-                  width: "fit-content",
-                  padding: "3px 6px",
-                  borderRadius: "2px",
-                  fontSize: 13,
-                  fontWeight: 700,
-                },
-                item.color
-              )}
-            >
-              {item.title}
-            </div>
-          </li>
-        ))}
-      </Ul>
-    </Wrapper>
+        </svg>
+      </Settings>{" "}
+      <Content className="tooltip" active={active}>
+        {children}
+      </Content>
+    </Menucontainer>
   );
 };
 export default HcTree;

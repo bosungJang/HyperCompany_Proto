@@ -950,7 +950,7 @@ interface styledSelectProps {
   titleName?: string;
   required?: boolean;
   style?: React.CSSProperties;
-  state: any;
+  state?: any;
   name?: string;
   setState: any;
   items: any[];
@@ -959,7 +959,7 @@ interface styledSelectProps {
   placeholder?: string;
 }
 export const SelectBox = (props: any) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(props.isOpen ? true : false);
   return (
     <Wrapper style={props.style}>
       <Title
@@ -971,7 +971,10 @@ export const SelectBox = (props: any) => {
       <div
         style={{ position: "relative", overflow: "visible", height: "36px" }}
       >
-        <SelectContainer isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+        <SelectContainer
+          isOpen={isOpen}
+          onClick={() => setIsOpen(props.isOpen ? true : !isOpen)}
+        >
           {" "}
           <svg
             style={{ position: "absolute", right: 6, top: 6 }}
@@ -989,12 +992,16 @@ export const SelectBox = (props: any) => {
                 style={{ color: "#A7A7A7", padding: "5px 12px 7px 8px" }}
                 edit
               >
-                {props.state ? props.state : props.titleName + "선택"}
+                {props.placeholder
+                  ? props.placeholder
+                  : props.state
+                  ? props.state
+                  : props.titleName + "선택"}
               </Li>
               {props.items.map((item: any) => (
                 <Li
                   onClick={() => {
-                    props.setState(item);
+                    props.setState ? props.setState(item) : <></>;
                   }}
                 >
                   <div>{item}</div>
