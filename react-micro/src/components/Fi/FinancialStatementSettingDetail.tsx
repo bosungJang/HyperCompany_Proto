@@ -15,6 +15,12 @@ import { FilterButton, SettingButton } from "common/HcTableButton";
 import HcBottomBar from "common/HcBottomBar";
 import "common/Table.css";
 import { HcDateRangePicker } from "common/HcDatePicker";
+import {
+  SortableCont,
+  SortableItem,
+  arrayMove,
+  RowHandler,
+} from "common/HcDraggableTable";
 
 const SolidWrapper = styled.div`
   border: 1px solid #cecece;
@@ -104,6 +110,33 @@ const accountSubjectData = Array(43)
     useYn: true,
     outputOrder: "01",
   }));
+
+const testAccountData = [
+  {
+    code: "111001",
+    name: "현금",
+    outputName: "현금",
+    parentAccount: "당좌자산",
+    useYn: true,
+    outputOrder: "01",
+  },
+  {
+    code: "111002",
+    name: "현금2",
+    outputName: "현금2",
+    parentAccount: "당좌자산2",
+    useYn: true,
+    outputOrder: "01",
+  },
+  {
+    code: "111003",
+    name: "현금3",
+    outputName: "현금3",
+    parentAccount: "당좌자산",
+    useYn: true,
+    outputOrder: "01",
+  },
+];
 
 const FinancailStatementSettingDetail = ({
   location,
@@ -397,6 +430,13 @@ const FinancailStatementSettingDetail = ({
   const EditState = () => {
     const query = queryString.parse(location.search);
     const [editData, setEditData] = React.useState(data);
+
+    const [items, setItems] = React.useState(testAccountData);
+
+    const onSortEnd = React.useCallback(({ oldIndex, newIndex }) => {
+      setItems((oldItems) => arrayMove(oldItems, oldIndex, newIndex));
+    }, []);
+
     return (
       <>
         <HcTitleTextField
@@ -635,31 +675,49 @@ const FinancailStatementSettingDetail = ({
                       <th>출력순서</th>
                     </tr>
                   </thead>
-                  <tbody
+                  <SortableCont
+                    onSortEnd={onSortEnd}
+                    axis="y"
+                    lockAxis="y"
+                    lockToContainerEdges={true}
+                    lockOffset={["30%", "50%"]}
+                    helperClass="helperContainerClass"
+                    useDragHandle={true}
+                    distance={1}
                     style={{
                       display: "block",
                       overflow: "overlay",
-                      maxHeight: 446,
+                      height: 446,
                     }}
                   >
-                    {accountSubjectData.map((item) => (
-                      <tr
+                    {items.map((item, index) => (
+                      <SortableItem
+                        key={`item-${index}`}
+                        index={index}
                         style={{
                           display: "table",
                           width: "100%",
                           tableLayout: "fixed",
                           height: "46px",
                         }}
+                        onClick={() => {
+                          alert("SUCESS");
+                        }}
                       >
-                        <td>{item.code}</td>
+                        <td>
+                          <div className="firstElement">
+                            <RowHandler />
+                            {item.code}
+                          </div>
+                        </td>
                         <td>{item.name}</td>
                         <td>{item.outputName}</td>
                         <td>{item.parentAccount}</td>
                         <td>{item.useYn ? "사용" : "사용안함"}</td>
                         <td>{item.outputOrder}</td>
-                      </tr>
+                      </SortableItem>
                     ))}
-                  </tbody>
+                  </SortableCont>
                 </table>
               </TableContainer>
             </div>

@@ -381,9 +381,6 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                 }));
               }}
             >
-              <option value="" hidden>
-                계정 유형
-              </option>
               <option value={1}>전체</option>
               <option value={2}>일반 계정</option>
               <option value={3}>차감 계정</option>

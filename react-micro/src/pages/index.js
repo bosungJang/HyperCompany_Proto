@@ -697,6 +697,27 @@ export const FinancialStatementSettingPage = loadable(
     fallback: Loading,
   }
 );
+
+export const FinancialSystemSettingPage = loadable(
+  () => import("../components/Fi/FinancialSystemSetting"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const AccountGroupRegisterPage = loadable(
+  () => import("../components/Fi/AccountGroupRegister"),
+  {
+    fallback: Loading,
+  }
+);
+
+export const DeadLineCarryOverManagementPage = loadable(
+  () => import("../components/Fi/DeadLineCarryOverManagement"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/
