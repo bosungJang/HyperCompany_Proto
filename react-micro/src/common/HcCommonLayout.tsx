@@ -34,6 +34,14 @@ export const VariableMultiLayout = styled.div`
       margin-right: 0px;
     }
   }
+
+  div {
+    margin-right: 20px;
+    flex-basis: 100px;
+    &: last-child {
+      margin-right: 0px;
+    }
+  }
 `;
 
 export const Container = (props?: any) => {

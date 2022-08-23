@@ -95,7 +95,7 @@ export const Title = styled.div<{ required?: boolean }>`
   text-transform: uppercase;
   color: #656565;
   //margin-left: 11px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 
   ${(props) =>
     props.required ? "::after {    content: '*';    color: #ff4f4f; }" : ""}
@@ -151,6 +151,7 @@ const InputGroup = styled.div<{
   titleName?: string;
 }>`
   position: relative;
+  margin-top: 5px;
   input {
     position: relative;
   }
@@ -311,6 +312,7 @@ export const StyledSelect = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  margin-top: 5px;
 
   option {
     display: flex;

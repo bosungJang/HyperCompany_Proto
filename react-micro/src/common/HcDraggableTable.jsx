@@ -7,7 +7,13 @@ import {
 import styled from "styled-components";
 
 export const TrWrapper = styled.tr`
-  background: white;
+  //background: white;
+  background: ${(props) =>
+    props.isSelected && !props.itemIsBeingDragged
+      ? "pink"
+      : props.isSelected && props.itemIsBeingDragged
+      ? "blue"
+      : "white"};
   cursor: default;
 
   .firstElement {
@@ -79,114 +85,127 @@ export const MyTableWrapper = styled.div`
 
 const ITEMS = [
   {
+    id: "001",
     first: "She",
     second: "was",
     third: "a",
     fourth: "fast",
   },
   {
+    id: "002",
     first: "machine",
     second: "She",
     third: "kept",
     fourth: "her",
   },
   {
+    id: "003",
     first: "motor",
     second: "clean",
     third: "She",
     fourth: "was",
   },
   {
+    id: "004",
     first: "the",
     second: "best",
     third: "damn",
     fourth: "woman",
   },
   {
+    id: "005",
     first: "I",
     second: "had",
     third: "ever",
     fourth: "seen",
   },
   {
+    id: "006",
     first: "She",
     second: "had",
     third: "the",
     fourth: "sightless",
   },
   {
+    id: "007",
     first: "eyes",
     second: "telling",
     third: "me",
     fourth: "no",
   },
   {
+    id: "008",
     first: "lies",
     second: "knockin'",
     third: "me",
     fourth: "out",
   },
   {
+    id: "009",
     first: "with",
     second: "those",
     third: "American",
     fourth: "thighs",
   },
   {
+    id: "010",
     first: "taking",
     second: "more",
     third: "than",
     fourth: "her",
   },
   {
+    id: "011",
     first: "share",
     second: "had",
     third: "me",
     fourth: "fighting",
   },
   {
+    id: "012",
     first: "for",
     second: "air",
     third: "She",
     fourth: "told",
   },
+  { id: "013", first: "me", second: "to", third: "come", fourth: "but" },
   {
-    first: "me",
-    second: "to",
-    third: "come",
-    fourth: "but",
-  },
-  {
+    id: "014",
     first: "I",
     second: "was",
     third: "already",
     fourth: "there",
   },
   {
+    id: "015",
     first: "'cause",
     second: "the",
     third: "walls",
     fourth: "start",
   },
   {
+    id: "016",
     first: "shaking",
     second: "the",
     third: "earth",
     fourth: "was",
   },
   {
+    id: "017",
     first: "quaking",
     second: "my",
     third: "mind",
     fourth: "was",
   },
   {
+    id: "018",
     first: "aching",
     second: "and",
     third: "we",
     fourth: "were",
   },
   {
+    id: "019",
     first: "making",
     second: "it",
     third: "and",
@@ -230,17 +249,102 @@ export const SortableCont = SortableContainer((props) => {
 });
 
 export const SortableItem = SortableElement((props) => (
-  <TrWrapper className={props.className} style={props.style}>
+  <TrWrapper
+    className={props.className}
+    isSelected={props.isSelected}
+    itemIsBeingDragged={props.itemIsBeingDragged}
+    onClick={props.onClick}
+  >
     {props.children}
   </TrWrapper>
 ));
 
 const HcDraggableTable = () => {
   const [items, setItems] = React.useState(ITEMS);
+  const [selectedItems, setSelectedItems] = React.useState([]);
+  const [isSorting, setIsSorting] = React.useState(false);
+  const [sortingItemKey, setIsSortingItemKey] = React.useState(null);
 
   const onSortEnd = React.useCallback(({ oldIndex, newIndex }) => {
     setItems((oldItems) => arrayMove(oldItems, oldIndex, newIndex));
   }, []);
+
+  /* Handle Functions */
+  const handleUpdateBeforeSortStart = ({ index }) => {
+    return new Promise(
+      (resolve) => {
+        setIsSortingItemKey(items[index]);
+        setIsSorting(true);
+        resolve("Updated");
+      }
+      /*
+      this.setState(
+        ({ items }) => ({
+          sortingItemKey: items[index],
+          isSorting: true,
+        }),
+        resolve
+      )
+       */
+    );
+  };
+
+  const handleSortStart = () => {
+    document.body.style.cursor = "grabbing";
+  };
+
+  const handleSortEnd = ({ oldIndex, newIndex }) => {
+    let newItems;
+
+    if (selectedItems.length) {
+      const previtems = items.filter((value) => !selectedItems.includes(value));
+
+      newItems = [
+        ...previtems.slice(0, newIndex),
+        ...selectedItems,
+        ...previtems.slice(newIndex, previtems.length),
+      ];
+    } else {
+      newItems = arrayMove(items, oldIndex, newIndex);
+    }
+    /*
+    this.setState({
+      items: newItems,
+      isSorting: false,
+      sortingItemKey: null,
+      selectedItems: [],
+    });
+    */
+    setItems(newItems);
+    setIsSorting(false);
+    setIsSortingItemKey(null);
+    setSelectedItems([]);
+
+    document.body.style.cursor = "";
+  };
+
+  const handleItemSelect = (item) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(selectedItems.filter((value) => value !== item));
+    } else {
+      setSelectedItems([...selectedItems, item]);
+    }
+  };
+
+  const handleShouldCancelStart = (event) => {
+    const item = items[event.target.sortableInfo.index];
+
+    // Never cancel start if there are no selected items
+    if (!selectedItems.length) {
+      return false;
+    }
+
+    // If there are selected items, we want to cancel sorting
+    // from starting when dragging elements that are not selected
+    return !selectedItems.includes(item);
+  };
+
+  /* Handle Function */
 
   return (
     <>
@@ -255,7 +359,10 @@ const HcDraggableTable = () => {
             </tr>
           </thead>
           <SortableCont
-            onSortEnd={onSortEnd}
+            //shouldCancelStart={handleShouldCancelStart}
+            updateBeforeSortStart={handleUpdateBeforeSortStart}
+            onSortStart={handleSortStart}
+            onSortEnd={handleSortEnd}
             axis="y"
             lockAxis="y"
             lockToContainerEdges={true}
@@ -263,19 +370,30 @@ const HcDraggableTable = () => {
             helperClass="helperContainerClass"
             useDragHandle={true}
           >
-            {items.map((value, index) => (
-              <SortableItem key={`item-${index}`} index={index} value={value}>
-                <td>
-                  <div className="firstElement">
-                    <RowHandler />
-                    {value.first}
-                  </div>
-                </td>
-                <td>{value.second}</td>
-                <td>{value.third}</td>
-                <td>{value.fourth}</td>
-              </SortableItem>
-            ))}
+            {items.map((value, index) => {
+              const isSelected = selectedItems.includes(value);
+              const itemIsBeingDragged = sortingItemKey === value;
+              return (
+                <SortableItem
+                  key={`item-${index}`}
+                  index={index}
+                  value={value}
+                  onClick={() => handleItemSelect(value)}
+                  isSelected={isSelected}
+                  itemIsBeingDragged={itemIsBeingDragged}
+                >
+                  <td>
+                    <div className="firstElement">
+                      <RowHandler />
+                      {value.first}
+                    </div>
+                  </td>
+                  <td>{value.second}</td>
+                  <td>{value.third}</td>
+                  <td>{value.fourth}</td>
+                </SortableItem>
+              );
+            })}
           </SortableCont>
         </table>
       </MyTableWrapper>

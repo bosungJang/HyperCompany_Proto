@@ -17,10 +17,11 @@ table.table.table-hover td {
   line-height: 22px;
   color: #000000;
 }
+/*
 table.table.table-hover tr:nth-child(even) {
   background-color: #f1f4f9;
 }
-
+*/
 table.table.table-hover tr:hover {
   background-color: #adceff;
   transition: all 0.3s ease;
@@ -49,7 +50,7 @@ table.table.table-hover thead > tr {
 table.table.table-hover thead > tr > th {
   position: sticky;
   top: 0;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   color: #5d5d62;
   text-align: unset;
   font-family: "Noto Sans KR";

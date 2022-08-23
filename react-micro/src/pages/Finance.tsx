@@ -35,6 +35,9 @@ import {
   VATReportingPage,
   FixedAssetListPage,
   FinancialStatementSettingPage,
+  FinancialSystemSettingPage,
+  AccountGroupRegisterPage,
+  DeadLineCarryOverManagementPage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -53,12 +56,24 @@ const testArray = [
     path: "/fi/basicInfoManagement/accountManagement",
     submenu: [
       {
-        title: "계정과목관리",
+        title: "회계 환경 설정",
+        path: "/fi/basicInfoManagement/financialSystemSetting",
+      },
+      {
+        title: "계정과목 등록",
         path: "/fi/basicInfoManagement/accountManagement",
+      },
+      {
+        title: "계정그룹 등록",
+        path: "/fi/basicInfoManagement/accountGroupRegister",
       },
       {
         title: "재무제표 양식 설정",
         path: "/fi/basicInfoManagement/FinancialStatementSetting",
+      },
+      {
+        title: "마감 및 이월 관리",
+        path: "/fi/basicInfoManagement/deadLineCarryOverManagement",
       },
       { title: "초기이월입력", path: "/fi/basicInfoManagement/carryOver" },
     ],
@@ -390,6 +405,18 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/basicInfoManagement/FinancialStatementSetting`}
         component={FinancialStatementSettingPage}
+      />
+      <Route
+        path={`${props.match.url}/basicInfoManagement/financialSystemSetting`}
+        component={FinancialSystemSettingPage}
+      />
+      <Route
+        path={`${props.match.url}/basicInfoManagement/accountGroupRegister`}
+        component={AccountGroupRegisterPage}
+      />
+      <Route
+        path={`${props.match.url}/basicInfoManagement/deadLineCarryOverManagement`}
+        component={DeadLineCarryOverManagementPage}
       />
     </div>
   );

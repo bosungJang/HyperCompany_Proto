@@ -39,6 +39,12 @@ const StockContainer = styled.div<{ ratio: number }>`
   transform-origin: left top;
 `;
 
+const StyledTreeNode = styled(TreeNode)<{ hideChild: boolean }>`
+  ul {
+    display: ${(props) => (props.hideChild ? "none" : "")};
+  }
+`;
+
 function App() {
   const [tree, setTree] = useState<TreeRoot>({
     id: uuid(),
@@ -308,7 +314,7 @@ function App() {
   const stockContainer = React.useRef();
 
   const { transform, panZoomHandlers, setContainer, setPan, setZoom } =
-    usePanZoom({ zoomSensitivity: 0.001 });
+    usePanZoom({ zoomSensitivity: 0.0001 });
   /*Zoom */
 
   return (
@@ -385,8 +391,13 @@ function App() {
           label={RootLabel}
         >
           {tree.children &&
-            tree.children.map((c) => (
-              <LeafNode onDrop={handleDrop} key={c.id} node={c} />
+            tree.children.map((c, index) => (
+              <LeafNode
+                onDrop={handleDrop}
+                key={c.id}
+                node={c}
+                index={String(index)}
+              />
             ))}
         </Tree>
       </div>
@@ -402,6 +413,7 @@ export const ItemTypes = {
 interface ILeafNodeProps {
   onDrop: (node: Node, dropped: Node) => void;
   node: Node;
+  index?: String;
 }
 const LeafNode: React.FC<ILeafNodeProps> = (props) => {
   const [{ isDragging }, drag] = useDrag({
@@ -424,6 +436,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
   });
 
   const [clicked, setClicked] = React.useState(false);
+  const [hideChild, setHideChild] = React.useState(false);
   const outsideRef = React.useRef(null);
   useOutsideClick(outsideRef, setClicked);
 
@@ -433,14 +446,16 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
         <div
           className={clicked ? "card_wrapper_click" : "card_wrapper"}
           ref={drag}
-          onClick={(e) => {
-            console.log("target", e.currentTarget);
-            //e.currentTarget.className = "card_wrapper_click";
-            setClicked(true);
-          }}
           style={{ border: border }}
         >
-          <div className="card_body">
+          <div
+            className="card_body"
+            onClick={(e) => {
+              console.log("target", e.currentTarget);
+              //e.currentTarget.className = "card_wrapper_click";
+              setClicked(true);
+            }}
+          >
             <div className="card_title">
               {"티맥스 소프트"}
               <DropDownIcon
@@ -471,7 +486,13 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
               </div>
             </div>
           </div>
-          <div className="card_footer">
+          <div
+            className="card_footer"
+            onClick={() => {
+              setHideChild(!hideChild);
+            }}
+            style={{ cursor: "pointer" }}
+          >
             <div className="text_area">{"하위조직 접기"}</div>
           </div>
           <AddIcon
@@ -489,12 +510,16 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
 
   return (
     <>
-      <TreeNode label={Label}>
+      <StyledTreeNode label={Label} hideChild={hideChild}>
         {props.node.children &&
-          props.node.children.map((c) => (
-            <LeafNode onDrop={props.onDrop} key={c.id} node={c} />
-          ))}
-      </TreeNode>
+          props.node.children.map((c) =>
+            hideChild ? (
+              <></>
+            ) : (
+              <LeafNode onDrop={props.onDrop} key={c.id} node={c} />
+            )
+          )}
+      </StyledTreeNode>
     </>
   );
 };
