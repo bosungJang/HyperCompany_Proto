@@ -48,6 +48,7 @@ const ListWrapper = styled.div`
       display: block;
     }
   }
+  background: #ffffff;
 `;
 const List = styled.div`
   display: none;

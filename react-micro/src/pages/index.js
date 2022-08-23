@@ -140,6 +140,12 @@ export const HROrganizationType = loadable(
     fallback: Loading,
   }
 );
+export const HROrganizationHistory = loadable(
+  () => import("../components/HR/OrganizationHistory"),
+  {
+    fallback: Loading,
+  }
+);
 export const HRProfessionalDetail = loadable(
   () => import("../components/HR/ProfessionalDetail"),
   {
@@ -717,6 +723,15 @@ export const CustomerDetail = loadable(
 );
 export const CustomerClass = loadable(
   () => import("../components/CRM/CustomerClass"),
+  {
+    fallback: Loading,
+  }
+);
+export const Benefit = loadable(() => import("../components/CRM/Benefit"), {
+  fallback: Loading,
+});
+export const BenefitCreate = loadable(
+  () => import("../components/CRM/BenefitCreate"),
   {
     fallback: Loading,
   }

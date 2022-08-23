@@ -17,6 +17,7 @@ import {
   HRProfessionalDetail,
   HRProfessionalCreate,
   HROrganizationType,
+  HROrganizationHistory,
   HRProfessionalHistory,
   EmployeeStatus,
   LeaveManagement,
@@ -234,6 +235,10 @@ const HumanResourgcePage = (props: HRProps) => {
       <Route
         path={`${props.match.url}/orm/OrganizationManagement`}
         component={HROrganizationManagement}
+      />
+      <Route
+        path={`${props.match.url}/orm/OrganizationHistory`}
+        component={HROrganizationHistory}
       />
       <Route
         path={`${props.match.url}/orm/OrganizationType`}

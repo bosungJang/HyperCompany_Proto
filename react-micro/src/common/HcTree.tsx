@@ -86,11 +86,11 @@ const ArrowWrapper = styled.div<{ open?: boolean }>`
 const ItemLabel = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 14px;
   cursor: pointer;
   color: #5d5d62;
-  display: inline-block;
+  display: flex;
   max-width: 164px;
 
   :focus {
@@ -147,6 +147,15 @@ const HcTree = (props: any) => {
             }}
           >
             {item.title}
+            {item.headCount ? (
+              <div
+                style={{ color: "#838181", marginLeft: "8px", fontWeight: 400 }}
+              >
+                {item.headCount}
+              </div>
+            ) : (
+              ""
+            )}
           </ItemLabel>
         );
 
@@ -225,6 +234,24 @@ const HcTree = (props: any) => {
               const lengthOfInputValue = inputVal.split("").length;
 
               if (lengthOfInputValue !== 10) setInputVal(e.currentTarget.value);
+              if (lengthOfInputValue > 0) {
+                // setItems(items.filter((x: any) => x.title.includes(inputVal)));
+
+                // setItems(
+                //   items.filter(function (item: string) {
+                //     const str = String(inputVal);
+                //     return str.includes(item) === true;
+                //   })
+                // );
+                console.log(
+                  items.filter((x: any) => x.title.includes(inputVal))
+                );
+                setItems(
+                  props.items.filter((x: any) => x.title.includes(inputVal))
+                );
+              } else {
+                setItems(props.items);
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter" && inputVal.trim() !== "") {
@@ -245,6 +272,9 @@ const HcTree = (props: any) => {
           items,
         }}
       />
+      {inputVal}
+      correct items:{" "}
+      {items.filter((x: any) => x.title.includes(inputVal)).length}
     </Wrapper>
   );
 

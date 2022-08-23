@@ -10,6 +10,8 @@ import {
   LeadCreate,
   LeadDetail,
   CustomerClass,
+  Benefit,
+  BenefitCreate,
 } from "pages";
 
 interface CustomerProps {
@@ -33,6 +35,16 @@ const LNBArray = [
     icon: "CRM/Class_Icon",
     title: "고객 등급 관리",
     path: "/crm/customerClassManagement",
+    submenu: [
+      {
+        title: "고객 등급",
+        path: "/crm/customerClassManagement",
+      },
+      {
+        title: "혜택",
+        path: "/crm/benefit",
+      },
+    ],
   },
 ];
 
@@ -59,6 +71,11 @@ const CustomerCare = (props: CustomerProps) => {
       <Route
         path={`${props.match.url}/customerClassManagement`}
         component={CustomerClass}
+      />
+      <Route path={`${props.match.url}/benefit`} component={Benefit} />
+      <Route
+        path={`${props.match.url}/benefitCreate`}
+        component={BenefitCreate}
       />
       <Route path={`${props.match.url}/lead`} component={LeadPage} />
       <Route path={`${props.match.url}/leadCreate`} component={LeadCreate} />

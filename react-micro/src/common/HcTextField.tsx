@@ -129,6 +129,7 @@ interface TextFieldIProps {
   required?: boolean;
   onChange?: (e: any) => void;
   placeholder?: string;
+  deleteAll?: boolean;
 }
 interface TextAreaIProps {
   disabled?: boolean;
@@ -149,6 +150,7 @@ const InputGroup = styled.div<{
   placeholder?: string;
   required?: boolean;
   titleName?: string;
+  deleteAll?: boolean;
 }>`
   position: relative;
   input {
@@ -178,14 +180,51 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
         style={{ marginLeft: "5px", display: titleName ? "" : "none" }}
       >
         {titleName}
-      </Title>
+      </Title>{" "}
       <InputGroup
         required={props.required}
         titleName={titleName}
+        deleteAll={props.deleteAll}
         placeholder={props.placeholder}
+        style={Object.assign(
+          { position: "relative", width: "100%" },
+          props.style
+        )}
       >
+        {" "}
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+            zIndex: 2,
+            left: "calc(100% - 26px)",
+            bottom: 10,
+            display: props.deleteAll ? "" : "none",
+          }}
+          onClick={() => {
+            props.value = "";
+            props.children = "";
+            console.log(props.children.valueOf);
+          }}
+        >
+          <circle cx="8" cy="8" r="8" fill="#2D2D31" />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.5709 11.4997C11.8638 11.2068 11.8638 10.732 11.5709 10.4391L9.13088 7.99905L11.57 5.55989C11.8629 5.267 11.8629 4.79213 11.57 4.49923C11.2771 4.20634 10.8023 4.20634 10.5094 4.49923L8.07022 6.93839L5.56049 4.42865C5.2676 4.13576 4.79272 4.13576 4.49983 4.42865C4.20694 4.72155 4.20694 5.19642 4.49983 5.48931L7.00956 7.99905L4.49897 10.5096C4.20607 10.8025 4.20607 11.2774 4.49897 11.5703C4.79186 11.8632 5.26673 11.8632 5.55963 11.5703L8.07022 9.05971L10.5102 11.4997C10.8031 11.7926 11.278 11.7926 11.5709 11.4997Z"
+            fill="white"
+          />
+        </svg>
         <TextField
           {...props}
+          style={Object.assign(
+            { paddingRight: props.deleteAll ? 57 : "" },
+            props.style
+          )}
           placeholder={
             !titleName && props.required && props.placeholder
               ? ""
@@ -196,10 +235,13 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
           {props.children}
         </TextField>
         <label
-          style={{
-            display:
-              !titleName && props.required && props.placeholder ? "" : "none",
-          }}
+          style={Object.assign(
+            {
+              display:
+                !titleName && props.required && props.placeholder ? "" : "none",
+            },
+            props.style
+          )}
         >
           {props.placeholder}
         </label>
@@ -909,7 +951,7 @@ export const HcMainTitleField: React.FC<MainTitleFieldIProps> = ({
 }) => {
   return <MainTitleField>{titleName}</MainTitleField>;
 };
-const SelectContainer = styled.ul<{ isOpen: boolean }>`
+const SelectContainer = styled.ul<{ isOpen: boolean; disabled?: boolean }>`
   height: fit-content;
   width: 100%;
   min-height: 36px;
@@ -923,7 +965,9 @@ const SelectContainer = styled.ul<{ isOpen: boolean }>`
   background: #ffffff;
   margin:0;
   ${(props) =>
-    props.isOpen
+    props.disabled
+      ? "border: 1px solid #CECECE; z-index: 1; padding:7px 35px 7px 10px; "
+      : props.isOpen
       ? " border: 1px solid #257cff; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  padding: 4px; z-index: 3;"
       : "border: 1px solid #CECECE; z-index: 1; padding:7px 35px 7px 10px;  &:hover{border: 1px solid #88B8FF;"}}
 `;
@@ -972,8 +1016,10 @@ export const SelectBox = (props: any) => {
         style={{ position: "relative", overflow: "visible", height: "36px" }}
       >
         <SelectContainer
-          isOpen={isOpen}
-          onClick={() => setIsOpen(props.isOpen ? true : !isOpen)}
+          isOpen={props.disabled ? false : isOpen}
+          disabled={props.disabled}
+          style={{ background: props.disabled ? "#F4F4F4" : "#ffffff" }}
+          onClick={() => setIsOpen(props.disabled ? false : !isOpen)}
         >
           {" "}
           <svg
@@ -1010,7 +1056,9 @@ export const SelectBox = (props: any) => {
             </>
           ) : (
             <>
-              {props.state === "" ? (
+              {props.disabled ? (
+                ""
+              ) : props.state === "" ? (
                 <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
               ) : (
                 <>{props.state}</>

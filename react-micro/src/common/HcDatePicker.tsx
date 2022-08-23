@@ -400,11 +400,19 @@ export const DatePickerOption = (props?: any) => {
     </div>
   );
 };
-export function HcDateRangePicker() {
+export function HcDateRangePicker(props?: any) {
   const [startDate, setStartDate] = useState(new Date()); //1
   const [endDate, setEndDate] = useState(new Date()); //1
   return (
-    <>
+    <DatePickerContainer>
+      {" "}
+      {props.titleName ? (
+        <Title required={props.required ? true : false}>
+          {props.titleName}
+        </Title>
+      ) : (
+        ""
+      )}
       <div style={{ float: "left" }}>
         <DatePicker
           dateFormat="yyyy.MM.dd"
@@ -449,7 +457,7 @@ export function HcDateRangePicker() {
           minDate={startDate}
         />
       </div>
-    </>
+    </DatePickerContainer>
   );
 }
 

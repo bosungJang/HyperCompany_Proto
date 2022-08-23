@@ -501,6 +501,8 @@ export function HcContentPopup(props?: any) {
             overflow: "visible",
             fontFamily: "Noto Sans KR",
             fontStyle: "normal",
+            color: "#5D5D62",
+            lineHeight: "23px",
           })}
         >
           <Popup_Title2> {header}</Popup_Title2>
