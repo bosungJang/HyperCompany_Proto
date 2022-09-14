@@ -292,7 +292,7 @@ const CustomerPage = () => {
                         <div style={{ display: "flex" }}>
                           <HcDropDownButton
                             title="+ 생성"
-                            style={{ zIndex: 5, width: 91, marginRight: 1080 }}
+                            style={{ zIndex: 5, width: 91 }}
                             dropDownMenu={[
                               {
                                 title: "개인 고객 생성",

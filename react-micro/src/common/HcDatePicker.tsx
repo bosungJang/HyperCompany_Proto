@@ -8,6 +8,7 @@ import ko from "date-fns/locale/ko";
 import { getMonth, getYear, add, sub } from "date-fns";
 import range from "lodash/range";
 import { Title } from "../common/HcTextField";
+import moment from "moment";
 const StyledInput = styled.input`
   border-radius: 3px;
   height: 36px;
@@ -27,6 +28,8 @@ interface DatePickerIProps {
   style?: CSSProperties;
   startDate?: Date;
   setStartDate?: any;
+  endDate?: Date;
+  setEndDate?: any;
   required?: boolean;
   titleName?: string;
 }
@@ -400,7 +403,7 @@ export const DatePickerOption = (props?: any) => {
     </div>
   );
 };
-export function HcDateRangePicker(props?: any) {
+export const HcDateRangePicker: React.FC<DatePickerIProps> = ({ ...props }) => {
   const [startDate, setStartDate] = useState(new Date()); //1
   const [endDate, setEndDate] = useState(new Date()); //1
   return (
@@ -416,12 +419,15 @@ export function HcDateRangePicker(props?: any) {
       <div style={{ float: "left" }}>
         <DatePicker
           dateFormat="yyyy.MM.dd"
-          customInput={<CustomInput />}
-          selected={startDate}
-          onChange={(date: Date) => setStartDate(date)}
           selectsStart
-          startDate={startDate}
-          endDate={endDate}
+          customInput={<CustomInput />}
+          selected={props.startDate ? props.startDate : startDate}
+          onChange={(date: Date) => {
+            if (props.setStartDate) props.setStartDate(date);
+            else setStartDate(date);
+          }}
+          startDate={props.startDate ? props.startDate : startDate}
+          endDate={props.endDate ? props.endDate : endDate}
         />
       </div>
       <svg
@@ -449,17 +455,20 @@ export function HcDateRangePicker(props?: any) {
         <DatePicker
           dateFormat="yyyy.MM.dd"
           customInput={<CustomInput />}
-          selected={endDate}
-          onChange={(date: Date) => setEndDate(date)}
+          selected={props.endDate ? props.endDate : endDate}
+          onChange={(date: Date) => {
+            if (props.setEndDate) props.setEndDate(date);
+            else setEndDate(date);
+          }}
           selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
+          startDate={props.startDate ? props.startDate : startDate}
+          endDate={props.endDate ? props.endDate : endDate}
+          minDate={props.startDate ? props.startDate : startDate}
         />
       </div>
     </DatePickerContainer>
   );
-}
+};
 
 export const CalendarIcon = (props: any) => {
   const { style } = props;
@@ -479,5 +488,71 @@ export const CalendarIcon = (props: any) => {
         fill="#5D5D62"
       />
     </svg>
+  );
+};
+interface Label {
+  titleName?: string;
+  startDate: Date;
+  endDate: Date;
+  style?: React.CSSProperties;
+  required?: boolean;
+}
+export const DateRangeLabel = (props: Label) => {
+  const startFormat = moment(props.startDate).format("YYYY.MM.DD");
+  const endFormat = moment(props.endDate).format("YYYY.MM.DD");
+
+  return (
+    <DatePickerContainer>
+      {props.titleName ? (
+        <Title required={props.required ? true : false}>
+          {props.titleName}
+        </Title>
+      ) : (
+        ""
+      )}
+      <div
+        style={{
+          display: "flex",
+          flexFlow: "nowrap",
+          justifyContent: "space-between",
+          width: 360,
+          marginTop: 10,
+        }}
+      >
+        <div
+          style={{
+            width: 153,
+            borderBottom: "1px solid #D9D9D9",
+            padding: "0px 10px 7px 12px",
+          }}
+        >
+          {startFormat}
+        </div>
+        <svg
+          width="9"
+          height="4"
+          viewBox="0 0 9 4"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            float: "left",
+            width: 12,
+            height: 30,
+            marginLeft: 14,
+            marginRight: 14,
+            marginTop: 4,
+            color: "#656565",
+          }}
+        >
+          <path
+            d="M5.86593 3.108C6.62193 3.108 7.41993 2.674 8.13393 1.54L7.05593 0.728C6.71993 1.33 6.34193 1.638 5.89393 1.638C5.02593 1.638 4.43793 0.406 3.14993 0.406C2.37993 0.406 1.59593 0.84 0.86793 1.988L1.94593 2.8C2.28193 2.184 2.67393 1.876 3.10793 1.876C3.98993 1.876 4.56393 3.108 5.86593 3.108Z"
+            fill="#3C3C3C"
+          />
+        </svg>
+        <div style={{ width: 153, borderBottom: "1px solid #D9D9D9" }}>
+          {endFormat}
+        </div>
+      </div>
+    </DatePickerContainer>
   );
 };

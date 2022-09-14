@@ -15,12 +15,18 @@ export default function OrganizationHistory() {
       style={{ height: "fit-content", minHeight: "972px", display: "block" }}
     >
       <HcTitleTextField titleName="조직 개편 이력" isBackIcon />
-      <TableSetting style={{ margin: "47px 0px 20px 1178px" }} />
+      <TableSetting
+        style={{ margin: "47px 0px 20px 0px" }}
+        search
+        perPage={5}
+        dataLength={10}
+        now={1}
+      />
       <HcTableContainer style={{ width: "100%" }}>
         <HcTable>
           <thead>
             <tr>
-              <th style={{ width: 195 }}>시행일</th>
+              <th style={{ width: 195 }}>조직 개편일</th>
               <th style={{ width: 240 }}>개편내용</th>
               <th style={{ width: 345 }}>개편 전 정보</th>
               <th style={{ width: 345 }}>개편 후 정보</th>

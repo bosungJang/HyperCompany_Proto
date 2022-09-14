@@ -757,6 +757,12 @@ export const BenefitCreate = loadable(
     fallback: Loading,
   }
 );
+export const BenefitDetail = loadable(
+  () => import("../components/CRM/BenefitDetail"),
+  {
+    fallback: Loading,
+  }
+);
 export const LeadPage = loadable(() => import("../components/CRM/Lead"), {
   fallback: Loading,
 });

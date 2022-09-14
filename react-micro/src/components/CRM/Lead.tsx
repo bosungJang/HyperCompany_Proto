@@ -91,7 +91,7 @@ const Lead = () => {
                         <div style={{ display: "flex" }}>
                           <HcDropDownButton
                             title="+ 생성"
-                            style={{ zIndex: 5, marginRight: 1085 }}
+                            style={{ zIndex: 5 }}
                             dropDownMenu={[
                               {
                                 title: "개인 리드 생성",

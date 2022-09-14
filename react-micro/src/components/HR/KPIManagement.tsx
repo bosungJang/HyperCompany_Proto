@@ -134,7 +134,7 @@ export default function KPIManagement() {
   );
 
   const onCreate = () => {
-    const prev = tableData;
+    const prev = Array.from(tableData);
     const prevTableData: any = prev.map((row) => (
       <Row
         id={row.id}
@@ -155,16 +155,6 @@ export default function KPIManagement() {
       unit: "%",
       comment: "달성한 매출액 / 목표",
     };
-    // const newData: any = prev.unshift({
-    //   id: newDataForm.id,
-    //   kpiName: newDataForm.kpiName,
-    //   group: newDataForm.group,
-    //   type: newDataForm.type,
-    //   standard: newDataForm.standard,
-    //   unit: newDataForm.unit,
-    //   comment: newDataForm.comment,
-    // });
-    // setTableData(newData);
     prev.unshift({
       id: newDataForm.id,
       kpiName: newDataForm.kpiName,
@@ -218,7 +208,14 @@ export default function KPIManagement() {
   };
   return (
     <>
-      <ComponentWrapper style={{ display: "block", position: "relative" }}>
+      <ComponentWrapper
+        style={{
+          display: "block",
+          position: "relative",
+          height: "fit-content",
+          overflow: "hidden",
+        }}
+      >
         <HcTitleTextField titleName="KPI관리" isBackIcon={false} />
         <HcButton
           styles="line"

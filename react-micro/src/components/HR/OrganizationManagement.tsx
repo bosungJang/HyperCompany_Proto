@@ -19,7 +19,7 @@ import HcTextField, {
   Title,
 } from "common/HcTextField";
 import HcButton from "common/HcButton";
-import { HcContentPopup } from "common/HcPopup";
+import { HcContentPopup, NoticePopup } from "common/HcPopup";
 import { useHistory } from "react-router-dom";
 import { HcDatePicker } from "common/HcDatePicker";
 import HcBottomBar from "common/HcBottomBar";
@@ -67,7 +67,7 @@ const StyledIcon = styled.div`
 `;
 const Container = styled.div`
   background: #ffffff;
-  height: 980px;
+  height: 1013px;
   width: 984px;
   border: 1px solid #cecece;
   border-radius: 5px;
@@ -85,6 +85,7 @@ const OrganizationManagement = () => {
   const [higherLevel, setHigherLevel] = useState(""); //상위조직
   const [level, setLevel] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [notice, setNotice] = useState(true);
   function close() {
     setModalOpen(false);
   }
@@ -178,9 +179,22 @@ const OrganizationManagement = () => {
         style={{
           display: "block",
           position: "relative",
-          height: "fit-content",
+          height: "1200px",
+          overflow: "visible",
         }}
       >
+        <NoticePopup
+          header={"조직 개편"}
+          primaryBtn="조직 개편"
+          secondBtn="취소"
+          open={notice}
+          close={() => setNotice(false)}
+          height={182}
+          margin={"0px"}
+          width={418}
+        >
+          hi
+        </NoticePopup>
         <HcButton
           size="medium"
           styles="line"
@@ -332,7 +346,7 @@ const OrganizationManagement = () => {
                       height: 56,
                       fontSize: "24px",
                       fontWeight: 500,
-                      margin: "28px 0px 20px 0px",
+                      margin: "15px 0px 20px 0px",
                       color: "#000000",
                     }}
                     required
@@ -606,8 +620,7 @@ const OrganizationManagement = () => {
               <HcTableContainer
                 style={{
                   width: 936,
-                  height: 379,
-                  borderBottom: "1px solid #D9D9D9",
+                  height: 400,
                 }}
               >
                 <HcTable>

@@ -203,6 +203,8 @@ export const styles: any = {
     zIndex: 99,
     backgroundColor: "rgba(0, 0, 0, 0.2)",
     overflow: "scroll",
+    width: "100%",
+    height: "100%",
   },
   treeModal: {
     display: "none",
@@ -353,13 +355,13 @@ export function ContentPopup(props: any) {
     </div>
   );
 }
-export const SideBarItem = styled.div<{ checked: boolean; img?: boolean }>`
+export const SideBarItem = styled.div<{ checked?: boolean; img?: boolean }>`
   height: 54px;
   width: 510px;
   ${(props) =>
-    props.checked === false
-      ? "border :1px solid #CECECE;"
-      : "border:1px solid #5799FB; background: #F5F9FF;"};
+    props.checked
+      ? "border:1px solid #5799FB; background: #F5F9FF;"
+      : "border :1px solid #CECECE;"};
   box-sizing: border-box;
   border-radius: 4px;
   position: relative;
@@ -479,7 +481,7 @@ export function HcContentPopup(props?: any) {
   const innerStyle = {
     cnt: {
       height: height === "" ? "630px" : height,
-      marginTop: (1080 - height) / 2,
+      marginTop: `calc(100% - ${height})/2`,
       width: width,
     },
     primary: {
@@ -899,5 +901,123 @@ export function HcContentPopupAdv(props?: any) {
         </ContentContainer>
       ) : null}
     </div>
+  );
+}
+export function NoticePopup(props?: any) {
+  const {
+    open,
+    close,
+    header,
+    height,
+    primaryBtn,
+    secondBtn,
+    width,
+    style,
+    margin,
+    primaryFunc,
+    secondFunc,
+  } = props;
+  const innerStyle = {
+    cnt: {
+      height: height === "" ? "630px" : height,
+      marginTop: `calc(100% - ${height})/2`,
+      width: width,
+    },
+    primary: {
+      display: primaryBtn ? "" : "none",
+      marginRight: "6px",
+      marginBottom: 6,
+    },
+    second: {
+      display: secondBtn ? "" : "none",
+      border: "0.82197px solid #A7A7A7",
+    },
+  };
+
+  return (
+    <ContentContainer
+      style={{
+        overflow: "visible",
+        fontFamily: "Noto Sans KR",
+        fontStyle: "normal",
+        color: "#5D5D62",
+        lineHeight: "23px",
+        display: open ? "" : "none",
+        position: "fixed",
+        height: height,
+        width: width,
+        top: 77,
+        right: 20,
+        margin: margin,
+        zIndex: 10,
+      }}
+    >
+      <Popup_Title2>
+        {" "}
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="24" height="24" fill="white" />
+          <rect width="24" height="24" rx="2" fill="white" />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5ZM12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21ZM13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8ZM12 10C11.4477 10 11 10.4477 11 11V16C11 16.5523 11.4477 17 12 17C12.5523 17 13 16.5523 13 16V11C13 10.4477 12.5523 10 12 10Z"
+            fill="#2D2D31"
+          />
+        </svg>
+        {header}
+      </Popup_Title2>
+      <button
+        onClick={close}
+        style={{
+          top: 26,
+          right: 26,
+          position: "absolute",
+          padding: 0,
+          backgroundColor: "#fff",
+          border: "none",
+        }}
+      >
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.6569 0.343378C11.3097 -0.00375531 10.7469 -0.00375487 10.3998 0.343378L6 4.74315L1.60023 0.343378C1.25309 -0.00375531 0.690279 -0.00375565 0.343146 0.343377C-0.00398638 0.69051 -0.00398644 1.25332 0.343146 1.60046L4.74292 6.00023L0.343146 10.4C-0.00398672 10.7471 -0.00398706 11.31 0.343146 11.6571C0.690279 12.0042 1.25309 12.0042 1.60023 11.6571L6 7.25731L10.3998 11.6571C10.7469 12.0042 11.3097 12.0042 11.6569 11.6571C12.004 11.31 12.004 10.7471 11.6569 10.4L7.25708 6.00023L11.6569 1.60046C12.004 1.25332 12.004 0.69051 11.6569 0.343378Z"
+            fill="#303030"
+          />
+        </svg>
+      </button>
+
+      <Popup_Content style={style}> {props.children}</Popup_Content>
+      <Popup_Buttons>
+        <HcButton
+          styles="secondary"
+          style={innerStyle.primary}
+          size="medium"
+          onClick={primaryFunc ? primaryFunc : close}
+        >
+          {primaryBtn}
+        </HcButton>
+        <HcButton
+          styles="line"
+          size="medium"
+          style={innerStyle.second}
+          onClick={secondFunc ? secondFunc : close}
+        >
+          {secondBtn}
+        </HcButton>
+      </Popup_Buttons>
+    </ContentContainer>
   );
 }

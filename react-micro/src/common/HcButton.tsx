@@ -165,6 +165,8 @@ interface HcButtonProps {
   style?: CSSProperties;
   disabled?: boolean;
   size: "big" | "medium" | "small";
+  type?: string;
+  form?: string;
 }
 
 const handleSizeType = (size: string) => {

@@ -22,6 +22,17 @@ const ToastItemWrapper = styled.div`
     margin-bottom: 10px;
   }
 `;
+const ToastAdvWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px 10px 12px;
+  width: fit-content;
+  height: 44px;
+  background: #2d2d31;
+  border-radius: 3px;
+`;
 const ExitIconWrapper = styled.div`
   float: right;
   display: flex;
@@ -87,6 +98,74 @@ const ToastItem = ({ message, clear, cancelAction }) => {
     from: { opacity: 0, transform: "translateY(10px)" },
     enter: { opacity: 1, transform: "translateY(0px)" },
     leave: { opacity: 0, transform: "translateY(10px)" },
+  });
+
+  useEffect(() => {
+    timer.current = setTimeout(() => setIsShow(true), 0);
+  }, []);
+
+  useEffect(() => {
+    if (isShow) {
+      setTimeout(() => {
+        setIsShow(false);
+        clearTimeout(timer.current);
+        clear();
+      }, 5000);
+    }
+  }, [isShow, clear]);
+
+  const cancelClicked = (cancelAction) => {
+    if (cancelAction === "test") {
+      alert("cancelBtn Clicked");
+    }
+  };
+
+  return transition(
+    (style, isShow) =>
+      isShow && (
+        <AnimatedToastItem style={style}>
+          <span>{message}</span>
+
+          <ExitIconWrapper>
+            <div
+              style={{
+                width: 1,
+                height: 15,
+                background: "#838181",
+                display: "inline-block",
+              }}
+            ></div>
+            <CancelBtnWrapper
+              onClick={() => {
+                cancelClicked(cancelAction);
+                setIsShow(false);
+                clearTimeout(timer.current);
+                clear();
+              }}
+            >
+              실행 취소
+            </CancelBtnWrapper>
+            <ExitIcon
+              onClick={() => {
+                setIsShow(false);
+                clearTimeout(timer.current);
+                clear();
+              }}
+            />
+          </ExitIconWrapper>
+        </AnimatedToastItem>
+      )
+  );
+};
+const AnimatedToastAdv = animated(ToastAdvWrapper);
+const ToastAdv = ({ message, clear, cancelAction }) => {
+  const timer = useRef();
+  const [isShow, setIsShow] = useState(false);
+
+  const transition = useTransition(isShow, {
+    from: { opacity: 0, transform: "translateX(-10px)" },
+    enter: { opacity: 1, transform: "translateX(0px)" },
+    leave: { opacity: 0, transform: "translateX(-10px)" },
   });
 
   useEffect(() => {

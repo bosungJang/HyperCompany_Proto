@@ -426,63 +426,66 @@ export default function CustomerClass() {
 
                     <div style={{ display: isCreate ? "none" : "" }}>
                       <div style={{ display: "flex" }}>
-                        <HcButton
-                          styles="line"
-                          size="medium"
-                          style={{
-                            marginRight: checkedItem.length === 1 ? 0 : 721,
-                          }}
-                          onClick={() => {
-                            setIsCreate(true);
-                          }}
-                        >
-                          새 등급 생성
-                        </HcButton>
-                        <ListWrapper
-                          style={{
-                            marginLeft: 10,
-                            marginRight: 615,
-                            display: checkedItem.length === 1 ? "" : "none",
-                          }}
-                        >
-                          <HcButton styles="line" size="medium">
-                            등급 이동
+                        <div style={{ width: "fit-content", display: "flex" }}>
+                          {" "}
+                          <HcButton
+                            styles="line"
+                            size="medium"
+                            style={{ width: "115px", marginRight: "10px" }}
+                            onClick={() => {
+                              setIsCreate(true);
+                            }}
+                          >
+                            새 등급 생성
                           </HcButton>
-                          <List className="tooltip">
-                            {" "}
-                            {treeItems
-                              .slice(1)
-                              .reverse()
-                              .map((x: any) => (
-                                <div
-                                  style={{
-                                    height: 42,
-                                    padding: "5px  8px 12px  8px",
-                                    background: "#fffff",
-                                  }}
-                                >
-                                  <ClassStyle
-                                    onClick={() => {
-                                      const index = checkedItem[0];
-                                      let copy = [...customerData];
-                                      if (index != -1) {
-                                        copy[index - 1].class = x.title;
-                                        setCustomerData(copy);
-                                      }
+                          <ListWrapper
+                            style={{
+                              display: checkedItem.length === 1 ? "" : "none",
+                            }}
+                          >
+                            <HcButton
+                              styles="line"
+                              size="medium"
+                              style={{ width: 100 }}
+                            >
+                              등급 이동
+                            </HcButton>
+                            <List className="tooltip">
+                              {" "}
+                              {treeItems
+                                .slice(1)
+                                .reverse()
+                                .map((x: any) => (
+                                  <div
+                                    style={{
+                                      height: 42,
+                                      padding: "5px  8px 12px  8px",
+                                      background: "#fffff",
                                     }}
-                                    style={Object.assign(
-                                      {
-                                        height: 25,
-                                      },
-                                      x.color
-                                    )}
                                   >
-                                    {x.title}
-                                  </ClassStyle>
-                                </div>
-                              ))}
-                          </List>
-                        </ListWrapper>
+                                    <ClassStyle
+                                      onClick={() => {
+                                        const index = checkedItem[0];
+                                        let copy = [...customerData];
+                                        if (index != -1) {
+                                          copy[index - 1].class = x.title;
+                                          setCustomerData(copy);
+                                        }
+                                      }}
+                                      style={Object.assign(
+                                        {
+                                          height: 25,
+                                        },
+                                        x.color
+                                      )}
+                                    >
+                                      {x.title}
+                                    </ClassStyle>
+                                  </div>
+                                ))}
+                            </List>
+                          </ListWrapper>
+                        </div>
                         <TableSetting />
                       </div>
                       <div style={{ marginTop: "20px" }}>
@@ -749,14 +752,14 @@ export default function CustomerClass() {
                         <HcButton
                           size="medium"
                           styles="secondary"
-                          style={{ marginRight: 715 }}
                           onClick={() => {
                             setSideOpen(true);
                           }}
+                          style={{ width: 77 }}
                         >
                           +추가
                         </HcButton>
-                        <TableSetting />
+                        <TableSetting style={{ width: "calc(100% - 3px)" }} />
                       </div>
                       <HcTableContainer style={{ width: 936, minHeight: 352 }}>
                         <HcTable>
@@ -800,7 +803,7 @@ export default function CustomerClass() {
                         <HcButton
                           size="medium"
                           styles="secondary"
-                          style={{ marginRight: 715 }}
+                          style={{ width: 77 }}
                         >
                           +추가
                         </HcButton>

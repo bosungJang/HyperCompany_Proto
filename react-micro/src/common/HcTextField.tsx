@@ -124,12 +124,16 @@ interface TextFieldIProps {
   maxlength?: string;
   id?: string;
   name?: string;
-  type?: any;
+  type?: string;
   onKeyDown?: (e: any) => void;
   required?: boolean;
   onChange?: (e: any) => void;
   placeholder?: string;
   deleteAll?: boolean;
+  unit?: string;
+  onDelete?: (e: any) => void;
+  ref?: any;
+  onBlur?: any;
 }
 interface TextAreaIProps {
   disabled?: boolean;
@@ -150,7 +154,6 @@ const InputGroup = styled.div<{
   placeholder?: string;
   required?: boolean;
   titleName?: string;
-  deleteAll?: boolean;
 }>`
   position: relative;
   margin-top: 5px;
@@ -185,31 +188,38 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
       <InputGroup
         required={props.required}
         titleName={titleName}
-        deleteAll={props.deleteAll}
         placeholder={props.placeholder}
         style={Object.assign(
           { position: "relative", width: "100%" },
           props.style
         )}
       >
-        {" "}
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 2,
+            left: props.deleteAll ? "calc(100% - 45px)" : "calc(100% - 26px)",
+            bottom: 10,
+            fontSize: "13px",
+            display: props.unit ? "" : "none",
+            color: "#5D5D62",
+          }}
+        >
+          {props.unit}
+        </div>
         <svg
           width="16"
           height="16"
           viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={props.onDelete}
           style={{
             position: "absolute",
             zIndex: 2,
             left: "calc(100% - 26px)",
             bottom: 10,
             display: props.deleteAll ? "" : "none",
-          }}
-          onClick={() => {
-            props.value = "";
-            props.children = "";
-            console.log(props.children.valueOf);
           }}
         >
           <circle cx="8" cy="8" r="8" fill="#2D2D31" />
@@ -222,8 +232,16 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
         </svg>
         <TextField
           {...props}
+          ref={props.ref}
           style={Object.assign(
-            { paddingRight: props.deleteAll ? 57 : "" },
+            {
+              paddingRight:
+                props.deleteAll && props.unit
+                  ? 52
+                  : props.deleteAll || props.unit
+                  ? 32
+                  : "",
+            },
             props.style
           )}
           placeholder={
@@ -998,13 +1016,16 @@ interface styledSelectProps {
   style?: React.CSSProperties;
   state?: any;
   name?: string;
-  setState: any;
+  setState?: any;
   items: any[];
   value?: any;
   setItems?: any;
   placeholder?: string;
+  disabled?: boolean;
+  itemStyle?: React.CSSProperties;
+  isOpen?: boolean;
 }
-export const SelectBox = (props: any) => {
+export const SelectBox = (props: styledSelectProps) => {
   const [isOpen, setIsOpen] = React.useState(props.isOpen ? true : false);
   return (
     <Wrapper style={props.style}>
@@ -1052,7 +1073,7 @@ export const SelectBox = (props: any) => {
                     props.setState ? props.setState(item) : <></>;
                   }}
                 >
-                  <div>{item}</div>
+                  <div style={props.itemStyle}>{item}</div>
                 </Li>
               ))}
             </>
@@ -1063,7 +1084,7 @@ export const SelectBox = (props: any) => {
               ) : props.state === "" ? (
                 <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
               ) : (
-                <>{props.state}</>
+                <div style={props.itemStyle}>{props.state}</div>
               )}
             </>
           )}
