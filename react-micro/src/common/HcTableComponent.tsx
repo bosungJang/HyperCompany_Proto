@@ -40,11 +40,10 @@ const StyledSelect = styled.select<{ disabled?: boolean }>`
 const TableContainer = styled.div`
   overflow-x: visible;
   overflow-y: overlay;
-
+  position: relative;
   &::-webkit-scrollbar-track {
     background: none;
     position: absolute;
-    z-index: 1;
   }
   &::-webkit-scrollbar {
     width: 6px;
@@ -61,6 +60,7 @@ const TableContainer = styled.div`
     top: 0;
     background-color: #ededed;
     z-index: 3;
+    overflow: hidden;
   }
 `;
 
@@ -68,6 +68,8 @@ const StyledTable = styled.table<{ checked?: boolean }>`
   text-align: left;
   table-layout: fixed;
   border-collapse: collapse;
+  table-layout: fixed;
+  display: relative;
   td {
     cursor: pointer;
     border-bottom: 1px solid #e0e0e0;
@@ -84,7 +86,9 @@ const StyledTable = styled.table<{ checked?: boolean }>`
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
   tr th {
+    z-index: 2;
     padding-left: 12px;
     font-family: Noto Sans KR;
     font-style: normal;
@@ -202,6 +206,13 @@ const Btn = styled.div`
   }
 `;
 export function TableSetting(props?: any) {
+  const totalPage = () => {
+    if (props.dataLength % 2 === 0) {
+      return props.dataLength / props.perPage;
+    } else {
+      return props.dataLength / props.perPage + 1;
+    }
+  };
   return (
     <div
       style={Object.assign(
@@ -304,7 +315,7 @@ export function TableSetting(props?: any) {
             width: "fit-content ",
           }}
         >
-          {props.now} - {props.dataLength}
+          {props.now + 1} - {props.dataLength}
           <div style={{ color: "#5D5D62", marginLeft: 3 }}>
             of {props.perPage}
           </div>
@@ -316,6 +327,7 @@ export function TableSetting(props?: any) {
             width: "25px",
           }}
           className="prevBtn"
+          onClick={props.prev}
         >
           <svg
             width="8"
@@ -328,13 +340,14 @@ export function TableSetting(props?: any) {
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M7.70711 0.565017C7.31658 0.174493 6.68342 0.174493 6.29289 0.565017L0.636154 6.22175L0.636038 6.22187C0.245513 6.61239 0.245514 7.24556 0.636038 7.63608C0.64036 7.64041 0.644711 7.64468 0.649092 7.64891L6.29301 13.2928C6.68353 13.6833 7.3167 13.6833 7.70722 13.2928C8.09775 12.9023 8.09775 12.2691 7.70722 11.8786L2.75747 6.92886L7.70711 1.97923C8.09763 1.58871 8.09763 0.955541 7.70711 0.565017Z"
-              fill={props.now === 1 ? "#CECECE" : "#5D5D62"}
+              fill={props.now + 1 === 1 ? "#CECECE" : "#5D5D62"}
             />
           </svg>
         </Btn>
         <Btn
           style={{ display: props.perPage ? "" : "none", width: "25px" }}
           className="nextBtn"
+          onClick={props.next}
         >
           <svg
             width="8"
@@ -347,7 +360,7 @@ export function TableSetting(props?: any) {
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M0.292893 13.2929C0.683418 13.6834 1.31658 13.6834 1.70711 13.2929L7.36385 7.63616L7.36396 7.63604C7.75449 7.24552 7.75449 6.61235 7.36396 6.22183C7.35964 6.2175 7.35529 6.21323 7.35091 6.209L1.70699 0.565087C1.31647 0.174563 0.683302 0.174562 0.292778 0.565087C-0.0977469 0.955611 -0.0977463 1.58878 0.292778 1.9793L5.24253 6.92905L0.292893 11.8787C-0.0976309 12.2692 -0.0976309 12.9024 0.292893 13.2929Z"
-              fill={props.now === props.dataLength ? "#CECECE" : "#5D5D62"}
+              fill={props.now + 1 === totalPage ? "#CECECE" : "#5D5D62"}
             />
           </svg>
         </Btn>
@@ -430,14 +443,13 @@ export function TableActionBtn() {
         >
           <path
             d="M11.5293 4.74316L11.5293 4.74317C11.2695 5.00295 11.2695 5.39722 11.5293 5.65699L14.3431 8.47079C14.4715 8.59921 14.6347 8.66557 14.8 8.66557H14.8C14.9651 8.66557 15.1283 8.59943 15.2569 8.4708L17.9053 5.82245L17.9053 5.82245C18.1651 5.56267 18.1651 5.16839 17.9053 4.90863L15.0915 2.09482L15.0915 2.09482C14.8317 1.83506 14.4374 1.83506 14.1776 2.09482L11.5293 4.74316ZM14.8 7.10008L12.9 5.2001L14.6343 3.46578L16.5343 5.36576L14.8 7.10008Z"
-            fill="black"
-            stroke="black"
-            stroke-width="0.2"
+            fill="#5D5D62"
+            stroke="none"
           />
           <path
             d="M1.9 17.3848L1.90033 17.3848L2.14824 14.3542C2.14941 14.1852 2.22013 14.0521 2.34295 13.9291L2.34301 13.929L9.98434 6.28775C10.2441 6.02799 10.6384 6.02799 10.8982 6.28775L10.8985 6.28811L13.6843 9.10176C13.6844 9.1018 13.6844 9.10185 13.6845 9.1019C13.9441 9.36167 13.944 9.75584 13.6843 10.0156L6.04311 17.6843L6.04298 17.6845C5.93995 17.7875 5.77934 17.8481 5.63315 17.8773L5.6209 17.8797L5.62084 17.879L2.58628 18.0997L2.57903 18.1002V18.0999H2.5517H2.47683L2.47543 18.0951C2.33683 18.0779 2.20337 18.0137 2.09477 17.9051M1.9 17.3848L2.09477 17.9051M1.9 17.3848V17.393C1.9 17.5783 1.96151 17.7718 2.09477 17.9051M1.9 17.3848L2.16549 17.8344L2.09477 17.9051M10.4137 7.68652L12.3136 9.58636L5.29329 16.6066L3.26702 16.7605L3.42104 14.7064L10.4137 7.68652Z"
-            fill="black"
-            stroke="black"
+            fill="#5D5D62"
+            stroke="#5D5D62"
             stroke-width="0.2"
           />
         </svg>
@@ -454,7 +466,7 @@ export function TableActionBtn() {
             fill-rule="evenodd"
             clip-rule="evenodd"
             d="M6 2.75C6 2.33579 6.33579 2 6.75 2H13.25C13.6642 2 14 2.33579 14 2.75C14 3.16421 13.6642 3.5 13.25 3.5H6.75C6.33579 3.5 6 3.16421 6 2.75ZM2 5.25C2 4.83579 2.33579 4.5 2.75 4.5H17.25C17.6642 4.5 18 4.83579 18 5.25C18 5.66421 17.6642 6 17.25 6H16.75V15.5C16.75 16.7426 15.7426 17.75 14.5 17.75H6C4.75736 17.75 3.75 16.7426 3.75 15.5V6H2.75C2.33579 6 2 5.66421 2 5.25ZM5.25 6V15.5C5.25 15.9142 5.58579 16.25 6 16.25H14.5C14.9142 16.25 15.25 15.9142 15.25 15.5V6H5.25ZM8.75 7C8.33579 7 8 7.33579 8 7.75V13.25C8 13.6642 8.33579 14 8.75 14C9.16421 14 9.5 13.6642 9.5 13.25V7.75C9.5 7.33579 9.16421 7 8.75 7ZM11 7.75C11 7.33579 11.3358 7 11.75 7C12.1642 7 12.5 7.33579 12.5 7.75V13.25C12.5 13.6642 12.1642 14 11.75 14C11.3358 14 11 13.6642 11 13.25V7.75Z"
-            fill="black"
+            fill="#5D5D62"
           />
         </svg>
       </IconWrapper>

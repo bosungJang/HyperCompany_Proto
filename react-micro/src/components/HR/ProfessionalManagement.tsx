@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 import {
@@ -56,7 +56,7 @@ const getId = () => {
   return num;
 };
 
-const Dutydata = Array(17)
+const Dutydata = Array(100)
   .fill(undefined)
   .map(() => ({
     id: getId(),
@@ -334,6 +334,15 @@ const ProfessionalManagement = ({
   });
 
   function ContentTable(props: any) {
+    const [nowPage, setNowPage] = useState(0);
+    // let nowPage = 0;
+    const totalPage = () => {
+      if (Dutydata.length % 2 === 0) {
+        return Dutydata.length / 10;
+      } else {
+        return Dutydata.length / 10 + 1;
+      }
+    };
     return (
       <>
         <div style={{ display: "flex", marginBottom: "12px" }}>
@@ -343,6 +352,9 @@ const ProfessionalManagement = ({
             onClick={() => {
               history.push({
                 pathname: "/hr/orm/ProfessionalCreate",
+                state: {
+                  type: Tabs,
+                },
               });
             }}
             styles="secondary"
@@ -404,17 +416,27 @@ const ProfessionalManagement = ({
           </HcButton>
           <TableSetting
             search
-            perPage={5}
+            perPage={10}
             dataLength={Dutydata.length}
-            now={1}
+            prev={() => {
+              console.log(nowPage);
+              if (nowPage - 1 < 0) alert("first page");
+              else setNowPage(nowPage - 1);
+            }}
+            next={() => {
+              console.log(nowPage);
+              if (nowPage + 1 == totalPage()) alert("last page");
+              else setNowPage(nowPage + 1);
+            }}
+            now={nowPage}
           />
         </div>
+        {nowPage + "total" + totalPage()}
         <HcTableContainer style={props.style ? props.style : { height: 354 }}>
           <HcTable>
             <thead>
               <tr>
                 <th style={{ width: "46px" }}>
-                  {" "}
                   <HcCheckBox
                     checked={checkedItem.length > 0 ? true : false}
                     onChange={(e) => checkAllHandler(e.target.checked)}
@@ -452,12 +474,13 @@ const ProfessionalManagement = ({
                     }}
                   >
                     <td onClick={(event) => event.stopPropagation()}>
-                      <HcCheckBox
+                      {/* <HcCheckBox
                         checked={checkedItem.includes(id)}
                         onChange={(e) => {
                           checkHandler(e.target.checked, id);
                         }}
-                      />
+                      /> */}
+                      {id}
                     </td>
                     <td>{name}</td>
                     <td>{group}</td>

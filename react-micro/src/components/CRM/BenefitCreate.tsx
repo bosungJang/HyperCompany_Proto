@@ -75,8 +75,6 @@ function BenefitCreate() {
   //   const value = input?.value;
   //   console.log(form);
   // };
-  const { register, handleSubmit } = useForm<FormValue>();
-  const onSubmit = (data: FormValue) => console.log(data);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -133,12 +131,7 @@ function BenefitCreate() {
         style={{ display: "block", height: "972", overflow: "hidden" }}
       >
         <HcTitleTextField titleName="혜택 생성" isBackIcon />
-        <form
-          onSubmit={handleSubmit((data) => {
-            alert(data);
-            console.log(data);
-          })}
-        >
+        <form>
           {/* <form onSubmit={handleSubmit}> */}
           <Container
             title="Title_02"
@@ -154,14 +147,11 @@ function BenefitCreate() {
                 type="text"
                 id="name"
                 name="name"
-                ref={register}
               />
 
               <HcTextField
                 titleName="설명"
                 id="description"
-                type="text"
-                ref={register}
                 style={{ width: 360, marginRight: 80 }}
               />
 
@@ -269,12 +259,7 @@ function BenefitCreate() {
 
       <HcBottomBar open={barOpen} style={{ width: 1400 }}>
         <div>
-          <HcButton
-            onClick={handleSubmit(onSubmit)}
-            styles="primary"
-            style={{ marginRight: "5px" }}
-            size="big"
-          >
+          <HcButton styles="primary" style={{ marginRight: "5px" }} size="big">
             생성
           </HcButton>
 

@@ -9,7 +9,12 @@ import { useLocation } from "react-router";
 import React, { useState } from "react";
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
-import { SideBar, SideBarInnerContainer, SideBarItem } from "common/HcPopup";
+import {
+  DataLength,
+  SideBar,
+  SideBarInnerContainer,
+  SideBarItem,
+} from "common/HcPopup";
 let num = 1;
 const data = [
   {
@@ -250,28 +255,11 @@ export default function LeadCreate() {
             />
           </svg>
         </div>
-        <div
-          style={{
-            display: "flex",
-            width: 514,
-            color: "#4D4D4D",
-            fontSize: "14px",
-            height: 24,
-          }}
-        >
-          총
-          <div
-            style={{
-              color: "#000000",
-              fontSize: "16px",
-              fontWeight: 600,
-              marginLeft: 3,
-            }}
-          >
-            {data.length}
-          </div>
-          명
-        </div>
+        <DataLength
+          unit="개"
+          length={String(data.length)}
+          style={{ width: "100%" }}
+        />
         <SideBarInnerContainer
           style={{ height: tags.length === 0 ? 572 : 480 }}
         >

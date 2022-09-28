@@ -206,6 +206,19 @@ export const styles: any = {
     width: "100%",
     height: "100%",
   },
+  sideBarOpen: {
+    display: "flex",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 99,
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    overflow: "hidden",
+    width: "100%",
+    height: "100%",
+  },
   treeModal: {
     display: "none",
     position: "fixed",
@@ -425,7 +438,7 @@ export function SideBar(props?: any) {
   const { open, close, header, addFunc, style } = props;
 
   return (
-    <div style={open ? styles.openModal : styles.modal}>
+    <div style={open ? styles.sideBarOpen : styles.modal}>
       {open ? (
         <SideBarContainer>
           <Popup_Title2 style={{ fontSize: "20px" }}> {header}</Popup_Title2>
@@ -464,6 +477,38 @@ export function SideBar(props?: any) {
     </div>
   );
 }
+export const DataLength = (props: any) => {
+  return (
+    <div
+      style={Object.assign(
+        {
+          display: "flex",
+          width: "fit-content",
+          color: "#4D4D4D",
+          fontSize: "13px",
+          height: "24px",
+          lineHeight: "24px",
+          fontWeight: 900,
+        },
+        props.style
+      )}
+    >
+      총
+      <div
+        style={{
+          color: "#000000",
+          fontSize: "16px",
+          fontWeight: 600,
+          marginLeft: "2px",
+          lineHeight: "22px",
+        }}
+      >
+        {props.length}
+      </div>
+      {props.unit}
+    </div>
+  );
+};
 export function HcContentPopup(props?: any) {
   //팝업 창 크기, 버튼 내용 조절 가능한 팝업
   const {

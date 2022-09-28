@@ -48,7 +48,7 @@ export const TextField = styled.input<{ disabled?: boolean }>`
   }
 `;
 
-const TextArea = styled.textarea<{ disabled?: boolean }>`
+export const TextArea = styled.textarea<{ disabled?: boolean }>`
   background: ${(props) => (props.disabled ? "#EDEDED" : "#ffffff")};
   border: 1px solid #cecece;
   box-sizing: border-box;
@@ -132,8 +132,6 @@ interface TextFieldIProps {
   deleteAll?: boolean;
   unit?: string;
   onDelete?: (e: any) => void;
-  ref?: any;
-  onBlur?: any;
 }
 interface TextAreaIProps {
   disabled?: boolean;
@@ -232,7 +230,6 @@ const HcTextField: React.FC<TextFieldIProps> = ({ titleName, ...props }) => {
         </svg>
         <TextField
           {...props}
-          ref={props.ref}
           style={Object.assign(
             {
               paddingRight:
@@ -757,7 +754,7 @@ export const HcTagNoInput: React.FC<TagNoInputIProps> = React.memo(
             <TagDelete
               role="img"
               aria-label="remove-tag"
-              onClick={(e) => {
+              onClick={() => {
                 const updatedTags = tags.filter(
                   (_: any, i: number) => i !== tagIndex
                 );
@@ -971,7 +968,11 @@ export const HcMainTitleField: React.FC<MainTitleFieldIProps> = ({
 }) => {
   return <MainTitleField>{titleName}</MainTitleField>;
 };
-const SelectContainer = styled.ul<{ isOpen: boolean; disabled?: boolean }>`
+const SelectContainer = styled.ul<{
+  isOpen: boolean;
+  disabled?: boolean;
+  innerTable?: React.CSSProperties;
+}>`
   height: fit-content;
   width: 100%;
   min-height: 36px;
@@ -989,6 +990,8 @@ const SelectContainer = styled.ul<{ isOpen: boolean; disabled?: boolean }>`
       ? "border: 1px solid #CECECE; z-index: 1; padding:7px 35px 7px 10px; "
       : props.isOpen
       ? " border: 1px solid #257cff; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  padding: 4px; z-index: 3;"
+      : props.innerTable
+      ? "border:none; padding:12px 35px 7px 10px;  &:hover{border: 1px solid #88B8FF; }"
       : "border: 1px solid #CECECE; z-index: 1; padding:7px 35px 7px 10px;  &:hover{border: 1px solid #88B8FF;"}}
 `;
 const Li = styled.li<{ confirm?: boolean; edit?: boolean }>`
@@ -1024,6 +1027,7 @@ interface styledSelectProps {
   disabled?: boolean;
   itemStyle?: React.CSSProperties;
   isOpen?: boolean;
+  innerTable?: React.CSSProperties;
 }
 export const SelectBox = (props: styledSelectProps) => {
   const [isOpen, setIsOpen] = React.useState(props.isOpen ? true : false);
@@ -1036,12 +1040,23 @@ export const SelectBox = (props: styledSelectProps) => {
         {props.titleName}
       </Title>
       <div
-        style={{ position: "relative", overflow: "visible", height: "36px" }}
+        style={{
+          position: "relative",
+          overflow: "visible",
+          height: "36px",
+        }}
       >
         <SelectContainer
           isOpen={props.disabled ? false : isOpen}
           disabled={props.disabled}
-          style={{ background: props.disabled ? "#F4F4F4" : "#ffffff" }}
+          innerTable={props.innerTable}
+          style={Object.assign(
+            {
+              background: props.disabled ? "#F4F4F4" : "#ffffff",
+              bottom: props.innerTable ? "5px" : "0px",
+            },
+            props.innerTable
+          )}
           onClick={() => setIsOpen(props.disabled ? false : !isOpen)}
         >
           {" "}
@@ -1081,8 +1096,12 @@ export const SelectBox = (props: styledSelectProps) => {
             <>
               {props.disabled ? (
                 ""
-              ) : props.state === "" ? (
-                <div style={{ color: "#A7A7A7" }}>{props.titleName} 선택</div>
+              ) : props.state === "" || !props.state ? (
+                <div>
+                  {props.placeholder
+                    ? props.placeholder
+                    : props.titleName + "선택"}
+                </div>
               ) : (
                 <div style={props.itemStyle}>{props.state}</div>
               )}

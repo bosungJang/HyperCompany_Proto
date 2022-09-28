@@ -616,7 +616,10 @@ const OrganizationManagement = () => {
                 style={{ marginTop: 40 }}
               />
 
-              <TableSetting style={{ margin: "22px 0px 12px 794px" }} />
+              <div style={{ display: "flex", margin: "18px 0px" }}>
+                {" "}
+                <TableSetting />
+              </div>
               <HcTableContainer
                 style={{
                   width: 936,
