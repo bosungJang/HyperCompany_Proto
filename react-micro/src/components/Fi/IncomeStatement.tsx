@@ -231,7 +231,10 @@ const IncomeStatement = () => {
                       "1": (
                         <>
                           <TableContainer>
-                            <table style={{ width: "inherit" }}>
+                            <table
+                              className="table table-hover"
+                              style={{ width: "inherit" }}
+                            >
                               <thead>
                                 <tr>
                                   <th style={{ width: "440px" }}>과목</th>

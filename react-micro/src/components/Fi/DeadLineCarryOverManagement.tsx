@@ -10,6 +10,8 @@ import HcTextField, {
 } from "common/HcTextField";
 import HcButton from "common/HcButton";
 import "common/Table.css";
+import { HcContentPopupAdv } from "common/HcPopup";
+import HcCheckBox from "common/HcCheckBox";
 
 interface MatchParams {
   id: string;
@@ -76,9 +78,176 @@ const TableContainer = styled.div`
   }
 `;
 
+const PopupContent = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #5d5d62;
+  margin-bottom: 5px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+`;
+
+const DisabledLabel = styled.div`
+  display: inline-block;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #5d5d62;
+  opacity: 0.5;
+  margin-left: 14px;
+`;
+
+const NormalLabel = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #5d5d62;
+  margin-left: 14px;
+`;
+
+const CheckboxItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  margin-left: 30px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+`;
+
 const DeadLineCarryOverManagement = ({
   match,
 }: RouteComponentProps<MatchParams>) => {
+  const [openPop, setOpenPop] = React.useState(false);
+  const [popType, setPopType] = React.useState(1);
+
+  const Popups = () => {
+    return (
+      <HcContentPopupAdv
+        open={openPop}
+        width={"600px"}
+        height={"340px"}
+        header={{ 1: "마감 확인", 2: "이월 항목 선택" }[popType]}
+        close={() => {
+          setOpenPop(false);
+        }}
+        style={{
+          width: "100%",
+          position: "unset",
+          top: "unset",
+          right: "unset",
+          marginTop: "32px",
+        }}
+      >
+        {
+          {
+            1: (
+              <>
+                <PopupContent>해당 기수에 대한 마감이 진행됩니다.</PopupContent>
+                <PopupContent>진행하시겠습니까?</PopupContent>
+                <div
+                  style={{
+                    float: "right",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                  }}
+                >
+                  <HcButton
+                    onClick={() => {
+                      setOpenPop(false);
+                    }}
+                    styles="primary"
+                    style={{
+                      marginRight: "12px",
+                      height: "40px",
+                      width: "80px",
+                    }}
+                    size="medium"
+                  >
+                    확인
+                  </HcButton>
+                  <HcButton
+                    onClick={() => {
+                      setOpenPop(false);
+                    }}
+                    styles="line"
+                    style={{ height: "40px", width: "80px" }}
+                    size="medium"
+                  >
+                    취소
+                  </HcButton>
+                </div>
+              </>
+            ),
+            2: (
+              <>
+                <PopupContent>이월할 항목을 선택해 주세요.</PopupContent>
+                <div style={{ marginTop: "37px" }}>
+                  <CheckboxItemWrapper>
+                    <HcCheckBox
+                      checked
+                      disabled
+                      onChange={() => {}}
+                      labelWrap={false}
+                    />
+                    <DisabledLabel>장부</DisabledLabel>
+                  </CheckboxItemWrapper>
+                  <CheckboxItemWrapper>
+                    <HcCheckBox
+                      checked={false}
+                      onChange={() => {}}
+                      labelWrap={false}
+                    />
+                    <NormalLabel>감가상각</NormalLabel>
+                  </CheckboxItemWrapper>
+                </div>
+                <div
+                  style={{
+                    float: "right",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                  }}
+                >
+                  <HcButton
+                    onClick={() => {
+                      setOpenPop(false);
+                    }}
+                    styles="primary"
+                    style={{
+                      marginRight: "12px",
+                      height: "40px",
+                      width: "80px",
+                    }}
+                    size="medium"
+                  >
+                    확인
+                  </HcButton>
+                  <HcButton
+                    onClick={() => {
+                      setOpenPop(false);
+                    }}
+                    styles="line"
+                    style={{ height: "40px", width: "80px" }}
+                    size="medium"
+                  >
+                    취소
+                  </HcButton>
+                </div>
+              </>
+            ),
+          }[popType]
+        }
+      </HcContentPopupAdv>
+    );
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <ComponentWrapper style={{ width: "100%", display: "block" }}>
@@ -91,7 +260,10 @@ const DeadLineCarryOverManagement = ({
             />
             <div style={{ float: "right", lineHeight: "40px" }}>
               <HcButton
-                onClick={() => {}}
+                onClick={() => {
+                  setOpenPop(true);
+                  setPopType(1);
+                }}
                 styles="line"
                 style={{ marginRight: "10px" }}
                 size="medium"
@@ -99,7 +271,10 @@ const DeadLineCarryOverManagement = ({
                 마감
               </HcButton>
               <HcButton
-                onClick={() => {}}
+                onClick={() => {
+                  setOpenPop(true);
+                  setPopType(2);
+                }}
                 styles="line"
                 style={{ marginRight: "10px" }}
                 size="medium"
@@ -189,6 +364,7 @@ const DeadLineCarryOverManagement = ({
           </div>
         </div>
       </ComponentWrapper>
+      <Popups />
     </div>
   );
 };

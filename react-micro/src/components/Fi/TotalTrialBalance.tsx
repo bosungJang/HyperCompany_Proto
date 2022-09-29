@@ -130,7 +130,10 @@ const TotalTrialBalance = () => {
                       "1": (
                         <>
                           <TableContainer>
-                            <table style={{ width: "inherit" }}>
+                            <table
+                              className="table table-hover"
+                              style={{ width: "inherit" }}
+                            >
                               <thead>
                                 <tr>
                                   <th colSpan={2}>차변</th>

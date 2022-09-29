@@ -3,6 +3,7 @@ table.table.table-hover {
   margin: 0;
   padding: 0;
   border-collapse: collapse;
+  border: 1px solid #d9d9d9;
 }
 table.table.table-hover td {
   border-bottom: 1px solid #d9d9d9;

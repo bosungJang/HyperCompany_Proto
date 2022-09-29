@@ -38,6 +38,7 @@ import {
   FinancialSystemSettingPage,
   AccountGroupRegisterPage,
   DeadLineCarryOverManagementPage,
+  DailyTrialBalancePage,
 } from "pages";
 import { LNBArrayProps, ISubmenuProps } from "components/LNB/LNB";
 
@@ -99,6 +100,10 @@ const testArray = [
       {
         title: "총계정 원장",
         path: "/fi/documentLedgerManagement/generalLedger",
+      },
+      {
+        title: "일계표",
+        path: "/fi/documentLedgerManagement/dailyTrialBalance",
       },
     ],
   },
@@ -417,6 +422,10 @@ const Finance = React.forwardRef((props: FinanceProps, ref) => {
       <Route
         path={`${props.match.url}/basicInfoManagement/deadLineCarryOverManagement`}
         component={DeadLineCarryOverManagementPage}
+      />
+      <Route
+        path={`${props.match.url}/documentLedgerManagement/dailyTrialBalance`}
+        component={DailyTrialBalancePage}
       />
     </div>
   );

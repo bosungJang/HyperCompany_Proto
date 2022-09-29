@@ -718,6 +718,13 @@ export const DeadLineCarryOverManagementPage = loadable(
     fallback: Loading,
   }
 );
+
+export const DailyTrialBalancePage = loadable(
+  () => import("../components/Fi/DailyTrialBalance"),
+  {
+    fallback: Loading,
+  }
+);
 /*Fi END*/
 
 /*CRM Start*/

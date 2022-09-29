@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const CheckboxContainer = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
 `;
 
 const Icon = styled.svg<{ disabled?: boolean }>`

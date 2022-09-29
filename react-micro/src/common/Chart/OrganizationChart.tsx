@@ -205,7 +205,7 @@ function App() {
 
   /*Drag Scroll */
   const scrollRef = React.useRef<any>(null);
-  const [isDrag, setIsDrag] = useState(false);
+  const [isDrag, setIsDrag] = useState(true);
   const [startX, setStartX] = useState<any>();
 
   const onDragStart = (e: any) => {
@@ -313,23 +313,12 @@ function App() {
 
   const stockContainer = React.useRef();
 
-  const { transform, panZoomHandlers, setContainer, setPan, setZoom } =
-    usePanZoom({ zoomSensitivity: 0.0001 });
+  const { transform, panZoomHandlers, setContainer, setPan, setZoom, zoom } =
+    usePanZoom({ zoomSensitivity: 0.0001, panOnDrag: isDrag });
   /*Zoom */
 
   return (
-    <div
-      className="App"
-      /*
-      onMouseDown={onDragStart}
-      onMouseMove={isDrag ? onThrottleDragMove : () => {}}
-      onMouseUp={onDragEnd}
-      onMouseLeave={onDragEnd}
-      ref={scrollRef}
-      */
-      ref={(el) => setContainer(el)}
-      {...panZoomHandlers}
-    >
+    <>
       <button
         style={{
           padding: "0.5rem",
@@ -339,7 +328,32 @@ function App() {
       >
         Add person
       </button>
-      {/* 
+      <button
+        onClick={() => setZoom(zoom + 0.1)}
+        style={{ width: "50px", zIndex: 10 }}
+      >
+        +
+      </button>
+      <button
+        onClick={() => setZoom(zoom - 0.1)}
+        style={{ width: "50px", zIndex: 10 }}
+      >
+        -
+      </button>
+      {zoom}
+      <div
+        className="App"
+        /*
+      onMouseDown={onDragStart}
+      onMouseMove={isDrag ? onThrottleDragMove : () => {}}
+      onMouseUp={onDragEnd}
+      onMouseLeave={onDragEnd}
+      ref={scrollRef}
+      */
+        ref={(el) => setContainer(el)}
+        {...panZoomHandlers}
+      >
+        {/* 
       <div
         style={{
           backgroundColor: "black",
@@ -370,7 +384,7 @@ function App() {
         </li>
       </div>
       */}
-      {/* 
+        {/* 
       <StockContainer
         //ref={stockContainer}
         ratio={ratio}
@@ -381,28 +395,30 @@ function App() {
         draggable
       >
       */}
-      <div style={{ transform }}>
-        <Tree
-          lineHeight="50px"
-          lineWidth="1px"
-          lineColor="#D6D6D6"
-          nodePadding="10px"
-          lineBorderRadius="5px"
-          label={RootLabel}
-        >
-          {tree.children &&
-            tree.children.map((c, index) => (
-              <LeafNode
-                onDrop={handleDrop}
-                key={c.id}
-                node={c}
-                index={String(index)}
-              />
-            ))}
-        </Tree>
+        <div style={{ transform }}>
+          <Tree
+            lineHeight="50px"
+            lineWidth="1px"
+            lineColor="#D6D6D6"
+            nodePadding="10px"
+            lineBorderRadius="5px"
+            label={RootLabel}
+          >
+            {tree.children &&
+              tree.children.map((c, index) => (
+                <LeafNode
+                  onDrop={handleDrop}
+                  key={c.id}
+                  node={c}
+                  index={String(index)}
+                  setDrag={setIsDrag}
+                />
+              ))}
+          </Tree>
+        </div>
+        {/*</StockContainer>*/}
       </div>
-      {/*</StockContainer>*/}
-    </div>
+    </>
   );
 }
 
@@ -414,6 +430,7 @@ interface ILeafNodeProps {
   onDrop: (node: Node, dropped: Node) => void;
   node: Node;
   index?: String;
+  setDrag?: (dragging: boolean) => void;
 }
 const LeafNode: React.FC<ILeafNodeProps> = (props) => {
   const [{ isDragging }, drag] = useDrag({
@@ -422,6 +439,7 @@ const LeafNode: React.FC<ILeafNodeProps> = (props) => {
       isDragging: monitor.isDragging(),
     }),
   });
+
   const opacity = isDragging ? 0.4 : 1;
   const border = isDragging ? "1px solid blue" : "1px solid #a7a7a7";
   const [, drop] = useDrop<DragObjectWithType & { node: Node }, {}, {}>({

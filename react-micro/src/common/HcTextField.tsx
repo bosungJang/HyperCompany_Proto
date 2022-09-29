@@ -503,13 +503,14 @@ export const HcSearchBtnInputField: React.FC<SearchInputIProps> = ({
       {titleName != null ? (
         <Title required={props.required}>{titleName}</Title>
       ) : null}
-      <div style={{ position: "relative" }}>
+      <div
+        style={{ position: "relative", display: "flex", alignItems: "center" }}
+      >
         <div
           style={{
             position: "absolute",
             zIndex: 1,
             right: 0,
-            marginTop: "8px",
           }}
         >
           <HcButton

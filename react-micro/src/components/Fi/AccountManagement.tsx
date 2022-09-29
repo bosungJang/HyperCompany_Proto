@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
-import { ComponentWrapper } from "common/HcCommonLayout";
+import { ComponentWrapper, VariableMultiLayout } from "common/HcCommonLayout";
 import HcTree from "common/HcTree";
 import HcTextField, {
   HcSelect,
@@ -24,19 +24,16 @@ import { getData } from "api";
 import { HcDatePicker } from "common/HcDatePicker";
 import "common/Table.css";
 import { FilterButton, SettingButton } from "common/HcTableButton";
+import HcCheckBox from "common/HcCheckBox";
 
 interface MatchParams {
   id: string;
 }
 
 const TreeContArea = styled.div`
-  border: 1px solid #cecece;
-  border-radius: 5px;
-  width: 984px;
+  width: 100%;
   min-height: 501px;
-  margin-left: 24px;
-  display: inline-block;
-  padding: 30px 24px;
+  display: block;
 `;
 
 const TreeContAreaTitle = styled.div`
@@ -108,6 +105,28 @@ const TableContainer = styled.div`
   }
 `;
 
+let num = 100000;
+const getId = () => {
+  num = num + 1;
+  return num;
+};
+
+const data = Array(105)
+  .fill(undefined)
+  .map(() => ({
+    id: getId(),
+    accountCode: "10100",
+    accountGroupName: "현금",
+    devitCredit: "차변",
+    endDate: "2022.12.31",
+    useYn: "사용",
+    proofRequired: "사용",
+    budgetControlYn: "사용",
+    reimbursementYn: "사용",
+    forexAccountYn: "사용",
+    title: "test",
+  }));
+
 const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   const myCounter = useCounter();
   myCounter.myTitle = "계정과목관리";
@@ -131,6 +150,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
   /*Create */
   const [isCreate, setIsCreates] = React.useState(false);
+  const [isDetail, setIsDetail] = React.useState(false);
   /*Create */
 
   /*Search */
@@ -146,7 +166,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
   /* Current Data*/
 
   /*BottomBar */
-  const [barOpen, setbarOpen] = React.useState(true);
+  const [barOpen, setbarOpen] = React.useState(false);
   /*BottomBar */
 
   /*Tree*/
@@ -225,15 +245,24 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
     ],
   });
 
+  const [selRelatedAccount, setSelRelatedAccount] = React.useState({
+    id: 0,
+    title: "",
+    accountCode: "",
+    accountGroupName: "",
+    devitCredit: "",
+    endDate: "",
+    useYn: "",
+    proofRequired: "",
+    budgetControlYn: "",
+    reimbursementYn: "",
+    forexAccountYn: "",
+  });
+
   const CreateStatus = React.forwardRef((props, ref) => {
     /*TagInput */
     const [inputVal, setInputVal] = React.useState("");
     /*TagInput */
-
-    const [selRelatedAccount, setSelRelatedAccount] = React.useState({
-      id: "",
-      title: "",
-    });
 
     /*SelectData */
 
@@ -278,156 +307,539 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
 
     return (
       <>
-        <CreateTreeContAreaTitle>
-          [{createData.accountCode}]{createData.accountName}
-        </CreateTreeContAreaTitle>
         <div
           className="tree_content_area_container"
           style={{
             width: "inherit",
             minHeight: "191px",
-            marginTop: "20px",
+            display: "inline-block",
           }}
         >
-          <div
-            className="first_block"
-            style={{
-              width: "284px",
-              height: "100px",
-              float: "left",
-              marginRight: "40px",
-            }}
-          >
-            <HcTextFieldLabel
-              titleName="계정 코드"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              required
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              {createData.accountCode}
-            </HcTextFieldLabel>
-
-            <HcSelect
-              titleName="차/대변계정설정"
-              required
-              name=""
-              style={{ width: "284px" }}
-              onChange={(e) => {
-                setcreateData((prevState) => ({
-                  ...prevState,
-                  debitCreditSetup: e.target.value,
-                }));
+          <VariableMultiLayout>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
               }}
             >
-              <option value={1}>차변 계정</option>
-              <option value={2}>대변 계정</option>
-              <option value={3}>차대변 공통 계정</option>
-            </HcSelect>
-          </div>
-          <div
-            className="first_block"
-            style={{
-              width: "284px",
-              height: "100px",
-              float: "left",
-              marginRight: "40px",
-            }}
-          >
-            <HcTextField
-              titleName="계정과목명 *"
-              name="accountName"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-              required
-              value={createData.accountName}
-              onChange={(e) => {
-                setcreateData((prevState) => ({
-                  ...prevState,
-                  accountName: e.target.value,
-                }));
-              }}
-            />
-            <HcSearchBtnInputField
-              titleName="관련계정"
-              required
-              placeholder="관련 계정과목"
-              onClick={openModal}
-              value={createData.relatedAccount}
-            />
-          </div>
-          <div
-            className="first_block"
-            style={{ width: "284px", height: "100px", float: "left" }}
-          >
-            <HcSelect
-              titleName="계정 유형"
-              required
-              style={{ width: "284px", marginBottom: 20 }}
-              value={createData.accountType}
-              name={""}
-              onChange={(e) => {
-                setcreateData((prevState) => ({
-                  ...prevState,
-                  accountType: e.target.value,
-                }));
+              <HcTextField
+                titleName="계정코드"
+                name="accountCode"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                required
+                value={createData.accountName}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <HcTextField
+                titleName="계정과목명(보조언어)"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                value={""}
+                placeholder={"계정명 입력"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <HcTextField
+                titleName="계정속성"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                required
+                value={"전체"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <HcTextField
+                titleName="종료일"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                required
+                value={"2022.12.31"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <Wrapper>
+                <Title required={true}>{"예산 통제 여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={createData.enable}
+                    onChange={(value) => {
+                      setcreateData((prevState) => ({
+                        ...prevState,
+                        enable: value,
+                      }));
+                      console.log(createData.enable);
+                    }}
+                  >
+                    <HcRadioButton value="use">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
               }}
             >
-              <option value={1}>전체</option>
-              <option value={2}>일반 계정</option>
-              <option value={3}>차감 계정</option>
-            </HcSelect>
-            <Wrapper>
-              <Title required={true}>{"사용여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={createData.enable}
-                  onChange={(value) => {
-                    setcreateData((prevState) => ({
-                      ...prevState,
-                      enable: value,
-                    }));
-                    console.log(createData.enable);
-                  }}
-                >
-                  <HcRadioButton value="use">
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot">
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-          </div>
+              <HcTextField
+                titleName="계정명"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                required
+                value={""}
+                placeholder={"계정명 입력"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <HcTextField
+                titleName="출력계정명"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                value={""}
+                placeholder={"계정명 입력"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <HcSelect
+                titleName="차/대구분"
+                required
+                style={{ width: "386px", marginBottom: 20 }}
+                value={createData.accountType}
+                name={""}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountType: e.target.value,
+                  }));
+                }}
+              >
+                <option value={1}>차/대 필수</option>
+                <option value={2}>일반 계정</option>
+                <option value={3}>차감 계정</option>
+              </HcSelect>
+              <Wrapper style={{ marginBottom: "20px" }}>
+                <Title required={true}>{"사용여부"}</Title>
+                <div style={{ marginTop: "18px" }}>
+                  <HcRadioGroup
+                    defaultValue={createData.enable}
+                    onChange={(value) => {
+                      setcreateData((prevState) => ({
+                        ...prevState,
+                        enable: value,
+                      }));
+                      console.log(createData.enable);
+                    }}
+                  >
+                    <HcRadioButton value="use">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+              <Wrapper style={{ marginBottom: "20px" }}>
+                <Title required={true}>{"반제 여부"}</Title>
+                <div style={{ marginTop: "18px" }}>
+                  <HcRadioGroup
+                    defaultValue={createData.enable}
+                    onChange={(value) => {
+                      setcreateData((prevState) => ({
+                        ...prevState,
+                        enable: value,
+                      }));
+                      console.log(createData.enable);
+                    }}
+                  >
+                    <HcRadioButton value="use">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
+              }}
+            >
+              <HcSelect
+                titleName="계정레벨"
+                required
+                style={{ width: "386px", marginBottom: 20 }}
+                value={createData.accountType}
+                name={""}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountType: e.target.value,
+                  }));
+                }}
+              >
+                <option value={1}>전체</option>
+                <option value={2}>일반 계정</option>
+                <option value={3}>차감 계정</option>
+              </HcSelect>
+              <HcTextField
+                titleName="출력계정명(보조언어)"
+                name="accountName"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+                value={""}
+                placeholder={"계정명 입력"}
+                onChange={(e) => {
+                  setcreateData((prevState) => ({
+                    ...prevState,
+                    accountName: e.target.value,
+                  }));
+                }}
+              />
+              <Wrapper style={{ marginBottom: "20px" }}>
+                <HcSearchBtnInputField
+                  titleName="상위계정"
+                  placeholder="계정 선택"
+                  onClick={openModal}
+                  value={createData.relatedAccount}
+                  style={{ width: "386px" }}
+                />
+              </Wrapper>
+              <Wrapper style={{ marginBottom: "20px" }}>
+                <Title required={true}>{"증빙 필수입력 여부"}</Title>
+                <div style={{ marginTop: "18px" }}>
+                  <HcRadioGroup
+                    defaultValue={createData.enable}
+                    onChange={(value) => {
+                      setcreateData((prevState) => ({
+                        ...prevState,
+                        enable: value,
+                      }));
+                      console.log(createData.enable);
+                    }}
+                  >
+                    <HcRadioButton value="use">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+              <Wrapper style={{ marginBottom: "20px" }}>
+                <Title required={true}>{"외환 계정 여부"}</Title>
+                <div style={{ marginTop: "18px" }}>
+                  <HcRadioGroup
+                    defaultValue={createData.enable}
+                    onChange={(value) => {
+                      setcreateData((prevState) => ({
+                        ...prevState,
+                        enable: value,
+                      }));
+                      console.log(createData.enable);
+                    }}
+                  >
+                    <HcRadioButton value="use">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot">
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+          </VariableMultiLayout>
         </div>
-        <div style={{ display: "block" }}>
+
+        <div style={{ marginTop: 32, minHeight: "182px" }}>
+          <VariableMultiLayout>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
+              }}
+            >
+              <ContAreaTitle>관리 항목</ContAreaTitle>
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <FilterButton style={{ marginRight: "6px" }} />
+                <SettingButton />
+              </div>
+              <TableContainer>
+                <table className="table table-hover" style={{ width: "100%" }}>
+                  <thead
+                    style={{
+                      display: "table",
+                      width: "inherit",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <tr>
+                      <th>관리항목코드</th>
+                      <th>관리항목명</th>
+                      <th>필수</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      overflow: "overlay",
+                      maxHeight: 229,
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                        height: "46px",
+                      }}
+                    >
+                      <td>A01</td>
+                      <td>귀속사업장</td>
+                      <td>
+                        <HcSelect
+                          onChange={(e) => {}}
+                          titleName=""
+                          name={""}
+                          style={{ width: "100%" }}
+                        >
+                          <option value="1">대변 필수</option>
+                          <option value="2">BMW</option>
+                        </HcSelect>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+              }}
+            >
+              <ContAreaTitle>연동항목</ContAreaTitle>
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <FilterButton style={{ marginRight: "6px" }} />
+                <SettingButton />
+              </div>
+              <TableContainer>
+                <table className="table table-hover" style={{ width: "100%" }}>
+                  <thead
+                    style={{
+                      display: "table",
+                      width: "inherit",
+                      tableLayout: "fixed",
+                    }}
+                  >
+                    <tr>
+                      <th>관리항목코드</th>
+                      <th>관리항목명</th>
+                      <th>필수</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      overflow: "overlay",
+                      maxHeight: 229,
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                        height: "46px",
+                      }}
+                    >
+                      <td>A01</td>
+                      <td>귀속사업장</td>
+                      <td>
+                        <HcSelect
+                          onChange={(e) => {}}
+                          titleName=""
+                          name={""}
+                          style={{ width: "100%" }}
+                        >
+                          <option value="1">필수</option>
+                          <option value="2">BMW</option>
+                        </HcSelect>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
+          </VariableMultiLayout>
+        </div>
+
+        <div style={{ display: "block", marginTop: "20px" }}>
           <TreeTagAreaTitle>적요</TreeTagAreaTitle>
+          {/* 
           <TextField
             name="name"
             value={inputVal}
@@ -442,8 +854,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             onKeyDown={(e) => {
               if (
                 e.key === "Enter" &&
-                inputVal.trim() !== "" /*&& props.tags.length < 4 */
-              ) {
+                inputVal.trim() !== "" && props.tags.length < 4 
                 setcreateData((prevState) => ({
                   ...prevState,
                   tags: [
@@ -456,12 +867,13 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             }}
             style={{ width: "284px" }}
           />
+        */}
           <HcTagNoInputObject
             tags={createData.tags}
             setTags={setcreateData}
             style={{
               background: "#FFFFFF",
-              width: "936px",
+              width: "1320px",
               minHeight: "168px",
               border: "1px solid #CECECE",
             }}
@@ -499,496 +911,504 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
     );
   });
 
-  function NormalStatus() {
+  function DetailStatus() {
     return (
       <>
-        <TreeContAreaTitle>{currentData.title}</TreeContAreaTitle>
         <div
           className="tree_content_area_container"
           style={{
             width: "inherit",
             minHeight: "191px",
-            marginTop: "20px",
             display: "inline-block",
           }}
         >
-          <div
-            className="first_block"
-            style={{
-              width: "284px",
-              float: "left",
-              marginRight: "40px",
-            }}
-          >
-            <HcTextFieldLabel
-              titleName="계정 코드"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
+          <VariableMultiLayout>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
               }}
-              style={{ width: "284px", marginBottom: 20 }}
             >
-              {currentData.id}
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="계정과목명(보조언어)"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              현금
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="계정속성"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              전체
-            </HcTextFieldLabel>
-            <Wrapper style={{ marginBottom: 20 }}>
-              <Title style={{ marginBottom: 0 }}>{"종료일"}</Title>
-              <HcDatePicker
-                startDate={new Date("1995-12-17")}
-                style={{ width: "284px", marginTop: "10px" }}
-              />
-            </Wrapper>
-            <Wrapper>
-              <Title>{"예산 통제 여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={"use"}
-                  onChange={(value) => {
-                    /*
+              <HcTextFieldLabel
+                titleName="계정 코드"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                {selRelatedAccount.accountCode}
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="계정과목명(보조언어)"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                현금
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="계정속성"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                전체
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="종료일"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                2022.06.25
+              </HcTextFieldLabel>
+              <Wrapper>
+                <Title>{"예산 통제 여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={"use"}
+                    onChange={(value) => {
+                      /*
                     setcreateData((prevState) => ({
                       ...prevState,
                       enable: value,
                     }));
                     console.log(createData.enable);
                     */
-                  }}
-                >
-                  <HcRadioButton value="use" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-          </div>
-          <div
-            className="first_block"
-            style={{
-              width: "284px",
-              float: "left",
-              marginRight: "40px",
-            }}
-          >
-            <HcTextFieldLabel
-              titleName="계정명"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
+                    }}
+                  >
+                    <HcRadioButton value="use" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
               }}
-              style={{ width: "284px", marginBottom: 20 }}
             >
-              현금
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="출력계정명"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              현금
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="차/대구분"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              차변 계정
-            </HcTextFieldLabel>
-            <Wrapper style={{ marginBottom: 20 }}>
-              <Title>{"사용여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={"use"}
-                  onChange={(value) => {
-                    /*
+              <HcTextFieldLabel
+                titleName="계정명"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                현금
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="출력계정명"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                현금
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="차/대구분"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                차변 계정
+              </HcTextFieldLabel>
+              <Wrapper style={{ marginBottom: 20 }}>
+                <Title>{"사용여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={"use"}
+                    onChange={(value) => {
+                      /*
                     setcreateData((prevState) => ({
                       ...prevState,
                       enable: value,
                     }));
                     console.log(createData.enable);
                     */
-                  }}
-                >
-                  <HcRadioButton value="use" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-            <Wrapper>
-              <Title>{"반제 여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={"use"}
-                  onChange={(value) => {
-                    /*
+                    }}
+                  >
+                    <HcRadioButton value="use" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+              <Wrapper>
+                <Title>{"반제 여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={"use"}
+                    onChange={(value) => {
+                      /*
                     setcreateData((prevState) => ({
                       ...prevState,
                       enable: value,
                     }));
                     console.log(createData.enable);
                     */
-                  }}
-                >
-                  <HcRadioButton value="use" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-          </div>
-          <div
-            className="first_block"
-            style={{ width: "284px", float: "left" }}
-          >
-            <HcTextFieldLabel
-              titleName="계정레벨"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
+                    }}
+                  >
+                    <HcRadioButton value="use" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
               }}
-              style={{ width: "284px", marginBottom: 20 }}
             >
-              과목
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="출력계정명(보조언어)"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              현금
-            </HcTextFieldLabel>
-            <HcTextFieldLabel
-              titleName="상위계정"
-              name="name"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  alert("SUCCESS");
-                }
-              }}
-              style={{ width: "284px", marginBottom: 20 }}
-            >
-              유동자산
-            </HcTextFieldLabel>
-            <Wrapper style={{ marginBottom: 20 }}>
-              <Title>{"증빙 필수입력 여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={"use"}
-                  onChange={(value) => {
-                    /*
+              <HcTextFieldLabel
+                titleName="계정레벨"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                과목
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="출력계정명(보조언어)"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                현금
+              </HcTextFieldLabel>
+              <HcTextFieldLabel
+                titleName="상위계정"
+                name="name"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("SUCCESS");
+                  }
+                }}
+                style={{ width: "386px", marginBottom: 20 }}
+              >
+                유동자산
+              </HcTextFieldLabel>
+              <Wrapper style={{ marginBottom: 20 }}>
+                <Title>{"증빙 필수입력 여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={"use"}
+                    onChange={(value) => {
+                      /*
                     setcreateData((prevState) => ({
                       ...prevState,
                       enable: value,
                     }));
                     console.log(createData.enable);
                     */
-                  }}
-                >
-                  <HcRadioButton value="use" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-            <Wrapper>
-              <Title>{"외환 계정 여부"}</Title>
-              <div style={{ marginTop: "20px" }}>
-                <HcRadioGroup
-                  defaultValue={"use"}
-                  onChange={(value) => {
-                    /*
+                    }}
+                  >
+                    <HcRadioButton value="use" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "60px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+              <Wrapper>
+                <Title>{"외환 계정 여부"}</Title>
+                <div style={{ marginTop: "20px" }}>
+                  <HcRadioGroup
+                    defaultValue={"use"}
+                    onChange={(value) => {
+                      /*
                     setcreateData((prevState) => ({
                       ...prevState,
                       enable: value,
                     }));
                     console.log(createData.enable);
                     */
-                  }}
-                >
-                  <HcRadioButton value="use" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                        marginRight: "60px",
-                      }}
-                    >
-                      사용
-                    </span>
-                  </HcRadioButton>
-                  <HcRadioButton value="usenot" disabled>
-                    <span
-                      style={{
-                        marginLeft: "8px",
-                        fontFamily: "Noto Sans KR",
-                        fontSize: "14px",
-                      }}
-                    >
-                      사용 안함
-                    </span>
-                  </HcRadioButton>
-                </HcRadioGroup>
-              </div>
-            </Wrapper>
-          </div>
+                    }}
+                  >
+                    <HcRadioButton value="use" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                          marginRight: "40px",
+                        }}
+                      >
+                        사용
+                      </span>
+                    </HcRadioButton>
+                    <HcRadioButton value="usenot" disabled>
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          fontFamily: "Noto Sans KR",
+                          fontSize: "14px",
+                        }}
+                      >
+                        사용 안함
+                      </span>
+                    </HcRadioButton>
+                  </HcRadioGroup>
+                </div>
+              </Wrapper>
+            </div>
+          </VariableMultiLayout>
         </div>
         <div style={{ marginTop: 32, minHeight: "182px" }}>
-          <div
-            style={{
-              width: "466px",
-              height: "100%",
-              display: "inline-block",
-              borderRight: "1px solid #CECECE",
-              paddingRight: "11px",
-            }}
-          >
-            <ContAreaTitle>관리 항목</ContAreaTitle>
-            <div style={{ display: "flex", justifyContent: "end" }}>
-              <FilterButton style={{ marginRight: "6px" }} />
-              <SettingButton />
-            </div>
-            <TableContainer>
-              <table className="table table-hover" style={{ width: "100%" }}>
-                <thead
-                  style={{
-                    display: "table",
-                    width: "inherit",
-                    tableLayout: "fixed",
-                  }}
-                >
-                  <tr>
-                    <th>관리항목코드</th>
-                    <th>관리항목명</th>
-                    <th>필수</th>
-                  </tr>
-                </thead>
-                <tbody
-                  style={{
-                    display: "block",
-                    overflow: "overlay",
-                    maxHeight: 229,
-                  }}
-                >
-                  <tr
+          <VariableMultiLayout>
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+                marginRight: "60px",
+              }}
+            >
+              <ContAreaTitle>관리 항목</ContAreaTitle>
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <FilterButton style={{ marginRight: "6px" }} />
+                <SettingButton />
+              </div>
+              <TableContainer>
+                <table className="table table-hover" style={{ width: "100%" }}>
+                  <thead
                     style={{
                       display: "table",
-                      width: "100%",
+                      width: "inherit",
                       tableLayout: "fixed",
-                      height: "46px",
                     }}
                   >
-                    <td>A01</td>
-                    <td>귀속사업장</td>
-                    <td>
-                      <HcSelect
-                        onChange={(e) => {}}
-                        titleName=""
-                        name={""}
-                        style={{ width: "100%" }}
-                      >
-                        <option value="1">대변 필수</option>
-                        <option value="2">BMW</option>
-                      </HcSelect>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </TableContainer>
-          </div>
-          <div
-            style={{
-              width: "466px",
-              height: "100%",
-              display: "inline-block",
-              paddingLeft: "11px",
-            }}
-          >
-            <ContAreaTitle>연동항목</ContAreaTitle>
-            <div style={{ display: "flex", justifyContent: "end" }}>
-              <FilterButton style={{ marginRight: "6px" }} />
-              <SettingButton />
+                    <tr>
+                      <th>관리항목코드</th>
+                      <th>관리항목명</th>
+                      <th>필수</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      overflow: "overlay",
+                      maxHeight: 229,
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                        height: "46px",
+                      }}
+                    >
+                      <td>A01</td>
+                      <td>귀속사업장</td>
+                      <td>
+                        <HcSelect
+                          onChange={(e) => {}}
+                          titleName=""
+                          name={""}
+                          style={{ width: "100%" }}
+                        >
+                          <option value="1">대변 필수</option>
+                          <option value="2">BMW</option>
+                        </HcSelect>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
             </div>
-            <TableContainer>
-              <table className="table table-hover" style={{ width: "100%" }}>
-                <thead
-                  style={{
-                    display: "table",
-                    width: "inherit",
-                    tableLayout: "fixed",
-                  }}
-                >
-                  <tr>
-                    <th>관리항목코드</th>
-                    <th>관리항목명</th>
-                    <th>필수</th>
-                  </tr>
-                </thead>
-                <tbody
-                  style={{
-                    display: "block",
-                    overflow: "overlay",
-                    maxHeight: 229,
-                  }}
-                >
-                  <tr
+            <div
+              style={{
+                flexGrow: 1,
+                marginBlockStart: "0px",
+                marginBlockEnd: "0px",
+              }}
+            >
+              <ContAreaTitle>연동항목</ContAreaTitle>
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <FilterButton style={{ marginRight: "6px" }} />
+                <SettingButton />
+              </div>
+              <TableContainer>
+                <table className="table table-hover" style={{ width: "100%" }}>
+                  <thead
                     style={{
                       display: "table",
-                      width: "100%",
+                      width: "inherit",
                       tableLayout: "fixed",
-                      height: "46px",
                     }}
                   >
-                    <td>A01</td>
-                    <td>귀속사업장</td>
-                    <td>
-                      <HcSelect
-                        onChange={(e) => {}}
-                        titleName=""
-                        name={""}
-                        style={{ width: "100%" }}
-                      >
-                        <option value="1">필수</option>
-                        <option value="2">BMW</option>
-                      </HcSelect>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </TableContainer>
-          </div>
+                    <tr>
+                      <th>관리항목코드</th>
+                      <th>관리항목명</th>
+                      <th>필수</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    style={{
+                      display: "block",
+                      overflow: "overlay",
+                      maxHeight: 229,
+                    }}
+                  >
+                    <tr
+                      style={{
+                        display: "table",
+                        width: "100%",
+                        tableLayout: "fixed",
+                        height: "46px",
+                      }}
+                    >
+                      <td>A01</td>
+                      <td>귀속사업장</td>
+                      <td>
+                        <HcSelect
+                          onChange={(e) => {}}
+                          titleName=""
+                          name={""}
+                          style={{ width: "100%" }}
+                        >
+                          <option value="1">필수</option>
+                          <option value="2">BMW</option>
+                        </HcSelect>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TableContainer>
+            </div>
+          </VariableMultiLayout>
         </div>
-        <div style={{ display: "inline-block", marginTop: 20 }}>
+        <div style={{ display: "inline-block", marginTop: 20, width: "100%" }}>
           <TreeTagAreaTitle>적요</TreeTagAreaTitle>
           <HcTagNoInput
             tags={tags}
             setTags={setTags}
             style={{
               background: "#FFFFFF",
-              width: "936px",
+              width: "100%",
               minHeight: "168px",
               border: "1px solid #CECECE",
             }}
@@ -998,36 +1418,146 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
       </>
     );
   }
+
+  const ListPage = () => {
+    const [checkedItem, setCheckedItem]: any = React.useState([]);
+
+    function checkHandler(checked: Boolean, id: Number) {
+      if (checked == true) {
+        setCheckedItem([...checkedItem, id]);
+      } else {
+        setCheckedItem(checkedItem.filter((i: number) => i != id));
+      }
+    }
+    function checkAllHandler(checked: Boolean) {
+      if (checked) {
+        const ids: Number[] = [];
+        data.forEach((i) => ids.push(i.id));
+        setCheckedItem(ids);
+      } else {
+        setCheckedItem([]);
+      }
+    }
+
+    const columns = [
+      <div style={{ paddingTop: 7 }}>
+        <HcCheckBox
+          checked={checkedItem.length > 0 ? true : false}
+          onChange={(e) => checkAllHandler(e.target.checked)}
+        />
+      </div>,
+      "계정코드",
+      "계정과목명",
+      "차/대구분",
+      "종료일",
+      "사용여부",
+      "증빙 필수입력",
+      "예산 통제 여부",
+      "반제 여부",
+      "외환 계정 여부",
+    ];
+
+    return (
+      <>
+        <div style={{ marginBottom: "20px" }}>
+          <HcButton
+            onClick={() => {
+              setIsCreates(true);
+              setbarOpen(true);
+            }}
+            styles="secondary"
+            size="medium"
+            /*
+                    style={
+                      adminYn
+                        ? { opacity: 1, transition: "opacity 0.5s ease" }
+                        : { opacity: 0, transition: "opacity 0.5s ease" }
+                    }
+                    */
+          >
+            + 생성
+          </HcButton>
+
+          <div
+            style={{
+              display: "inline-flex",
+              float: "right",
+              alignItems: "center",
+            }}
+          >
+            <FilterButton style={{ marginRight: "6px" }} />
+            <SettingButton />
+          </div>
+        </div>
+        <TableContainer>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                {columns.map((column: any) => (
+                  <th key={column}>{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item) => (
+                <tr
+                  style={{
+                    backgroundColor: checkedItem.includes(item.id)
+                      ? "#DFECFF"
+                      : "",
+                  }}
+                >
+                  <td>
+                    <HcCheckBox
+                      checked={checkedItem.includes(item.id)}
+                      onChange={(e) => {
+                        checkHandler(e.target.checked, item.id);
+                      }}
+                    />
+                  </td>
+                  <td>{item.accountCode}</td>
+                  <td>
+                    <div
+                      onClick={() => {
+                        setSelRelatedAccount(item);
+                        setIsDetail(true);
+                        setbarOpen(true);
+                      }}
+                    >
+                      {item.accountGroupName}
+                    </div>
+                  </td>
+                  <td>{item.devitCredit}</td>
+
+                  <td>{item.endDate}</td>
+                  <td>{item.useYn}</td>
+                  <td>{item.proofRequired}</td>
+                  <td>{item.budgetControlYn}</td>
+                  <td>{item.reimbursementYn}</td>
+                  <td>{item.forexAccountYn}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableContainer>
+      </>
+    );
+  };
   const childRef = React.useRef<any>(null);
   return (
     <>
-      <ComponentWrapper>
-        <div style={{ display: "block" }}>
-          <HcTitleTextField titleName="계정과목관리" isBackIcon={false} />
-          <div
-            className="body_area"
-            style={{ display: "flex", marginTop: "39px" }}
-          >
-            <HcTree
-              items={items}
-              title="계정과목"
-              search={true}
-              style={{ minHeight: "832px" }}
-              isCreate={isCreate}
-              setIsCreates={setIsCreates}
-              currentData={currentData}
-              setcurrentData={setcurrentData}
-            />
-            <div>
-              <TreeContArea>
-                {isCreate === true ? (
-                  <CreateStatus ref={childRef} />
-                ) : (
-                  <NormalStatus />
-                )}
-              </TreeContArea>
-            </div>
-          </div>
+      <ComponentWrapper style={{ display: "block" }}>
+        <HcTitleTextField titleName="계정과목관리" isBackIcon={false} />
+        <div className="body_area" style={{ marginTop: "57px" }}>
+          <TreeContArea>
+            {isCreate === true ? (
+              <CreateStatus ref={childRef} />
+            ) : isDetail == true ? (
+              <DetailStatus />
+            ) : (
+              <ListPage />
+            )}
+          </TreeContArea>
         </div>
       </ComponentWrapper>
       <HcBottomBar open={barOpen}>
@@ -1043,6 +1573,7 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
                   title: createData.accountName,
                 });
                 setIsCreates(false);
+                setbarOpen(false);
               }}
               styles="primary"
               style={{ marginRight: "5px" }}
@@ -1054,6 +1585,8 @@ const FiAccountManagement = ({ match }: RouteComponentProps<MatchParams>) => {
             <HcButton
               onClick={() => {
                 //openModal();
+                setIsDetail(false);
+                setbarOpen(false);
               }}
               styles="primary"
               style={{ marginRight: "5px" }}
