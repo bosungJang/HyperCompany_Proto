@@ -529,13 +529,23 @@ const OrderCreate = () => {
           <SelectBox
             state={organization}
             setState={setOrganization}
+            placeholder="조직 선택"
             items={["사업부", "PM본부", "연구본부"]}
             style={{ width: 190 }}
           />
           <SelectBox
             state={group}
             setState={setGroup}
-            items={["사업부", "PM본부", "연구본부"]}
+            placeholder="사원 그룹 선택"
+            items={[
+              "사업부",
+              "PM본부",
+              "연구본부",
+              {
+                title: ["1팀", "2팀"],
+                name: "사업부",
+              },
+            ]}
             style={{ width: 278, marginLeft: 8 }}
           />
           <svg

@@ -1,60 +1,46 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import "common/Table.css";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
-import { TableActionBtn } from "common/HcTableComponent";
+import { HcTitleTextField } from "common/HcTextField";
+
 import HcBottomBar from "common/HcBottomBar";
 import HcButton from "common/HcButton";
 import { HcPopup } from "common/HcPopup";
 import HcCheckBox from "common/HcCheckBox";
 import { EditText, EditTextarea } from "react-edit-text";
-import "common/bulkActionTest.scss";
 
-const startEditActions = ["click", "dblClick"];
-const TableContainer = styled.div`
+import {
+  TableActionBtn,
+  HcTable,
+  HcTableContainer,
+  NullTbody,
+  TableSetting,
+} from "common/HcTableComponent";
+const EditInput = styled.input`
+  box-sizing: border-box;
+  background: #ffffff;
   width: 100%;
-  height: 722px;
-  overflow-x: auto;
-  overflow-y: auto;
-  float: left;
-  &::-webkit-scrollbar-track {
-    background: none;
-    position: absolute;
+  height: 100%;
+  border: 1px solid #257cff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  &:hover {
+    // background: #eff5ff;
   }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: none;
-    position: absolute;
+  &:focus {
+    outline: none;
   }
-  &::-webkit-scrollbar-thumb {
-    background: #cecece;
-    border-radius: 10px;
+  &:placeholder {
+    color: #a7a7a7;
   }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-    text-align: left;
-    height: 32px;
+  ::selection {
+    background: #cee2ff;
   }
-  tbody td {
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 21px;
-    text-align: left;
-    height: 46px !important;
-  }
-`;
-
-const DataGridContainer = styled.div`
-  min-height: 630px;
-  overflow: auto;
 `;
 
 let num = 1000000;
@@ -92,13 +78,10 @@ const OrganizationType = () => {
     }
   }
   const columns = [
-    <div style={{ marginTop: 7, marginLeft: 16 }}>
-      {" "}
-      <HcCheckBox
-        checked={checkedItem.length > 0 ? true : false}
-        onChange={(e) => checkAllHandler(e.target.checked)}
-      />
-    </div>,
+    <HcCheckBox
+      checked={checkedItem.length > 0 ? true : false}
+      onChange={(e) => checkAllHandler(e.target.checked)}
+    />,
     "조직 유형 코드",
     "조직 유형명",
     "설명",
@@ -202,11 +185,8 @@ const OrganizationType = () => {
               +생성
             </HcButton>
             <div style={{ display: "flex" }}>
-              <TableContainer>
-                <table
-                  className="table table-hover"
-                  style={{ width: "unset", tableLayout: "fixed" }}
-                >
+              <HcTableContainer style={{ width: "100%" }}>
+                <HcTable>
                   <thead>
                     <tr>
                       {columns.map((column: any) => (
@@ -265,8 +245,8 @@ const OrganizationType = () => {
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </TableContainer>
+                </HcTable>
+              </HcTableContainer>
             </div>
           </div>
           <HcPopup open={modalOpen} close={closeModal} header="저장">

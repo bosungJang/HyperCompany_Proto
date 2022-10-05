@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { ComponentWrapper } from "common/HcCommonLayout";
-import HcTextField, { HcTitleTextField } from "common/HcTextField";
+import { HcTitleTextField } from "common/HcTextField";
 import {
   TableActionBtn,
   HcTable,

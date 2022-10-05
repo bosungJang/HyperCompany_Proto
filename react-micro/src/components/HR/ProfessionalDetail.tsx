@@ -778,7 +778,7 @@ const ProfessionalDetail = () => {
           <SelectBox
             style={{ width: "474px" }}
             placeholder="역량 그룹 선택"
-            items={[]}
+            items={["1", "2", "3"]}
           />
           <svg
             width="30"

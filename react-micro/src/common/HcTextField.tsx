@@ -998,6 +998,7 @@ const SelectContainer = styled.ul<{
 const Li = styled.li<{ confirm?: boolean; edit?: boolean }>`
   width: 100%;
   height: 36px;
+  display: flex;
   background: #ffffff;
   padding: ${(props) =>
     props.edit
@@ -1083,15 +1084,51 @@ export const SelectBox = (props: styledSelectProps) => {
                   ? props.state
                   : props.titleName + "선택"}
               </Li>
-              {props.items.map((item: any) => (
-                <Li
-                  onClick={() => {
-                    props.setState ? props.setState(item) : <></>;
-                  }}
-                >
-                  <div style={props.itemStyle}>{item}</div>
-                </Li>
-              ))}
+              {props.items.map((item: any) =>
+                item.title ? (
+                  <>
+                    <Li
+                      onClick={(e: React.MouseEvent<HTMLElement>) => {
+                        props.setState ? props.setState(item.name) : <></>;
+                        e.stopPropagation();
+                      }}
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ marginRight: 4 }}
+                      >
+                        <path
+                          d="M10 13.3333L5.66987 8.33325L14.3301 8.33325L10 13.3333Z"
+                          fill="#5D5D62"
+                        />
+                      </svg>
+                      {item.name}
+                    </Li>
+                    {item.title.map((element: any) => (
+                      <Li
+                        style={{ paddingLeft: "24px" }}
+                        onClick={() => {
+                          props.setState ? props.setState(element) : <></>;
+                        }}
+                      >
+                        {element}
+                      </Li>
+                    ))}
+                  </>
+                ) : (
+                  <Li
+                    onClick={() => {
+                      props.setState ? props.setState(item) : <></>;
+                    }}
+                  >
+                    <div style={props.itemStyle}>{item}</div>
+                  </Li>
+                )
+              )}
             </>
           ) : (
             <>
